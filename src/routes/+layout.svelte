@@ -9,6 +9,10 @@
 	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
+	const { highscores } = data;
 </script>
 
 <AppShell>
@@ -28,7 +32,7 @@
 		<SidebarLeft />
 	</nav>
 	<nav class="m-4 w-48 flex flex-col gap-2" slot="sidebarRight">
-		<SidebarRight />
+		<SidebarRight {highscores} />
 	</nav>
 	<main class="m-4">
 		<slot />
