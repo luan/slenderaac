@@ -1,7 +1,5 @@
 {
-	"prettier.documentSelectors": [
-		"**/*.svelte"
-	],
+	"prettier.documentSelectors": ["**/*.svelte"],
 	"tailwindCSS.classAttributes": [
 		"class",
 		"accent",
@@ -99,5 +97,6 @@
 		"track",
 		"width",
 		"zIndex"
-	]
+	],
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
