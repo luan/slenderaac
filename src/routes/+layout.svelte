@@ -24,8 +24,12 @@
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
-	<nav class="m-4 w-48" slot="sidebarLeft"><SidebarLeft /></nav>
-	<nav class="m-4 w-48" slot="sidebarRight"><SidebarRight /></nav>
+	<nav class="m-4 w-48 flex flex-col gap-2" slot="sidebarLeft">
+		<SidebarLeft />
+	</nav>
+	<nav class="m-4 w-48 flex flex-col gap-2" slot="sidebarRight">
+		<SidebarRight />
+	</nav>
 	<main class="m-4">
 		<slot />
 	</main>

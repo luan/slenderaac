@@ -1,4 +1,11 @@
 <div class="card bg-initial card-hover overflow-hidden">
+	<div class="py-2 px-4 flex flex-row gap-2 justify-between">
+		<div class="placeholder w-1/2 h-12" />
+		<div class="placeholder w-1/2 h-12" />
+	</div>
+</div>
+
+<div class="card bg-initial card-hover overflow-hidden">
 	<header class="py-2 px-4">
 		<h6 class="h6">Highscores</h6>
 	</header>
