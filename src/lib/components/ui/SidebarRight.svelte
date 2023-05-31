@@ -14,6 +14,6 @@
 	</article>
 	<hr class="opacity-50" />
 	<footer class="py-2 px-2">
-		<a href="#" class="btn btn-sm variant-filled w-full">View more</a>
+		<a href="#" class="btn btn-sm variant-filled-primary w-full">View more</a>
 	</footer>
 </div>

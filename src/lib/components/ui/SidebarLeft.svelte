@@ -9,6 +9,18 @@
 	import Fa from 'svelte-fa';
 </script>
 
+<div class="card bg-initial card-hover overflow-hidden">
+	<article class="py-2 px-2">
+		<a href="#" class="btn variant-filled-primary w-full">Login</a>
+	</article>
+	<hr class="opacity-50" />
+	<footer class="py-2 px-2">
+		<a href="#" class="btn btn-sm variant-ghost-secondary w-full text-xs p-1">
+			Create account
+		</a>
+	</footer>
+</div>
+
 <Accordion>
 	<AccordionItem>
 		<svelte:fragment slot="lead"><Fa icon={faNewspaper} /></svelte:fragment>
