@@ -16,7 +16,9 @@
 	</div>
 	<hr class="opacity-50" />
 	<div class="py-2 px-2">
-		<a href="#" class="btn btn-sm variant-ghost-secondary w-full text-xs p-1">
+		<a
+			href="/signup"
+			class="btn btn-sm variant-ghost-secondary w-full text-xs p-1">
 			Create account
 		</a>
 	</div>

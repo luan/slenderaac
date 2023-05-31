@@ -15,6 +15,11 @@
 	const { highscores } = data;
 </script>
 
+<svelte:head>
+	<title>{PUBLIC_TITLE}</title>
+	<html lang="en" />
+</svelte:head>
+
 <AppShell>
 	<svelte:fragment slot="header">
 		<AppBar>
@@ -34,7 +39,7 @@
 	<nav class="m-4 w-48 flex flex-col gap-2" slot="sidebarRight">
 		<SidebarRight {highscores} />
 	</nav>
-	<main class="m-4">
+	<main class="m-4 px-4 pt-2 pb-4 card bg-initial">
 		<slot />
 	</main>
 	<svelte:fragment slot="pageFooter" />
