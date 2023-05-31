@@ -7,6 +7,7 @@
 		faPeopleArrows,
 	} from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
+	import { PUBLIC_DOWNLOAD_URL } from '$env/static/public';
 </script>
 
 <div class="card bg-initial card-hover overflow-hidden">
@@ -21,7 +22,9 @@
 	</div>
 	<hr class="opacity-75" />
 	<div class="py-1 px-1">
-		<a href="#" class="btn btn-sm variant-glass-tertiary w-full text-xs p-1">
+		<a
+			href={PUBLIC_DOWNLOAD_URL}
+			class="btn btn-sm variant-glass-tertiary w-full text-xs p-1">
 			Download
 		</a>
 	</div>
