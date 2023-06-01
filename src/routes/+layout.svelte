@@ -1,24 +1,33 @@
 <script lang="ts">
+	// eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
+	// eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
 	import '../app.postcss';
 
-	import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
-
-	import Fa from 'svelte-fa';
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
+	import { AppBar, AppShell, LightSwitch } from '@skeletonlabs/skeleton';
+	import Fa from 'svelte-fa';
 
-	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
+	import { page } from '$app/stores';
+
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
+
+	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
+
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-	const { highscores } = data;
+	const { highscores, isLoggedIn } = data;
+	const title = typeof $page.data.title === 'string' ? $page.data.title : null;
+	const titleSuffix = title ? ` - ${title}` : '';
 </script>
 
 <svelte:head>
-	<title>{PUBLIC_TITLE}</title>
+	<title>
+		{PUBLIC_TITLE}{titleSuffix}
+	</title>
 </svelte:head>
 
 <AppShell>
@@ -46,7 +55,7 @@
 	<nav
 		class="mx-4 mt-2 w-48 flex flex-col gap-2 hide-scrollbar"
 		slot="sidebarLeft">
-		<SidebarLeft />
+		<SidebarLeft {isLoggedIn} />
 	</nav>
 	<nav class="mx-4 mt-2 w-48 flex flex-col gap-2" slot="sidebarRight">
 		<SidebarRight {highscores} />
@@ -74,7 +83,7 @@
 
 	<main class="my-2 card card-surface">
 		<div class="rounded-t-md px-4 py-1 bg-success-900 text-warning-400">
-			<h4 class="h4">Create an account</h4>
+			<h4 class="h4">{title || ''}</h4>
 		</div>
 
 		<div class="px-4 pt-2 pb-4">

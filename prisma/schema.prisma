@@ -70,6 +70,7 @@ model Accounts {
   coins_transactions  CoinsTransactions[]
   players             Players[]
   store_history       StoreHistory[]
+  accountSessions     AccountSessions[]
 
   @@map("accounts")
 }
@@ -737,4 +738,15 @@ model PlayerWheeldata {
 
   @@index([player_id], map: "player_id")
   @@map("player_wheeldata")
+}
+
+// Custom models for SlanderAAC
+
+model AccountSessions {
+  id         String   @id @default(cuid())
+  account    Accounts @relation(fields: [account_id], references: [id])
+  expires    BigInt   @db.UnsignedBigInt
+  account_id Int      @db.UnsignedInt
+
+  @@map("account_sessions")
 }

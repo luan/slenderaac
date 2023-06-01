@@ -1,8 +1,9 @@
 import { prisma } from '$lib/server/prisma';
 import { isVocationId, vocationMap } from '$lib/vocations';
+
 import type { LayoutServerLoad } from './$types';
 
-export const load = (async () => {
+export const load = (async ({ locals }) => {
 	const highscores = await prisma.players.findMany({
 		orderBy: {
 			experience: 'desc',
@@ -18,5 +19,6 @@ export const load = (async () => {
 				? vocationMap[player.vocation]
 				: vocationMap[0],
 		})),
+		isLoggedIn: Boolean(locals.email),
 	};
 }) satisfies LayoutServerLoad;

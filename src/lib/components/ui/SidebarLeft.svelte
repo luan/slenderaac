@@ -1,24 +1,36 @@
 <script lang="ts">
-	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import {
 		faBookBookmark,
 		faGifts,
 		faNewspaper,
 		faPeopleArrows,
 	} from '@fortawesome/free-solid-svg-icons';
+	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
+
 	import { PUBLIC_DOWNLOAD_URL } from '$env/static/public';
+
+	export let isLoggedIn = false;
 </script>
 
 <div
 	class="card bg-tertiary-500 dark:bg-tertiary-800 card-hover overflow-hidden">
 	<div class="flex flex-col gap-0 py-2 px-2 items-center">
-		<a href="#" class="btn variant-filled-primary w-full">Login</a>
-		<a
-			href="/signup"
-			class="btn btn-sm variant-soft-secondary text-white w-2/3 text-xs p-0.5 rounded-t-none">
-			Create account
-		</a>
+		{#if isLoggedIn}
+			<a href="/login" class="btn variant-filled-primary w-full">My Account</a>
+			<a
+				href="/logout"
+				class="btn btn-sm variant-soft-secondary text-white w-2/3 text-xs p-0.5 rounded-t-none">
+				Logout
+			</a>
+		{:else}
+			<a href="/login" class="btn variant-filled-primary w-full">Login</a>
+			<a
+				href="/signup"
+				class="btn btn-sm variant-soft-secondary text-white w-2/3 text-xs p-0.5 rounded-t-none">
+				Create account
+			</a>
+		{/if}
 	</div>
 	<hr class="opacity-5" />
 	<div class="py-2 px-2">

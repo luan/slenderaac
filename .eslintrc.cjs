@@ -15,7 +15,6 @@ module.exports = {
 		'prettier',
 		'plugin:import/recommended',
 		'plugin:import/typescript',
-		'plugin:lodash/recommended',
 		'plugin:you-dont-need-lodash-underscore/compatible',
 	],
 	plugins: [
@@ -24,7 +23,6 @@ module.exports = {
 		'simple-import-sort',
 		'import',
 		'no-relative-import-paths',
-		'lodash',
 	],
 	ignorePatterns: ['*.cjs'],
 	overrides: [
@@ -111,8 +109,6 @@ module.exports = {
 				argsIgnorePattern: '^_',
 			},
 		],
-		'lodash/import-scope': ['error', 'method'],
-		'lodash/prefer-lodash-method': 'off',
 		'you-dont-need-lodash-underscore/is-string': 'off',
 		'you-dont-need-lodash-underscore/is-nil': 'off',
 	},

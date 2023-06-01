@@ -1,10 +1,15 @@
-<form class="flex flex-col gap-4">
+<script lang="ts">
+	import { enhance } from '$app/forms';
+</script>
+
+<form class="flex flex-col gap-4" method="post" use:enhance>
 	<label class="label">
 		<span>Account name</span>
 		<input
 			name="accountName"
 			class="input"
 			type="text"
+			autocomplete="username"
 			placeholder="accountname" />
 	</label>
 
@@ -14,6 +19,7 @@
 			name="email"
 			class="input"
 			type="email"
+			autocomplete="email"
 			placeholder="test@example.com" />
 	</label>
 
@@ -24,6 +30,7 @@
 				name="password"
 				class="input"
 				type="password"
+				autocomplete="new-password"
 				placeholder="***********" />
 		</label>
 
@@ -33,9 +40,12 @@
 				name="passwordConfirmation"
 				class="input"
 				type="password"
+				autocomplete="new-password"
 				placeholder="***********" />
 		</label>
 	</div>
 
-	<button class="btn variant-filled-primary">Create account</button>
+	<div class="flex flex-row justify-center">
+		<button class="btn variant-filled-primary">Submit</button>
+	</div>
 </form>
