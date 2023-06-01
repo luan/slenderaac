@@ -9,3 +9,74 @@ body {
 	src: url('/fonts/Quicksand.ttf');
 	font-display: swap;
 }
+
+body {
+	background-image: url('/images/background-artwork.jpg'),
+		radial-gradient(
+			at 0% 0%,
+			rgb(var(--color-tertiary-500)) 0px,
+			transparent 100%
+		),
+		radial-gradient(
+			at 98% 1%,
+			rgb(var(--color-surface-800)) 0px,
+			transparent 100%
+		),
+		linear-gradient(
+			0deg,
+			rgba(var(--color-tertiary-900) / 0.9) 0px,
+			transparent 100%
+		);
+	background-size: 100%;
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.dark body {
+	background-image: radial-gradient(
+			at 0% 0%,
+			rgb(var(--color-tertiary-800)) 0px,
+			transparent 100%
+		),
+		radial-gradient(
+			at 98% 1%,
+			rgb(var(--color-surface-900)) 0px,
+			transparent 100%
+		),
+		linear-gradient(
+			0deg,
+			rgba(var(--color-tertiary-900) / 1) 0px,
+			transparent 100%
+		);
+}
+
+#sidebar-left,
+#sidebar-right,
+#page {
+	@apply hide-scrollbar;
+}
+
+.card {
+	@apply bg-tertiary-500 dark:bg-tertiary-800;
+}
+
+.card-surface {
+	@apply bg-surface-300 dark:bg-surface-900;
+}
+
+.accordion-control {
+	@apply bg-slate-700 rounded-md px-2 py-1;
+}
+
+.accordion-panel .list-nav a {
+	@apply px-4 py-1 w-full;
+}
+
+.accordion-panel .list-nav a:hover {
+	@apply bg-tertiary-400;
+}
+
+.accordion-panel {
+	@apply px-0;
+}

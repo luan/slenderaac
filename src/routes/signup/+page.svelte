@@ -1,6 +1,4 @@
 <form class="flex flex-col gap-4">
-	<h3 class="h3">Create an account</h3>
-
 	<label class="label">
 		<span>Account name</span>
 		<input

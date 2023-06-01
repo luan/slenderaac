@@ -10,29 +10,28 @@
 	import { PUBLIC_DOWNLOAD_URL } from '$env/static/public';
 </script>
 
-<div class="card bg-initial card-hover overflow-hidden">
-	<div class="py-2 px-2">
+<div
+	class="card bg-tertiary-500 dark:bg-tertiary-800 card-hover overflow-hidden">
+	<div class="flex flex-col gap-0 py-2 px-2 items-center">
 		<a href="#" class="btn variant-filled-primary w-full">Login</a>
-	</div>
-	<hr class="opacity-50" />
-	<div class="py-2 px-2">
 		<a
 			href="/signup"
-			class="btn btn-sm variant-ghost-secondary w-full text-xs p-1">
+			class="btn btn-sm variant-soft-secondary text-white w-2/3 text-xs p-0.5 rounded-t-none">
 			Create account
 		</a>
 	</div>
-	<hr class="opacity-75" />
-	<div class="py-1 px-1">
+	<hr class="opacity-5" />
+	<div class="py-2 px-2">
 		<a
 			href={PUBLIC_DOWNLOAD_URL}
-			class="btn btn-sm variant-glass-tertiary w-full text-xs p-1">
+			class="btn btn-sm variant-filled-primary w-full text-xs p-1">
 			Download
 		</a>
 	</div>
 </div>
 
-<div class="card bg-initial card-hover overflow-hidden">
+<div
+	class="card bg-tertiary-500 dark:bg-tertiary-800 text-white card-hover overflow-hidden">
 	<article class="py-2 px-2">
 		<Accordion>
 			<AccordionItem>

@@ -1,8 +1,10 @@
 <script lang="ts">
-	import '@skeletonlabs/skeleton/themes/theme-gold-nouveau.css';
+	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+
+	import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
+
 	import Fa from 'svelte-fa';
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 
@@ -17,30 +19,67 @@
 
 <svelte:head>
 	<title>{PUBLIC_TITLE}</title>
-	<html lang="en" />
 </svelte:head>
 
 <AppShell>
 	<svelte:fragment slot="header">
-		<AppBar>
+		<div class="mx-4 mt-4 h-24 flex flex-row">
+			<div class="w-auto h-full">
+				<div class="w-48 h-full flex items-center justify-center">
+					<img src="/images/logo.png" alt="logo" />
+				</div>
+			</div>
+			<div class="w-full h-full" />
+			<div class="w-auto h-full flex items-end">
+				<div class="w-48">
+					<div
+						class="card bg-tertiary-500 dark:bg-tertiary-800 card-hover overflow-hidden">
+						<div class="py-2 px-4 flex flex-row gap-2 justify-between">
+							<div class="placeholder w-1/2 h-12" />
+							<div class="placeholder w-1/2 h-12" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</svelte:fragment>
+	<nav
+		class="mx-4 mt-2 w-48 flex flex-col gap-2 hide-scrollbar"
+		slot="sidebarLeft">
+		<SidebarLeft />
+	</nav>
+	<nav class="mx-4 mt-2 w-48 flex flex-col gap-2" slot="sidebarRight">
+		<SidebarRight {highscores} />
+	</nav>
+	<svelte:fragment slot="pageHeader">
+		<AppBar
+			padding="py-2 pl-2 pr-1"
+			class="mt-2 text-white text-xs rounded-lg variant-filled-secondary"
+			background="bg-secondary-500">
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">{PUBLIC_TITLE}</strong>
+				<a
+					href={PUBLIC_DISCORD_URL}
+					target="_blank"
+					rel="noreferrer"
+					class="flex flex-row items-center gap-1">
+					<Fa icon={faDiscord} />
+					Join Discord
+				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<a href={PUBLIC_DISCORD_URL} target="_blank" rel="noreferrer">
-					<Fa icon={faDiscord} />
-				</a>
+				<LightSwitch height="h-5" width="w-10" />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
-	<nav class="m-4 w-48 flex flex-col gap-2" slot="sidebarLeft">
-		<SidebarLeft />
-	</nav>
-	<nav class="m-4 w-48 flex flex-col gap-2" slot="sidebarRight">
-		<SidebarRight {highscores} />
-	</nav>
-	<main class="m-4 px-4 pt-2 pb-4 card bg-initial">
-		<slot />
+
+	<main class="my-2 card card-surface">
+		<div class="rounded-t-md px-4 py-1 bg-success-900 text-warning-400">
+			<h4 class="h4">Create an account</h4>
+		</div>
+
+		<div class="px-4 pt-2 pb-4">
+			<slot />
+		</div>
 	</main>
 	<svelte:fragment slot="pageFooter" />
 </AppShell>

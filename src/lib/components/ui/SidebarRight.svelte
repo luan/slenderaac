@@ -10,18 +10,12 @@
 	export let highscores: Highscore[] = [];
 </script>
 
-<div class="card bg-initial card-hover overflow-hidden">
-	<div class="py-2 px-4 flex flex-row gap-2 justify-between">
-		<div class="placeholder w-1/2 h-12" />
-		<div class="placeholder w-1/2 h-12" />
-	</div>
-</div>
-
-<div class="card bg-initial card-hover overflow-hidden">
+<div
+	class="card bg-tertiary-500 dark:bg-tertiary-800 card-hover overflow-hidden text-white">
 	<header class="py-2 px-4">
 		<h6 class="h6">Highscores</h6>
 	</header>
-	<hr class="opacity-50" />
+	<hr class="opacity-5" />
 	<article class="py-2 px-4">
 		<ol class="list">
 			{#each highscores as player, i}
@@ -39,7 +33,7 @@
 			{/each}
 		</ol>
 	</article>
-	<hr class="opacity-50" />
+	<hr class="opacity-5" />
 	<footer class="py-2 px-2">
 		<a href="#" class="btn btn-sm variant-filled-primary w-full">View more</a>
 	</footer>
