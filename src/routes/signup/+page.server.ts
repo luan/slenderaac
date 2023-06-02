@@ -4,30 +4,13 @@ import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
 import { performLogin } from '$lib/server/session';
+import {
+	presenceValidator,
+	stringValidator,
+	validate,
+} from '$lib/server/validations';
 
 import type { Actions, PageServerLoad } from './$types';
-
-type ValidationRules = [string, (value: unknown) => string | null][];
-
-const validate = (rules: ValidationRules, data: FormData) => {
-	const errors: Record<string, string>[] = [];
-	for (const rule of rules) {
-		const [key, validator] = rule;
-		const value = data.get(key);
-		const error = validator(value);
-		if (error) {
-			errors.push({ [key]: error.replace(':field', key) });
-		}
-	}
-	return errors;
-};
-
-const stringValidator = (value: unknown) => {
-	if (typeof value !== 'string') {
-		return ':field must be a string';
-	}
-	return null;
-};
 
 export const load = (({ locals }) => {
 	if (locals.email) {
@@ -45,13 +28,13 @@ export const actions = {
 		const passwordConfirmation = data.get('passwordConfirmation');
 
 		const errors = validate(
-			[
-				['accountName', stringValidator],
-				['email', stringValidator],
-				['password', stringValidator],
-				['passwordConfirmation', stringValidator],
-				[
-					'passwordConfirmation',
+			{
+				accountName: [presenceValidator, stringValidator],
+				email: [presenceValidator, stringValidator],
+				password: [presenceValidator, stringValidator],
+				passwordConfirmation: [
+					presenceValidator,
+					stringValidator,
 					(value) => {
 						if (value !== password) {
 							return 'Passwords do not match';
@@ -59,9 +42,13 @@ export const actions = {
 						return null;
 					},
 				],
-			],
+			},
 			data,
 		);
+
+		if (Object.keys(errors).length > 0) {
+			return fail(400, { invalid: true, errors: errors });
+		}
 
 		invariant(
 			name && email && password && passwordConfirmation,
@@ -70,11 +57,6 @@ export const actions = {
 		invariant(typeof name === 'string', 'Name must be a string');
 		invariant(typeof email === 'string', 'Email must be a string');
 		invariant(typeof password === 'string', 'Password must be a string');
-
-		if (errors.length > 0) {
-			console.log('errors', errors);
-			return fail(400, { invalid: true, errors: errors });
-		}
 
 		const account = await prisma.accounts.findUnique({ where: { email } });
 		if (account) {
