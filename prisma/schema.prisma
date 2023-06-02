@@ -62,7 +62,7 @@ model Accounts {
   coins               Int                 @default(0) @db.UnsignedInt
   coins_transferable  Int                 @default(0) @db.UnsignedInt
   tournament_coins    Int                 @default(0) @db.UnsignedInt
-  creation            Int                 @default(0) @db.UnsignedInt
+  creation            DateTime            @default(now())
   recruiter           Int?                @default(0)
   account_ban_history AccountBanHistory[]
   account_bans        AccountBans?

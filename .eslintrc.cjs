@@ -12,23 +12,21 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:@typescript-eslint/recommended-requiring-type-checking',
-		'prettier',
 		'plugin:import/recommended',
 		'plugin:import/typescript',
 		'plugin:you-dont-need-lodash-underscore/compatible',
+		'plugin:svelte/prettier',
+		'plugin:prettier/recommended',
 	],
-	plugins: [
-		'svelte3',
-		'@typescript-eslint',
-		'simple-import-sort',
-		'import',
-		'no-relative-import-paths',
-	],
+	plugins: ['svelte', '@typescript-eslint', 'simple-import-sort', 'import'],
 	ignorePatterns: ['*.cjs'],
 	overrides: [
 		{
 			files: ['*.svelte'],
-			processor: 'svelte3/svelte3',
+			parser: 'svelte-eslint-parser',
+			parserOptions: {
+				parser: '@typescript-eslint/parser',
+			},
 			rules: {
 				'import/first': 'off',
 				'import/no-duplicates': 'off',
@@ -39,7 +37,6 @@ module.exports = {
 		},
 	],
 	settings: {
-		'svelte3/typescript': () => require('typescript'),
 		'import/parsers': {
 			'@typescript-eslint/parser': ['.ts', '.tsx'],
 		},
@@ -86,10 +83,6 @@ module.exports = {
 				args: 'after-used',
 				ignoreRestSiblings: false,
 			},
-		],
-		'no-relative-import-paths/no-relative-import-paths': [
-			'error',
-			{ allowSameFolder: true, rootDir: 'src', prefix: '~' },
 		],
 		'@typescript-eslint/no-misused-promises': [
 			'error',

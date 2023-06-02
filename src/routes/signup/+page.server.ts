@@ -1,5 +1,4 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { createHash } from 'crypto';
 import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
@@ -9,12 +8,13 @@ import {
 	stringValidator,
 	validate,
 } from '$lib/server/validations';
+import { hashPassword } from '$lib/utils';
 
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (({ locals }) => {
 	if (locals.email) {
-		throw redirect(303, '/');
+		throw redirect(302, '/');
 	}
 	return {};
 }) satisfies PageServerLoad;
@@ -22,8 +22,8 @@ export const load = (({ locals }) => {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		const data = await request.formData();
-		const name = data.get('accountName');
-		const email = data.get('email');
+		let name = data.get('accountName');
+		let email = data.get('email');
 		const password = data.get('password');
 		const passwordConfirmation = data.get('passwordConfirmation');
 
@@ -57,25 +57,51 @@ export const actions = {
 		invariant(typeof name === 'string', 'Name must be a string');
 		invariant(typeof email === 'string', 'Email must be a string');
 		invariant(typeof password === 'string', 'Password must be a string');
+		name = name.toLowerCase();
+		email = email.toLowerCase();
 
-		const account = await prisma.accounts.findUnique({ where: { email } });
-		if (account) {
-			return {
-				success: false,
-				error: 'An account with this email already exists',
-			};
+		{
+			const account = await prisma.accounts.findUnique({ where: { email } });
+			if (account) {
+				return fail(400, {
+					errors: {
+						email: ['Email is already taken'],
+					} as Record<string, string[]>,
+				});
+			}
 		}
-		const hashedPassword = createHash('sha1').update(password).digest('hex');
-		const created = await prisma.accounts.create({
-			data: {
-				name,
-				email,
-				password: hashedPassword,
-			},
-		});
-		console.log('created', created);
+		{
+			const account = await prisma.accounts.findUnique({ where: { name } });
+			if (account) {
+				return fail(400, {
+					errors: {
+						accountName: ['Account name is already taken'],
+					} as Record<string, string[]>,
+				});
+			}
+		}
 
-		await performLogin(cookies, created.email);
-		throw redirect(303, '/');
+		const hashedPassword = hashPassword(password);
+		try {
+			const created = await prisma.accounts.create({
+				data: {
+					name,
+					email,
+					password: hashedPassword,
+				},
+			});
+
+			await performLogin(cookies, created.email);
+		} catch (e) {
+			console.error(e);
+			return fail(500, {
+				errors: { global: ['Failed to create account'] } as Record<
+					string,
+					string[]
+				>,
+			});
+		}
+
+		throw redirect(302, '/');
 	},
 } satisfies Actions;

@@ -18,11 +18,13 @@
 	<div class="flex flex-col gap-0 py-2 px-2 items-center">
 		{#if isLoggedIn}
 			<a href="/login" class="btn variant-filled-primary w-full">My Account</a>
-			<a
-				href="/logout"
-				class="btn btn-sm variant-soft-secondary text-white w-2/3 text-xs p-0.5 rounded-t-none">
-				Logout
-			</a>
+			<form action="/logout" method="post" class="flex w-2/3">
+				<button
+					type="submit"
+					class="btn btn-sm variant-soft-secondary text-white text-xs p-0.5 rounded-t-none w-full">
+					Logout
+				</button>
+			</form>
 		{:else}
 			<a href="/login" class="btn variant-filled-primary w-full">Login</a>
 			<a

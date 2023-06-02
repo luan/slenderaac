@@ -8,7 +8,7 @@ import { prisma } from '$lib/server/prisma';
 type SessionInfo = {
 	email: string;
 	type: AccountType;
-	expires: number;
+	expires: bigint;
 };
 type Sid = string;
 
@@ -69,7 +69,6 @@ export async function getSession(sid: Sid): Promise<SessionInfo | undefined> {
 
 	if (session) {
 		if (Date.now() > session.expires) {
-			console.log('delete invalid session', sid);
 			await deleteSession(sid);
 			return undefined;
 		} else {
@@ -81,7 +80,6 @@ export async function getSession(sid: Sid): Promise<SessionInfo | undefined> {
 			return sessionInfo;
 		}
 	} else {
-		console.log('session not found', sid);
 		return undefined;
 	}
 }

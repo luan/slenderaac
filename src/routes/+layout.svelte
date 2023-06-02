@@ -1,8 +1,6 @@
 <script lang="ts">
-	// eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
-	// eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
 	import '../app.postcss';
 
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
@@ -19,9 +17,10 @@
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-	const { highscores, isLoggedIn } = data;
 	const title = typeof $page.data.title === 'string' ? $page.data.title : null;
 	const titleSuffix = title ? ` - ${title}` : '';
+
+	$: ({ highscores, isLoggedIn } = data);
 </script>
 
 <svelte:head>
