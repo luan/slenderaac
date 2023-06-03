@@ -1,14 +1,23 @@
+import type { Prisma } from '@prisma/client';
 import { fail, redirect } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
+import {
+	parsePlayerPronoun,
+	parsePlayerSex,
+	PlayerGroup,
+	PlayerVocation,
+} from '$lib/players';
+import { getTemplate } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { performLogin } from '$lib/server/session';
+import { hashPassword } from '$lib/server/utils';
 import {
+	nameValidator,
 	presenceValidator,
 	stringValidator,
 	validate,
 } from '$lib/server/validations';
-import { hashPassword } from '$lib/utils';
 
 import type { Actions, PageServerLoad } from './$types';
 
@@ -22,10 +31,12 @@ export const load = (({ locals }) => {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		const data = await request.formData();
-		let name = data.get('accountName');
+		let accountName = data.get('accountName');
 		let email = data.get('email');
 		const password = data.get('password');
-		const passwordConfirmation = data.get('passwordConfirmation');
+		const characterName = data.get('characterName');
+		const characterSex = data.get('characterSex');
+		const characterPronouns = data.get('characterPronouns');
 
 		const errors = validate(
 			{
@@ -42,6 +53,8 @@ export const actions = {
 						return null;
 					},
 				],
+				characterName: [presenceValidator, nameValidator],
+				characterSex: [presenceValidator, stringValidator],
 			},
 			data,
 		);
@@ -51,13 +64,19 @@ export const actions = {
 		}
 
 		invariant(
-			name && email && password && passwordConfirmation,
+			accountName && email && password && characterName && characterSex,
 			'Missing required fields',
 		);
-		invariant(typeof name === 'string', 'Name must be a string');
+		invariant(typeof accountName === 'string', 'Name must be a string');
 		invariant(typeof email === 'string', 'Email must be a string');
 		invariant(typeof password === 'string', 'Password must be a string');
-		name = name.toLowerCase();
+		invariant(typeof characterName === 'string', 'Name must be a string');
+		invariant(typeof characterSex === 'string', 'Name must be a string');
+
+		const characterSexValue = parsePlayerSex(characterSex);
+		const characterPronounsValue = parsePlayerPronoun(characterPronouns);
+
+		accountName = accountName.toLowerCase();
 		email = email.toLowerCase();
 
 		{
@@ -71,7 +90,9 @@ export const actions = {
 			}
 		}
 		{
-			const account = await prisma.accounts.findUnique({ where: { name } });
+			const account = await prisma.accounts.findUnique({
+				where: { name: accountName },
+			});
 			if (account) {
 				return fail(400, {
 					errors: {
@@ -82,12 +103,70 @@ export const actions = {
 		}
 
 		const hashedPassword = hashPassword(password);
+		const vocation = PlayerVocation.None;
+		const template = (({
+			level,
+			vocation,
+			health,
+			healthmax,
+			experience,
+			mana,
+			manamax,
+			cap,
+			town_id,
+			soul,
+			looktype,
+			conditions,
+		}: Prisma.PlayersUncheckedCreateInput) => ({
+			level,
+			vocation,
+			health,
+			healthmax,
+			experience,
+			mana,
+			manamax,
+			cap,
+			town_id,
+			soul,
+			looktype,
+			conditions,
+		}))(await getTemplate(vocation));
+		const extraData: Partial<Prisma.PlayersCreateInput> = {};
+		if (characterPronounsValue > 0) {
+			extraData['pronoun'] = characterPronounsValue;
+		}
+
+		const existingPlayer = await prisma.players.findFirst({
+			where: { name: characterName },
+		});
+		if (existingPlayer) {
+			return fail(400, {
+				errors: {
+					characterName: ['Character name is already taken'],
+				} as Record<string, string[]>,
+			});
+		}
+
 		try {
 			const created = await prisma.accounts.create({
 				data: {
-					name,
+					name: accountName,
 					email,
 					password: hashedPassword,
+
+					players: {
+						createMany: {
+							data: [
+								{
+									...template,
+									name: characterName,
+									sex: characterSexValue,
+									group_id: PlayerGroup.Normal,
+									...extraData,
+								},
+							],
+						},
+					},
 				},
 			});
 

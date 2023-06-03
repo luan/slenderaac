@@ -1,3 +1,4 @@
+import { PlayerGroup } from '$lib/players';
 import { prisma } from '$lib/server/prisma';
 import { isVocationId, vocationMap } from '$lib/vocations';
 
@@ -5,6 +6,11 @@ import type { LayoutServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
 	const highscores = await prisma.players.findMany({
+		where: {
+			group_id: {
+				lt: PlayerGroup.Gamemaster,
+			},
+		},
 		orderBy: {
 			experience: 'desc',
 		},

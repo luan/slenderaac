@@ -1,7 +1,3 @@
-// Purpose: Utility functions.
-
-import { createHash } from 'crypto';
-
 /**
  * Converts a string to proper case with spaces between words.
  * @param str The string to convert.
@@ -14,10 +10,10 @@ export function toProperCase(str: string) {
 }
 
 /**
- * Hashes a password.
- * @param password The password to hash.
- * @returns The hashed password.
+ * Capitalizes the first letter of each word in a string.
+ * @param str The string to capitalize.
+ * @returns The capitalized string.
  */
-export function hashPassword(password: string) {
-	return createHash('sha1').update(password).digest('hex');
+export function toTitleCase(str: string) {
+	return str.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
 }

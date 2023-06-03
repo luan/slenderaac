@@ -1,4 +1,4 @@
-import { toProperCase } from '$lib/utils';
+import { toProperCase, toTitleCase } from '$lib/utils';
 
 export type ValidationRules = Record<
 	string,
@@ -30,6 +30,22 @@ export function presenceValidator(value: unknown) {
 export function stringValidator(value: unknown) {
 	if (typeof value !== 'string') {
 		return ':field must be a string';
+	}
+	return null;
+}
+
+export function nameValidator(value: unknown) {
+	if (typeof value !== 'string') {
+		return ':field must be a string';
+	}
+	if (value.length < 3) {
+		return ':field must be at least 3 characters';
+	}
+	if (value.length > 20) {
+		return ':field must be no more than 20 characters';
+	}
+	if (toTitleCase(value) !== value) {
+		return ':field must be in title case';
 	}
 	return null;
 }

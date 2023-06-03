@@ -674,7 +674,8 @@ model Players {
   player_spells                                            PlayerSpells[]
   player_storage                                           PlayerStorage[]
   player_wheeldata                                         PlayerWheeldata[]
-  accounts                                                 Accounts             @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "players_account_fk")
+  town                                                     Towns                @relation(fields: [town_id], references: [id])
+  account                                                  Accounts             @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "players_account_fk")
 
   @@index([account_id], map: "account_id")
   @@index([vocation], map: "vocation")
@@ -721,11 +722,12 @@ model TileStore {
 }
 
 model Towns {
-  id   Int    @id @default(autoincrement())
-  name String @unique(map: "name") @db.VarChar(255)
-  posx Int    @default(0)
-  posy Int    @default(0)
-  posz Int    @default(0)
+  id      Int       @id @default(autoincrement())
+  name    String    @unique(map: "name") @db.VarChar(255)
+  posx    Int       @default(0)
+  posy    Int       @default(0)
+  posz    Int       @default(0)
+  Players Players[]
 
   @@map("towns")
 }

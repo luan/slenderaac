@@ -3,8 +3,17 @@
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
 
+	import {
+		arrow,
+		autoUpdate,
+		computePosition,
+		flip,
+		offset,
+		shift,
+	} from '@floating-ui/dom';
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 	import { AppBar, AppShell, LightSwitch } from '@skeletonlabs/skeleton';
+	import { storePopup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 
 	import { page } from '$app/stores';
@@ -15,6 +24,8 @@
 	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
 
 	import type { LayoutData } from './$types';
+
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	export let data: LayoutData;
 	const title = typeof $page.data.title === 'string' ? $page.data.title : null;

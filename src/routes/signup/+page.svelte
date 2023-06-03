@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
+	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
+
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
@@ -71,19 +73,7 @@
 
 	<hr class="divider" />
 
-	<label class="label">
-		<span>Character name</span>
-		<input
-			required
-			name="characterName"
-			class="input"
-			class:input-error={form?.errors?.characterName}
-			type="text"
-			autocomplete="username" />
-		{#each form?.errors?.characterName ?? [] as error}
-			<p class="text-error-500">{error}</p>
-		{/each}
-	</label>
+	<CreateCharacterFormFields {form} />
 
 	<div class="flex flex-row justify-end">
 		<button class="btn variant-filled-primary">Create Account</button>
