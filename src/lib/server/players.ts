@@ -6,10 +6,11 @@ import { toTitleCase } from '$lib/utils';
 
 export async function getTemplate(vocation: PlayerVocation): Promise<Players> {
 	const vocationName = toTitleCase(PlayerVocation[vocation]);
+	const characterName = `~~${vocationName} Template`;
 
 	const template = await prisma.players.findUnique({
 		where: {
-			name: `Template ${vocationName}`,
+			name: characterName,
 		},
 	});
 	if (template) {
@@ -79,7 +80,7 @@ export async function getTemplate(vocation: PlayerVocation): Promise<Players> {
 					},
 				},
 			},
-			name: `Template ${vocationName}`,
+			name: characterName,
 			vocation,
 			soul: 100,
 			looktype: 130,

@@ -1,4 +1,5 @@
 import { prisma } from '$lib/server/prisma';
+
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async ({ url }) => {
@@ -11,6 +12,9 @@ export const load = (async ({ url }) => {
 		where: {
 			name: {
 				contains: search,
+				not: {
+					contains: '~~',
+				},
 			},
 		},
 	});
