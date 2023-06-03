@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
+	import PageTitle from '$lib/components/PageTitle.svelte';
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
 	import TextField from '$lib/components/ui/TextField.svelte';
 
@@ -8,6 +9,8 @@
 
 	export let form: ActionData;
 </script>
+
+<PageTitle title="Create Account" />
 
 <form class="flex flex-col gap-4" method="post" use:enhance>
 	{#if form?.errors?.global}

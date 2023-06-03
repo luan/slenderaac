@@ -16,8 +16,6 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 
-	import { page } from '$app/stores';
-
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
 
@@ -28,15 +26,13 @@
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	export let data: LayoutData;
-	const title = typeof $page.data.title === 'string' ? $page.data.title : null;
-	const titleSuffix = title ? ` - ${title}` : '';
 
 	$: ({ highscores, isLoggedIn } = data);
 </script>
 
 <svelte:head>
 	<title>
-		{PUBLIC_TITLE}{titleSuffix}
+		{PUBLIC_TITLE}
 	</title>
 </svelte:head>
 
@@ -92,9 +88,7 @@
 	</svelte:fragment>
 
 	<main class="my-2 card card-surface">
-		<div class="rounded-t-md px-4 py-1 bg-success-900 text-warning-400">
-			<h4 class="h4">{title || ''}</h4>
-		</div>
+		<div id="pageTitle" />
 
 		<div class="px-4 pt-2 pb-4">
 			<slot />

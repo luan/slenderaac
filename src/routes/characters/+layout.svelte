@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
-
-	import type { LayoutData } from './$types';
 	import {
 		Autocomplete,
 		type AutocompleteOption,
 	} from '@skeletonlabs/skeleton';
+
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+
+	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
 
@@ -16,7 +17,7 @@
 	$: {
 		if (browser) {
 			$page.url.searchParams.set('search', searchInput);
-			goto(`?${$page.url.searchParams.toString()}`, {
+			void goto(`?${$page.url.searchParams.toString()}`, {
 				replaceState: true,
 				keepFocus: true,
 				noScroll: true,
@@ -32,8 +33,8 @@
 		  }))
 		: null;
 
-	function onSelect(event: { detail: { label: string } }): void {
-		goto(`/characters/${event.detail.label}`);
+	async function onSelect(event: { detail: { label: string } }) {
+		await goto(`/characters/${event.detail.label}`);
 	}
 </script>
 

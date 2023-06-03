@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageTitle from '$lib/components/PageTitle.svelte';
 	import {
 		PlayerPronoun,
 		PlayerSex,
@@ -23,6 +24,8 @@
 		return pronounString(pronoun);
 	}
 </script>
+
+<PageTitle title="AccountManagement" />
 
 <div class="flex flex-col gap-2">
 	<h3 class="h3">Characters</h3>
@@ -65,8 +68,6 @@
 		<a href="/account/createcharacter" class="btn btn-sm variant-filled-primary"
 			>New Character</a>
 	</div>
-
-	<hr class="divider" />
 
 	<slot />
 </div>
