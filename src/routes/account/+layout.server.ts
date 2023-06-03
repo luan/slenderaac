@@ -28,10 +28,15 @@ export const load = (async ({ locals }) => {
 				sex: true,
 				vocation: true,
 				level: true,
+				is_main: true,
+				online: {
+					select: { player_id: true },
+				},
 			},
 		})
 	).map((player) => ({
 		...player,
+		online: player.online.length > 0,
 		vocation: isPlayerVocation(player.vocation)
 			? player.vocation
 			: PlayerVocation.None,

@@ -123,7 +123,7 @@ export const actions = {
 
 					players: {
 						createMany: {
-							data: [characterInput],
+							data: [{ ...characterInput, is_main: true }],
 						},
 					},
 				},

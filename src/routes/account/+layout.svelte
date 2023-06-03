@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { faCircle, faDiamond } from '@fortawesome/free-solid-svg-icons';
+	import Fa from 'svelte-fa';
+	import { tooltip } from 'svooltip';
+
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import {
 		PlayerPronoun,
@@ -27,6 +31,27 @@
 
 <PageTitle title="AccountManagement" />
 
+<div
+	class="card p-2 text-warning-500 text-xs !opacity-75"
+	data-popup="main-character-tooltip">
+	<p>Main Character</p>
+	<div class="arrow variant-filled-tertiary" />
+</div>
+
+<div
+	class="card p-2 text-warning-500 text-xs !opacity-75"
+	data-popup="status-tooltip-online">
+	<p>Online</p>
+	<div class="arrow variant-filled-tertiary" />
+</div>
+
+<div
+	class="card p-2 text-warning-500 text-xs !opacity-75"
+	data-popup="status-tooltip-offline">
+	<p>Offline</p>
+	<div class="arrow variant-filled-tertiary" />
+</div>
+
 <div class="flex flex-col gap-2">
 	<h3 class="h3">Characters</h3>
 
@@ -48,9 +73,29 @@
 						<td>{i + 1}</td>
 						<td>-</td>
 						<td class="flex flex-col">
-							<span class="font-semibold">
+							<span class="font-semibold flex flex-row gap-1 items-center">
+								{#if character.online}
+									<span
+										class="text-success-600"
+										use:tooltip={{ content: 'Online' }}>
+										<Fa icon={faCircle} size="xs" />
+									</span>
+								{:else}
+									<span
+										class="text-error-600"
+										use:tooltip={{ content: 'Offline' }}>
+										<Fa icon={faCircle} size="xs" />
+									</span>
+								{/if}
 								{character.name}
 								<em class="font-light">({getPronoun(character)})</em>
+								{#if character.is_main}
+									<span
+										class="text-xs text-success-800"
+										use:tooltip={{ content: 'Main Character' }}>
+										<Fa icon={faDiamond} />
+									</span>
+								{/if}
 							</span>
 							<span class="text-xs">
 								{vocationString(character.vocation)} &dash; Level {character.level}
