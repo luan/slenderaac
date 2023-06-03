@@ -81,6 +81,21 @@ export function isPlayerPronoun(value: unknown): value is PlayerPronoun {
 	);
 }
 
+export function isPlayerVocation(value: unknown): value is PlayerVocation {
+	return (
+		typeof value === 'number' &&
+		(value === PlayerVocation.None ||
+			value === PlayerVocation.Sorcerer ||
+			value === PlayerVocation.Druid ||
+			value === PlayerVocation.Paladin ||
+			value === PlayerVocation.Knight ||
+			value === PlayerVocation.MasterSorcerer ||
+			value === PlayerVocation.ElderDruid ||
+			value === PlayerVocation.RoyalPaladin ||
+			value === PlayerVocation.EliteKnight)
+	);
+}
+
 export function sexString(playerSex: PlayerSex): string {
 	return {
 		[PlayerSex.Female]: 'Female',
@@ -91,10 +106,24 @@ export function sexString(playerSex: PlayerSex): string {
 export function pronounString(playerPronoun: PlayerPronoun): string {
 	return {
 		[PlayerPronoun.Unset]: 'Use my sex',
-		[PlayerPronoun.They]: 'They',
-		[PlayerPronoun.She]: 'She',
-		[PlayerPronoun.He]: 'He',
-		[PlayerPronoun.Ze]: 'Ze',
+		[PlayerPronoun.They]: 'They/Them',
+		[PlayerPronoun.She]: 'She/Her',
+		[PlayerPronoun.He]: 'He/Him',
+		[PlayerPronoun.Ze]: 'Ze/Zir',
 		[PlayerPronoun.Name]: 'Use my name',
 	}[playerPronoun];
+}
+
+export function vocationString(playerVocation: PlayerVocation): string {
+	return {
+		[PlayerVocation.None]: 'None',
+		[PlayerVocation.Sorcerer]: 'Sorcerer',
+		[PlayerVocation.Druid]: 'Druid',
+		[PlayerVocation.Paladin]: 'Paladin',
+		[PlayerVocation.Knight]: 'Knight',
+		[PlayerVocation.MasterSorcerer]: 'Master Sorcerer',
+		[PlayerVocation.ElderDruid]: 'Elder Druid',
+		[PlayerVocation.RoyalPaladin]: 'Royal Paladin',
+		[PlayerVocation.EliteKnight]: 'Elite Knight',
+	}[playerVocation];
 }

@@ -527,7 +527,6 @@ CREATE TABLE `players` (
     `conditions` BLOB NOT NULL,
     `cap` INTEGER NOT NULL DEFAULT 0,
     `sex` INTEGER NOT NULL DEFAULT 0,
-    `pronoun` INTEGER NOT NULL DEFAULT 0,
     `lastlogin` BIGINT UNSIGNED NOT NULL DEFAULT 0,
     `lastip` INTEGER UNSIGNED NOT NULL DEFAULT 0,
     `save` BOOLEAN NOT NULL DEFAULT true,
@@ -660,14 +659,6 @@ CREATE TABLE `towns` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- CreateTable
-CREATE TABLE `player_wheeldata` (
-    `player_id` INTEGER NOT NULL,
-    `slot` BLOB NOT NULL,
-
-    INDEX `player_id`(`player_id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
 -- AddForeignKey
 ALTER TABLE `account_ban_history` ADD CONSTRAINT `account_bans_history_account_fk` FOREIGN KEY (`account_id`) REFERENCES `accounts`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -769,6 +760,3 @@ ALTER TABLE `store_history` ADD CONSTRAINT `store_history_account_fk` FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE `tile_store` ADD CONSTRAINT `tile_store_account_fk` FOREIGN KEY (`house_id`) REFERENCES `houses`(`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE `player_wheeldata` ADD CONSTRAINT `player_wheeldata_players_fk` FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE CASCADE ON UPDATE NO ACTION;

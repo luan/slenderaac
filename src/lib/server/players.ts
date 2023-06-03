@@ -1,6 +1,11 @@
 import type { Players, Prisma } from '@prisma/client';
 
-import { PlayerGroup, PlayerVocation } from '$lib/players';
+import {
+	PlayerGroup,
+	PlayerPronoun,
+	PlayerSex,
+	PlayerVocation,
+} from '$lib/players';
 import { prisma } from '$lib/server/prisma';
 import { toTitleCase } from '$lib/utils';
 
@@ -89,4 +94,35 @@ export async function getTemplate(vocation: PlayerVocation): Promise<Players> {
 			...createData,
 		},
 	});
+}
+
+export async function generateCharacterInput({
+	name,
+	pronoun,
+	sex,
+}: {
+	name: string;
+	pronoun: PlayerPronoun;
+	sex: PlayerSex;
+}) {
+	const vocation = PlayerVocation.None;
+	const template = await getTemplate(vocation);
+	return {
+		level: template.level,
+		vocation: template.vocation,
+		health: template.health,
+		healthmax: template.healthmax,
+		experience: template.experience,
+		mana: template.mana,
+		manamax: template.manamax,
+		cap: template.cap,
+		town_id: template.town_id,
+		soul: template.soul,
+		looktype: template.looktype,
+		conditions: template.conditions,
+		name,
+		sex,
+		pronoun,
+		group_id: PlayerGroup.Normal,
+	};
 }

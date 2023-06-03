@@ -6,6 +6,7 @@ import { isAccountType } from '$lib/accounts';
 import { prisma } from '$lib/server/prisma';
 
 type SessionInfo = {
+	accountId: number;
 	email: string;
 	type: AccountType;
 	expires: bigint;
@@ -37,6 +38,7 @@ export async function createSession(
 		},
 	});
 	sessionStore.set(session.id, {
+		accountId: account.id,
 		email: account.email,
 		type: account.type,
 		expires: session.expires,
@@ -64,7 +66,7 @@ export async function getSession(sid: Sid): Promise<SessionInfo | undefined> {
 
 	const session = await prisma.accountSessions.findUnique({
 		where: { id: sid },
-		include: { account: { select: { email: true, type: true } } },
+		include: { account: { select: { id: true, email: true, type: true } } },
 	});
 
 	if (session) {
@@ -73,6 +75,7 @@ export async function getSession(sid: Sid): Promise<SessionInfo | undefined> {
 			return undefined;
 		} else {
 			const sessionInfo: SessionInfo = {
+				accountId: session.account.id,
 				email: session.account.email,
 				type: session.account.type,
 				expires: session.expires,

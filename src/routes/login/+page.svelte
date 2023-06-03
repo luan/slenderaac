@@ -9,7 +9,7 @@
 
 <form class="flex flex-col gap-4" method="post" use:enhance>
 	{#if form?.errors?.global}
-		<p class="text-error-500">{form.errors.global}</p>
+		<p class="text-xs text-error-500">{form.errors.global}</p>
 	{/if}
 
 	<label class="label">

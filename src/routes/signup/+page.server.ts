@@ -1,14 +1,8 @@
-import type { Prisma } from '@prisma/client';
 import { fail, redirect } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
-import {
-	parsePlayerPronoun,
-	parsePlayerSex,
-	PlayerGroup,
-	PlayerVocation,
-} from '$lib/players';
-import { getTemplate } from '$lib/server/players';
+import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
+import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { performLogin } from '$lib/server/session';
 import { hashPassword } from '$lib/server/utils';
@@ -103,38 +97,11 @@ export const actions = {
 		}
 
 		const hashedPassword = hashPassword(password);
-		const vocation = PlayerVocation.None;
-		const template = (({
-			level,
-			vocation,
-			health,
-			healthmax,
-			experience,
-			mana,
-			manamax,
-			cap,
-			town_id,
-			soul,
-			looktype,
-			conditions,
-		}: Prisma.PlayersUncheckedCreateInput) => ({
-			level,
-			vocation,
-			health,
-			healthmax,
-			experience,
-			mana,
-			manamax,
-			cap,
-			town_id,
-			soul,
-			looktype,
-			conditions,
-		}))(await getTemplate(vocation));
-		const extraData: Partial<Prisma.PlayersCreateInput> = {};
-		if (characterPronounsValue > 0) {
-			extraData['pronoun'] = characterPronounsValue;
-		}
+		const characterInput = await generateCharacterInput({
+			name: characterName,
+			pronoun: characterPronounsValue,
+			sex: characterSexValue,
+		});
 
 		const existingPlayer = await prisma.players.findFirst({
 			where: { name: characterName },
@@ -156,15 +123,7 @@ export const actions = {
 
 					players: {
 						createMany: {
-							data: [
-								{
-									...template,
-									name: characterName,
-									sex: characterSexValue,
-									group_id: PlayerGroup.Normal,
-									...extraData,
-								},
-							],
+							data: [characterInput],
 						},
 					},
 				},
@@ -181,6 +140,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, '/');
+		throw redirect(302, '/account');
 	},
 } satisfies Actions;

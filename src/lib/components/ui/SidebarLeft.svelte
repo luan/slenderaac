@@ -17,7 +17,9 @@
 	class="card bg-tertiary-500 dark:bg-tertiary-800 card-hover overflow-hidden">
 	<div class="flex flex-col gap-0 py-2 px-2 items-center">
 		{#if isLoggedIn}
-			<a href="/login" class="btn variant-filled-primary w-full">My Account</a>
+			<a href="/account" class="btn variant-filled-primary w-full">
+				My Account
+			</a>
 			<form action="/logout" method="post" class="flex w-2/3">
 				<button
 					type="submit"

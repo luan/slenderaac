@@ -3,12 +3,12 @@ import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
 import { performLogin } from '$lib/server/session';
+import { hashPassword } from '$lib/server/utils';
 import {
 	presenceValidator,
 	stringValidator,
 	validate,
 } from '$lib/server/validations';
-import { hashPassword } from '$lib/utils';
 
 import type { Actions, PageServerLoad } from './$types';
 
@@ -52,6 +52,6 @@ export const actions: Actions = {
 		}
 
 		await performLogin(cookies, account.email);
-		throw redirect(302, '/');
+		throw redirect(302, '/account');
 	},
 } satisfies Actions;

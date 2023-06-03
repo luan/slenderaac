@@ -8,6 +8,7 @@ export const handle = (async ({ event, resolve }) => {
 	if (sid) {
 		const session = await getSession(sid);
 		if (session) {
+			event.locals.accountId = session.accountId;
 			event.locals.email = session.email;
 			event.locals.type = session.type;
 		} else {

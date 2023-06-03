@@ -1,6 +1,5 @@
-import { PlayerGroup } from '$lib/players';
+import { PlayerGroup, vocationString } from '$lib/players';
 import { prisma } from '$lib/server/prisma';
-import { isVocationId, vocationMap } from '$lib/vocations';
 
 import type { LayoutServerLoad } from './$types';
 
@@ -21,9 +20,7 @@ export const load = (async ({ locals }) => {
 		highscores: highscores.map((player) => ({
 			name: player.name,
 			level: player.level,
-			vocation: isVocationId(player.vocation)
-				? vocationMap[player.vocation]
-				: vocationMap[0],
+			vocation: vocationString(player.vocation),
 		})),
 		isLoggedIn: Boolean(locals.email),
 	};

@@ -10,6 +10,7 @@
 	} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 
+	import TextField from '$lib/components/ui/TextField.svelte';
 	import { pronounsEnabled } from '$lib/config';
 	import {
 		allPronouns,
@@ -42,23 +43,12 @@
 	$: characterName = toTitleCase(characterName);
 </script>
 
-<h3 class="h3">Character</h3>
-
 <div class="flex flex-row gap-4 items-center">
-	<label class="label flex flex-col gap-0 flex-grow">
-		<span>Name</span>
-		<input
-			required
-			bind:value={characterName}
-			name="characterName"
-			class="input"
-			class:input-error={form?.errors?.characterName}
-			type="text"
-			autocomplete="username" />
-		{#each form?.errors?.characterName ?? [] as error}
-			<p class="text-error-500">{error}</p>
-		{/each}
-	</label>
+	<TextField
+		label="Name"
+		name="characterName"
+		bind:value={characterName}
+		errors={form?.errors?.characterName} />
 
 	<div class="label flex flex-col gap-0">
 		<span>Sex</span>

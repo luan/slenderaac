@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
+	import TextField from '$lib/components/ui/TextField.svelte';
 
 	import type { ActionData } from './$types';
 
@@ -10,68 +11,42 @@
 
 <form class="flex flex-col gap-4" method="post" use:enhance>
 	{#if form?.errors?.global}
-		<p class="text-error-500">{form.errors.global}</p>
+		<p class="text-xs text-error-500">{form.errors.global}</p>
 	{/if}
 
-	<label class="label">
-		<span>Account name</span>
-		<input
-			required
-			name="accountName"
-			class="input"
-			class:input-error={form?.errors?.accountName}
-			type="text"
-			autocomplete="username" />
-		{#each form?.errors?.accountName ?? [] as error}
-			<p class="text-error-500">{error}</p>
-		{/each}
-	</label>
+	<TextField
+		label="Account name"
+		name="accountName"
+		type="text"
+		autocomplete="username"
+		errors={form?.errors?.accountName} />
 
-	<label class="label">
-		<span>Email</span>
-		<input
-			required
-			name="email"
-			class="input"
-			class:input-error={form?.errors?.email}
-			type="email"
-			autocomplete="email" />
-		{#each form?.errors?.email ?? [] as error}
-			<p class="text-error-500">{error}</p>
-		{/each}
-	</label>
+	<TextField
+		label="Email"
+		name="email"
+		type="email"
+		autocomplete="email"
+		errors={form?.errors?.email} />
 
 	<div class="flex flex-row gap-2">
-		<label class="label flex-grow">
-			<span>Password</span>
-			<input
-				required
-				name="password"
-				class="input"
-				class:input-error={form?.errors?.password}
-				type="password"
-				autocomplete="new-password" />
-			{#each form?.errors?.password ?? [] as error}
-				<p class="text-error-500">{error}</p>
-			{/each}
-		</label>
+		<TextField
+			label="Password"
+			name="password"
+			type="password"
+			autocomplete="new-password"
+			errors={form?.errors?.password} />
 
-		<label class="label flex-grow">
-			<span>Password confirmation</span>
-			<input
-				required
-				name="passwordConfirmation"
-				class="input"
-				class:input-error={form?.errors?.passwordConfirmation}
-				type="password"
-				autocomplete="new-password" />
-			{#each form?.errors?.passwordConfirmation ?? [] as error}
-				<p class="text-error-500">{error}</p>
-			{/each}
-		</label>
+		<TextField
+			label="Password confirmation"
+			name="passwordConfirmation"
+			type="password"
+			autocomplete="new-password"
+			errors={form?.errors?.passwordConfirmation} />
 	</div>
 
 	<hr class="divider" />
+
+	<h3 class="h3">Character</h3>
 
 	<CreateCharacterFormFields {form} />
 
