@@ -71,7 +71,7 @@
 					<nav class="list-nav">
 						<ul>
 							<li><a href="/characters">Characters</a></li>
-							<li><a href="#">Worlds</a></li>
+							<li><a href="#">Who's online?</a></li>
 							<li><a href="#">Highscores</a></li>
 							<li><a href="#">Latest deaths</a></li>
 							<li><a href="#">Power gamers</a></li>

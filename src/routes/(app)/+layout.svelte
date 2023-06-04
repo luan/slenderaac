@@ -1,8 +1,8 @@
 <script lang="ts">
-	import '../theme.postcss';
+	import './theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import 'svooltip/styles.css';
-	import '../app.postcss';
+	import './app.postcss';
 
 	import {
 		arrow,

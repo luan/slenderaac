@@ -25,6 +25,11 @@ export function toTitleCase(str: string) {
  * @param pageTitle The page title.
  * @returns The browser title.
  */
-export function browserTitle(pageTitle: string): string {
-	return `${PUBLIC_TITLE} | ${toTitleCase(pageTitle)}`;
+export function browserTitle(
+	pageTitle: string,
+	{ admin }: { admin: boolean } = { admin: false },
+): string {
+	return `${PUBLIC_TITLE}${admin ? ' | Admin' : ''}${
+		pageTitle.length > 0 ? ' | ' : ''
+	}${toTitleCase(pageTitle)}`;
 }
