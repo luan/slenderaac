@@ -127,8 +127,8 @@ export const GET = (async ({ url, request }) => {
 		}
 	}
 
-	const id = parseIntWithDefault(url.searchParams.get('id'));
-	let outfitData = loadData(id, outfitImagesPath, false);
+	const looktype = parseIntWithDefault(url.searchParams.get('looktype'));
+	let outfitData = loadData(looktype, outfitImagesPath, false);
 	const mount = parseIntWithDefault(url.searchParams.get('mount'));
 
 	outfitData =
@@ -140,12 +140,13 @@ export const GET = (async ({ url, request }) => {
 		throw error(404, 'Outfit not found');
 	}
 
-	const head = parseIntWithDefault(url.searchParams.get('head'));
-	const body = parseIntWithDefault(url.searchParams.get('body'));
-	const legs = parseIntWithDefault(url.searchParams.get('legs'));
-	const feet = parseIntWithDefault(url.searchParams.get('feet'));
-	const addons = parseIntWithDefault(url.searchParams.get('addons'));
+	const head = parseIntWithDefault(url.searchParams.get('lookhead'));
+	const body = parseIntWithDefault(url.searchParams.get('lookbody'));
+	const legs = parseIntWithDefault(url.searchParams.get('looklegs'));
+	const feet = parseIntWithDefault(url.searchParams.get('lookfeet'));
+	const addons = parseIntWithDefault(url.searchParams.get('lookaddons'));
 	const direction = parseIntWithDefault(url.searchParams.get('direction'), 3);
+	const resize = parseIntWithDefault(url.searchParams.get('resize'), 0);
 
 	const frames: CanvasRenderingContext2D[] = [];
 	const durations: number[] = [];
@@ -160,7 +161,7 @@ export const GET = (async ({ url, request }) => {
 		const frame = await outfit(
 			outfitData,
 			outfitImagesPath,
-			id,
+			looktype,
 			addons,
 			head,
 			body,
@@ -169,6 +170,7 @@ export const GET = (async ({ url, request }) => {
 			mount,
 			direction,
 			moveAnimFrame,
+			resize === 1,
 		);
 		if (!frame) {
 			throw error(500, 'Failed to create canvas frame');
@@ -183,6 +185,7 @@ export const GET = (async ({ url, request }) => {
 	);
 	encoder.start();
 	encoder.setRepeat(0);
+	encoder.setTransparent(0xffffff);
 	frames.forEach((frame, index) => {
 		encoder.setDelay(durations[index]);
 		encoder.addFrame(frame);

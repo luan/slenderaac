@@ -5,6 +5,7 @@
 
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import {
+		outfitURL,
 		PlayerPronoun,
 		PlayerSex,
 		pronounString,
@@ -61,7 +62,7 @@
 			<thead class="!bg-surface-600 dark:!bg-surface-800">
 				<tr class="[&>th]:!p-2">
 					<th class="w-10" />
-					<th class="w-16">Outfit</th>
+					<th class="w-20">Outfit</th>
 					<th>Name</th>
 					<th class="w-16">status</th>
 					<th class="w-16" />
@@ -71,7 +72,25 @@
 				{#each data.characters as character, i}
 					<tr class="[&>td]:!align-middle">
 						<td>{i + 1}</td>
-						<td>-</td>
+						<td>
+							<div class="relative">
+								<div class="absolute -left-8 -bottom-5">
+									<img
+										class="w-20 h-20"
+										src={outfitURL({
+											looktype: character.looktype,
+											lookaddons: character.lookaddons,
+											lookhead: character.lookhead,
+											lookbody: character.lookbody,
+											looklegs: character.looklegs,
+											lookfeet: character.lookfeet,
+											mount: character.player_storage[0]?.value ?? 0,
+											resize: true,
+										})}
+										alt="{character.name}'s outfit" />
+								</div>
+							</div>
+						</td>
 						<td class="flex flex-col">
 							<span class="font-semibold flex flex-row gap-1 items-center">
 								{#if character.online}

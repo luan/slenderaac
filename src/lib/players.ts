@@ -127,3 +127,26 @@ export function vocationString(playerVocation: PlayerVocation): string {
 		[PlayerVocation.EliteKnight]: 'Elite Knight',
 	}[playerVocation];
 }
+
+export function outfitURL({
+	resize,
+	...params
+}: {
+	looktype: number;
+	lookaddons: number;
+	lookhead: number;
+	lookbody: number;
+	looklegs: number;
+	lookfeet: number;
+	mount: number;
+	resize: boolean;
+}): string {
+	const url = new URL('http:///api/outfits');
+	for (const [key, value] of Object.entries(params)) {
+		url.searchParams.append(key, value.toString());
+	}
+	if (resize) {
+		url.searchParams.append('resize', '1');
+	}
+	return url.toString().replace('http://', '');
+}

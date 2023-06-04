@@ -1,3 +1,22 @@
+export const outfitImagesPath = './outfits_anim/';
+
+export const walkSpeeds = [
+	0, // Adjust the index to start from 0 instead of 1
+	400,
+	300,
+	30,
+	15,
+	15,
+	15,
+	15,
+	10,
+	8,
+];
+
+export function getImagePath(outfitId: number): string {
+	return `${outfitImagesPath + outfitId.toString()}.gif`;
+}
+
 export const outfitColors: number[] = [
 	0xffffff, 0xffd4bf, 0xffe9bf, 0xffffbf, 0xe9ffbf, 0xd4ffbf, 0xbfffbf,
 	0xbfffd4, 0xbfffe9, 0xbfffff, 0xbfe9ff, 0xbfd4ff, 0xbfbfff, 0xd4bfff,
@@ -20,7 +39,7 @@ export const outfitColors: number[] = [
 	0x00007f, 0x2a007f, 0x54007f, 0x7f007f, 0x7f0055, 0x7f002a, 0x7f0000,
 ];
 
-export const mountsTFS: Record<number, number> = {
+export const mounts: Record<number, number> = {
 	1: 368,
 	2: 369,
 	3: 370,
@@ -209,22 +228,3 @@ export const mountsTFS: Record<number, number> = {
 	186: 1440,
 	187: 1441,
 };
-
-export const outfitImagesPath = './outfits_anim/';
-
-export const walkSpeeds = [
-	0, // Adjust the index to start from 0 instead of 1
-	400,
-	300,
-	30,
-	15,
-	15,
-	15,
-	15,
-	10,
-	8,
-];
-
-export function getImagePath(outfitId: number): string {
-	return `${outfitImagesPath + outfitId.toString()}.gif`;
-}

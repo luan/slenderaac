@@ -7,7 +7,7 @@ import {
 import fs from 'fs';
 import path from 'path';
 
-import { mountsTFS, outfitColors } from '$lib/server/animations/config';
+import { mounts, outfitColors } from '$lib/server/animations/config';
 
 const transparentBackgroundColor = [255, 255, 255];
 
@@ -35,7 +35,7 @@ export function loadData(
 		if (mount == 0 || mount >= 65535) {
 			outfitId = mount & 0xffff;
 		} else if (mount < 300) {
-			outfitId = mountsTFS[mount];
+			outfitId = mounts[mount];
 		}
 	}
 
@@ -88,16 +88,11 @@ export async function outfit(
 	let mountId: number;
 	let mountState: number;
 
-	if (mount == 0 || mount >= 65535) {
-		// old mount system
-		mountId = mount & 0xffff;
-		mountState = (mount & 0xffff0000) != 0 ? 2 : 1;
-	} else if (mount < 300) {
-		// tfs 1.x mount system
-		mountId = mountsTFS[mount];
-		mountState = 2;
+	if (mount == 0) {
+		mountId = 0;
+		mountState = 1;
 	} else {
-		mountId = mount;
+		mountId = mounts[mount];
 		mountState = 2;
 	}
 
@@ -214,7 +209,11 @@ export async function outfit(
 	);
 	imageOutfitTContext.globalCompositeOperation = 'source-over';
 	imageOutfitTContext.globalAlpha = 1;
-	imageOutfitTContext.drawImage(outfitCanvas, 0, 0);
+	imageOutfitTContext.drawImage(
+		outfitCanvas,
+		imageOutfitTCanvas.width - width,
+		imageOutfitTCanvas.height - height,
+	);
 	return imageOutfitTContext;
 }
 

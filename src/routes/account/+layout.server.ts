@@ -29,6 +29,20 @@ export const load = (async ({ locals }) => {
 				vocation: true,
 				level: true,
 				is_main: true,
+				looktype: true,
+				lookaddons: true,
+				lookhead: true,
+				lookbody: true,
+				looklegs: true,
+				lookfeet: true,
+				player_storage: {
+					select: {
+						value: true,
+					},
+					where: {
+						key: 10000000 + 2001 + 10,
+					},
+				},
 				online: {
 					select: { player_id: true },
 				},
