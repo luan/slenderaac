@@ -186,6 +186,7 @@ export const GET = (async ({ url, request }) => {
 	encoder.start();
 	encoder.setRepeat(0);
 	encoder.setTransparent(0xffffff);
+	encoder.setQuality(1);
 	frames.forEach((frame, index) => {
 		encoder.setDelay(durations[index]);
 		encoder.addFrame(frame);
