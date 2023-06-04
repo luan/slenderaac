@@ -33,3 +33,24 @@ export function browserTitle(
 		pageTitle.length > 0 ? ' | ' : ''
 	}${toTitleCase(pageTitle)}`;
 }
+
+/**
+ * Deep merges two objects.
+ * @param target The target object.
+ * @param source The source object.
+ * @returns The merged object.
+ */
+export function deepMerge<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	T extends Record<string, any>,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	U extends Record<string, any>,
+>(target: T, source: U): T & U {
+	for (const key of Object.keys(source)) {
+		if (source[key] instanceof Object)
+			Object.assign(source[key], deepMerge(target[key], source[key]));
+	}
+
+	Object.assign(target || {}, source);
+	return target as T & U;
+}
