@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { faCircle, faDiamond } from '@fortawesome/free-solid-svg-icons';
+	import { formatDistanceToNow } from 'date-fns';
 	import Fa from 'svelte-fa';
 	import { tooltip } from 'svooltip';
 
@@ -9,27 +10,6 @@
 
 	export let data: LayoutData;
 </script>
-
-<div
-	class="card p-2 text-warning-500 text-xs !opacity-75"
-	data-popup="main-character-tooltip">
-	<p>Main Character</p>
-	<div class="arrow variant-filled-tertiary" />
-</div>
-
-<div
-	class="card p-2 text-warning-500 text-xs !opacity-75"
-	data-popup="status-tooltip-online">
-	<p>Online</p>
-	<div class="arrow variant-filled-tertiary" />
-</div>
-
-<div
-	class="card p-2 text-warning-500 text-xs !opacity-75"
-	data-popup="status-tooltip-offline">
-	<p>Offline</p>
-	<div class="arrow variant-filled-tertiary" />
-</div>
 
 <div class="flex flex-col gap-2">
 	<h3 class="h3">Characters</h3>
@@ -41,7 +21,7 @@
 					<th class="w-10" />
 					<th class="w-20">Outfit</th>
 					<th>Name</th>
-					<th class="w-32" />
+					<th class="w-48" />
 				</tr>
 			</thead>
 			<tbody class="!bg-surface-400 dark:!bg-surface-600">
@@ -97,13 +77,41 @@
 							</span>
 						</td>
 						<td>
-							<div class="flex flex-col gap-1">
+							<div class="flex flex-col gap-1 items-center">
 								{#if !character.is_main}
 									<form class="flex" action="/account/set-main" method="POST">
 										<input type="hidden" name="name" value={character.name} />
 										<button class="underline hover:no-underline" type="submit">
 											Set as main
 										</button>
+									</form>
+								{/if}
+								{#if !character.deletion}
+									<a
+										href="/account/delete?name={character.name}"
+										class="underline hover:no-underline"
+										type="submit">
+										Delete
+									</a>
+								{:else}
+									<span
+										class="text-error-600"
+										use:tooltip={{
+											content: `"${
+												character.name
+											}"" will be deleted in ${formatDistanceToNow(
+												Number(character.deletion) * 1000,
+											)}`,
+										}}>
+										Deleted
+									</span>
+									<form
+										class="flex"
+										action="/account/delete?name={character.name}&cancel=true"
+										method="POST">
+										(<button class="underline hover:no-underline" type="submit"
+											>undelete</button
+										>)
 									</form>
 								{/if}
 							</div>

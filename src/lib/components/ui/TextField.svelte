@@ -5,13 +5,14 @@
 	export let errors: string[] | undefined;
 	export let autocomplete = 'off';
 	export let type = 'text';
+	export let labelClass = '';
 
 	function typeAction(node: HTMLInputElement) {
 		node.type = type;
 	}
 </script>
 
-<label class="relative label flex flex-col gap-0 flex-grow">
+<label class="relative label flex flex-col gap-0 flex-grow {labelClass}">
 	<span>{label}</span>
 	<input
 		required

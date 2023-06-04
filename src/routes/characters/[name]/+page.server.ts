@@ -4,9 +4,10 @@ import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
-	const player = await prisma.players.findUnique({
+	const player = await prisma.players.findFirst({
 		where: {
 			name: params.name,
+			deletion: 0,
 		},
 		select: {
 			...PlayerSelectForList,

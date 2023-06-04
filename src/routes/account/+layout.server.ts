@@ -23,7 +23,7 @@ export const load = (async ({ locals }) => {
 			where: {
 				account_id: locals.accountId,
 			},
-			select: PlayerSelectForList,
+			select: { ...PlayerSelectForList, deletion: true },
 		})
 	).map((player) => ({
 		...player,

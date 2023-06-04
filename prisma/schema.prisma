@@ -679,6 +679,7 @@ model Players {
   is_main                                                  Boolean              @default(false)
   online                                                   PlayerOnline[]
 
+  @@index([deletion], map: "deletion")
   @@index([account_id], map: "account_id")
   @@index([vocation], map: "vocation")
   @@map("players")

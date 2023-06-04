@@ -53,6 +53,7 @@
 		"@fortawesome/free-solid-svg-icons": "^6.4.0",
 		"@prisma/client": "^4.15.0",
 		"canvas": "^2.11.2",
+		"date-fns": "^2.30.0",
 		"gifencoder": "^2.0.1",
 		"svelte-portal": "^2.2.0",
 		"tiny-invariant": "^1.3.1"

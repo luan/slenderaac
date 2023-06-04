@@ -18,6 +18,7 @@ export const load = (async ({ url }) => {
 					contains: '~~',
 				},
 			},
+			deletion: 0,
 		},
 		select: PlayerSelectForList,
 	});

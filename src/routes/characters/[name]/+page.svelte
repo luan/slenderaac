@@ -37,7 +37,7 @@
 			<dd>
 				{character.lastlogin === 0n
 					? 'Never'
-					: new Date(Number(character.lastlogin / 1000n)).toLocaleString()}
+					: new Date(Number(character.lastlogin)).toLocaleString()}
 			</dd>
 		</div>
 	</div>
