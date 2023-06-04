@@ -61,6 +61,7 @@ export const load = (async ({ locals }) => {
 	}));
 
 	return {
+		title: 'Account Management',
 		characters,
 	};
 }) satisfies LayoutServerLoad;

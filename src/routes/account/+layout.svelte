@@ -3,7 +3,6 @@
 	import Fa from 'svelte-fa';
 	import { tooltip } from 'svooltip';
 
-	import PageTitle from '$lib/components/PageTitle.svelte';
 	import {
 		outfitURL,
 		PlayerPronoun,
@@ -29,8 +28,6 @@
 		return pronounString(pronoun);
 	}
 </script>
-
-<PageTitle title="AccountManagement" />
 
 <div
 	class="card p-2 text-warning-500 text-xs !opacity-75"
@@ -64,8 +61,7 @@
 					<th class="w-10" />
 					<th class="w-20">Outfit</th>
 					<th>Name</th>
-					<th class="w-16">status</th>
-					<th class="w-16" />
+					<th class="w-32" />
 				</tr>
 			</thead>
 			<tbody class="!bg-surface-400 dark:!bg-surface-600">
@@ -120,8 +116,18 @@
 								{vocationString(character.vocation)} &dash; Level {character.level}
 							</span>
 						</td>
-						<td>-</td>
-						<td>-</td>
+						<td>
+							<div class="flex flex-col gap-1">
+								{#if !character.is_main}
+									<form class="flex" action="/account/set-main" method="POST">
+										<input type="hidden" name="name" value={character.name} />
+										<button class="underline hover:no-underline" type="submit">
+											Set as main
+										</button>
+									</form>
+								{/if}
+							</div>
+						</td>
 					</tr>
 				{/each}
 			</tbody>

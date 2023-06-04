@@ -16,6 +16,10 @@ export const load: PageServerLoad = ({ locals }) => {
 	if (locals.email) {
 		throw redirect(302, '/');
 	}
+
+	return {
+		title: 'Login',
+	};
 };
 
 export const actions: Actions = {

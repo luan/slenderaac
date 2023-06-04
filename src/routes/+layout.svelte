@@ -17,10 +17,13 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 
+	import { page } from '$app/stores';
+
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
+	import { browserTitle } from '$lib/utils';
 
-	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
+	import { PUBLIC_DISCORD_URL } from '$env/static/public';
 
 	import type { LayoutData } from './$types';
 
@@ -29,12 +32,11 @@
 	export let data: LayoutData;
 
 	$: ({ highscores, isLoggedIn } = data);
+	$: title = typeof $page.data.title === 'string' ? $page.data.title : '';
 </script>
 
 <svelte:head>
-	<title>
-		{PUBLIC_TITLE}
-	</title>
+	<title>{browserTitle(title)}</title>
 </svelte:head>
 
 <AppShell>
@@ -59,9 +61,7 @@
 			</div>
 		</div>
 	</svelte:fragment>
-	<nav
-		class="mx-4 mt-2 w-48 flex flex-col gap-2 hide-scrollbar"
-		slot="sidebarLeft">
+	<nav class="mx-4 mt-2 w-48 flex flex-col gap-2" slot="sidebarLeft">
 		<SidebarLeft {isLoggedIn} />
 	</nav>
 	<nav class="mx-4 mt-2 w-48 flex flex-col gap-2" slot="sidebarRight">
@@ -89,7 +89,11 @@
 	</svelte:fragment>
 
 	<main class="my-2 card card-surface">
-		<div id="pageTitle" />
+		{#if title.length > 0}
+			<div class="rounded-t-md px-4 py-1 bg-success-900 text-warning-400">
+				<h4 class="h4">{title}</h4>
+			</div>
+		{/if}
 
 		<div class="px-4 pt-2 pb-4">
 			<slot />

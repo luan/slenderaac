@@ -19,7 +19,7 @@ export const load = (({ locals }) => {
 	if (locals.email) {
 		throw redirect(302, '/');
 	}
-	return {};
+	return { title: 'Create Account' };
 }) satisfies PageServerLoad;
 
 export const actions = {

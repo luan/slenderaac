@@ -1,14 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
-	import PageTitle from '$lib/components/PageTitle.svelte';
-
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
 </script>
-
-<PageTitle title="Login" />
 
 <form class="flex flex-col gap-4" method="post" use:enhance>
 	{#if form?.errors?.global}
