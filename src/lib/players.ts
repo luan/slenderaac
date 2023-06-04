@@ -141,12 +141,29 @@ export function outfitURL({
 	mount: number;
 	resize: boolean;
 }): string {
-	const url = new URL('http:///api/outfits');
+	const search = new URLSearchParams();
 	for (const [key, value] of Object.entries(params)) {
-		url.searchParams.append(key, value.toString());
+		search.append(key, value.toString());
 	}
 	if (resize) {
-		url.searchParams.append('resize', '1');
+		search.append('resize', '1');
 	}
-	return url.toString().replace('http://', '');
+	return `/api/outfits?${search.toString()}`;
+}
+
+export function getPronoun(character: {
+	pronoun: PlayerPronoun;
+	name: string;
+	sex: PlayerSex;
+}) {
+	if (character.pronoun === PlayerPronoun.Name) {
+		return character.name;
+	}
+	const pronoun =
+		character.pronoun > 0
+			? character.pronoun
+			: character.sex === PlayerSex.Female
+			? PlayerPronoun.She
+			: PlayerPronoun.He;
+	return pronounString(pronoun);
 }

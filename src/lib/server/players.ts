@@ -9,6 +9,34 @@ import {
 import { prisma } from '$lib/server/prisma';
 import { toTitleCase } from '$lib/utils';
 
+export const MountStorageKey = 10000000 + 2001 + 10;
+
+export const PlayerSelectForList = {
+	name: true,
+	pronoun: true,
+	sex: true,
+	vocation: true,
+	level: true,
+	is_main: true,
+	looktype: true,
+	lookaddons: true,
+	lookhead: true,
+	lookbody: true,
+	looklegs: true,
+	lookfeet: true,
+	player_storage: {
+		select: {
+			value: true,
+		},
+		where: {
+			key: MountStorageKey,
+		},
+	},
+	online: {
+		select: { player_id: true },
+	},
+};
+
 export async function getTemplate(vocation: PlayerVocation): Promise<Players> {
 	const vocationName = toTitleCase(PlayerVocation[vocation]);
 	const characterName = `~~${vocationName} Template`;

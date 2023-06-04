@@ -1,3 +1,4 @@
+import { PlayerSelectForList } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 
 import type { PageServerLoad } from './$types';
@@ -6,6 +7,11 @@ export const load = (async ({ params }) => {
 	const player = await prisma.players.findUnique({
 		where: {
 			name: params.name,
+		},
+		select: {
+			...PlayerSelectForList,
+			town: { select: { name: true } },
+			lastlogin: true,
 		},
 	});
 
@@ -17,9 +23,6 @@ export const load = (async ({ params }) => {
 	}
 
 	return {
-		character: {
-			name: player.name,
-			level: player.level,
-		},
+		character: player,
 	};
 }) satisfies PageServerLoad;

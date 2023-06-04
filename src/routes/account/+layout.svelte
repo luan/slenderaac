@@ -3,30 +3,11 @@
 	import Fa from 'svelte-fa';
 	import { tooltip } from 'svooltip';
 
-	import {
-		outfitURL,
-		PlayerPronoun,
-		PlayerSex,
-		pronounString,
-		vocationString,
-	} from '$lib/players';
+	import { getPronoun, outfitURL, vocationString } from '$lib/players';
 
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-
-	function getPronoun(character: LayoutData['characters'][0]) {
-		if (character.pronoun === PlayerPronoun.Name) {
-			return character.name;
-		}
-		const pronoun =
-			character.pronoun > 0
-				? character.pronoun
-				: character.sex === PlayerSex.Female
-				? PlayerPronoun.She
-				: PlayerPronoun.He;
-		return pronounString(pronoun);
-	}
 </script>
 
 <div
@@ -54,7 +35,6 @@
 	<h3 class="h3">Characters</h3>
 
 	<div class="table-container">
-		<!-- Native Table Element -->
 		<table class="table table-hover table-fixed">
 			<thead class="!bg-surface-600 dark:!bg-surface-800">
 				<tr class="[&>th]:!p-2">
