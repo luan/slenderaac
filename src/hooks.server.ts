@@ -24,8 +24,6 @@ export const handle = (async ({ event, resolve }) => {
 		}
 	}
 
-	console.log(url);
-
 	if (url.pathname.startsWith('/admin')) {
 		const account = await prisma.accounts.findUnique({
 			where: { id: event.locals.accountId },

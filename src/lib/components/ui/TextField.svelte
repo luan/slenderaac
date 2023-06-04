@@ -6,13 +6,17 @@
 	export let autocomplete = 'off';
 	export let type = 'text';
 	export let labelClass = '';
+	export let variant: 'horizontal' | 'vertical' = 'vertical';
 
 	function typeAction(node: HTMLInputElement) {
 		node.type = type;
 	}
 </script>
 
-<label class="relative label flex flex-col gap-0 flex-grow {labelClass}">
+<label
+	class="relative label flex {variant === 'horizontal'
+		? 'flex-row gap-2 items-center'
+		: 'flex-col gap-0'} flex-grow {labelClass}">
 	<span>{label}</span>
 	<input
 		required
@@ -23,6 +27,6 @@
 		{autocomplete}
 		use:typeAction />
 	{#each errors ?? [] as error}
-		<p class="absolute top-full text-xs text-error-500">{error}</p>
+		<p class="absolute top-full text-xs text-error-500-400-token">{error}</p>
 	{/each}
 </label>

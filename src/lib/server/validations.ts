@@ -28,7 +28,7 @@ export function presenceValidator(value: unknown) {
 }
 
 export function stringValidator(value: unknown) {
-	if (typeof value !== 'string') {
+	if (value && typeof value !== 'string') {
 		return ':field must be a string';
 	}
 	return null;

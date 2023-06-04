@@ -34,7 +34,9 @@
 	<title>{browserTitle(title, { admin: true })}</title>
 </svelte:head>
 
-<AppShell slotSidebarLeft="bg-surface-500/5 w-56 p-4">
+<AppShell
+	slotSidebarLeft="bg-surface-500/5 w-56 p-4"
+	regionPage="gap-2 max-w-5xl">
 	<svelte:fragment slot="sidebarLeft">
 		<nav class="list-nav">
 			<ul class="[&_a]:flex [&_a]:flex-row [&_a]:gap-2 [&_a]:items-center">

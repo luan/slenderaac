@@ -3,4 +3,11 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
+	optimizeDeps: {
+		exclude: [
+			'codemirror',
+			'@codemirror/lang-markdown',
+			'@codemirror/theme-one-dark',
+		],
+	},
 });
