@@ -66,3 +66,25 @@ export function formatDate(timestamp: bigint | number) {
 
 	return new Date(timestamp * 1000).toLocaleString();
 }
+
+/**
+ * Debounces a function.
+ * @param func The function to debounce.
+ * @param wait The time to wait before calling the function.
+ * @returns The debounced function.
+ */
+export function debounce<T extends (...args: unknown[]) => void>(
+	func: T,
+	wait: number,
+): (...args: Parameters<T>) => void {
+	let timeout: ReturnType<typeof setTimeout> | null = null;
+	return function (this: unknown, ...args: Parameters<T>) {
+		console.log('debounce');
+		const later = function () {
+			timeout = null;
+			func(...args);
+		};
+		timeout && clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+	};
+}

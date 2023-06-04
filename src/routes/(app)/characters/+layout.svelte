@@ -10,6 +10,7 @@
 	import { page } from '$app/stores';
 
 	import { getPronoun, outfitURL, vocationString } from '$lib/players';
+	import { debounce } from '$lib/utils';
 
 	import type { LayoutData } from './$types';
 
@@ -19,14 +20,27 @@
 
 	$: {
 		if (browser) {
-			$page.url.searchParams.set('search', searchInput);
-			void goto(`?${$page.url.searchParams.toString()}`, {
+			$page.url.searchParams.get('search') !== searchInput && onSearchInput();
+		}
+	}
+
+	const onSearchInput = debounce(() => {
+		if (searchInput === '') {
+			$page.url.searchParams.delete('search');
+			void goto($page.url.pathname, {
 				replaceState: true,
 				keepFocus: true,
 				noScroll: true,
 			});
+			return;
 		}
-	}
+		$page.url.searchParams.set('search', searchInput);
+		void goto(`?${$page.url.searchParams.toString()}`, {
+			replaceState: true,
+			keepFocus: true,
+			noScroll: true,
+		});
+	}, 200);
 
 	$: results = data.results ?? [];
 </script>
@@ -61,6 +75,7 @@
 					<a
 						href="/characters/{character.name}"
 						class="table-row [&>td]:!align-middle hover:!bg-surface-500 cursor-pointer"
+						on:click={() => (searchInput = '')}
 						transition:fly|local={{
 							duration: 300,
 							y: -20,
