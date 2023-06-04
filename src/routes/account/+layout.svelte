@@ -78,15 +78,17 @@
 						</td>
 						<td>
 							<div class="flex flex-col gap-1 items-center">
-								{#if !character.is_main}
-									<form class="flex" action="/account/set-main" method="POST">
-										<input type="hidden" name="name" value={character.name} />
-										<button class="underline hover:no-underline" type="submit">
-											Set as main
-										</button>
-									</form>
-								{/if}
 								{#if !character.deletion}
+									{#if !character.is_main}
+										<form class="flex" action="/account/set-main" method="POST">
+											<input type="hidden" name="name" value={character.name} />
+											<button
+												class="underline hover:no-underline"
+												type="submit">
+												Set as main
+											</button>
+										</form>
+									{/if}
 									<a
 										href="/account/delete?name={character.name}"
 										class="underline hover:no-underline"

@@ -66,13 +66,32 @@ export const actions = {
 		deletionDate.setDate(deletionDate.getDate() + 30);
 		// onvert to timestamp (seconds)
 		const deletionTimestamp = Math.floor(deletionDate.getTime() / 1000);
-
-		await prisma.$transaction([
+		const ops = [
 			prisma.players.update({
 				where: { id: existingPlayer.id },
-				data: { deletion: deletionTimestamp },
+				data: { deletion: deletionTimestamp, is_main: false },
 			}),
-		]);
+		];
+
+		if (existingPlayer.is_main) {
+			const otherCharacter = await prisma.players.findFirst({
+				where: {
+					account_id: locals.accountId,
+					is_main: false,
+					deletion: 0,
+				},
+			});
+			if (otherCharacter) {
+				ops.push(
+					prisma.players.update({
+						where: { id: otherCharacter.id },
+						data: { is_main: true },
+					}),
+				);
+			}
+		}
+
+		await prisma.$transaction(ops);
 
 		throw redirect(302, '/account');
 	},
