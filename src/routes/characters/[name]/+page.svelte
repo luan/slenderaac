@@ -11,8 +11,10 @@
 {#if character}
 	<div class="card data-table">
 		<div class="data-row">
-			<dt>Name <em>({getPronoun(character)})</em></dt>
-			<dd>{character.name}</dd>
+			<dt>Name</dt>
+			<dd>
+				{character.name} <em class="text-xs">({getPronoun(character)})</em>
+			</dd>
 		</div>
 		<div class="data-row">
 			<dt>Sex</dt>
