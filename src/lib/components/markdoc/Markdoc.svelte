@@ -22,11 +22,11 @@
 			},
 		},
 	};
-	export let doc = '';
+	export let content = '';
 	export let config: Markdoc.Config = {};
 	let components = new Map([['Callout', Callout]]);
 
-	const ast = Markdoc.parse(doc);
+	const ast = Markdoc.parse(content);
 	const node = Markdoc.transform(ast, deepMerge(defaultConfig, config));
 </script>
 

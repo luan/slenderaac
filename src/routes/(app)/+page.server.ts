@@ -3,22 +3,25 @@ import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
-	const news = await prisma.news.findMany({
-		select: {
-			id: true,
-			title: true,
+	const articles = await prisma.news.findMany({
+		where: {
+			published: true,
+		},
+		include: {
 			author: {
 				select: {
 					name: true,
 				},
 			},
-			published: true,
-			published_at: true,
 		},
 		orderBy: {
 			published_at: 'desc',
 		},
+		take: 5,
 	});
 
-	return { news };
+	return {
+		title: 'Latest News',
+		articles,
+	};
 }) satisfies PageServerLoad;

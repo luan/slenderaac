@@ -10,7 +10,7 @@
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 
 <Markdoc
-	doc={`---
+	content={`---
 title: What is Markdoc?
 ---
 

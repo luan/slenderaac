@@ -54,3 +54,15 @@ export function deepMerge<
 	Object.assign(target || {}, source);
 	return target as T & U;
 }
+
+/**
+ * Formats a date string from bigint or number.
+ * @param timestamp The date string to format.
+ * @returns The formatted date string.
+ */
+export function formatDate(timestamp: bigint | number) {
+	if (typeof timestamp === 'bigint') timestamp = Number(timestamp);
+	if (timestamp > 100000000000) timestamp /= 1000;
+
+	return new Date(timestamp * 1000).toLocaleString();
+}

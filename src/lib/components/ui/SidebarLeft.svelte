@@ -56,9 +56,9 @@
 				<svelte:fragment slot="content">
 					<nav class="list-nav">
 						<ul>
-							<li><a href="#">Latest news</a></li>
-							<li><a href="#">News archive</a></li>
-							<li><a href="#">Event schedule</a></li>
+							<li><a href="/">Latest news</a></li>
+							<li><a href="/news-archive">News archive</a></li>
+							<li><a href="/events">Event schedule</a></li>
 						</ul>
 					</nav>
 				</svelte:fragment>
