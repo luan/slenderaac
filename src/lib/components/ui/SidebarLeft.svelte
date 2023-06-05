@@ -13,8 +13,7 @@
 	export let isLoggedIn = false;
 </script>
 
-<div
-	class="card bg-tertiary-500 dark:bg-tertiary-800 card-hover overflow-hidden">
+<div class="card card-tertiary card-hover overflow-hidden">
 	<div class="flex flex-col gap-0 py-2 px-2 items-center">
 		{#if isLoggedIn}
 			<a href="/account" class="btn variant-filled-primary w-full">
@@ -46,8 +45,7 @@
 	</div>
 </div>
 
-<div
-	class="card bg-tertiary-500 dark:bg-tertiary-800 text-white overflow-hidden">
+<div class="card card-tertiary text-white overflow-hidden">
 	<article class="py-2 px-2">
 		<Accordion>
 			<AccordionItem>

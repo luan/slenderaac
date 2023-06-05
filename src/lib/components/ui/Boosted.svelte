@@ -21,7 +21,10 @@
 			content: boosted.boostname,
 			offset: 20,
 		}}>
-		<AnimatedOutfit outfit={boosted} alt={boosted.boostname ?? ''}>
+		<AnimatedOutfit
+			outfit={boosted}
+			alt={boosted.boostname ?? ''}
+			class="scale-110">
 			<div class="w-full h-full bg-surface-500/30 rounded-full blur-sm" />
 		</AnimatedOutfit>
 	</div>

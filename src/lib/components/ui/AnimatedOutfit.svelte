@@ -13,9 +13,11 @@
 	};
 
 	export let alt: string;
+	let klass = '';
+	export { klass as class };
 </script>
 
-<div class="relative w-12 h-12">
+<div class="relative w-12 h-12 {klass}">
 	<slot />
 	<div class="absolute -left-10 bottom-1">
 		<img

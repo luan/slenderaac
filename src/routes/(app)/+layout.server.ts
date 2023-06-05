@@ -1,4 +1,5 @@
-import { PlayerGroup, vocationString } from '$lib/players';
+import { PlayerGroup } from '$lib/players';
+import { dbToPlayer, PlayerSelectForList } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 
 import type { LayoutServerLoad } from './$types';
@@ -10,6 +11,7 @@ export const load = (async ({ locals }) => {
 				lt: PlayerGroup.Gamemaster,
 			},
 		},
+		select: PlayerSelectForList,
 		orderBy: {
 			experience: 'desc',
 		},
@@ -20,11 +22,7 @@ export const load = (async ({ locals }) => {
 	const boostedCreature = await prisma.boostedCreature.findFirst();
 
 	return {
-		highscores: highscores.map((player) => ({
-			name: player.name,
-			level: player.level,
-			vocation: vocationString(player.vocation),
-		})),
+		highscores: highscores.map(dbToPlayer),
 		boostedBoss,
 		boostedCreature,
 		isLoggedIn: Boolean(locals.email),
