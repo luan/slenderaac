@@ -19,6 +19,7 @@
 
 	import { page } from '$app/stores';
 
+	import Boosted from '$lib/components/ui/Boosted.svelte';
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
 	import { browserTitle } from '$lib/utils';
@@ -31,7 +32,7 @@
 
 	export let data: LayoutData;
 
-	$: ({ highscores, isLoggedIn } = data);
+	$: ({ highscores, isLoggedIn, boostedBoss, boostedCreature } = data);
 	$: title = typeof $page.data.title === 'string' ? $page.data.title : '';
 </script>
 
@@ -52,10 +53,10 @@
 				<div class="w-auto h-full flex items-end">
 					<div class="w-48">
 						<div
-							class="card bg-tertiary-500 dark:bg-tertiary-800 card-hover overflow-hidden">
-							<div class="py-2 px-4 flex flex-row gap-2 justify-between">
-								<div class="placeholder w-1/2 h-12" />
-								<div class="placeholder w-1/2 h-12" />
+							class="card !bg-tertiary-500/75 dark:!bg-tertiary-800/75 card-hover overflow-hidden backdrop-blur-sm rounded-full">
+							<div class="py-4 px-4 flex flex-row gap-2 justify-between">
+								<Boosted boosted={boostedCreature} />
+								<Boosted boosted={boostedBoss} />
 							</div>
 						</div>
 					</div>

@@ -16,12 +16,17 @@ export const load = (async ({ locals }) => {
 		take: 10,
 	});
 
+	const boostedBoss = await prisma.boostedBoss.findFirst();
+	const boostedCreature = await prisma.boostedCreature.findFirst();
+
 	return {
 		highscores: highscores.map((player) => ({
 			name: player.name,
 			level: player.level,
 			vocation: vocationString(player.vocation),
 		})),
+		boostedBoss,
+		boostedCreature,
 		isLoggedIn: Boolean(locals.email),
 	};
 }) satisfies LayoutServerLoad;
