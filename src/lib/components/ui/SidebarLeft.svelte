@@ -55,8 +55,8 @@
 					<nav class="list-nav">
 						<ul>
 							<li><a href="/">Latest news</a></li>
-							<li><a href="/news-archive">News archive</a></li>
-							<li><a href="/events">Event schedule</a></li>
+							<!-- <li><a href="/news-archive">News archive</a></li> -->
+							<!-- <li><a href="/events">Event schedule</a></li> -->
 						</ul>
 					</nav>
 				</svelte:fragment>
@@ -69,11 +69,12 @@
 					<nav class="list-nav">
 						<ul>
 							<li><a href="/characters">Characters</a></li>
-							<li><a href="#">Who's online?</a></li>
-							<li><a href="#">Highscores</a></li>
-							<li><a href="#">Latest deaths</a></li>
-							<li><a href="#">Power gamers</a></li>
-							<li><a href="#">Guilds</a></li>
+							<!-- <li><a href="/online">Who's online?</a></li> -->
+							<!-- <li><a href="/highscores">Highscores</a></li> -->
+							<!-- <li><a href="/latest-deaths">Latest deaths</a></li> -->
+							<!-- <li><a href="#">Power gamers</a></li> -->
+							<!-- <li><a href="#">Guilds</a></li> -->
+							<!-- <li><a href="#">Staff</a></li> -->
 						</ul>
 					</nav>
 				</svelte:fragment>
@@ -85,22 +86,10 @@
 				<svelte:fragment slot="content">
 					<nav class="list-nav">
 						<ul>
-							<li><a href="#">Server info</a></li>
+							<!-- <li><a href="#">Server info</a></li>
 							<li><a href="#">Loyalty</a></li>
 							<li><a href="#">Commands</a></li>
-						</ul>
-					</nav>
-				</svelte:fragment>
-			</AccordionItem>
-			<AccordionItem>
-				<svelte:fragment slot="lead"
-					><Fa icon={faBookBookmark} /></svelte:fragment>
-				<svelte:fragment slot="summary">About</svelte:fragment>
-				<svelte:fragment slot="content">
-					<nav class="list-nav">
-						<ul>
-							<li><a href="#">Staff</a></li>
-							<li><a href="#">Rules</a></li>
+							<li><a href="#">Rules</a></li> -->
 						</ul>
 					</nav>
 				</svelte:fragment>
@@ -111,7 +100,7 @@
 				<svelte:fragment slot="content">
 					<nav class="list-nav">
 						<ul>
-							<li><a href="#">Buy coins</a></li>
+							<li><a href="/shop">Buy coins</a></li>
 						</ul>
 					</nav>
 				</svelte:fragment>
