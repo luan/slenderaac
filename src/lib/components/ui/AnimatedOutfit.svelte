@@ -15,9 +15,9 @@
 	export let alt: string;
 </script>
 
-<div class="relative w-16 h-16">
+<div class="relative w-12 h-12">
 	<slot />
-	<div class="absolute -left-8 bottom-3">
+	<div class="absolute -left-10 bottom-1">
 		<img
 			class="w-20 h-20"
 			src={outfitURL({
