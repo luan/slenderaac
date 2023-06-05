@@ -88,3 +88,15 @@ export function debounce<T extends (...args: unknown[]) => void>(
 		timeout = setTimeout(later, wait);
 	};
 }
+
+/**
+ * Parses a date from bigint or number (seconds or milliseconds) into a Date object.
+ * @param timestamp The date value to parse.
+ * @returns The parsed date.
+ */
+export function parseDate(timestamp: bigint | number) {
+	if (typeof timestamp === 'bigint') timestamp = Number(timestamp);
+	if (timestamp > 100000000000) timestamp /= 1000;
+
+	return new Date(timestamp * 1000);
+}

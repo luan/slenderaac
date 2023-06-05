@@ -21,11 +21,7 @@
 
 	import { browserTitle } from '$lib/utils';
 
-	import type { LayoutData } from './$types';
-
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
-
-	export let data: LayoutData;
 
 	$: title = typeof $page.data.title === 'string' ? $page.data.title : '';
 </script>

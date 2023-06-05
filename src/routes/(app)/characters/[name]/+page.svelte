@@ -30,14 +30,12 @@
 		</div>
 		<div class="data-row">
 			<dt>Residence</dt>
-			<dd>{character.town.name}</dd>
+			<dd>{character.townName}</dd>
 		</div>
 		<div class="data-row">
 			<dt>Last login</dt>
 			<dd>
-				{character.lastlogin === 0n
-					? 'Never'
-					: new Date(Number(character.lastlogin)).toLocaleString()}
+				{character.lastLogin ? character.lastLogin.toLocaleString() : 'Never'}
 			</dd>
 		</div>
 	</div>

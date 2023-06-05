@@ -1,14 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
-import {
-	isPlayerPronoun,
-	isPlayerSex,
-	isPlayerVocation,
-	PlayerPronoun,
-	PlayerSex,
-	PlayerVocation,
-} from '$lib/players';
-import { PlayerSelectForList } from '$lib/server/players';
+import { dbToPlayer, PlayerSelectForList } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 
 import type { LayoutServerLoad } from './$types';
@@ -23,20 +15,9 @@ export const load = (async ({ locals }) => {
 			where: {
 				account_id: locals.accountId,
 			},
-			select: { ...PlayerSelectForList, deletion: true },
+			select: PlayerSelectForList,
 		})
-	).map((player) => ({
-		...player,
-		online: player.online.length > 0,
-		vocation: isPlayerVocation(player.vocation)
-			? player.vocation
-			: PlayerVocation.None,
-		pronoun: isPlayerPronoun(player.pronoun)
-			? player.pronoun
-			: PlayerPronoun.Unset,
-		sex: isPlayerSex(player.sex) ? player.sex : PlayerSex.Female,
-	}));
-
+	).map(dbToPlayer);
 	return {
 		title: 'Account Management',
 		characters,

@@ -8,7 +8,8 @@
 		lookbody?: number;
 		looklegs?: number;
 		lookfeet?: number;
-		lookmount?: number;
+		mount?: number | null;
+		lookmount?: number | null;
 	};
 
 	export let alt: string;
@@ -21,6 +22,7 @@
 			class="w-20 h-20"
 			src={outfitURL({
 				...outfit,
+				mount: outfit.mount ?? outfit.lookmount ?? 0,
 				resize: true,
 			})}
 			{alt} />

@@ -1,3 +1,19 @@
+import type { Outfit } from '$lib/outfits';
+
+export type Player = {
+	id: number;
+	name: string;
+	level: number;
+	vocation: PlayerVocation;
+	sex: PlayerSex;
+	pronoun: PlayerPronoun;
+	online: boolean;
+	deletion: Date | null;
+	isMain: boolean;
+	townName: string | null;
+	lastLogin: Date | null;
+} & Outfit;
+
 export enum PlayerSex {
 	Female = 0,
 	Male,

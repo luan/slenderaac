@@ -1,17 +1,22 @@
 import type { Players, Prisma } from '@prisma/client';
 
 import {
+	isPlayerPronoun,
+	isPlayerSex,
+	isPlayerVocation,
+	type Player,
 	PlayerGroup,
 	PlayerPronoun,
 	PlayerSex,
 	PlayerVocation,
 } from '$lib/players';
 import { prisma } from '$lib/server/prisma';
-import { toTitleCase } from '$lib/utils';
+import { parseDate, toTitleCase } from '$lib/utils';
 
 export const MountStorageKey = 10000000 + 2001 + 10;
 
 export const PlayerSelectForList = {
+	id: true,
 	name: true,
 	pronoun: true,
 	sex: true,
@@ -24,6 +29,7 @@ export const PlayerSelectForList = {
 	lookbody: true,
 	looklegs: true,
 	lookfeet: true,
+	deletion: true,
 	player_storage: {
 		select: {
 			value: true,
@@ -156,5 +162,55 @@ export async function generateCharacterInput({
 		sex,
 		pronoun,
 		group_id: PlayerGroup.Normal,
+	};
+}
+
+type PlayerWithData = Players & {
+	online: { player_id: number }[];
+	player_storage: { value: number }[];
+	town: { name: string };
+};
+
+type PlayerWithoutOptionasl = Pick<
+	PlayerWithData,
+	| 'id'
+	| 'name'
+	| 'pronoun'
+	| 'sex'
+	| 'vocation'
+	| 'level'
+	| 'is_main'
+	| 'looktype'
+	| 'lookaddons'
+	| 'lookhead'
+	| 'lookbody'
+	| 'looklegs'
+	| 'lookfeet'
+	| 'deletion'
+	| 'player_storage'
+	| 'online'
+>;
+
+export function dbToPlayer(
+	player: Partial<PlayerWithData> & PlayerWithoutOptionasl,
+): Player {
+	return {
+		...player,
+		deletion:
+			player.deletion && player.deletion > 0
+				? parseDate(player.deletion)
+				: null,
+		online: player.online && player.online.length > 0 ? true : false,
+		vocation: isPlayerVocation(player.vocation)
+			? player.vocation
+			: PlayerVocation.None,
+		pronoun: isPlayerPronoun(player.pronoun)
+			? player.pronoun
+			: PlayerPronoun.Unset,
+		sex: isPlayerSex(player.sex) ? player.sex : PlayerSex.Female,
+		mount: (player.player_storage && player.player_storage[0]?.value) ?? 0,
+		isMain: Boolean(player.is_main),
+		townName: (player.town && player.town.name) ?? null,
+		lastLogin: player.lastlogin ? parseDate(player.lastlogin) : null,
 	};
 }

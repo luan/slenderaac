@@ -32,39 +32,41 @@
 						<td>
 							<AnimatedOutfit outfit={character} alt={character.name} />
 						</td>
-						<td class="flex flex-col">
-							<span class="font-semibold flex flex-row gap-1 items-center">
-								{#if character.online}
-									<span
-										class="text-success-600"
-										use:tooltip={{ content: 'Online' }}>
-										<Fa icon={faCircle} size="xs" />
-									</span>
-								{:else}
-									<span
-										class="text-error-600"
-										use:tooltip={{ content: 'Offline' }}>
-										<Fa icon={faCircle} size="xs" />
-									</span>
-								{/if}
-								{character.name}
-								<em class="font-light">({getPronoun(character)})</em>
-								{#if character.is_main}
-									<span
-										class="text-xs text-success-800"
-										use:tooltip={{ content: 'Main Character' }}>
-										<Fa icon={faDiamond} />
-									</span>
-								{/if}
-							</span>
-							<span class="text-xs">
-								{vocationString(character.vocation)} &dash; Level {character.level}
-							</span>
+						<td>
+							<div class="flex flex-col">
+								<span class="font-semibold flex flex-row gap-1 items-center">
+									{#if character.online}
+										<span
+											class="text-success-600"
+											use:tooltip={{ content: 'Online' }}>
+											<Fa icon={faCircle} size="xs" />
+										</span>
+									{:else}
+										<span
+											class="text-error-600"
+											use:tooltip={{ content: 'Offline' }}>
+											<Fa icon={faCircle} size="xs" />
+										</span>
+									{/if}
+									{character.name}
+									<em class="font-light">({getPronoun(character)})</em>
+									{#if character.isMain}
+										<span
+											class="text-xs text-success-800"
+											use:tooltip={{ content: 'Main Character' }}>
+											<Fa icon={faDiamond} />
+										</span>
+									{/if}
+								</span>
+								<span class="text-xs">
+									{vocationString(character.vocation)} &dash; Level {character.level}
+								</span>
+							</div>
 						</td>
 						<td>
 							<div class="flex flex-col gap-1 items-center">
 								{#if !character.deletion}
-									{#if !character.is_main}
+									{#if !character.isMain}
 										<form class="flex" action="/account/set-main" method="POST">
 											<input type="hidden" name="name" value={character.name} />
 											<button

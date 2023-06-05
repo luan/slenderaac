@@ -1,4 +1,4 @@
-import { PlayerSelectForList } from '$lib/server/players';
+import { dbToPlayer, PlayerSelectForList } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 
 import type { LayoutServerLoad } from './$types';
@@ -10,21 +10,23 @@ export const load = (async ({ url }) => {
 		return { title };
 	}
 
-	const players = await prisma.players.findMany({
-		where: {
-			name: {
-				contains: search,
-				not: {
-					contains: '~~',
+	const characters = (
+		await prisma.players.findMany({
+			where: {
+				name: {
+					contains: search,
+					not: {
+						contains: '~~',
+					},
 				},
+				deletion: 0,
 			},
-			deletion: 0,
-		},
-		select: PlayerSelectForList,
-	});
+			select: PlayerSelectForList,
+		})
+	).map(dbToPlayer);
 
 	return {
 		title,
-		results: players,
+		results: characters,
 	};
 }) satisfies LayoutServerLoad;

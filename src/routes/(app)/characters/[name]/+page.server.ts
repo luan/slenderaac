@@ -1,4 +1,4 @@
-import { PlayerSelectForList } from '$lib/server/players';
+import { dbToPlayer, PlayerSelectForList } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 
 import type { PageServerLoad } from './$types';
@@ -24,6 +24,6 @@ export const load = (async ({ params }) => {
 	}
 
 	return {
-		character: player,
+		character: dbToPlayer(player),
 	};
 }) satisfies PageServerLoad;

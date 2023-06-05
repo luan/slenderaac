@@ -19,7 +19,7 @@ module.exports = {
 		'plugin:prettier/recommended',
 	],
 	plugins: ['svelte', '@typescript-eslint', 'simple-import-sort', 'import'],
-	ignorePatterns: ['*.cjs'],
+	ignorePatterns: ['*.cjs', '*.config.js'],
 	overrides: [
 		{
 			files: ['*.svelte'],
@@ -30,6 +30,7 @@ module.exports = {
 			rules: {
 				'import/first': 'off',
 				'import/no-duplicates': 'off',
+				'import/no-named-as-default': 'off',
 				'@typescript-eslint/no-unsafe-member-access': 'off',
 				'@typescript-eslint/no-unsafe-assignment': 'off',
 				'@typescript-eslint/no-unsafe-call': 'off',

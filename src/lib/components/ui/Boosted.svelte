@@ -11,7 +11,7 @@
 		lookbody: number;
 		looklegs: number;
 		lookfeet: number;
-		lookmount: number;
+		lookmount: number | null;
 	} | null = null;
 </script>
 
