@@ -14,6 +14,7 @@
   - Added the required column `id` to the `player_spells` table without a default value. This is not possible if the table is not empty.
   - Added the required column `id` to the `player_stash` table without a default value. This is not possible if the table is not empty.
   - Added the required column `id` to the `player_taskhunt` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `id` to the `player_wheeldata` table without a default value. This is not possible if the table is not empty.
   - Added the required column `id` to the `tile_store` table without a default value. This is not possible if the table is not empty.
 
 */
@@ -67,21 +68,15 @@ ALTER TABLE `player_taskhunt` ADD COLUMN `id` INTEGER NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`id`);
 
 -- AlterTable
-ALTER TABLE `players` ADD COLUMN `pronoun` INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE `player_wheeldata` ADD COLUMN `id` INTEGER NOT NULL AUTO_INCREMENT,
+    ADD PRIMARY KEY (`id`);
+
+-- AlterTable
+ALTER TABLE `players` ADD COLUMN `is_main` BOOLEAN NOT NULL DEFAULT false;
 
 -- AlterTable
 ALTER TABLE `tile_store` ADD COLUMN `id` INTEGER NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`id`);
-
--- CreateTable
-CREATE TABLE `player_wheeldata` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `player_id` INTEGER NOT NULL,
-    `slot` BLOB NOT NULL,
-
-    INDEX `player_id`(`player_id`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `account_sessions` (
@@ -92,14 +87,29 @@ CREATE TABLE `account_sessions` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `slender_news` (
+    `id` VARCHAR(191) NOT NULL,
+    `published_at` BIGINT UNSIGNED NOT NULL,
+    `published` BOOLEAN NOT NULL DEFAULT false,
+    `title` VARCHAR(255) NOT NULL,
+    `content` TEXT NOT NULL,
+    `author_id` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- CreateIndex
 CREATE UNIQUE INDEX `accounts_email_unique` ON `accounts`(`email`);
 
--- AddForeignKey
-ALTER TABLE `players` ADD CONSTRAINT `players_town_id_fkey` FOREIGN KEY (`town_id`) REFERENCES `towns`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+-- CreateIndex
+CREATE INDEX `deletion` ON `players`(`deletion`);
 
 -- AddForeignKey
-ALTER TABLE `player_wheeldata` ADD CONSTRAINT `player_wheeldata_players_fk` FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `players_online` ADD CONSTRAINT `players_online_player_id_fkey` FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `account_sessions` ADD CONSTRAINT `account_sessions_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `slender_news` ADD CONSTRAINT `slender_news_author_id_fkey` FOREIGN KEY (`author_id`) REFERENCES `players`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
