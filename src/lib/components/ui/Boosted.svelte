@@ -16,7 +16,12 @@
 </script>
 
 {#if boosted}
-	<div class="relative w-16 h-16" use:tooltip={{ content: boosted.boostname }}>
+	<div
+		class="relative w-16 h-16"
+		use:tooltip={{
+			content: boosted.boostname,
+			offset: 20,
+		}}>
 		<div class="w-full h-full bg-surface-500/30 rounded-full blur-sm" />
 		<div class="absolute -left-7 bottom-0">
 			<img
