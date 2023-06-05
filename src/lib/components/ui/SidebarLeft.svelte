@@ -47,7 +47,7 @@
 </div>
 
 <div
-	class="card bg-tertiary-500 dark:bg-tertiary-800 text-white card-hover overflow-hidden">
+	class="card bg-tertiary-500 dark:bg-tertiary-800 text-white overflow-hidden">
 	<article class="py-2 px-2">
 		<Accordion>
 			<AccordionItem>

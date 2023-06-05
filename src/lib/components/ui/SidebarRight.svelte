@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="card bg-tertiary-500 dark:bg-tertiary-800 card-hover overflow-hidden text-white">
+	class="card bg-tertiary-500 dark:bg-tertiary-800 overflow-hidden text-white">
 	<header class="py-2 px-4">
 		<h6 class="h6">Highscores</h6>
 	</header>
