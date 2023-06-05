@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { faLevelUp, faMedal } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
+	import { tooltip } from 'svooltip';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
 	import { type Player, vocationString } from '$lib/players';
@@ -30,8 +31,12 @@
 					outfit={character}
 					alt={character.name}
 					class="scale-75" />
-				<span class="flex flex-col">
-					<span class="text-sm font-semibold">{character.name}</span>
+				<span class="flex flex-col w-24">
+					<span
+						class="text-sm font-semibold overflow-clip overflow-ellipsis whitespace-nowrap w-full"
+						use:tooltip={{ content: character.name }}>
+						{character.name}
+					</span>
 					<span class="text-xs font-light flex flex-row items-center gap-1"
 						>{vocationString(character.vocation)}
 						<Fa icon={faLevelUp} />

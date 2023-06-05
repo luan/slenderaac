@@ -96,7 +96,7 @@
 			</div>
 		{/if}
 
-		<div class="px-4 pt-2 pb-4 overflow-y-auto">
+		<div class="px-4 pt-2 pb-2 overflow-y-auto">
 			<slot />
 		</div>
 	</main>

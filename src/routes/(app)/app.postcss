@@ -86,3 +86,19 @@ body {
 .divider {
 	@apply !border-t-2 !border-secondary-900/30 m-2 rounded-full;
 }
+
+.table-container {
+	@apply ring-surface-500 ring-2;
+}
+
+.table thead {
+	@apply bg-surface-500-400-token;
+}
+
+.table tbody {
+	@apply bg-surface-300-600-token;
+}
+
+.table tbody > *:nth-child(even) {
+	@apply bg-surface-400-500-token;
+}

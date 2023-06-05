@@ -46,13 +46,13 @@
 <style lang="postcss">
 	.data-table {
 		@apply flex flex-col gap-0 items-center justify-center justify-items-center;
-		@apply !bg-surface-300 dark:!bg-surface-700 border-surface-500 border-2;
+		@apply bg-surface-300-600-token border-surface-500 border-2;
 	}
 	.data-row {
 		@apply flex flex-row items-center w-full;
 	}
 	.data-row:nth-child(even) {
-		@apply !bg-surface-400 dark:!bg-surface-600;
+		@apply bg-surface-400-500-token;
 	}
 	.data-row dt,
 	.data-row dd {

@@ -14,6 +14,10 @@ export type Player = {
 	lastLogin: Date | null;
 } & Outfit;
 
+export type PlayerWithRank = Player & {
+	rank: number;
+};
+
 export enum PlayerSex {
 	Female = 0,
 	Male,

@@ -1,16 +1,9 @@
 <script lang="ts">
-	import { faCircle, faDiamond } from '@fortawesome/free-solid-svg-icons';
-	import { cubicInOut } from 'svelte/easing';
-	import { fly } from 'svelte/transition';
-	import Fa from 'svelte-fa';
-	import { tooltip } from 'svooltip';
-
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
-	import { getPronoun, vocationString } from '$lib/players';
+	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
 	import { debounce } from '$lib/utils';
 
 	import type { LayoutData } from './$types';
@@ -60,64 +53,7 @@
 			placeholder="Search..." />
 	</label>
 
-	<div class="table-container">
-		<table class="table table-hover table-fixed">
-			<thead class="!bg-surface-600 dark:!bg-surface-800">
-				<tr class="[&>th]:!p-2">
-					<th class="w-20">Outfit</th>
-					<th>Name</th>
-					<th class="w-24">Level</th>
-					<th class="w-32">Vocation</th>
-				</tr>
-			</thead>
-			<tbody
-				class="!bg-surface-400 dark:!bg-surface-600 transition-all duration-300 ease-in-out">
-				{#each results as character}
-					<a
-						href="/characters/{character.name}"
-						class="table-row [&>td]:!align-middle hover:!bg-surface-500 cursor-pointer"
-						on:click={() => (searchInput = '')}
-						transition:fly|local={{
-							duration: 300,
-							y: -20,
-							easing: cubicInOut,
-						}}>
-						<td>
-							<AnimatedOutfit outfit={character} alt={character.name} />
-						</td>
-						<td>
-							<div class="flex flex-col">
-								<span class="font-semibold flex flex-row gap-1 items-center">
-									{#if character.online}
-										<span
-											class="text-success-600"
-											use:tooltip={{ content: 'Online' }}>
-											<Fa icon={faCircle} size="xs" />
-										</span>
-									{:else}
-										<span
-											class="text-error-600"
-											use:tooltip={{ content: 'Offline' }}>
-											<Fa icon={faCircle} size="xs" />
-										</span>
-									{/if}
-									{character.name}
-									<em class="font-light">({getPronoun(character)})</em>
-									{#if character.isMain}
-										<span
-											class="text-xs text-success-800"
-											use:tooltip={{ content: 'Main Character' }}>
-											<Fa icon={faDiamond} />
-										</span>
-									{/if}
-								</span>
-							</div>
-						</td>
-						<td>{character.level}</td>
-						<td>{vocationString(character.vocation)}</td>
-					</a>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+	<CharactersTable
+		characters={results}
+		on:selected={() => (searchInput = '')} />
 </div>
