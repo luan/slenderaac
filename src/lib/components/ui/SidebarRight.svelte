@@ -8,7 +8,7 @@
 	export let highscores: Player[] = [];
 </script>
 
-<div class="card card-tertiary card-hover overflow-hidden">
+<div class="card card-tertiary overflow-hidden">
 	<header
 		class="flex flex-row justify-center items-center gap-2 py-1 px-2 variant-filled-secondary rounded-t-md">
 		<Fa icon={faMedal} />
