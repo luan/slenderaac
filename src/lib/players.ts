@@ -133,17 +133,17 @@ export function outfitURL({
 	...params
 }: {
 	looktype: number;
-	lookaddons: number;
-	lookhead: number;
-	lookbody: number;
-	looklegs: number;
-	lookfeet: number;
-	mount: number;
-	resize: boolean;
+	lookaddons?: number;
+	lookhead?: number;
+	lookbody?: number;
+	looklegs?: number;
+	lookfeet?: number;
+	mount?: number;
+	resize?: boolean;
 }): string {
 	const search = new URLSearchParams();
 	for (const [key, value] of Object.entries(params)) {
-		search.append(key, value.toString());
+		search.append(key, (value ?? 0).toString());
 	}
 	if (resize) {
 		search.append('resize', '1');

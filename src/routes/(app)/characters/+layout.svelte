@@ -9,7 +9,8 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	import { getPronoun, outfitURL, vocationString } from '$lib/players';
+	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
+	import { getPronoun, vocationString } from '$lib/players';
 	import { debounce } from '$lib/utils';
 
 	import type { LayoutData } from './$types';
@@ -82,23 +83,7 @@
 							easing: cubicInOut,
 						}}>
 						<td>
-							<div class="relative">
-								<div class="absolute -left-8 -bottom-5">
-									<img
-										class="w-20 h-20"
-										src={outfitURL({
-											looktype: character.looktype,
-											lookaddons: character.lookaddons,
-											lookhead: character.lookhead,
-											lookbody: character.lookbody,
-											looklegs: character.looklegs,
-											lookfeet: character.lookfeet,
-											mount: character.player_storage[0]?.value ?? 0,
-											resize: true,
-										})}
-										alt="{character.name}'s outfit" />
-								</div>
-							</div>
+							<AnimatedOutfit outfit={character} alt={character.name} />
 						</td>
 						<td class="flex flex-col">
 							<span class="font-semibold flex flex-row gap-1 items-center">
