@@ -48,7 +48,7 @@
 <div class="card card-tertiary text-white overflow-hidden">
 	<article class="py-2 px-2">
 		<Accordion>
-			<AccordionItem>
+			<AccordionItem open>
 				<svelte:fragment slot="lead"><Fa icon={faNewspaper} /></svelte:fragment>
 				<svelte:fragment slot="summary">News</svelte:fragment>
 				<svelte:fragment slot="content">
@@ -61,7 +61,7 @@
 					</nav>
 				</svelte:fragment>
 			</AccordionItem>
-			<AccordionItem>
+			<AccordionItem open>
 				<svelte:fragment slot="lead"
 					><Fa icon={faPeopleArrows} /></svelte:fragment>
 				<svelte:fragment slot="summary">Community</svelte:fragment>
@@ -79,7 +79,7 @@
 					</nav>
 				</svelte:fragment>
 			</AccordionItem>
-			<AccordionItem>
+			<AccordionItem open>
 				<svelte:fragment slot="lead"
 					><Fa icon={faBookBookmark} /></svelte:fragment>
 				<svelte:fragment slot="summary">Library</svelte:fragment>
@@ -94,7 +94,7 @@
 					</nav>
 				</svelte:fragment>
 			</AccordionItem>
-			<AccordionItem>
+			<AccordionItem open>
 				<svelte:fragment slot="lead"><Fa icon={faGifts} /></svelte:fragment>
 				<svelte:fragment slot="summary">Shop</svelte:fragment>
 				<svelte:fragment slot="content">
@@ -105,7 +105,6 @@
 					</nav>
 				</svelte:fragment>
 			</AccordionItem>
-			<!-- ... -->
 		</Accordion>
 	</article>
 </div>
