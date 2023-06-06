@@ -17,6 +17,7 @@
 
 {#if boosted}
 	<div
+		class="transition-all ease-in-out duration-300 hover:scale-110"
 		use:tooltip={{
 			content: boosted.boostname,
 			offset: 20,
