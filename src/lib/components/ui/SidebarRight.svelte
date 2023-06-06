@@ -20,11 +20,11 @@
 		{#each highscores as character, i}
 			<div class="flex flex-row items-center">
 				<span
-					class="badge-icon variant-filled"
-					class:bg-yellow-600={i === 0}
-					class:bg-slate-500={i === 1}
-					class:bg-amber-700={i === 2}
-					class:bg-stone-600={i >= 3}>
+					class="badge-icon variant-filled !text-white"
+					class:!bg-yellow-600={i === 0}
+					class:!bg-slate-500={i === 1}
+					class:!bg-amber-700={i === 2}
+					class:!bg-stone-600={i >= 3}>
 					{i + 1}
 				</span>
 				<AnimatedOutfit

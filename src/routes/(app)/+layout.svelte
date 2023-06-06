@@ -52,7 +52,7 @@
 			<div class="w-auto h-full flex items-end">
 				<div class="w-48">
 					<div
-						class="card !bg-tertiary-500/75 dark:!bg-tertiary-800/75 card-hover overflow-hidden backdrop-blur-sm rounded-full">
+						class="card !bg-tertiary-500/75 dark:!bg-tertiary-800/75 card-hover overflow-visible backdrop-blur-sm rounded-full">
 						<div class="py-4 px-6 flex flex-row justify-between">
 							<Boosted boosted={boostedCreature} />
 							<Boosted boosted={boostedBoss} />

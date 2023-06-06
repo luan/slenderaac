@@ -17,7 +17,7 @@
 	export { klass as class };
 </script>
 
-<div class="relative w-12 h-12 {klass}">
+<div class="relative w-12 h-12 {klass} overflow-visible">
 	<slot />
 	<div class="absolute -left-10 bottom-1">
 		<img

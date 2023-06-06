@@ -11,6 +11,7 @@ body {
 }
 
 body {
+	@apply transition-all;
 	background-image: url('/images/background-artwork.jpg'),
 		radial-gradient(
 			at 0% 0%,
@@ -34,7 +35,9 @@ body {
 }
 
 .dark body {
-	background-image: radial-gradient(
+	@apply backdrop-brightness-50;
+	background-image: url('/images/background-artwork.jpg'),
+		radial-gradient(
 			at 0% 0%,
 			rgb(var(--color-tertiary-800)) 0px,
 			transparent 100%
@@ -89,16 +92,54 @@ body {
 
 .table-container {
 	@apply ring-surface-500 ring-2;
+	@apply dark:ring-surface-800;
 }
 
 .table thead {
-	@apply bg-surface-500-400-token;
+	@apply bg-surface-100-800-token;
 }
 
 .table tbody {
-	@apply bg-surface-300-600-token;
+	@apply bg-surface-200-700-token;
 }
 
 .table tbody > *:nth-child(even) {
-	@apply bg-surface-400-500-token;
+	@apply bg-surface-300-600-token;
+}
+
+.data-table {
+	@apply flex flex-col gap-0 items-center justify-center justify-items-center;
+	@apply bg-surface-200-700-token;
+	@apply border-y-2 border-x border-surface-600 dark:border-surface-800;
+}
+.data-row {
+	@apply flex flex-row items-center w-full;
+}
+.data-row:nth-child(even) {
+	@apply bg-surface-300-600-token;
+}
+.data-row dt,
+.data-row dd {
+	@apply p-2;
+	@apply border-y-2 border-x border-surface-600 dark:border-surface-800;
+}
+.data-row dt {
+	@apply font-bold flex-1 text-right;
+	@apply border-t-0 border-l-0;
+}
+.data-row:last-child dt {
+	@apply border-b-0;
+}
+.data-row dd {
+	@apply flex-1;
+	@apply border-t-0 border-r-0;
+}
+.data-row:last-child dd {
+	@apply border-b-0;
+}
+.data-row:first-child {
+	@apply !rounded-t-lg;
+}
+.data-row:last-child {
+	@apply !rounded-b-lg;
 }
