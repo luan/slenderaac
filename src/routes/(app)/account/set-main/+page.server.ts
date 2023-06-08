@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
+import { requireLogin } from '$lib/server/session';
 
 import type { Actions, PageServerLoad } from './$types';
 
@@ -11,9 +12,8 @@ export const load = (() => {
 
 export const actions = {
 	default: async ({ locals, request }) => {
-		if (!locals.accountId) {
-			throw redirect(302, '/login');
-		}
+		requireLogin(locals);
+
 		const data = await request.formData();
 		const characterName = data.get('name');
 		invariant(characterName, 'Missing required fields');

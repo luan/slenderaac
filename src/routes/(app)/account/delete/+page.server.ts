@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
+import { requireLogin } from '$lib/server/session';
 import { hashPassword } from '$lib/server/utils';
 
 import type { Actions, PageServerLoad } from './$types';
@@ -18,9 +19,8 @@ export const load = (({ url }) => {
 
 export const actions = {
 	default: async ({ url, locals, request }) => {
-		if (!locals.accountId) {
-			throw redirect(302, '/login');
-		}
+		requireLogin(locals);
+
 		const data = await request.formData();
 		const password = data.get('password');
 		const characterName = url.searchParams.get('name');

@@ -40,7 +40,7 @@
 			>Content (<a
 				tabindex="-1"
 				href="https://markdoc.dev/docs/syntax"
-				class="underline cursor-pointer">markdoc</a
+				class="anchor cursor-pointer">markdoc</a
 			>)</span>
 		<CodeMirror
 			bind:value

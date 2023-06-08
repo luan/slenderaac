@@ -89,7 +89,7 @@
 		</AppBar>
 	</svelte:fragment>
 
-	<main class="my-2 card card-surface">
+	<main class="my-2 card card-surface transition-all">
 		{#if title.length > 0}
 			<div class="rounded-t-md px-4 py-1 bg-success-900 text-warning-400">
 				<h4 class="h4">{title}</h4>

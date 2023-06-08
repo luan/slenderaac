@@ -2,6 +2,7 @@ import { type Actions, fail, redirect } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
+import { requireLogin } from '$lib/server/session';
 import {
 	presenceValidator,
 	stringValidator,
@@ -11,9 +12,8 @@ import {
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
-	if (!locals.accountId) {
-		throw redirect(302, '/login');
-	}
+	requireLogin(locals, 'admin');
+
 	const author = await prisma.players.findFirst({
 		where: {
 			account_id: locals.accountId,
@@ -39,9 +39,7 @@ export const load = (async ({ locals }) => {
 
 export const actions = {
 	default: async ({ locals, request }) => {
-		if (!locals.accountId) {
-			throw redirect(302, '/login');
-		}
+		requireLogin(locals, 'admin');
 
 		const data = await request.formData();
 		const title = data.get('title');

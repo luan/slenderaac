@@ -1,4 +1,4 @@
-import type { Cookies } from '@sveltejs/kit';
+import { type Cookies, redirect } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
 import { isAccountType } from '$lib/accounts';
@@ -101,4 +101,10 @@ if (Date.now() > nextClean) {
 	setTimeout(async () => {
 		await clean();
 	}, 5000);
+}
+
+export function requireLogin(locals: App.Locals, _prefix = '') {
+	if (!locals.accountId) {
+		throw redirect(302, 'login' /* path.join('/', prefix, 'login') */); // TODO: admin specific login page
+	}
 }

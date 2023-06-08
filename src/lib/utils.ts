@@ -1,3 +1,6 @@
+import { faPaypal, faStripeS } from '@fortawesome/free-brands-svg-icons';
+import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
+
 import { PUBLIC_TITLE } from '$env/static/public';
 
 /**
@@ -57,14 +60,19 @@ export function deepMerge<
 
 /**
  * Formats a date string from bigint or number.
- * @param timestamp The date string to format.
+ * @param dateOrTimestamp The date string to format.
  * @returns The formatted date string.
  */
-export function formatDate(timestamp: bigint | number) {
-	if (typeof timestamp === 'bigint') timestamp = Number(timestamp);
-	if (timestamp > 100000000000) timestamp /= 1000;
+export function formatDate(dateOrTimestamp: Date | bigint | number | null) {
+	if (dateOrTimestamp === null) return 'Never';
+	if (typeof dateOrTimestamp === 'bigint')
+		dateOrTimestamp = Number(dateOrTimestamp);
+	if (dateOrTimestamp instanceof Date)
+		dateOrTimestamp = dateOrTimestamp.getTime();
+	if (dateOrTimestamp > 100000000000) dateOrTimestamp /= 1000;
+	if (dateOrTimestamp === 0) return 'Never';
 
-	return new Date(timestamp * 1000).toLocaleString();
+	return new Date(dateOrTimestamp * 1000).toLocaleString();
 }
 
 /**
@@ -99,4 +107,61 @@ export function parseDate(timestamp: bigint | number) {
 	if (timestamp > 100000000000) timestamp /= 1000;
 
 	return new Date(timestamp * 1000);
+}
+
+/**
+ * Format currency to string.
+ * @param amount The amount to format.
+ * @param currency The currency to format to.
+ * @returns The formatted currency string.
+ */
+export function formatCurrency(amount: number, currency: string) {
+	return new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency,
+	}).format(amount);
+}
+
+/**
+ * Groups an array of objects by a key.
+ * @param array The array to group.
+ * @param key The key to group by.
+ * @returns The grouped array.
+ */
+export function groupBy<T extends Record<string, unknown>>(
+	array: T[],
+	key: keyof T,
+): Record<string, T[]> {
+	return array.reduce((result, currentValue) => {
+		(result[currentValue[key] as string] ??= []).push(currentValue);
+		return result;
+	}, {} as Record<string, T[]>);
+}
+
+/**
+ * Gets the sumbol for a currency.
+ * @param currency The currency to get the symbol for.
+ * @returns The currency symbol.
+ */
+export function getCurrencySymbol(currency: string) {
+	return new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency,
+	}).formatToParts(1)[0].value;
+}
+
+/**
+ * Get the faIcon for a payment method.
+ * @param paymentMethod The payment method to get the faIcon for.
+ * @returns The faIcon.
+ */
+export function getPaymentMethodIcon(paymentMethod: string) {
+	switch (paymentMethod) {
+		case 'paypal':
+			return faPaypal;
+		case 'stripe':
+			return faStripeS;
+		default:
+			return faCreditCard;
+	}
 }

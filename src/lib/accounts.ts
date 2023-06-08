@@ -1,3 +1,10 @@
+export type AccountInfo = {
+	name: string;
+	email: string;
+	createdAt: Date;
+	lastLogin: Date;
+	coinsTransferable: number;
+};
 export enum AccountType {
 	Normal = 1,
 	Tutor,

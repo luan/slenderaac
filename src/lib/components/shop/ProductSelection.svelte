@@ -1,0 +1,45 @@
+<script lang="ts">
+	import { faCoins, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
+	import Fa from 'svelte-fa';
+
+	import type { CoinOffer } from '$lib/coinOffers';
+	import { getCurrencySymbol } from '$lib/utils';
+
+	export let offers: Record<string, CoinOffer[]>;
+
+	const currencyNames = new Intl.DisplayNames(['en'], { type: 'currency' });
+
+	let selectedCurrency = Object.keys(offers)[0] ?? 'USD';
+	export let value = '';
+</script>
+
+<div class="flex flex-col gap-4">
+	<h4 class="h4">Select quantity</h4>
+	{#if Object.keys(offers).length > 1}
+		<RadioGroup>
+			{#each Object.keys(offers) as currency}
+				<RadioItem
+					bind:group={selectedCurrency}
+					name="currency"
+					value={currency}>
+					{getCurrencySymbol(currency)}
+					{currencyNames.of(currency)}
+				</RadioItem>
+			{/each}
+		</RadioGroup>
+	{/if}
+
+	<RadioGroup display="flex-col">
+		{#each offers[selectedCurrency] as offer}
+			<RadioItem bind:group={value} name="offer" value={offer.id}>
+				<div class="flex flex-row gap-2 items-center p-1">
+					<Fa icon={faCoins} />
+					{offer.amount} coins
+					<Fa icon={faMoneyBill} />
+					{offer.price}
+				</div>
+			</RadioItem>
+		{/each}
+	</RadioGroup>
+</div>

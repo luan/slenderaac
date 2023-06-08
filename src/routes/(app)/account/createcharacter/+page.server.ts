@@ -4,6 +4,7 @@ import invariant from 'tiny-invariant';
 import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
+import { requireLogin } from '$lib/server/session';
 import {
 	nameValidator,
 	presenceValidator,
@@ -19,9 +20,7 @@ export const load = (() => {
 
 export const actions = {
 	default: async ({ locals, request }) => {
-		if (!locals.accountId) {
-			throw redirect(302, '/login');
-		}
+		requireLogin(locals);
 
 		const data = await request.formData();
 		const characterName = data.get('characterName');

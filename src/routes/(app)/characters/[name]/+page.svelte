@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getPronoun, sexString, vocationString } from '$lib/players';
+	import { formatDate } from '$lib/utils';
 
 	import type { PageData } from './$types';
 
@@ -35,7 +36,7 @@
 		<div class="data-row">
 			<dt>Last login</dt>
 			<dd>
-				{character.lastLogin ? character.lastLogin.toLocaleString() : 'Never'}
+				{formatDate(character.lastLogin)}
 			</dd>
 		</div>
 	</div>
