@@ -1,7 +1,6 @@
-/*place global styles here */
 html,
 body {
-	@apply h-full;
+	@apply min-h-[100vh];
 }
 
 @font-face {
@@ -54,16 +53,12 @@ body {
 		);
 }
 
-.card {
-	@apply bg-surface-300 dark:bg-surface-900;
-}
-
 .card-surface {
-	@apply bg-surface-300 dark:bg-surface-900;
+	@apply !bg-surface-300 dark:!bg-surface-900;
 }
 
 .card-tertiary {
-	@apply bg-tertiary-500 dark:bg-tertiary-800 text-white;
+	@apply !bg-tertiary-500 dark:!bg-tertiary-800 text-white;
 }
 
 .accordion-control {

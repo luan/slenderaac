@@ -10,7 +10,6 @@
 	export let form: ActionData;
 
 	async function close() {
-		console.log('close');
 		await goto('/account');
 	}
 </script>

@@ -14,7 +14,6 @@ export const load = (async ({ params, url }) => {
 	}
 	const page = Number(url.searchParams.get('page')) || 1;
 	const skip = page * take - take;
-	console.log('load', { params, url, take, page, skip });
 	const characters = await prisma.players.findMany({
 		where: {
 			group_id: {

@@ -9,3 +9,5 @@
 
 <AccountInfoBox account={data.account} />
 <AccountCharacters characters={data.characters} />
+
+<slot />
