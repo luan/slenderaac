@@ -18,7 +18,7 @@
 	export let status: CoinOrderStatus;
 	export let amount: number;
 
-	const MAX_TRIES = 2;
+	const MAX_TRIES = 10;
 	let tries = 0;
 
 	onMount(() => {
