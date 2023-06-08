@@ -26,6 +26,7 @@ specifiers:
   canvas: ^2.11.2
   codemirror: ^6.0.1
   date-fns: ^2.30.0
+  dotenv: ^16.1.4
   eslint: ^8.42.0
   eslint-config-prettier: ^8.6.0
   eslint-import-resolver-typescript: ^3.5.3
@@ -72,6 +73,7 @@ dependencies:
   canvas: 2.11.2
   codemirror: 6.0.1
   date-fns: 2.30.0
+  dotenv: 16.1.4
   gifencoder: 2.0.1
   js-yaml: 4.1.0
   stripe-event-types: 2.3.0_stripe@12.8.0
@@ -1599,6 +1601,11 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dotenv/16.1.4:
+    resolution: {integrity: sha512-m55RtE8AsPeJBpOIFKihEmqUcoVncQIwo7x9U8ZwLEZw9ZpXboz2c+rvog+jUaJvVrZ5kBOeYQBX5+8Aa/OZQw==}
+    engines: {node: '>=12'}
+    dev: false
 
   /electron-to-chromium/1.4.419:
     resolution: {integrity: sha512-jdie3RiEgygvDTyS2sgjq71B36q2cDSBfPlwzUyuOrfYTNoYWyBxxjGJV/HAu3A2hB0Y+HesvCVkVAFoCKwCSw==}
