@@ -28,7 +28,7 @@ function getFilesSync(dir: string): string[] {
 }
 
 function generateCacheIfNeeded(): boolean {
-	if (existsSync(CACHE_FILE_PATH)) {
+	if (!existsSync(CACHE_FILE_PATH)) {
 		const dirIterator = getFilesSync(outfitImagesPath);
 		const outfits: { [outfitId: string]: OutfitData } = {};
 		const frameNumbers = Array(10).fill(0);
