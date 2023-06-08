@@ -2,7 +2,7 @@ import type { Handle } from '@sveltejs/kit';
 
 import { AccountType, isAccountType } from '$lib/accounts';
 import { prisma } from '$lib/server/prisma';
-import { getSession } from '$lib/server/session';
+import { getSession, requireLogin } from '$lib/server/session';
 
 const unauthorized = new Response(null, {
 	status: 401,
@@ -25,6 +25,7 @@ export const handle = (async ({ event, resolve }) => {
 	}
 
 	if (url.pathname.startsWith('/admin')) {
+		requireLogin(event.locals, 'admin');
 		const account = await prisma.accounts.findUnique({
 			where: { id: event.locals.accountId },
 			select: { type: true },

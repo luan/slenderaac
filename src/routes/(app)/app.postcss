@@ -53,15 +53,15 @@ body {
 		);
 }
 
-.card-surface {
-	@apply !bg-surface-300 dark:!bg-surface-900;
+.cardd.card-surface {
+	@apply bg-surface-300 dark:bg-surface-900;
 }
 
-.card-tertiary {
-	@apply !bg-tertiary-500 dark:!bg-tertiary-800 text-white;
+.card.card-tertiary {
+	@apply bg-tertiary-500 dark:bg-tertiary-800 text-white;
 }
 
-.accordion-control {
+.accordion-item .accordion-control {
 	@apply bg-slate-700 rounded-md px-2 py-1;
 }
 
@@ -69,7 +69,7 @@ body {
 	@apply px-4 py-1 w-full;
 }
 
-.accordion-panel .list-nav a:hover {
+.card-tertiary .accordion-panel .list-nav a:hover {
 	@apply bg-tertiary-400;
 }
 

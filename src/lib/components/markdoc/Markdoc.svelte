@@ -1,5 +1,8 @@
 <script lang="ts">
-	import * as Markdoc from '@markdoc/markdoc';
+	import {
+		type Config as MarkdocConfig,
+		default as Markdoc,
+	} from '@markdoc/markdoc';
 
 	import Callout from '$lib/components/markdoc/Callout.svelte';
 	import { deepMerge } from '$lib/utils';
@@ -23,7 +26,7 @@
 		},
 	};
 	export let content = '';
-	export let config: Markdoc.Config = {};
+	export let config: MarkdocConfig = {};
 	let components = new Map([['Callout', Callout]]);
 
 	const ast = Markdoc.parse(content);

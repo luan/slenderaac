@@ -1,8 +1,10 @@
 <!-- adapted from https://github.com/movingbrands/svelte-portable-text -->
 <script lang="ts">
-	import type { RenderableTreeNode } from '@markdoc/markdoc';
 	import type { SvelteComponent } from 'svelte';
-	import * as Markdoc from '@markdoc/markdoc';
+	import {
+		default as Markdoc,
+		type RenderableTreeNode,
+	} from '@markdoc/markdoc';
 
 	export let node: RenderableTreeNode;
 	export let components: Map<string, typeof SvelteComponent>;

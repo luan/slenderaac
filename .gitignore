@@ -10,4 +10,4 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 /outfits_anim
-cache_generated.txt
+cache.generated.txt
