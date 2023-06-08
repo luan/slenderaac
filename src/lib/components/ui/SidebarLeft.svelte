@@ -11,6 +11,7 @@
 	import { PUBLIC_DOWNLOAD_URL } from '$env/static/public';
 
 	export let isLoggedIn = false;
+	export let staticPages: { title: string; slug: string }[];
 </script>
 
 <div class="card card-tertiary card-hover overflow-hidden">
@@ -86,10 +87,11 @@
 				<svelte:fragment slot="content">
 					<nav class="list-nav">
 						<ul>
-							<!-- <li><a href="#">Server info</a></li>
-							<li><a href="#">Loyalty</a></li>
-							<li><a href="#">Commands</a></li>
-							<li><a href="#">Rules</a></li> -->
+							{#each staticPages as page}
+								<li>
+									<a href={`/pages/${page.slug}`}>{page.title}</a>
+								</li>
+							{/each}
 						</ul>
 					</nav>
 				</svelte:fragment>

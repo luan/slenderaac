@@ -12,8 +12,12 @@
 		offset,
 		shift,
 	} from '@floating-ui/dom';
-	import { faHome, faNewspaper } from '@fortawesome/free-solid-svg-icons';
-	import { AppShell } from '@skeletonlabs/skeleton';
+	import {
+		faBookBookmark,
+		faHome,
+		faNewspaper,
+	} from '@fortawesome/free-solid-svg-icons';
+	import { AppShell, Modal } from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 
@@ -30,14 +34,20 @@
 	<title>{browserTitle(title, { admin: true })}</title>
 </svelte:head>
 
+<Modal />
+
 <AppShell
 	slotSidebarLeft="bg-surface-500/5 w-56 p-4"
 	regionPage="gap-2 max-w-5xl">
 	<svelte:fragment slot="sidebarLeft">
 		<nav class="list-nav">
 			<ul class="[&_a]:flex [&_a]:flex-row [&_a]:gap-2 [&_a]:items-center">
-				<li><a href="/admin/"><Fa icon={faHome} />Home</a></li>
-				<li><a href="/admin/news/"><Fa icon={faNewspaper} />News</a></li>
+				<li><a href="/admin"><Fa icon={faHome} />Home</a></li>
+				<li><a href="/admin/news"><Fa icon={faNewspaper} />News</a></li>
+				<li>
+					<a href="/admin/static-pages"
+						><Fa icon={faBookBookmark} />Static Pages</a>
+				</li>
 			</ul>
 		</nav>
 	</svelte:fragment>

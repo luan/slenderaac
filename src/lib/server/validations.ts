@@ -1,3 +1,5 @@
+import invariant from 'tiny-invariant';
+
 import { toProperCase, toTitleCase } from '$lib/utils';
 
 export type ValidationRules = Record<
@@ -31,6 +33,24 @@ export function stringValidator(value: unknown) {
 	if (value && typeof value !== 'string') {
 		return ':field must be a string';
 	}
+	return null;
+}
+
+export function slugValidator(value: unknown) {
+	invariant(typeof value === 'string', 'Slug must be a string');
+	if (value.length < 3) {
+		return ':field must be at least 3 characters';
+	}
+	if (value.length > 20) {
+		return ':field must be no more than 20 characters';
+	}
+	if (value !== value.toLowerCase()) {
+		return ':field must be in lowercase';
+	}
+	if (!/^[a-z0-9-]+$/.test(value)) {
+		return ':field must only contain lowercase letters, numbers, and hyphens';
+	}
+
 	return null;
 }
 

@@ -16,7 +16,7 @@
 		<span class="flex flex-row gap-2 items-center">
 			<Fa icon={faCalendar} size="xs" />
 			<span class="text-sm text-secondary-50"
-				>{formatDate(article.published_at)}</span>
+				>{formatDate(article.created_at)}</span>
 			<strong>{article.title}</strong>
 		</span>
 		<em class="text-sm">

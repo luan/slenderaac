@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { SlideToggle } from '@skeletonlabs/skeleton';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { modalStore, SlideToggle } from '@skeletonlabs/skeleton';
+
+	import { enhance } from '$app/forms';
+
+	import { formatDate } from '$lib/utils';
 
 	import type { PageData } from './$types';
 
@@ -20,6 +25,23 @@
 			}
 		};
 	}
+
+	async function awaitConfirmation(): Promise<boolean> {
+		return new Promise((resolve) => {
+			modalStore.trigger({
+				type: 'confirm',
+				title: 'Delete?',
+				body: 'Are you sure you wish to proceed?',
+				response: (r: boolean) => resolve(r),
+			});
+		});
+	}
+
+	const submitDeletion: SubmitFunction = async ({ cancel }) => {
+		if (!(await awaitConfirmation())) {
+			cancel();
+		}
+	};
 </script>
 
 <h1 class="h1">News</h1>
@@ -33,7 +55,7 @@
 				<th class="w-48">Author</th>
 				<th class="w-48">Date</th>
 				<th class="w-16">Published?</th>
-				<th class="w-16">Actions</th>
+				<th class="w-32">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,7 +63,7 @@
 				<tr class="[&>td]:!align-middle">
 					<td>{news.title}</td>
 					<td>{news.author.name}</td>
-					<td>{new Date(Number(news.published_at)).toLocaleString()}</td>
+					<td>{formatDate(news.created_at)}}</td>
 					<td
 						><SlideToggle
 							name="slide"
@@ -49,11 +71,14 @@
 							on:change={updatePublished(news.id, news.published)} />
 					</td>
 					<td>
-						<div class="flex flex-col items-center gap-1">
+						<div class="flex flex-row items-center gap-2">
 							<a
 								href="/admin/news/{news.id}"
 								class="btn btn-sm variant-filled-primary">Edit</a>
-							<form action="/admin/news/{news.id}" method="post">
+							<form
+								action="/admin/news/{news.id}"
+								method="post"
+								use:enhance={submitDeletion}>
 								<input type="hidden" name="_method" value="DELETE" />
 								<button type="submit" class="btn btn-sm variant-filled-error"
 									>Delete</button>

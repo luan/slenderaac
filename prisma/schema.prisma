@@ -761,15 +761,28 @@ model AccountSessions {
 }
 
 model News {
-  id           String  @id @default(cuid())
-  published_at BigInt  @db.UnsignedBigInt // TODO: Change to DateTime
-  published    Boolean @default(false)
-  title        String  @db.VarChar(255)
-  content      String  @db.Text
-  author       Players @relation(fields: [author_id], references: [id])
-  author_id    Int
+  id         String   @id @default(cuid())
+  published  Boolean  @default(false)
+  title      String   @db.VarChar(255)
+  content    String   @db.Text
+  author     Players  @relation(fields: [author_id], references: [id])
+  author_id  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 
   @@map("slender_news")
+}
+
+model StaticPage {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title      String   @db.VarChar(255)
+  content    String   @db.Text
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+  order      Int      @default(0)
+
+  @@map("slender_static_pages")
 }
 
 model CoinOffers {

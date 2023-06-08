@@ -3,15 +3,19 @@ import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
-import { stringValidator, validate } from '$lib/server/validations';
+import {
+	slugValidator,
+	stringValidator,
+	validate,
+} from '$lib/server/validations';
 
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (({ params }) => {
-	const news = prisma.news.findFirst({
+	const staticPage = prisma.staticPage.findFirst({
 		where: { id: params.id },
 	});
-	return { news };
+	return { staticPage };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -21,17 +25,18 @@ export const actions = {
 		const data = await request.formData();
 		const method = data.get('_method');
 		if (method === 'DELETE') {
-			await prisma.news.delete({ where: { id: params.id } });
-			throw redirect(302, '/admin/news');
+			await prisma.staticPage.delete({ where: { id: params.id } });
+			throw redirect(302, '/admin/static-pages');
 		}
 
 		const title = data.get('title');
 		const content = data.get('content');
-		const published = data.get('published');
+		const slug = data.get('slug');
 
 		const errors = validate(
 			{
 				title: [stringValidator],
+				slug: [stringValidator, slugValidator],
 				content: [stringValidator],
 			},
 			data,
@@ -47,43 +52,29 @@ export const actions = {
 		if (content) {
 			invariant(typeof content === 'string', 'Name must be a string');
 		}
-
-		const author = await prisma.players.findFirst({
-			where: {
-				account_id: locals.accountId,
-				is_main: true,
-			},
-		});
-
-		if (!author) {
-			return fail(400, {
-				invalid: true,
-				errors: { global: ['No main character found'] } as Record<
-					string,
-					string[]
-				>,
-			});
+		if (slug) {
+			invariant(typeof slug === 'string', 'Slug must be a string');
 		}
 
 		try {
-			await prisma.news.update({
+			await prisma.staticPage.update({
 				where: { id: params.id },
 				data: {
 					...(title ? { title } : {}),
+					...(slug ? { slug } : {}),
 					...(content ? { content } : {}),
-					published: published === 'on',
 				},
 			});
 		} catch (e) {
 			console.error(e);
 			return fail(500, {
-				errors: { global: ['Failed to update news article'] } as Record<
+				errors: { global: ['Failed to update static page'] } as Record<
 					string,
 					string[]
 				>,
 			});
 		}
 
-		throw redirect(302, '/admin/news');
+		throw redirect(302, '/admin/static-pages');
 	},
 } satisfies Actions;

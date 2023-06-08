@@ -5,36 +5,16 @@ import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
 import {
 	presenceValidator,
+	slugValidator,
 	stringValidator,
 	validate,
 } from '$lib/server/validations';
 
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ locals }) => {
+export const load = (({ locals }) => {
 	requireLogin(locals, 'admin');
-
-	const author = await prisma.players.findFirst({
-		where: {
-			account_id: locals.accountId,
-			is_main: true,
-		},
-		select: {
-			name: true,
-		},
-	});
-
-	if (!author) {
-		return fail(400, {
-			invalid: true,
-			errors: { global: ['No main character found'] } as Record<
-				string,
-				string[]
-			>,
-		});
-	}
-
-	return { author };
+	return {};
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -42,12 +22,13 @@ export const actions = {
 		requireLogin(locals, 'admin');
 
 		const data = await request.formData();
+		const slug = data.get('slug');
 		const title = data.get('title');
 		const content = data.get('content');
-		const published = data.get('published');
 
 		const errors = validate(
 			{
+				slug: [presenceValidator, stringValidator, slugValidator],
 				title: [presenceValidator, stringValidator],
 				content: [presenceValidator, stringValidator],
 			},
@@ -58,46 +39,29 @@ export const actions = {
 			return fail(400, { invalid: true, errors: errors });
 		}
 
-		invariant(title && content, 'Missing required fields');
+		invariant(title && content && slug, 'Missing required fields');
 		invariant(typeof title === 'string', 'Name must be a string');
 		invariant(typeof content === 'string', 'Name must be a string');
-
-		const author = await prisma.players.findFirst({
-			where: {
-				account_id: locals.accountId,
-				is_main: true,
-			},
-		});
-
-		if (!author) {
-			return fail(400, {
-				invalid: true,
-				errors: { global: ['No main character found'] } as Record<
-					string,
-					string[]
-				>,
-			});
-		}
+		invariant(typeof slug === 'string', 'Slug must be a string');
 
 		try {
-			await prisma.news.create({
+			await prisma.staticPage.create({
 				data: {
 					title,
 					content,
-					published: published === 'on',
-					author_id: author.id,
+					slug,
 				},
 			});
 		} catch (e) {
 			console.error(e);
 			return fail(500, {
-				errors: { global: ['Failed to create news article'] } as Record<
+				errors: { global: ['Failed to create static page'] } as Record<
 					string,
 					string[]
 				>,
 			});
 		}
 
-		throw redirect(302, '/admin/news');
+		throw redirect(302, '/admin/static-pages');
 	},
 } satisfies Actions;

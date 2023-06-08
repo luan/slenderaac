@@ -20,11 +20,15 @@ export const load = (async ({ locals }) => {
 
 	const boostedBoss = await prisma.boostedBoss.findFirst();
 	const boostedCreature = await prisma.boostedCreature.findFirst();
+	const staticPages = await prisma.staticPage.findMany({
+		orderBy: { order: 'asc' },
+	});
 
 	return {
 		highscores: highscores.map(dbToPlayer),
 		boostedBoss,
 		boostedCreature,
 		isLoggedIn: Boolean(locals.email),
+		staticPages,
 	};
 }) satisfies LayoutServerLoad;

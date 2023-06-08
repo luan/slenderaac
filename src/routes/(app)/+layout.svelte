@@ -34,6 +34,7 @@
 
 	$: ({ highscores, isLoggedIn, boostedBoss, boostedCreature } = data);
 	$: title = typeof $page.data.title === 'string' ? $page.data.title : '';
+	$: staticPages = data.staticPages;
 </script>
 
 <svelte:head>
@@ -63,7 +64,7 @@
 		</div>
 	</svelte:fragment>
 	<nav class="mx-4 mt-2 w-48 flex flex-col gap-2" slot="sidebarLeft">
-		<SidebarLeft {isLoggedIn} />
+		<SidebarLeft {isLoggedIn} {staticPages} />
 	</nav>
 	<nav class="mx-4 mt-2 w-48 flex flex-col gap-2" slot="sidebarRight">
 		<SidebarRight {highscores} />

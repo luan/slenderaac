@@ -15,7 +15,7 @@ export const load = (async () => {
 			},
 		},
 		orderBy: {
-			published_at: 'desc',
+			created_at: 'desc',
 		},
 		take: 5,
 	});

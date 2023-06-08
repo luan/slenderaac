@@ -13,10 +13,10 @@ export const load = (async () => {
 				},
 			},
 			published: true,
-			published_at: true,
+			created_at: true,
 		},
 		orderBy: {
-			published_at: 'desc',
+			created_at: 'desc',
 		},
 	});
 
