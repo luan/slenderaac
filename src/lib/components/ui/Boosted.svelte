@@ -1,25 +1,19 @@
 <script lang="ts">
 	import { tooltip } from 'svooltip';
 
+	import type { BoostedProps } from '$lib/boosted';
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
+	import { toProperCase } from '$lib/utils';
 
-	export let boosted: {
-		boostname: string | null;
-		looktype: number;
-		lookaddons: number;
-		lookhead: number;
-		lookbody: number;
-		looklegs: number;
-		lookfeet: number;
-		lookmount: number | null;
-	} | null = null;
+	export let kind: 'boss' | 'creature' = 'boss';
+	export let boosted: BoostedProps | null = null;
 </script>
 
 {#if boosted}
 	<div
 		class="transition-all ease-in-out duration-300 hover:scale-110"
 		use:tooltip={{
-			content: boosted.boostname,
+			content: `Boosted ${toProperCase(kind)}: ${boosted.boostname ?? ''}`,
 			offset: 20,
 		}}>
 		<AnimatedOutfit

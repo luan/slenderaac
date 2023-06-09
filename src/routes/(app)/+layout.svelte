@@ -22,7 +22,6 @@
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	import Boosted from '$lib/components/ui/Boosted.svelte';
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
 	import { browserTitle } from '$lib/utils';
@@ -30,6 +29,7 @@
 	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
 
 	import type { LayoutData } from './$types';
+	import BoostedSection from '../../lib/components/ui/BoostedSection.svelte';
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
@@ -61,13 +61,7 @@
 	bgBackdrop="bg-tertiary-900/50 backdrop-blur-sm">
 	<div class="flex flex-col items-stretch gap-2 p-2 pt-4">
 		<SidebarLeft {isLoggedIn} {staticPages} />
-		<div
-			class="card !bg-tertiary-500/75 dark:!bg-tertiary-800/75 card-hover overflow-visible backdrop-blur-sm rounded-full">
-			<div class="py-4 px-6 flex flex-row justify-between">
-				<Boosted boosted={boostedCreature} />
-				<Boosted boosted={boostedBoss} />
-			</div>
-		</div>
+		<BoostedSection {boostedCreature} {boostedBoss} />
 		<SidebarRight {highscores} />
 	</div>
 </Drawer>
@@ -94,13 +88,7 @@
 			</div>
 			<svelte:fragment slot="trail">
 				<div class="hidden lg:block w-48">
-					<div
-						class="card !bg-tertiary-500/75 dark:!bg-tertiary-800/75 card-hover overflow-visible backdrop-blur-sm rounded-full">
-						<div class="py-4 px-6 flex flex-row justify-between">
-							<Boosted boosted={boostedCreature} />
-							<Boosted boosted={boostedBoss} />
-						</div>
-					</div>
+					<BoostedSection {boostedCreature} {boostedBoss} />
 				</div>
 				<div class="block lg:hidden">
 					<LightSwitch />
