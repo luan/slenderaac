@@ -20,13 +20,15 @@
 <div class="relative w-12 h-12 {klass} overflow-visible">
 	<slot />
 	<div class="absolute -left-10 bottom-1">
-		<img
-			class="w-20 h-20"
-			src={outfitURL({
-				...outfit,
-				mount: outfit.mount ?? outfit.lookmount ?? 0,
-				resize: true,
-			})}
-			{alt} />
+		{#if outfit.looktype > 0}
+			<img
+				class="w-20 h-20"
+				src={outfitURL({
+					...outfit,
+					mount: outfit.mount ?? outfit.lookmount ?? 0,
+					resize: true,
+				})}
+				{alt} />
+		{/if}
 	</div>
 </div>
