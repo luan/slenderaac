@@ -7,7 +7,9 @@
 	export let data: LayoutData;
 </script>
 
-<AccountInfoBox account={data.account} />
-<AccountCharacters characters={data.characters} />
+<div class="flex flex-col gap-2">
+	<AccountInfoBox account={data.account} />
+	<AccountCharacters characters={data.characters} />
+</div>
 
 <slot />

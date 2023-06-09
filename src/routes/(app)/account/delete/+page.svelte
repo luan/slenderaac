@@ -22,7 +22,7 @@
 		{/if}
 
 		<h4 class="h4">Are you sure you want to delete "{data.name}"?</h4>
-		<div class="w-full px-32">
+		<div class="w-full">
 			<TextField
 				type="password"
 				name="password"

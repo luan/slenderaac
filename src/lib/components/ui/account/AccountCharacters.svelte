@@ -14,8 +14,8 @@
 	<h3 class="h3">Characters</h3>
 
 	<div class="table-container">
-		<table class="table table-hover table-fixed">
-			<thead class="!bg-surface-600 dark:!bg-surface-800">
+		<table class="table table-hover table-auto">
+			<thead>
 				<tr class="[&>th]:!p-2">
 					<th class="w-10" />
 					<th class="w-20">Outfit</th>
@@ -23,7 +23,7 @@
 					<th class="w-48" />
 				</tr>
 			</thead>
-			<tbody class="!bg-surface-400 dark:!bg-surface-600">
+			<tbody>
 				{#each characters as character, i}
 					<tr class="[&>td]:!align-middle">
 						<td>{i + 1}</td>

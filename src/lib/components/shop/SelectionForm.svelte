@@ -17,7 +17,11 @@
 
 <header class="step-header text-2xl font-bold">Select amount of coins</header>
 
-<form method="post" action="?/createIntent" use:enhance>
+<form
+	class="flex flex-col gap-2"
+	method="post"
+	action="?/createIntent"
+	use:enhance>
 	<input type="hidden" name="offerId" value={offerId} />
 	<input type="hidden" name="paymentMethod" value={paymentMethod} />
 	<div class="flex flex-row justify-between items-baseline">

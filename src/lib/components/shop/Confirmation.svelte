@@ -82,20 +82,20 @@
 	{headerText}
 </header>
 <ProgressBar
-	meter="{meterClass} transition-all duration-1000"
+	meter="{meterClass} transition-all duration-500"
 	max={1}
 	value={processing ? undefined : 1} />
 <div
-	class="transition-all duration-1000 placeholder flex flex-row items-center justify-center {textClass}"
+	class="transition-all duration-500 placeholder flex flex-row items-center justify-center {textClass}"
 	class:animate-pulse={processing}>
 	{#if !processing}
-		<span transition:fade={{ duration: 1000 }}>
+		<span transition:fade={{ duration: 500 }}>
 			<Fa {icon} class="text-3xl" />
 		</span>
 	{/if}
 </div>
 {#if !processing}
-	<div class="py-4 px-8 text-center" transition:slide={{ duration: 1000 }}>
+	<div class="py-4 px-8 text-center" transition:slide={{ duration: 500 }}>
 		{#if !isFinal}
 			Processing your order is taking longer than expected, please reach us at <a
 				href="mailto:{PUBLIC_SUPPORT_EMAIL}"
@@ -112,8 +112,9 @@
 			credited with the coins.
 		{/if}
 	</div>
-	<div class="flex flex-row w-full justify-between">
-		<a href="/shop/coin" class="btn variant-filled">Go back to the shop</a>
+	<div class="flex flex-row w-full justify-between gap-2">
+		<a href="/shop/coins" class="btn variant-filled whitespace-normal"
+			>Go back to the shop</a>
 		<a href="/account" class="btn variant-filled-primary">My Account</a>
 	</div>
 {/if}

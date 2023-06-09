@@ -30,7 +30,7 @@
 </script>
 
 <div class="table-container">
-	<table class="table table-hover table-fixed">
+	<table class="table table-hover table-auto">
 		<thead>
 			<tr class="[&>th]:!p-2">
 				{#if ranked}
@@ -46,7 +46,7 @@
 			{#each characters as character}
 				<a
 					href="/characters/{character.name}"
-					class="table-row [&>td]:!align-middle hover:!bg-surface-200-700-token cursor-pointer"
+					class="table-row [&>td]:!align-middle cursor-pointer"
 					on:click={selected}
 					transition:fly|local={{
 						duration: 300,
@@ -59,8 +59,8 @@
 					<td>
 						<AnimatedOutfit outfit={character} alt={character.name} />
 					</td>
-					<td>
-						<div class="flex flex-col">
+					<td class=" w-fit">
+						<div class="flex flex-col w-fit">
 							<span class="font-semibold flex flex-row gap-1 items-center">
 								{#if character.online}
 									<span

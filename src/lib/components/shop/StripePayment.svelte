@@ -76,7 +76,11 @@
 			bind:elements
 			{clientSecret}
 			theme="flat"
-			variables={{ colorPrimary: '#000000aa' }}>
+			labels="floating"
+			variables={{
+				colorPrimary: '#000000aa',
+				colorBackground: 'var(--color-surface-800)',
+			}}>
 			<LinkAuthenticationElement defaultValues={{ email }} />
 
 			<PaymentRequestButton
@@ -90,7 +94,7 @@
 			<PaymentElement />
 		</Elements>
 		<div
-			class="flex justify-between gap-4 items-center p-4 px-12 text-sm italic">
+			class="flex justify-between gap-4 items-center p-4 lg:px-12 text-sm italic">
 			<span class="text-success-600-300-token">
 				<Fa icon={faLock} />
 			</span>

@@ -53,7 +53,7 @@ body {
 		);
 }
 
-.cardd.card-surface {
+.card.card-surface {
 	@apply bg-surface-300 dark:bg-surface-900;
 }
 
@@ -85,52 +85,44 @@ body {
 	@apply !border-t-2 !border-secondary-900/30 m-2 rounded-full;
 }
 
-.table-container {
-	@apply ring-surface-500 ring-2;
-	@apply dark:ring-surface-800;
+.table-container .table {
+	@apply rounded-none;
+}
+
+.table-container,
+.data-table {
+	@apply ring-0 border-2 border-surface-600;
 }
 
 .table thead {
-	@apply bg-surface-100-800-token;
+	@apply bg-surface-500 dark:bg-surface-800;
 }
 
-.table tbody {
-	@apply bg-surface-200-700-token;
+.table tbody,
+.data-table {
+	@apply bg-surface-400 dark:bg-surface-700;
 }
 
-.table tbody > *:nth-child(even) {
-	@apply bg-surface-300-600-token;
+.table tbody > *:nth-child(even),
+.data-row:nth-child(even) {
+	@apply !bg-surface-500 dark:!bg-surface-800;
 }
 
 .data-table {
 	@apply flex flex-col gap-0 items-center justify-center justify-items-center;
-	@apply bg-surface-200-700-token;
-	@apply border-y-2 border-x border-surface-600 dark:border-surface-800;
 }
 .data-row {
-	@apply flex flex-row items-center w-full;
-}
-.data-row:nth-child(even) {
-	@apply bg-surface-300-600-token;
+	@apply flex flex-row items-stretch w-full;
 }
 .data-row dt,
 .data-row dd {
 	@apply p-2;
-	@apply border-y-2 border-x border-surface-600 dark:border-surface-800;
 }
 .data-row dt {
 	@apply font-bold flex-1 text-right;
-	@apply border-t-0 border-l-0;
-}
-.data-row:last-child dt {
-	@apply border-b-0;
 }
 .data-row dd {
 	@apply flex-1;
-	@apply border-t-0 border-r-0;
-}
-.data-row:last-child dd {
-	@apply border-b-0;
 }
 .data-row:first-child {
 	@apply !rounded-t-lg;
