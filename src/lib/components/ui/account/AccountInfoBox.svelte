@@ -10,7 +10,7 @@
 <div class="flex flex-col gap-2">
 	<h3 class="h3">General Information</h3>
 
-	<div class="card data-table">
+	<div class="data-table">
 		<div class="data-row">
 			<dt>Name</dt>
 			<dd>{account.name}</dd>

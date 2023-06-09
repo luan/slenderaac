@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
 html,
 body {
 	@apply min-h-[100vh];
@@ -53,84 +58,87 @@ body {
 		);
 }
 
-.card.card-surface {
-	@apply bg-surface-300 dark:bg-surface-900;
-}
+@layer components {
+	.card.card-surface {
+		@apply bg-surface-300 dark:bg-surface-900;
+	}
 
-.card.card-tertiary {
-	@apply bg-tertiary-500 dark:bg-tertiary-800 text-white;
-}
+	.card.card-tertiary {
+		@apply bg-tertiary-500 dark:bg-tertiary-800 text-white;
+	}
 
-.accordion-item .accordion-control {
-	@apply bg-slate-700 rounded-md px-2 py-1;
-}
+	.accordion-item .accordion-control {
+		@apply bg-slate-700 rounded-md px-2 py-1;
+	}
 
-.accordion-panel .list-nav a {
-	@apply px-4 py-1 w-full;
-}
+	.accordion-panel .list-nav a {
+		@apply px-4 py-1 w-full;
+	}
 
-.card-tertiary .accordion-panel .list-nav a:hover {
-	@apply bg-tertiary-400;
-}
+	.card-tertiary .accordion-panel .list-nav a:hover {
+		@apply bg-tertiary-400;
+	}
 
-.accordion-panel {
-	@apply px-0;
-}
+	.accordion-panel {
+		@apply px-0;
+	}
 
-.input-error {
-	@apply border-2 border-error-500;
-}
+	.input-error {
+		@apply border-2 border-error-500;
+	}
 
-.divider {
-	@apply !border-t-2 !border-secondary-900/30 m-2 rounded-full;
-}
+	.divider {
+		@apply !border-t-2 !border-secondary-900/30 m-2 rounded-full;
+	}
 
-.table-container .table {
-	@apply rounded-none;
-}
+	.table-container .table {
+		@apply rounded-none;
+	}
 
-.table-container,
-.data-table {
-	@apply ring-0 border-2 border-surface-600;
-}
+	.table-container,
+	.data-table {
+		@apply rounded-container-token;
+		@apply ring-0 border-2 border-surface-600;
+	}
 
-.table thead {
-	@apply bg-surface-500 dark:bg-surface-800;
-}
+	.table-container .table thead {
+		@apply bg-surface-500 dark:bg-surface-800;
+	}
 
-.table tbody,
-.data-table {
-	@apply bg-surface-400 dark:bg-surface-700;
-}
+	.table-container .table tbody,
+	.data-table {
+		@apply bg-surface-400 dark:bg-surface-700;
+	}
 
-.table tbody > *:nth-child(even),
-.data-row:nth-child(even) {
-	@apply !bg-surface-500 dark:!bg-surface-800;
-}
+	.table-container .table tbody > *:nth-child(even),
+	.data-row:nth-child(even) {
+		@apply !bg-surface-500 dark:!bg-surface-800;
+	}
 
-.data-table {
-	@apply flex flex-col gap-0 items-center justify-center justify-items-center;
-}
-.data-row {
-	@apply flex flex-row items-stretch w-full;
-}
-.data-row dt,
-.data-row dd {
-	@apply p-2;
-}
-.data-row dt {
-	@apply font-bold flex-1 text-right;
-}
-.data-row dd {
-	@apply flex-1;
-}
-.data-row:first-child {
-	@apply !rounded-t-lg;
-}
-.data-row:last-child {
-	@apply !rounded-b-lg;
-}
+	.data-table {
+		@apply flex flex-col gap-0 items-center justify-center justify-items-center;
+	}
+	.data-row {
+		@apply flex flex-row items-stretch w-full;
+	}
+	.data-row dt,
+	.data-row dd {
+		@apply p-2;
+	}
+	.data-row dt {
+		@apply font-bold flex-1 text-right;
+	}
+	.data-row dd {
+		@apply flex-1;
+	}
+	.data-row:first-child {
+		@apply !rounded-t-lg;
+	}
+	.data-row:last-child {
+		@apply !rounded-b-lg;
+	}
 
-.placeholder {
-	@apply bg-surface-400-500-token;
+	.placeholder {
+		@apply bg-surface-400-500-token;
+	}
 }

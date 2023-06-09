@@ -10,7 +10,7 @@
 </script>
 
 {#if character}
-	<div class="card data-table">
+	<div class="data-table">
 		<div class="data-row">
 			<dt>Name</dt>
 			<dd>
