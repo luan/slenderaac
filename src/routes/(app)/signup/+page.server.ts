@@ -4,7 +4,7 @@ import invariant from 'tiny-invariant';
 import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
-import { performLogin } from '$lib/server/session';
+import { performLogin, requireLogin } from '$lib/server/session';
 import { hashPassword } from '$lib/server/utils';
 import {
 	nameValidator,
@@ -16,9 +16,7 @@ import {
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (({ locals }) => {
-	if (locals.email) {
-		throw redirect(302, '/');
-	}
+	requireLogin(locals);
 	return { title: 'Create Account' };
 }) satisfies PageServerLoad;
 

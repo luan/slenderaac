@@ -4,7 +4,7 @@ import invariant from 'tiny-invariant';
 import { isAccountType } from '$lib/accounts';
 import { prisma } from '$lib/server/prisma';
 
-type SessionInfo = {
+export type SessionInfo = {
 	accountId: number;
 	email: string;
 	expires: bigint;
@@ -104,7 +104,7 @@ if (Date.now() > nextClean) {
 }
 
 export function requireLogin(locals: App.Locals, _prefix = '') {
-	if (!locals.accountId) {
+	if (!locals.session) {
 		throw redirect(302, '/login' /* path.join('/', prefix, 'login') */); // TODO: admin specific login page
 	}
 }

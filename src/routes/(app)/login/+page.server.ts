@@ -13,7 +13,7 @@ import {
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = ({ locals }) => {
-	if (locals.email) {
+	if (locals.session) {
 		throw redirect(302, '/');
 	}
 

@@ -20,7 +20,7 @@ export const actions = {
 		invariant(typeof characterName === 'string', 'Name must be a string');
 
 		const existingPlayer = await prisma.players.findFirst({
-			where: { name: characterName, account_id: locals.accountId },
+			where: { name: characterName, account_id: locals.session?.accountId },
 		});
 		if (!existingPlayer) {
 			return fail(400, {
@@ -32,7 +32,10 @@ export const actions = {
 
 		await prisma.$transaction([
 			prisma.players.updateMany({
-				where: { account_id: locals.accountId, id: { not: existingPlayer.id } },
+				where: {
+					account_id: locals.session?.accountId,
+					id: { not: existingPlayer.id },
+				},
 				data: { is_main: false },
 			}),
 			prisma.players.update({

@@ -28,7 +28,8 @@ export const load = (async ({ locals }) => {
 		highscores: highscores.map(dbToPlayer),
 		boostedBoss,
 		boostedCreature,
-		isLoggedIn: Boolean(locals.email),
+		isLoggedIn: Boolean(locals.session),
 		staticPages,
+		flash: locals.flash,
 	};
 }) satisfies LayoutServerLoad;

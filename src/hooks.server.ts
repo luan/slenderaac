@@ -1,5 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 
+import type { Flash } from '$lib/server/flash';
 import { AccountType, isAccountType } from '$lib/accounts';
 import { prisma } from '$lib/server/prisma';
 import { getSession, requireLogin } from '$lib/server/session';
@@ -17,23 +18,28 @@ export const handle = (async ({ event, resolve }) => {
 	if (sid) {
 		const session = await getSession(sid);
 		if (session) {
-			event.locals.accountId = session.accountId;
-			event.locals.email = session.email;
+			event.locals.session = session;
 		} else {
 			cookies.delete('sid');
 		}
+	}
+	const flashJSON = cookies.get('flashMessage');
+	if (flashJSON) {
+		const flashMessage = JSON.parse(flashJSON) as Flash;
+		event.locals.flash = flashMessage;
+		cookies.delete('flashMessage');
 	}
 
 	if (url.pathname.startsWith('/admin')) {
 		requireLogin(event.locals, 'admin');
 		const account = await prisma.accounts.findUnique({
-			where: { id: event.locals.accountId },
+			where: { id: event.locals.session?.accountId },
 			select: { type: true },
 		});
 		if (!account || !isAccountType(account.type)) {
 			return unauthorized;
 		}
-		if (!event.locals.accountId || account.type !== AccountType.God) {
+		if (!event.locals.session?.accountId || account.type !== AccountType.God) {
 			return unauthorized;
 		}
 	}

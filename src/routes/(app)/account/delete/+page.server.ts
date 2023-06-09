@@ -1,6 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
+import { redirectWithFlash } from '$lib/server/flash';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
 import { hashPassword } from '$lib/server/utils';
@@ -18,7 +19,7 @@ export const load = (({ url }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ url, locals, request }) => {
+	default: async ({ url, cookies, locals, request }) => {
 		requireLogin(locals);
 
 		const data = await request.formData();
@@ -28,10 +29,13 @@ export const actions = {
 		const undelete = url.searchParams.get('cancel');
 		if (undelete === 'true') {
 			await prisma.players.updateMany({
-				where: { name: characterName, account_id: locals.accountId },
+				where: { name: characterName, account_id: locals.session?.accountId },
 				data: { deletion: 0 },
 			});
-			throw redirect(302, '/account');
+			redirectWithFlash('/account', cookies, {
+				type: 'success',
+				message: 'Character deletion cancelled',
+			});
 		}
 
 		invariant(password, 'Missing required fields');
@@ -39,7 +43,10 @@ export const actions = {
 		invariant(typeof password === 'string', 'Password must be a string');
 
 		const account = await prisma.accounts.findFirst({
-			where: { id: locals.accountId, password: hashPassword(password) },
+			where: {
+				id: locals.session?.accountId,
+				password: hashPassword(password),
+			},
 		});
 
 		if (!account) {
@@ -51,7 +58,7 @@ export const actions = {
 		}
 
 		const existingPlayer = await prisma.players.findFirst({
-			where: { name: characterName, account_id: locals.accountId },
+			where: { name: characterName, account_id: locals.session?.accountId },
 		});
 		if (!existingPlayer) {
 			return fail(400, {
@@ -76,7 +83,7 @@ export const actions = {
 		if (existingPlayer.is_main) {
 			const otherCharacter = await prisma.players.findFirst({
 				where: {
-					account_id: locals.accountId,
+					account_id: locals.session?.accountId,
 					is_main: false,
 					deletion: 0,
 				},
@@ -93,6 +100,9 @@ export const actions = {
 
 		await prisma.$transaction(ops);
 
-		throw redirect(302, '/account');
+		redirectWithFlash('/account', cookies, {
+			type: 'success',
+			message: `Character ${characterName} scheduled for deletion`,
+		});
 	},
 } satisfies Actions;

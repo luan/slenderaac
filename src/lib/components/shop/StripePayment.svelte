@@ -4,7 +4,7 @@
 		faCartShopping,
 		faLock,
 	} from '@fortawesome/free-solid-svg-icons';
-	import { ProgressRadial, Toast, toastStore } from '@skeletonlabs/skeleton';
+	import { ProgressRadial, toastStore } from '@skeletonlabs/skeleton';
 	import {
 		loadStripe,
 		type Stripe,
@@ -63,8 +63,6 @@
 		}
 	}
 </script>
-
-<Toast />
 
 {#if stripe}
 	<form on:submit|preventDefault={submitPayment} class="flex flex-col gap-2">

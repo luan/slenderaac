@@ -106,7 +106,8 @@
 	</div>
 
 	<div class="flex flex-row justify-end">
-		<a href="/account/createcharacter" class="btn btn-sm variant-filled-primary"
-			>New Character</a>
+		<a
+			href="/account/create-character"
+			class="btn btn-sm variant-filled-primary">New Character</a>
 	</div>
 </div>

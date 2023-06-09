@@ -10,7 +10,7 @@ export const load = (async ({ locals }) => {
 
 	const account = await prisma.accounts.findUniqueOrThrow({
 		where: {
-			id: locals.accountId,
+			id: locals.session?.accountId,
 		},
 		select: {
 			name: true,

@@ -50,7 +50,7 @@ export const actions = {
 
 		const author = await prisma.players.findFirst({
 			where: {
-				account_id: locals.accountId,
+				account_id: locals.session?.accountId,
 				is_main: true,
 			},
 		});

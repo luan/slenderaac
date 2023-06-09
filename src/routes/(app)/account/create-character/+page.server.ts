@@ -1,7 +1,8 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
 import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
+import { redirectWithFlash } from '$lib/server/flash';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
@@ -19,7 +20,7 @@ export const load = (() => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ locals, request }) => {
+	default: async ({ cookies, locals, request }) => {
 		requireLogin(locals);
 
 		const data = await request.formData();
@@ -65,7 +66,7 @@ export const actions = {
 		try {
 			await prisma.players.create({
 				data: {
-					account_id: locals.accountId,
+					account_id: locals.session?.accountId,
 					...characterInput,
 				},
 			});
@@ -79,6 +80,9 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, '/account');
+		redirectWithFlash('/account', cookies, {
+			message: `Character ${characterName} created!`,
+			type: 'success',
+		});
 	},
 } satisfies Actions;

@@ -1,12 +1,12 @@
-import type { AccountType } from '$lib/accounts';
+import type { Flash } from '$lib/server/flash';
+import type { SessionInfo } from '$lib/server/session';
 
 declare global {
 	declare namespace App {
 		// interface Error {}
 		interface Locals {
-			accountId?: number;
-			email?: string;
-			type?: AccountType;
+			session?: SessionInfo;
+			flash?: Flash;
 		}
 		// interface PageData {}
 		// interface Platform {}

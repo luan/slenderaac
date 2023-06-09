@@ -14,11 +14,18 @@
 	} from '@floating-ui/dom';
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 	import { faBars } from '@fortawesome/free-solid-svg-icons';
-	import { AppBar, AppShell, LightSwitch } from '@skeletonlabs/skeleton';
+	import {
+		AppBar,
+		AppShell,
+		LightSwitch,
+		Toast,
+		toastStore,
+	} from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 
+	import { browser } from '$app/environment';
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 
@@ -48,12 +55,24 @@
 
 	afterNavigate(() => {
 		drawerClose();
+		if (browser && data.flash) {
+			const { message, type: flashType } = data.flash;
+			toastStore.trigger({
+				message: message,
+				background: `${
+					flashType === 'success' ? 'bg-success-800' : 'bg-error-800'
+				} text-white`,
+			});
+			data.flash = undefined;
+		}
 	});
 </script>
 
 <svelte:head>
 	<title>{browserTitle(title)}</title>
 </svelte:head>
+
+<Toast />
 
 <Drawer
 	width="w-56"

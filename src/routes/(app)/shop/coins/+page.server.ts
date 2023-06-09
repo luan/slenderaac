@@ -92,7 +92,7 @@ export const load = (async ({ locals, url, depends }) => {
 		step,
 		offers,
 		enabledPaymentMethods,
-		accountEmail: locals.email,
+		accountEmail: locals.session?.email,
 		offerId,
 		token,
 		clientSecret,
@@ -107,8 +107,7 @@ export const load = (async ({ locals, url, depends }) => {
 export const actions = {
 	createIntent: async ({ locals, request }) => {
 		requireLogin(locals);
-		invariant(locals.email, 'No email found in locals');
-		invariant(locals.accountId, 'No accountId found in locals');
+		invariant(locals.session, 'No session found in locals');
 
 		const data = await request.formData();
 		const offerId = data.get('offerId');
@@ -134,7 +133,10 @@ export const actions = {
 
 		switch (paymentMethod) {
 			case 'stripe':
-				({ token, clientSecret } = await handleStripe(locals.email, offer));
+				({ token, clientSecret } = await handleStripe(
+					locals.session.email,
+					offer,
+				));
 				break;
 			default:
 				throw error(422, { message: 'Invalid payment method' });
@@ -145,7 +147,7 @@ export const actions = {
 
 		await prisma.coinOrders.create({
 			data: {
-				account: { connect: { id: locals.accountId } },
+				account: { connect: { id: locals.session?.accountId } },
 				price: offer.price,
 				currency: offer.currency,
 				amount: offer.amount,
