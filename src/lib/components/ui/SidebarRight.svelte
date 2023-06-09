@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { faLevelUp, faMedal } from '@fortawesome/free-solid-svg-icons';
+	import { faMedal } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
 	import { tooltip } from 'svooltip';
 
@@ -18,7 +18,9 @@
 	<hr class="opacity-5" />
 	<article class="py-2 px-4 flex flex-col gap-2">
 		{#each highscores as character, i}
-			<div class="flex flex-row items-center">
+			<a
+				href="/characters/{character.name}"
+				class="flex flex-row items-center hover:bg-tertiary-400/50 -mx-4 px-4">
 				<span
 					class="badge-icon variant-filled !text-white"
 					class:!bg-yellow-600={i === 0}
@@ -37,15 +39,21 @@
 						use:tooltip={{ content: character.name }}>
 						{character.name}
 					</span>
-					<span class="text-xs font-light flex flex-row items-center gap-1"
-						>{vocationString(character.vocation)}
-						<Fa icon={faLevelUp} />
-						<span class="font-normal">
-							{character.level}
+					<span
+						class="font-light text-xs flex flex-col overflow-clip overflow-ellipsis whitespace-nowrap w-full">
+						<span>
+							Level: <span class="font-normal">{character.level}</span>
+						</span>
+						<span
+							use:tooltip={{
+								content: vocationString(character.vocation),
+								placement: 'bottom-start',
+							}}>
+							{vocationString(character.vocation)}
 						</span>
 					</span>
 				</span>
-			</div>
+			</a>
 		{/each}
 	</article>
 	<hr class="opacity-5" />
