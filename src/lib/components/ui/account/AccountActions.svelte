@@ -9,7 +9,7 @@
 			class="btn btn-sm variant-filled-primary">
 			Change Password
 		</a>
-		<a href="/account/change email" class="btn btn-sm variant-filled-primary">
+		<a href="/account/change-email" class="btn btn-sm variant-filled-primary">
 			Change Email
 		</a>
 	</div>

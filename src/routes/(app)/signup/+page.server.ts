@@ -7,6 +7,7 @@ import { prisma } from '$lib/server/prisma';
 import { performLogin, requireLogin } from '$lib/server/session';
 import { hashPassword } from '$lib/server/utils';
 import {
+	emailValidator,
 	nameValidator,
 	presenceValidator,
 	stringValidator,
@@ -33,7 +34,7 @@ export const actions = {
 		const errors = validate(
 			{
 				accountName: [presenceValidator, stringValidator],
-				email: [presenceValidator, stringValidator],
+				email: [presenceValidator, emailValidator],
 				password: [presenceValidator, stringValidator],
 				passwordConfirmation: [
 					presenceValidator,

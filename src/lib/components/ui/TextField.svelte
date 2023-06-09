@@ -11,6 +11,7 @@
 	function typeAction(node: HTMLInputElement) {
 		node.type = type;
 	}
+	$: error = (errors ?? [])[0];
 </script>
 
 <label
@@ -26,7 +27,7 @@
 		class:input-error={Boolean(errors)}
 		{autocomplete}
 		use:typeAction />
-	{#each errors ?? [] as error}
+	{#if error}
 		<p class="absolute top-full text-xs text-error-500-400-token">{error}</p>
-	{/each}
+	{/if}
 </label>

@@ -36,6 +36,16 @@ export function stringValidator(value: unknown) {
 	return null;
 }
 
+export function emailValidator(value: unknown) {
+	if (typeof value !== 'string') {
+		return ':field must be a string';
+	}
+	if (!/^[^@]+@[^@]+\.[^@]+$/.test(value)) {
+		return ':field must be a valid email address';
+	}
+	return null;
+}
+
 export function slugValidator(value: unknown) {
 	invariant(typeof value === 'string', 'Slug must be a string');
 	if (value.length < 3) {
