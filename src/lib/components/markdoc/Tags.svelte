@@ -32,8 +32,10 @@
 	<svelte:component this={components.get(nodeName(node))} {...node.attributes}>
 		<svelte:self node={node.children} {components} />
 	</svelte:component>
-{:else}
+{:else if node.children.length > 0}
 	<svelte:element this={node.name} {...node.attributes}>
 		<svelte:self node={node.children} {components} />
 	</svelte:element>
+{:else}
+	<svelte:element this={node.name} {...node.attributes} />
 {/if}

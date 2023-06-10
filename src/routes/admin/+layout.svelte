@@ -17,10 +17,11 @@
 		faHome,
 		faNewspaper,
 	} from '@fortawesome/free-solid-svg-icons';
-	import { AppShell, Modal } from '@skeletonlabs/skeleton';
+	import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 
+	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 
 	import { browserTitle } from '$lib/utils';
@@ -34,7 +35,14 @@
 	<title>{browserTitle(title, { admin: true })}</title>
 </svelte:head>
 
-<Modal />
+{#if browser}
+	<Modal />
+	<Toast
+		position="br"
+		rounded="rounded-full"
+		buttonDismiss="hidden"
+		spacing="gap-0" />
+{/if}
 
 <AppShell
 	slotSidebarLeft="bg-surface-500/5 w-56 p-4"

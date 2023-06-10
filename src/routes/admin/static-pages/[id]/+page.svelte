@@ -5,6 +5,8 @@
 
 	export let data: PageData;
 	export let form: ActionData;
+
+	$: staticPage = form?.staticPage ?? data.staticPage;
 </script>
 
-<StaticPageForm staticPage={data.staticPage} errors={form?.errors} />
+<StaticPageForm {staticPage} errors={form?.errors} />

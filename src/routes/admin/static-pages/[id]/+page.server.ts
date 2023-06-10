@@ -75,6 +75,10 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, '/admin/static-pages');
+		const staticPage = await prisma.staticPage.findFirst({
+			where: { id: params.id },
+		});
+
+		return { staticPage };
 	},
 } satisfies Actions;

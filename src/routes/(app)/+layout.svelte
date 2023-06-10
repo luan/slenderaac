@@ -79,7 +79,9 @@
 	<title>{browserTitle(title)}</title>
 </svelte:head>
 
-<Toast />
+{#if browser}
+	<Toast />
+{/if}
 
 <Drawer
 	width="w-56"

@@ -7,6 +7,8 @@
 	import Callout from '$lib/components/markdoc/Callout.svelte';
 	import { deepMerge } from '$lib/utils';
 
+	import { PUBLIC_BASE_URL, PUBLIC_TITLE } from '$env/static/public';
+
 	import Tags from './Tags.svelte';
 
 	const defaultConfig = {
@@ -26,7 +28,12 @@
 		},
 	};
 	export let content = '';
-	export let config: MarkdocConfig = {};
+	export let config: MarkdocConfig = {
+		variables: {
+			title: PUBLIC_TITLE,
+			baseUrl: PUBLIC_BASE_URL,
+		},
+	};
 	let components = new Map([['Callout', Callout]]);
 
 	const ast = Markdoc.parse(content);
@@ -34,7 +41,7 @@
 </script>
 
 {#if node}
-	<div class="prose">
+	<article class="prose dark:prose-invert">
 		<Tags {node} {components} />
-	</div>
+	</article>
 {/if}
