@@ -84,7 +84,10 @@
 	</div>
 </Drawer>
 
-<AppShell slotSidebarLeft="w-0 lg:w-56" slotSidebarRight="w-0 lg:w-56">
+<AppShell
+	slotSidebarLeft="w-0 lg:w-56"
+	slotSidebarRight="w-0 lg:w-56"
+	slotHeader="py-1">
 	<svelte:fragment slot="header">
 		<AppBar
 			background="variant-filled-secondary dark:lg:bg-transparent lg:bg-transparent"
@@ -127,7 +130,7 @@
 	<svelte:fragment slot="pageHeader">
 		<AppBar
 			padding="py-2 pl-2 pr-1"
-			class="hidden lg:block mt-2 text-white text-xs rounded-lg variant-filled-secondary"
+			class="hidden lg:block mt-2 text-white text-xs rounded-container-token variant-filled-secondary"
 			background="bg-secondary-500">
 			<svelte:fragment slot="lead">
 				<a
@@ -147,7 +150,8 @@
 
 	<main class="mx-2 lg:mx-0 my-2 card card-surface transition-all">
 		{#if title.length > 0}
-			<div class="rounded-t-md px-4 py-1 bg-success-900 text-warning-400">
+			<div
+				class="rounded-container-token px-4 py-1 bg-tertiary-900 text-warning-400">
 				<h4 class="h4">{title}</h4>
 			</div>
 		{/if}

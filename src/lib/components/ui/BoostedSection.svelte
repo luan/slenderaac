@@ -6,10 +6,7 @@
 	export let boostedBoss: BoostedProps | null;
 </script>
 
-<div
-	class="card !bg-tertiary-500/75 dark:!bg-tertiary-800/75 card-hover overflow-visible backdrop-blur-sm rounded-full">
-	<div class="py-4 px-6 flex flex-row justify-between">
-		<Boosted boosted={boostedCreature} kind="creature" />
-		<Boosted boosted={boostedBoss} kind="boss" />
-	</div>
+<div class="px-6 flex flex-row justify-between">
+	<Boosted boosted={boostedCreature} kind="creature" />
+	<Boosted boosted={boostedBoss} kind="boss" />
 </div>

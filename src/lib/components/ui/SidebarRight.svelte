@@ -11,7 +11,7 @@
 
 <div class="card card-tertiary overflow-hidden">
 	<header
-		class="flex flex-row justify-center items-center gap-2 py-1 px-2 variant-filled-secondary rounded-t-md">
+		class="flex flex-row justify-center items-center gap-2 py-1 px-2 variant-filled-secondary rounded-container-token">
 		<Fa icon={faMedal} />
 		<h6 class="h6">Highscores</h6>
 	</header>

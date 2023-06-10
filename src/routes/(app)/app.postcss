@@ -14,7 +14,15 @@ body {
 	font-display: swap;
 }
 
+@font-face {
+	/* Reference name */
+	font-family: 'Inter';
+	/* For multiple files use commas, ex: url(), url(), ... */
+	src: url('/fonts/Inter-VariableFont_slnt,wght.ttf');
+}
+
 body {
+	@apply backdrop-brightness-150;
 	@apply transition-all;
 	background-image: url('/images/background-artwork.jpg'),
 		radial-gradient(
@@ -68,7 +76,7 @@ body {
 	}
 
 	.accordion-item .accordion-control {
-		@apply bg-slate-700 rounded-md px-2 py-1;
+		@apply bg-tertiary-400 rounded-md px-2 py-1;
 	}
 
 	.accordion-panel .list-nav a {
