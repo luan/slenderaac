@@ -93,18 +93,17 @@
 			background="variant-filled-secondary dark:lg:bg-transparent lg:bg-transparent"
 			gridColumns="grid-cols-3"
 			slotDefault="place-self-center"
-			slotTrail="flex flex-col h-full justify-end !items-end">
+			slotLead="lg:w-48 flex items-center justify-center transition-all"
+			slotTrail="flex flex-col lg:h-full justify-end !items-end">
 			<svelte:fragment slot="lead">
-				<div class="lg:w-48 flex items-center justify-center transition-all">
-					<button class="lg:hidden btn btn-sm mr-4" on:click={drawerOpen}>
-						<Fa icon={faBars} />
-					</button>
-					<div class="lg:w-36 lg:h-32">
-						<img
-							src="/images/logo.png"
-							alt="logo"
-							class="hidden lg:block object-cover" />
-					</div>
+				<button class="lg:hidden btn btn-sm mr-4" on:click={drawerOpen}>
+					<Fa icon={faBars} />
+				</button>
+				<div class="lg:w-36 lg:h-32">
+					<img
+						src="/images/logo.png"
+						alt="logo"
+						class="hidden lg:block object-cover" />
 				</div>
 			</svelte:fragment>
 			<div class="flex lg:hidden items-center gap-2">
