@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 
-import { PlayerSex, vocationString } from '$lib/players';
+import { PlayerGroup, PlayerSex, vocationString } from '$lib/players';
 import { prisma } from '$lib/server/prisma';
 import { hashPassword } from '$lib/server/utils';
 
@@ -12,6 +12,12 @@ import {
 } from '$env/static/private';
 
 import type { RequestHandler } from './$types';
+
+type Params =
+	| {
+			type: 'cacheinfo' | 'boostedcreature' | 'eventschedule' | 'news';
+	  }
+	| LoginParams;
 
 interface LoginParams {
 	type: 'login';
@@ -30,7 +36,6 @@ interface LoginSession {
 	isreturner: boolean;
 	fpstracking: boolean;
 	optiontracking: boolean;
-	// tournamentticketpurchasestate: number;
 	emailcoderequest: boolean;
 }
 
@@ -47,9 +52,7 @@ interface LoginWorld {
 	location: string;
 	anticheatprotection: boolean;
 	pvptype: number;
-	// istournamentworld: boolean;
 	restrictedstore: boolean;
-	// currenttournamentphase: number;
 }
 
 interface LoginCharacter {
@@ -66,10 +69,8 @@ interface LoginCharacter {
 	detailcolor: number;
 	addonsflags: number;
 	ishidden: number;
-	// istournamentparticipant: boolean;
 	ismaincharacter: boolean;
 	dailyrewardstate: number;
-	// remainingdailytournamentplaytime: number;
 }
 
 interface LoginResponse {
@@ -86,14 +87,52 @@ interface ErrorResponse {
 }
 
 export const POST: RequestHandler = async ({ request }) => {
-	const params = (await request.json()) as LoginParams;
+	const params = (await request.json()) as Params;
 	switch (params.type) {
+		case 'news':
+			return json({});
+		case 'cacheinfo':
+			return json(await handleCacheInfo());
+		case 'boostedcreature':
+			return json(await handleBoostedCreature());
+		case 'eventschedule':
+			return json({});
 		case 'login':
 			return json(await handleLogin(params));
 		default:
-			return json({ errorCode: 1, errorMessage: 'Invalid request.' });
+			// eslint-disable-next-line no-case-declarations
+			const unknownParams: { type: string } = params;
+			// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+			throw new Error(`Unknown login type: ${unknownParams.type}`);
 	}
 };
+
+async function handleCacheInfo() {
+	const playersonline = await prisma.playerOnline.count({
+		where: { player: { group_id: { lt: PlayerGroup.Gamemaster } } },
+	});
+	return {
+		playersonline,
+		twitchstreams: 0,
+		twitchviewer: 0,
+		gamingyoutubestreams: 0,
+		gamingyoutubeviewer: 0,
+	};
+}
+
+async function handleBoostedCreature() {
+	const boostedCreature = await prisma.boostedCreature.findFirstOrThrow({
+		select: { raceid: true },
+	});
+	const boostedBoss = await prisma.boostedBoss.findFirstOrThrow({
+		select: { raceid: true },
+	});
+	return {
+		boostedcreature: true,
+		creatureraceid: Number(boostedCreature.raceid),
+		bossraceid: Number(boostedBoss.raceid),
+	};
+}
 
 async function handleLogin(
 	params: LoginParams,
