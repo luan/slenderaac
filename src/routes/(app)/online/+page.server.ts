@@ -1,10 +1,18 @@
-import { PlayerGroup, type PlayerWithRank } from '$lib/players';
+import invariant from 'tiny-invariant';
+
+import { PlayerGroup } from '$lib/players';
 import { dbToPlayer, PlayerSelectForList } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
+import { isOrder, isSort } from '$lib/sorting';
 
-import type { PageServerLoad } from './[skill]/$types';
+import type { PageServerLoad } from './$types';
 
-export const load = (async () => {
+export const load = (async ({ url }) => {
+	const sort = url.searchParams.get('sort') ?? 'name';
+	const order = url.searchParams.get('order') ?? 'asc';
+	invariant(isSort(sort), 'Invalid sort');
+	invariant(isOrder(order), 'Invalid order');
+
 	const characters = (
 		await prisma.playerOnline.findMany({
 			select: {
@@ -13,17 +21,14 @@ export const load = (async () => {
 				},
 			},
 			where: { player: { group_id: { lt: PlayerGroup.Gamemaster } } },
-			orderBy: { player: { name: 'asc' } },
+			orderBy: { player: { [sort]: order } },
 		})
 	).map(({ player }) => player);
 
 	return {
 		title: "Who's online?",
-		characters: characters.map(dbToPlayer).map(
-			(player, index): PlayerWithRank => ({
-				...player,
-				rank: index + 1,
-			}),
-		),
+		characters: characters.map(dbToPlayer),
+		sort,
+		order,
 	};
 }) satisfies PageServerLoad;

@@ -4,7 +4,9 @@
 	import { fly } from 'svelte/transition';
 	import invariant from 'tiny-invariant';
 
+	import type { Order, Sort } from '$lib/sorting';
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
+	import TableHeader from '$lib/components/ui/TableHeader.svelte';
 	import {
 		getPronoun,
 		type Player,
@@ -17,6 +19,8 @@
 
 	export let ranked = false;
 	export let characters: (PlayerWithRank | Player)[];
+	export let sort: Sort | null = null;
+	export let order: Order = 'asc';
 
 	const dispatch = createEventDispatcher();
 
@@ -37,9 +41,10 @@
 					<th class="w-20">Rank</th>
 				{/if}
 				<th class="w-20">Outfit</th>
-				<th>Name</th>
-				<th class="w-32">Vocation</th>
-				<th class="w-24">Level</th>
+				<TableHeader {sort} {order} col="name">Name</TableHeader>
+				<TableHeader {sort} {order} col="vocation" class="w-32"
+					>Vocation</TableHeader>
+				<TableHeader {sort} {order} col="level" class="w-24">Level</TableHeader>
 			</tr>
 		</thead>
 		<tbody class="transition-all duration-300 ease-in-out">

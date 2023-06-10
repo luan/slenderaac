@@ -4,8 +4,10 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
+	$: ({ characters, sort, order } = data);
 </script>
 
 <div class="flex flex-col gap-2">
-	<CharactersTable characters={data.characters} ranked />
+	<CharactersTable {characters} {sort} {order} />
 </div>
