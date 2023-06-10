@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
+import { sendVerificationEmail } from '$lib/server/email';
 import { redirectWithFlash } from '$lib/server/flash';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
@@ -67,23 +68,29 @@ export const actions = {
 			return fail(400, { invalid: true, errors: errors });
 		}
 
-		try {
+		if (!account.is_verified) {
 			await prisma.accounts.update({
 				where: { id: locals.session?.accountId },
 				data: { email: newEmail.toLowerCase() },
 			});
-		} catch (e) {
-			console.error(e);
-			return fail(500, {
-				errors: {
-					global: ['Failed to update email'],
-				} as Record<string, string[]>,
-			});
 		}
 
+		await prisma.emailVerification.deleteMany({
+			where: { account_id: account.id },
+		});
+		const verification = await prisma.emailVerification.create({
+			data: {
+				account_id: account.id,
+				expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+				new_email: newEmail.toLowerCase(),
+			},
+		});
+
+		await sendVerificationEmail(account.email, verification.token);
 		redirectWithFlash('/account', cookies, {
 			type: 'success',
-			message: 'Email changed successfully',
+			message:
+				'Email changed requested. Please check your email for a confirmation link.',
 		});
 	},
 } satisfies Actions;

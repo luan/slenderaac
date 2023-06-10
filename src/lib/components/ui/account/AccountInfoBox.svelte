@@ -23,6 +23,17 @@
 					<div class="text-error-500">
 						(unverified <a class="anchor" href="/account/resend">re-send</a>)
 					</div>
+				{:else if account.newEmail}
+					<div class="text-warning-800-100-token">
+						(verification pending for email change to {account.newEmail}
+						<a
+							class="anchor"
+							href="/account/resend"
+							data-sveltekit-preload-data="off"
+							data-sveltekit-preload-code="off"
+							data-sveltekit-reload>re-send</a
+						>)
+					</div>
 				{/if}
 			</dd>
 		</div>

@@ -11,6 +11,6 @@ export function redirectWithFlash(
 	flash: Flash,
 ) {
 	const maxAge = 1000 * 60;
-	cookies.set('flashMessage', JSON.stringify(flash), { maxAge });
+	cookies.set('flashMessage', JSON.stringify(flash), { maxAge, path: '/' });
 	throw redirect(302, path);
 }

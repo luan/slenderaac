@@ -63,7 +63,6 @@
 					flashType === 'success' ? 'bg-success-800' : 'bg-error-800'
 				} text-white`,
 			});
-			data.flash = undefined;
 		}
 	});
 </script>

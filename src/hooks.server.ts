@@ -23,6 +23,7 @@ export const handle = (async ({ event, resolve }) => {
 			cookies.delete('sid');
 		}
 	}
+	event.locals.flash = undefined;
 	const flashJSON = cookies.get('flashMessage');
 	if (flashJSON) {
 		const flashMessage = JSON.parse(flashJSON) as Flash;

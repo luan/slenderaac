@@ -838,6 +838,7 @@ model EmailVerification {
   account_id Int      @unique @db.UnsignedInt
   expires    DateTime
   account    Accounts @relation(fields: [account_id], references: [id])
+  new_email  String?  @db.VarChar(255)
 
   @@map("slender_email_verifications")
 }
