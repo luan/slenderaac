@@ -1,10 +1,7 @@
 <script lang="ts">
-	import { faCircle, faDiamond } from '@fortawesome/free-solid-svg-icons';
 	import { createEventDispatcher } from 'svelte';
 	import { cubicInOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
-	import Fa from 'svelte-fa';
-	import { tooltip } from 'svooltip';
 	import invariant from 'tiny-invariant';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
@@ -14,6 +11,9 @@
 		type PlayerWithRank,
 		vocationString,
 	} from '$lib/players';
+
+	import MainCharacterIndicator from './MainCharacterIndicator.svelte';
+	import OnlineIndicator from './OnlineIndicator.svelte';
 
 	export let ranked = false;
 	export let characters: (PlayerWithRank | Player)[];
@@ -62,27 +62,11 @@
 					<td class=" w-fit">
 						<div class="flex flex-col w-fit">
 							<span class="font-semibold flex flex-row gap-1 items-center">
-								{#if character.online}
-									<span
-										class="text-success-600"
-										use:tooltip={{ content: 'Online' }}>
-										<Fa icon={faCircle} size="xs" />
-									</span>
-								{:else}
-									<span
-										class="text-error-600"
-										use:tooltip={{ content: 'Offline' }}>
-										<Fa icon={faCircle} size="xs" />
-									</span>
-								{/if}
+								<OnlineIndicator online={character.online} />
 								{character.name}
 								<em class="font-light">({getPronoun(character)})</em>
 								{#if character.isMain}
-									<span
-										class="text-xs text-success-800"
-										use:tooltip={{ content: 'Main Character' }}>
-										<Fa icon={faDiamond} />
-									</span>
+									<MainCharacterIndicator />
 								{/if}
 							</span>
 						</div>

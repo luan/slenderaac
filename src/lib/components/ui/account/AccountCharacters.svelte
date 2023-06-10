@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { faCircle, faDiamond } from '@fortawesome/free-solid-svg-icons';
 	import { formatDistanceToNow } from 'date-fns';
-	import Fa from 'svelte-fa';
 	import { tooltip } from 'svooltip';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
+	import MainCharacterIndicator from '$lib/components/ui/MainCharacterIndicator.svelte';
+	import OnlineIndicator from '$lib/components/ui/OnlineIndicator.svelte';
 	import { getPronoun, type Player, vocationString } from '$lib/players';
 
 	export let characters: Player[];
@@ -33,27 +33,11 @@
 						<td>
 							<div class="flex flex-col">
 								<span class="font-semibold flex flex-row gap-1 items-center">
-									{#if character.online}
-										<span
-											class="text-success-600"
-											use:tooltip={{ content: 'Online' }}>
-											<Fa icon={faCircle} size="xs" />
-										</span>
-									{:else}
-										<span
-											class="text-error-600"
-											use:tooltip={{ content: 'Offline' }}>
-											<Fa icon={faCircle} size="xs" />
-										</span>
-									{/if}
+									<OnlineIndicator online={character.online} />
 									{character.name}
 									<em class="font-light">({getPronoun(character)})</em>
 									{#if character.isMain}
-										<span
-											class="text-xs text-success-800"
-											use:tooltip={{ content: 'Main Character' }}>
-											<Fa icon={faDiamond} />
-										</span>
+										<MainCharacterIndicator />
 									{/if}
 								</span>
 								<span class="text-xs">
