@@ -1,10 +1,11 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
 import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
+import { sendVerificationEmail } from '$lib/server/email';
+import { redirectWithFlash } from '$lib/server/flash';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
-import { performLogin, requireLogin } from '$lib/server/session';
 import { hashPassword } from '$lib/server/utils';
 import {
 	emailValidator,
@@ -16,8 +17,7 @@ import {
 
 import type { Actions, PageServerLoad } from './$types';
 
-export const load = (({ locals }) => {
-	requireLogin(locals);
+export const load = (() => {
 	return { title: 'Create Account' };
 }) satisfies PageServerLoad;
 
@@ -113,32 +113,43 @@ export const actions = {
 			});
 		}
 
-		try {
-			const created = await prisma.accounts.create({
-				data: {
-					name: accountName,
-					email,
-					password: hashedPassword,
+		const created = await prisma.accounts.create({
+			data: {
+				name: accountName,
+				email,
+				password: hashedPassword,
 
-					players: {
-						createMany: {
-							data: [{ ...characterInput, is_main: true }],
-						},
+				players: {
+					createMany: {
+						data: [{ ...characterInput, is_main: true }],
 					},
 				},
-			});
 
-			await performLogin(cookies, created.email);
-		} catch (e) {
-			console.error(e);
-			return fail(500, {
-				errors: { global: ['Failed to create account'] } as Record<
-					string,
-					string[]
-				>,
+				emailVerification: {
+					create: {
+						expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+					},
+				},
+			},
+			include: {
+				emailVerification: true,
+			},
+		});
+		if (!created) {
+			return fail(400, {
+				errors: {
+					global: ['Failed to create account'],
+				} as Record<string, string[]>,
 			});
 		}
 
-		throw redirect(302, '/account');
+		await sendVerificationEmail(
+			created.email,
+			created.emailVerification[0].token,
+		);
+		redirectWithFlash('/login', cookies, {
+			type: 'success',
+			message: 'Account created. Check your email to confirm your account.',
+		});
 	},
 } satisfies Actions;

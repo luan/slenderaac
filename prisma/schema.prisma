@@ -64,6 +64,7 @@ model Accounts {
   tournament_coins    Int                 @default(0) @db.UnsignedInt
   creation            DateTime            @default(now())
   recruiter           Int?                @default(0)
+  is_verified         Boolean             @default(false)
   account_ban_history AccountBanHistory[]
   account_bans        AccountBans?
   account_viplist     AccountViplist[]
@@ -72,6 +73,8 @@ model Accounts {
   store_history       StoreHistory[]
   accountSessions     AccountSessions[]
   coinOrders          CoinOrders[]
+  PasswordReset       PasswordReset[]
+  emailVerification   EmailVerification[]
 
   @@map("accounts")
 }
@@ -819,4 +822,22 @@ model CoinOrders {
   account Accounts @relation(fields: [account_id], references: [id])
 
   @@map("slender_coin_orders")
+}
+
+model PasswordReset {
+  token      String   @id @default(cuid())
+  account_id Int      @unique @db.UnsignedInt
+  expires    DateTime
+  account    Accounts @relation(fields: [account_id], references: [id])
+
+  @@map("slender_password_resets")
+}
+
+model EmailVerification {
+  token      String   @id @default(cuid())
+  account_id Int      @unique @db.UnsignedInt
+  expires    DateTime
+  account    Accounts @relation(fields: [account_id], references: [id])
+
+  @@map("slender_email_verifications")
 }

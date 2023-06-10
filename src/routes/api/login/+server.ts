@@ -111,6 +111,14 @@ async function handleLogin(
 		};
 	}
 
+	if (!account.is_verified) {
+		return {
+			errorCode: 5,
+			errorMessage:
+				'Your account has not been verified. Please check your email to verify your account.',
+		};
+	}
+
 	const serverPort = parseInt(SERVER_PORT) ?? 7172;
 	const pvptype = ['pvp', 'no-pvp', 'pvp-enforced'].indexOf(PVP_TYPE);
 

@@ -4,6 +4,7 @@ export type AccountInfo = {
 	createdAt: Date;
 	lastLogin: Date;
 	coinsTransferable: number;
+	isVerified: boolean;
 };
 export enum AccountType {
 	Normal = 1,

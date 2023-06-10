@@ -1,10 +1,14 @@
 import type SMTPTransport from 'nodemailer/lib/smtp-transport';
+import type { ComponentProps } from 'svelte';
 import {
 	createTestAccount,
 	createTransport,
 	getTestMessageUrl,
 	type Transporter,
 } from 'nodemailer';
+import { render } from 'svelte-email';
+
+import Base from '$lib/emails/Base.svelte';
 
 import {
 	NO_REPLY_EMAIL,
@@ -13,6 +17,45 @@ import {
 	SMTP_SERVER,
 	SMTP_USER,
 } from '$env/static/private';
+
+export type EmailTemplate = {
+	subject: string;
+	props: ComponentProps<Base>;
+};
+
+export async function sendMail(to: string, template: EmailTemplate) {
+	// send mail with defined transport object
+	const html = render({
+		template: Base,
+		props: template.props,
+	});
+	const transporter = await getTransporter();
+	const info = await transporter.sendMail({
+		from: NO_REPLY_EMAIL,
+		to,
+		subject: template.subject,
+		html,
+	});
+
+	console.log('Message sent: %s', info.messageId);
+	console.log('Preview URL: %s', getTestMessageUrl(info));
+}
+
+export async function sendVerificationEmail(to: string, token: string) {
+	await sendMail(to, {
+		subject: 'Verify your account',
+		props: {
+			title: 'Verify your account',
+			buttonText: 'Verify Email',
+			href: `/verify?email=${to}&token=${token}`,
+			previewText: 'Click the button below to verify your email address.',
+			paragraphs: [
+				'Welcome to the game! We just need to verify your email address before you can start playing.',
+				'If you did not create an account, you can safely ignore this email.',
+			],
+		},
+	});
+}
 
 const transporter: Record<
 	string,
@@ -49,23 +92,4 @@ async function getTransporter() {
 		});
 	}
 	return transporter[env];
-}
-
-export type EmailTemplate = {
-	subject: string;
-	text: string;
-	html: string;
-};
-
-export async function sendMail(to: string, template: EmailTemplate) {
-	// send mail with defined transport object
-	const transporter = await getTransporter();
-	const info = await transporter.sendMail({
-		from: NO_REPLY_EMAIL,
-		to,
-		...template,
-	});
-
-	console.log('Message sent: %s', info.messageId);
-	console.log('Preview URL: %s', getTestMessageUrl(info));
 }

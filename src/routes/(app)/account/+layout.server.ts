@@ -7,7 +7,6 @@ import type { LayoutServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
 	requireLogin(locals);
-
 	const account = await prisma.accounts.findUniqueOrThrow({
 		where: {
 			id: locals.session?.accountId,
@@ -17,6 +16,7 @@ export const load = (async ({ locals }) => {
 			email: true,
 			creation: true,
 			coins_transferable: true,
+			is_verified: true,
 			players: {
 				select: PlayerSelectForList,
 			},
@@ -29,6 +29,7 @@ export const load = (async ({ locals }) => {
 		email: account.email,
 		createdAt: account.creation,
 		coinsTransferable: account.coins_transferable,
+		isVerified: account.is_verified,
 		lastLogin: new Date(
 			characters.reduce(
 				(acc, cur) => Math.max(acc, cur.lastLogin?.getTime() ?? 0),

@@ -17,7 +17,14 @@
 		</div>
 		<div class="data-row">
 			<dt>Email</dt>
-			<dd>{account.email}</dd>
+			<dd>
+				{account.email}
+				{#if !account.isVerified}
+					<div class="text-error-500">
+						(unverified <a class="anchor" href="/account/resend">re-send</a>)
+					</div>
+				{/if}
+			</dd>
 		</div>
 		<div class="data-row">
 			<dt>Created</dt>
