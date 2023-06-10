@@ -21,26 +21,15 @@
 			autocomplete="email" />
 	</label>
 
-	<label class="label flex-grow">
-		<span>Password</span>
-		<input
-			required
-			name="password"
-			class="input"
-			type="password"
-			autocomplete="new-password" />
-	</label>
-
 	<div class="flex flex-row justify-end items-center gap-2">
-		<a href="/account-lost">Lost account?</a>
-		<button class="btn variant-filled-primary">Login</button>
+		<button class="btn variant-filled-primary">Request Password Reset</button>
 	</div>
 
 	<hr class="divider" />
 
 	<div class="flex flex-row justify-center items-center gap-2">
 		<h3 class="h3">Don't have an account?</h3>
-		<a href="/signup" class="btn btn-sm variant-filled-secondary"
+		<a href="/account/signup" class="btn btn-sm variant-filled-secondary"
 			>Create account</a>
 	</div>
 </form>

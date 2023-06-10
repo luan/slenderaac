@@ -147,7 +147,7 @@ export const actions = {
 			created.email,
 			created.emailVerification[0].token,
 		);
-		redirectWithFlash('/login', cookies, {
+		redirectWithFlash('/account/login', cookies, {
 			type: 'success',
 			message: 'Account created. Check your email to confirm your account.',
 		});

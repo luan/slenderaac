@@ -20,7 +20,7 @@
 			<a href="/account" class="btn variant-filled-primary w-full">
 				My Account
 			</a>
-			<form action="/logout" method="post" class="flex w-2/3">
+			<form action="/account/logout" method="post" class="flex w-2/3">
 				<button
 					type="submit"
 					class="btn btn-sm variant-soft-secondary text-white text-xs p-0.5 rounded-t-none w-full">
@@ -28,9 +28,10 @@
 				</button>
 			</form>
 		{:else}
-			<a href="/login" class="btn variant-filled-primary w-full">Login</a>
+			<a href="/account/login" class="btn variant-filled-primary w-full"
+				>Login</a>
 			<a
-				href="/signup"
+				href="/account/signup"
 				class="btn btn-sm variant-soft-secondary text-white w-2/3 text-xs p-0.5 rounded-t-none">
 				Create account
 			</a>

@@ -47,7 +47,7 @@ export async function sendVerificationEmail(to: string, token: string) {
 		props: {
 			title: 'Verify your account',
 			buttonText: 'Verify Email',
-			href: `/verify?email=${to}&token=${token}`,
+			href: `/account/verify?email=${to}&token=${token}`,
 			previewText: 'Click the button below to verify your email address.',
 			paragraphs: [
 				'Welcome to the game! We just need to verify your email address before you can start playing.',

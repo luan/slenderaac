@@ -8,7 +8,7 @@ import { getSession, requireLogin } from '$lib/server/session';
 const unauthorized = new Response(null, {
 	status: 401,
 	headers: {
-		location: '/login',
+		location: '/account/login',
 	},
 });
 
