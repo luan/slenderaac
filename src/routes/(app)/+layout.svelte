@@ -87,7 +87,7 @@
 <AppShell
 	slotSidebarLeft="w-0 lg:w-56"
 	slotSidebarRight="w-0 lg:w-56"
-	slotHeader="py-1">
+	slotHeader="lg:py-1">
 	<svelte:fragment slot="header">
 		<AppBar
 			background="variant-filled-secondary dark:lg:bg-transparent lg:bg-transparent"
@@ -99,7 +99,7 @@
 					<button class="lg:hidden btn btn-sm mr-4" on:click={drawerOpen}>
 						<Fa icon={faBars} />
 					</button>
-					<div class="w-36 h-32">
+					<div class="lg:w-36 lg:h-32">
 						<img
 							src="/images/logo.png"
 							alt="logo"

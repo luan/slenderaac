@@ -22,6 +22,7 @@ body {
 }
 
 body {
+	@apply bg-cover lg:bg-[100%] bg-fixed bg-no-repeat bg-top;
 	@apply backdrop-brightness-150;
 	@apply transition-all;
 	background-image: url('/images/background-artwork.jpg'),
@@ -40,30 +41,10 @@ body {
 			rgba(var(--color-tertiary-900) / 0.9) 0px,
 			transparent 100%
 		);
-	background-size: 100%;
-	background-position: top center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
 }
 
 .dark body {
 	@apply backdrop-brightness-50;
-	background-image: url('/images/background-artwork.jpg'),
-		radial-gradient(
-			at 0% 0%,
-			rgb(var(--color-tertiary-800)) 0px,
-			transparent 100%
-		),
-		radial-gradient(
-			at 98% 1%,
-			rgb(var(--color-surface-900)) 0px,
-			transparent 100%
-		),
-		linear-gradient(
-			0deg,
-			rgba(var(--color-tertiary-900) / 1) 0px,
-			transparent 100%
-		);
 }
 
 @layer components {
