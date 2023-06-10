@@ -90,6 +90,8 @@ export const POST: RequestHandler = async ({ request }) => {
 	switch (params.type) {
 		case 'login':
 			return json(await handleLogin(params));
+		default:
+			return json({ errorCode: 1, errorMessage: 'Invalid request.' });
 	}
 };
 

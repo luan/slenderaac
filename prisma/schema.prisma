@@ -683,8 +683,6 @@ model Players {
   online                                                   PlayerOnline[]
   posted_articles                                          News[]
 
-  town Towns @relation(fields: [town_id], references: [id], map: "players_town_fk", onDelete: NoAction, onUpdate: NoAction)
-
   @@index([deletion], map: "deletion")
   @@index([account_id], map: "account_id")
   @@index([vocation], map: "vocation")
@@ -732,12 +730,11 @@ model TileStore {
 }
 
 model Towns {
-  id      Int       @id @default(autoincrement())
-  name    String    @unique(map: "name") @db.VarChar(255)
-  posx    Int       @default(0)
-  posy    Int       @default(0)
-  posz    Int       @default(0)
-  Players Players[]
+  id   Int    @id @default(autoincrement())
+  name String @unique(map: "name") @db.VarChar(255)
+  posx Int    @default(0)
+  posy Int    @default(0)
+  posz Int    @default(0)
 
   @@map("towns")
 }

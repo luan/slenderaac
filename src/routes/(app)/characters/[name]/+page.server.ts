@@ -11,9 +11,13 @@ export const load = (async ({ params }) => {
 		},
 		select: {
 			...PlayerSelectForList,
-			town: { select: { name: true } },
+			town_id: true,
 			lastlogin: true,
 		},
+	});
+	const town = await prisma.towns.findUniqueOrThrow({
+		where: { id: player?.town_id },
+		select: { name: true },
 	});
 
 	if (!player) {
@@ -24,6 +28,6 @@ export const load = (async ({ params }) => {
 	}
 
 	return {
-		character: dbToPlayer(player),
+		character: dbToPlayer({ ...player, town: town }),
 	};
 }) satisfies PageServerLoad;

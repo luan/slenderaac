@@ -66,20 +66,7 @@ export async function getTemplate(vocation: PlayerVocation): Promise<Players> {
 					mana: 0,
 					manamax: 0,
 					cap: 400,
-					town: {
-						connectOrCreate: {
-							where: {
-								name: 'Rookgaard',
-							},
-							create: {
-								id: 3,
-								name: 'Rookgaard',
-								posx: 32097,
-								posy: 32219,
-								posz: 7,
-							},
-						},
-					},
+					town_id: 3,
 			  }
 			: {
 					level: 8,
@@ -89,20 +76,7 @@ export async function getTemplate(vocation: PlayerVocation): Promise<Players> {
 					mana: 90,
 					manamax: 90,
 					cap: 470,
-					town: {
-						connectOrCreate: {
-							where: {
-								name: 'Thais',
-							},
-							create: {
-								id: 8,
-								name: 'Thais',
-								posx: 32369,
-								posy: 32241,
-								posz: 7,
-							},
-						},
-					},
+					town_id: 8,
 			  };
 
 	return await prisma.players.create({

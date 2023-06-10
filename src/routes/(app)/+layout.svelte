@@ -14,21 +14,17 @@
 	} from '@floating-ui/dom';
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 	import { faBars } from '@fortawesome/free-solid-svg-icons';
-	import {
-		AppBar,
-		AppShell,
-		LightSwitch,
-		Toast,
-		toastStore,
-	} from '@skeletonlabs/skeleton';
+	import { AppBar, AppShell, Toast, toastStore } from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
 	import Fa from 'svelte-fa';
 
 	import { browser } from '$app/environment';
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 
+	import BarTrail from '$lib/components/ui/BarTrail.svelte';
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
 	import { browserTitle } from '$lib/utils';
@@ -42,7 +38,14 @@
 
 	export let data: LayoutData;
 
-	$: ({ highscores, isLoggedIn, boostedBoss, boostedCreature } = data);
+	$: ({
+		highscores,
+		isLoggedIn,
+		boostedBoss,
+		boostedCreature,
+		serverOnline,
+		onlinePlayerCount,
+	} = data);
 	$: title = typeof $page.data.title === 'string' ? $page.data.title : '';
 	$: staticPages = data.staticPages;
 
@@ -64,6 +67,11 @@
 				} text-white`,
 			});
 		}
+	});
+
+	onMount(() => {
+		const interval = setInterval(() => invalidate('app:layout'), 5 * 1000);
+		return () => clearInterval(interval);
 	});
 </script>
 
@@ -115,7 +123,7 @@
 					<BoostedSection {boostedCreature} {boostedBoss} />
 				</div>
 				<div class="block lg:hidden">
-					<LightSwitch />
+					<BarTrail {serverOnline} {onlinePlayerCount} />
 				</div>
 			</svelte:fragment>
 		</AppBar>
@@ -142,7 +150,7 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<LightSwitch height="h-5" width="w-10" />
+				<BarTrail {serverOnline} {onlinePlayerCount} />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
