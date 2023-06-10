@@ -16,7 +16,7 @@ const sessionStore = new Map<Sid, SessionInfo>();
 export async function performLogin(cookies: Cookies, email: string) {
 	const maxAge = 1000 * 60 * 60 * 24 * 30; // 30 days
 	const sid = await createSession(email, maxAge);
-	cookies.set('sid', sid, { maxAge });
+	cookies.set('sid', sid, { path: '/', maxAge });
 }
 
 export async function createSession(
