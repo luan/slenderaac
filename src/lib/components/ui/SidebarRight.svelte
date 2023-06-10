@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { faMedal } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 	import { tooltip } from 'svooltip';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
@@ -13,7 +14,7 @@
 	<header
 		class="flex flex-row justify-center items-center gap-2 py-1 px-2 variant-filled-secondary rounded-container-token">
 		<Fa icon={faMedal} />
-		<h6 class="h6">Highscores</h6>
+		<h6 class="h6">{$_('highscores')}</h6>
 	</header>
 	<hr class="opacity-5" />
 	<article class="py-2 px-4 flex flex-col gap-2">
@@ -42,7 +43,7 @@
 					<span
 						class="font-light text-xs flex flex-col overflow-clip overflow-ellipsis whitespace-nowrap w-full">
 						<span>
-							Level: <span class="font-normal">{character.level}</span>
+							{$_('level')}: <span class="font-normal">{character.level}</span>
 						</span>
 						<span
 							use:tooltip={{
@@ -59,7 +60,7 @@
 	<hr class="opacity-5" />
 	<footer class="py-2 px-2">
 		<a href="/highscores" class="btn btn-sm variant-filled-primary w-full">
-			View more
+			{$_('view-more')}
 		</a>
 	</footer>
 </div>

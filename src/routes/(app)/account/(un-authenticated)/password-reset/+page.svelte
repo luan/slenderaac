@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
+
 	import { enhance } from '$app/forms';
 
 	import TextField from '$lib/components/ui/TextField.svelte';
@@ -19,14 +21,14 @@
 
 	<div class="flex flex-row gap-2">
 		<TextField
-			label="New password"
+			label={$_('new-password')}
 			name="password"
 			type="password"
 			autocomplete="new-password"
 			errors={form?.errors?.password} />
 
 		<TextField
-			label="New password confirmation"
+			label={$_('new-password-confirmation')}
 			name="passwordConfirmation"
 			type="password"
 			autocomplete="new-password"
@@ -34,6 +36,6 @@
 	</div>
 
 	<div class="flex flex-row justify-end items-center gap-2">
-		<button class="btn variant-filled-primary">Submit</button>
+		<button class="btn variant-filled-primary">{$_('submit')}</button>
 	</div>
 </form>

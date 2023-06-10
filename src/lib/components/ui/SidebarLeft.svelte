@@ -7,6 +7,7 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 
 	import { PUBLIC_DOWNLOAD_URL } from '$env/static/public';
 
@@ -18,22 +19,22 @@
 	<div class="flex flex-col gap-0 py-2 px-2 items-center">
 		{#if isLoggedIn}
 			<a href="/account" class="btn variant-filled-primary w-full">
-				My Account
+				{$_('my-account')}
 			</a>
 			<form action="/account/logout" method="post" class="flex w-2/3">
 				<button
 					type="submit"
 					class="btn btn-sm variant-soft-secondary text-white text-xs p-0.5 rounded-t-none w-full">
-					Logout
+					{$_('logout')}
 				</button>
 			</form>
 		{:else}
 			<a href="/account/login" class="btn variant-filled-primary w-full"
-				>Login</a>
+				>{$_('login')}</a>
 			<a
 				href="/account/signup"
 				class="btn btn-sm variant-soft-secondary text-white w-2/3 text-xs p-0.5 rounded-t-none">
-				Create account
+				{$_('create-account')}
 			</a>
 		{/if}
 	</div>
@@ -42,7 +43,7 @@
 		<a
 			href={PUBLIC_DOWNLOAD_URL}
 			class="btn btn-sm variant-filled-primary w-full text-xs p-1">
-			Download
+			{$_('download')}
 		</a>
 	</div>
 </div>
@@ -52,11 +53,11 @@
 		<Accordion>
 			<AccordionItem open>
 				<svelte:fragment slot="lead"><Fa icon={faNewspaper} /></svelte:fragment>
-				<svelte:fragment slot="summary">News</svelte:fragment>
+				<svelte:fragment slot="summary">{$_('news')}</svelte:fragment>
 				<svelte:fragment slot="content">
 					<nav class="list-nav">
 						<ul>
-							<li><a href="/">Latest news</a></li>
+							<li><a href="/">{$_('latest-news')}</a></li>
 							<!-- <li><a href="/news-archive">News archive</a></li> -->
 							<!-- <li><a href="/events">Event schedule</a></li> -->
 						</ul>
@@ -66,13 +67,13 @@
 			<AccordionItem open>
 				<svelte:fragment slot="lead"
 					><Fa icon={faPeopleArrows} /></svelte:fragment>
-				<svelte:fragment slot="summary">Community</svelte:fragment>
+				<svelte:fragment slot="summary">{$_('community')}</svelte:fragment>
 				<svelte:fragment slot="content">
 					<nav class="list-nav">
 						<ul>
-							<li><a href="/characters">Characters</a></li>
-							<li><a href="/online">Who's online?</a></li>
-							<li><a href="/highscores">Highscores</a></li>
+							<li><a href="/characters">{$_('characters')}</a></li>
+							<li><a href="/online">{$_('whos-online')}</a></li>
+							<li><a href="/highscores">{$_('highscores')}</a></li>
 							<!-- <li><a href="/latest-deaths">Latest deaths</a></li> -->
 							<!-- <li><a href="#">Power gamers</a></li> -->
 							<!-- <li><a href="#">Guilds</a></li> -->
@@ -84,7 +85,7 @@
 			<AccordionItem open>
 				<svelte:fragment slot="lead"
 					><Fa icon={faBookBookmark} /></svelte:fragment>
-				<svelte:fragment slot="summary">Library</svelte:fragment>
+				<svelte:fragment slot="summary">{$_('library')}</svelte:fragment>
 				<svelte:fragment slot="content">
 					<nav class="list-nav">
 						<ul>
@@ -99,11 +100,11 @@
 			</AccordionItem>
 			<AccordionItem open>
 				<svelte:fragment slot="lead"><Fa icon={faGifts} /></svelte:fragment>
-				<svelte:fragment slot="summary">Shop</svelte:fragment>
+				<svelte:fragment slot="summary">{$_('shop.title')}</svelte:fragment>
 				<svelte:fragment slot="content">
 					<nav class="list-nav">
 						<ul>
-							<li><a href="/shop">Buy coins</a></li>
+							<li><a href="/shop">{$_('buy-coins')}</a></li>
 						</ul>
 					</nav>
 				</svelte:fragment>

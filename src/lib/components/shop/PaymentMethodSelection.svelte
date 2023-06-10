@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 
 	import { getPaymentMethodIcon, toProperCase } from '$lib/utils';
 
@@ -19,7 +20,7 @@
 	<input type="hidden" name="paymentMethod" {value} />
 {:else}
 	<div class="flex flex-col gap-4">
-		<h4 class="h4">Payment method</h4>
+		<h4 class="h4">{$_('shop.payment-method')}</h4>
 		<RadioGroup display="flex-col">
 			{#each enabledPaymentMethods as paymentMethod}
 				<RadioItem bind:group={value} name="offer" value={paymentMethod}>

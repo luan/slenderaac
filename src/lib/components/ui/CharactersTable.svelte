@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { cubicInOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
+	import { _ } from 'svelte-i18n';
 	import invariant from 'tiny-invariant';
 
 	import type { Order, Sort } from '$lib/sorting';
@@ -41,10 +42,11 @@
 					<th class="w-20">Rank</th>
 				{/if}
 				<th class="w-20">Outfit</th>
-				<TableHeader {sort} {order} col="name">Name</TableHeader>
+				<TableHeader {sort} {order} col="name">{$_('name')}</TableHeader>
 				<TableHeader {sort} {order} col="vocation" class="w-32"
-					>Vocation</TableHeader>
-				<TableHeader {sort} {order} col="level" class="w-24">Level</TableHeader>
+					>{$_('${keypath}')}</TableHeader>
+				<TableHeader {sort} {order} col="level" class="w-24"
+					>{$_('${keypath}')}</TableHeader>
 			</tr>
 		</thead>
 		<tbody class="transition-all duration-300 ease-in-out">

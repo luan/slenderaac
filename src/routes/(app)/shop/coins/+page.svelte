@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
+
 	import Confirmation from '$lib/components/shop/Confirmation.svelte';
 	import SelectionForm from '$lib/components/shop/SelectionForm.svelte';
 	import StripePayment from '$lib/components/shop/StripePayment.svelte';
@@ -18,7 +20,9 @@
 			offers={data.offers}
 			enabledPaymentMethods={data.enabledPaymentMethods} />
 	{:else if step == 'payment' && data.clientSecret && data.accountEmail && data.offerId}
-		<header class="step-header text-2xl font-bold">Confirm your order</header>
+		<header class="step-header text-2xl font-bold">
+			{$_('shop.confirm-your-order')}
+		</header>
 		{#if data.paymentMethod === 'stripe'}
 			<StripePayment
 				email={data.accountEmail}

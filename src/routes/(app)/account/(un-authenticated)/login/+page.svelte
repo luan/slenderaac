@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
+
 	import { enhance } from '$app/forms';
 
 	import type { ActionData } from './$types';
@@ -12,7 +14,7 @@
 	{/if}
 
 	<label class="label">
-		<span>Email</span>
+		<span>{$_('email')}</span>
 		<input
 			required
 			name="email"
@@ -22,7 +24,7 @@
 	</label>
 
 	<label class="label flex-grow">
-		<span>Password</span>
+		<span>{$_('password')}</span>
 		<input
 			required
 			name="password"
@@ -32,15 +34,15 @@
 	</label>
 
 	<div class="flex flex-row justify-end items-center gap-2">
-		<a href="/account/lost">Lost account?</a>
-		<button class="btn variant-filled-primary">Login</button>
+		<a href="/account/lost">{$_('lost-account')}</a>
+		<button class="btn variant-filled-primary">{$_('login')}</button>
 	</div>
 
 	<hr class="divider" />
 
 	<div class="flex flex-row justify-center items-center gap-2">
-		<h3 class="h3">Don't have an account?</h3>
+		<h3 class="h3">{$_('dont-have-an-account')}</h3>
 		<a href="/account/signup" class="btn btn-sm variant-filled-secondary"
-			>Create account</a>
+			>{$_('create-account')}</a>
 	</div>
 </form>

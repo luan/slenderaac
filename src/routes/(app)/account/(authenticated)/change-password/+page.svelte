@@ -12,9 +12,10 @@
 	async function close() {
 		await goto('/account');
 	}
+	import { _ } from 'svelte-i18n';
 </script>
 
-<StatelessModal title="Change Password" on:close={close}>
+<StatelessModal title={$_('change-password')} on:close={close}>
 	<form class="flex flex-col gap-6" method="post" use:enhance>
 		{#if form?.errors?.global}
 			<p class="text-xs text-error-500">{form.errors.global}</p>
@@ -23,19 +24,19 @@
 		<div class="flex flex-wrap gap-4 items-center">
 			<TextField
 				labelClass="w-full"
-				label="Current Password"
+				label={$_('current-password')}
 				name="currentPassword"
 				type="password"
 				autocomplete="current-password"
 				errors={form?.errors?.currentPassword} />
 			<TextField
-				label="New Password"
+				label={$_('new-password')}
 				name="newPassword"
 				type="password"
 				autocomplete="new-password"
 				errors={form?.errors?.newPassword} />
 			<TextField
-				label="Confirm New Password"
+				label={$_('confirm-new-password')}
 				name="newPasswordConfirm"
 				type="password"
 				autocomplete="new-password"
@@ -43,7 +44,8 @@
 		</div>
 
 		<div class="flex flex-row justify-end">
-			<button class="btn variant-filled-primary">Change Password</button>
+			<button class="btn variant-filled-primary"
+				>{$_('change-password')}</button>
 		</div>
 	</form>
 </StatelessModal>

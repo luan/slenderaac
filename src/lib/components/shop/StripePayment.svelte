@@ -12,6 +12,7 @@
 	} from '@stripe/stripe-js';
 	import { onMount } from 'svelte';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 	import {
 		Elements,
 		LinkAuthenticationElement,
@@ -55,8 +56,7 @@
 		if (result.error) {
 			processing = false;
 			toastStore.trigger({
-				message:
-					result.error.message ?? 'Something went wrong, please try again.',
+				message: result.error.message ?? $_('generic-error'),
 				background: 'variant-filled-error',
 				autohide: false,
 			});

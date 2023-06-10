@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
+
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -43,14 +45,14 @@
 	<slot />
 
 	<label class="label flex flex-row gap-2 items-center">
-		<span>Character name:</span>
+		<span>{$_('character-name')}:</span>
 
 		<input
 			class="input flex-1"
 			type="search"
 			name="demo"
 			bind:value={searchInput}
-			placeholder="Search..." />
+			placeholder="{$_('search')}..." />
 	</label>
 
 	<CharactersTable

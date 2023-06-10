@@ -1,3 +1,7 @@
+import { _, unwrapFunctionStore } from 'svelte-i18n';
+
+const $_ = unwrapFunctionStore(_);
+
 import type { Outfit } from '$lib/outfits';
 
 export type Player = {
@@ -118,33 +122,33 @@ export function isPlayerVocation(value: unknown): value is PlayerVocation {
 
 export function sexString(playerSex: PlayerSex): string {
 	return {
-		[PlayerSex.Female]: 'Female',
-		[PlayerSex.Male]: 'Male',
+		[PlayerSex.Female]: $_('sexes.female'),
+		[PlayerSex.Male]: $_('sexes.male'),
 	}[playerSex];
 }
 
 export function pronounString(playerPronoun: PlayerPronoun): string {
 	return {
-		[PlayerPronoun.Unset]: 'Use my sex',
-		[PlayerPronoun.They]: 'They/Them',
-		[PlayerPronoun.She]: 'She/Her',
-		[PlayerPronoun.He]: 'He/Him',
-		[PlayerPronoun.Ze]: 'Ze/Zir',
-		[PlayerPronoun.Name]: 'Use my name',
+		[PlayerPronoun.Unset]: $_('pronouns.unset'),
+		[PlayerPronoun.They]: $_('pronouns.they'),
+		[PlayerPronoun.She]: $_('pronouns.she'),
+		[PlayerPronoun.He]: $_('pronouns.he'),
+		[PlayerPronoun.Ze]: $_('pronouns.ze'),
+		[PlayerPronoun.Name]: $_('pronouns.name'),
 	}[playerPronoun];
 }
 
 export function vocationString(playerVocation: PlayerVocation): string {
 	return {
-		[PlayerVocation.None]: 'None',
-		[PlayerVocation.Sorcerer]: 'Sorcerer',
-		[PlayerVocation.Druid]: 'Druid',
-		[PlayerVocation.Paladin]: 'Paladin',
-		[PlayerVocation.Knight]: 'Knight',
-		[PlayerVocation.MasterSorcerer]: 'Master Sorcerer',
-		[PlayerVocation.ElderDruid]: 'Elder Druid',
-		[PlayerVocation.RoyalPaladin]: 'Royal Paladin',
-		[PlayerVocation.EliteKnight]: 'Elite Knight',
+		[PlayerVocation.None]: $_('vocations.none'),
+		[PlayerVocation.Sorcerer]: $_('vocations.sorcerer'),
+		[PlayerVocation.Druid]: $_('vocations.druid'),
+		[PlayerVocation.Paladin]: $_('vocations.paladin'),
+		[PlayerVocation.Knight]: $_('vocations.knight'),
+		[PlayerVocation.MasterSorcerer]: $_('vocations.master-sorcerer'),
+		[PlayerVocation.ElderDruid]: $_('vocations.elder-druid'),
+		[PlayerVocation.RoyalPaladin]: $_('vocations.royal-paladin'),
+		[PlayerVocation.EliteKnight]: $_('vocations.elite-knight'),
 	}[playerVocation];
 }
 

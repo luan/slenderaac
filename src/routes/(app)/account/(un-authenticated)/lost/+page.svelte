@@ -4,6 +4,7 @@
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
+	import { _ } from 'svelte-i18n';
 </script>
 
 <form class="flex flex-col gap-4" method="post" use:enhance>
@@ -12,7 +13,7 @@
 	{/if}
 
 	<label class="label">
-		<span>Email</span>
+		<span>{$_('email')}</span>
 		<input
 			required
 			name="email"
@@ -22,14 +23,15 @@
 	</label>
 
 	<div class="flex flex-row justify-end items-center gap-2">
-		<button class="btn variant-filled-primary">Request Password Reset</button>
+		<button class="btn variant-filled-primary"
+			>{$_('request-password-reset')}</button>
 	</div>
 
 	<hr class="divider" />
 
 	<div class="flex flex-row justify-center items-center gap-2">
-		<h3 class="h3">Don't have an account?</h3>
+		<h3 class="h3">{$_('dont-have-an-account')}</h3>
 		<a href="/account/signup" class="btn btn-sm variant-filled-secondary"
-			>Create account</a>
+			>{$_('create-account')}</a>
 	</div>
 </form>

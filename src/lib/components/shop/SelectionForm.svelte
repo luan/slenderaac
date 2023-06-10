@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { faArrowRight, faLock } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 
 	import { enhance } from '$app/forms';
 
@@ -15,7 +16,9 @@
 	export let enabledPaymentMethods: string[];
 </script>
 
-<header class="step-header text-2xl font-bold">Select amount of coins</header>
+<header class="step-header text-2xl font-bold">
+	{$_('shop.select-amount')}
+</header>
 
 <form
 	class="flex flex-col gap-2"
@@ -38,7 +41,7 @@
 			type="submit"
 			class="btn variant-filled flex-row gap-1"
 			disabled={!offerId || !paymentMethod}>
-			Next
+			{$_('next')}
 			<Fa icon={!offerId || !paymentMethod ? faLock : faArrowRight} />
 		</button>
 	</div>

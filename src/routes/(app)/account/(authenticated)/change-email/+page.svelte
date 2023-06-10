@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
+
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
@@ -14,7 +16,7 @@
 	}
 </script>
 
-<StatelessModal title="Change Email" on:close={close}>
+<StatelessModal title={$_('change-email')} on:close={close}>
 	<form class="flex flex-col gap-6" method="post" use:enhance>
 		{#if form?.errors?.global}
 			<p class="text-xs text-error-500">{form.errors.global}</p>
@@ -23,20 +25,20 @@
 		<div class="flex flex-wrap gap-4 items-center">
 			<TextField
 				labelClass="w-full"
-				label="Password"
+				label={$_('password')}
 				name="password"
 				type="password"
 				autocomplete="password"
 				errors={form?.errors?.password} />
 			<TextField
-				label="New Email"
+				label={$_('new-email')}
 				name="newEmail"
 				type="email"
 				errors={form?.errors?.newEmail} />
 		</div>
 
 		<div class="flex flex-row justify-end">
-			<button class="btn variant-filled-primary">Change Email</button>
+			<button class="btn variant-filled-primary">{$_('change-email')}</button>
 		</div>
 	</form>
 </StatelessModal>

@@ -10,6 +10,7 @@
 	import { onMount } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 
 	import { invalidate } from '$app/navigation';
 
@@ -48,13 +49,13 @@
 
 	$: headerText = {
 		[CoinOrderStatus.PENDING]: processing
-			? 'We are processing your order...'
-			: 'Confirming your order is taking longer than expected.',
+			? $_('shop.status.pending.processing')
+			: $_('shop.status.pending.done'),
 		[CoinOrderStatus.FAILED_ATTEMPT]: processing
-			? 'There may have been a problem with your order...'
-			: 'There was a problem with your order.',
-		[CoinOrderStatus.COMPLETED]: 'Thank you for your order!',
-		[CoinOrderStatus.CANCELED]: 'Your order has been canceled.',
+			? $_('shop.status.failed.processing')
+			: $_('shop.status.failed.done'),
+		[CoinOrderStatus.COMPLETED]: $_('shop.status.completed'),
+		[CoinOrderStatus.CANCELED]: $_('shop.status.canceled'),
 	}[status];
 
 	$: icon = {
@@ -97,24 +98,29 @@
 {#if !processing}
 	<div class="py-4 px-8 text-center" transition:slide={{ duration: 500 }}>
 		{#if !isFinal}
-			Processing your order is taking longer than expected, please reach us at <a
-				href="mailto:{PUBLIC_SUPPORT_EMAIL}"
-				class="anchor">{PUBLIC_SUPPORT_EMAIL}</a> for assistance. for assistance.
+			{@html $_('shop.confirmation.nonFinalStatus', {
+				values: {
+					PUBLIC_SUPPORT_EMAIL,
+				},
+			})}
 		{:else if status === CoinOrderStatus.CANCELED}
-			It seems you have canceled your payment. If you have any questions, please
-			reach us at <a href="mailto:{PUBLIC_SUPPORT_EMAIL}" class="anchor"
-				>{PUBLIC_SUPPORT_EMAIL}</a
-			>. If you want to try again, please go back to the previous step, your
-			payment method has not been charged.
+			{@html $_('shop.confirmation.canceled', {
+				values: {
+					PUBLIC_SUPPORT_EMAIL,
+				},
+			})}
 		{:else if status === CoinOrderStatus.COMPLETED}
-			Your order of {amount}
-			{PUBLIC_TITLE} coins has been confirmed.<br />Your account has been
-			credited with the coins.
+			{$_('shop.confirmation.completed', {
+				values: {
+					amount,
+					PUBLIC_TITLE,
+				},
+			})}
 		{/if}
 	</div>
 	<div class="flex flex-row w-full justify-between gap-2">
 		<a href="/shop/coins" class="btn variant-filled whitespace-normal"
-			>Go back to the shop</a>
-		<a href="/account" class="btn variant-filled-primary">My Account</a>
+			>{$_('shop.goback')}</a>
+		<a href="/account" class="btn variant-filled-primary">$_('my-account')</a>
 	</div>
 {/if}

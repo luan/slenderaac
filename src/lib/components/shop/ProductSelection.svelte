@@ -2,6 +2,7 @@
 	import { faCoins, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 
 	import type { CoinOffer } from '$lib/coinOffers';
 	import { getCurrencySymbol } from '$lib/utils';
@@ -15,7 +16,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<h4 class="h4">Select quantity</h4>
+	<h4 class="h4">{$_('shop.select-quantity')}</h4>
 	{#if Object.keys(offers).length > 1}
 		<RadioGroup>
 			{#each Object.keys(offers) as currency}
@@ -35,7 +36,7 @@
 			<RadioItem bind:group={value} name="offer" value={offer.id}>
 				<div class="flex flex-row gap-2 items-center p-1">
 					<Fa icon={faCoins} />
-					{offer.amount} coins
+					{$_('shop.offer-amount')}
 					<Fa icon={faMoneyBill} />
 					{offer.price}
 				</div>

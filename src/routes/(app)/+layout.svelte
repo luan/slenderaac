@@ -19,6 +19,7 @@
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 
 	import { browser } from '$app/environment';
 	import { afterNavigate, invalidate } from '$app/navigation';
@@ -148,7 +149,7 @@
 					rel="noreferrer"
 					class="flex flex-row items-center gap-1">
 					<Fa icon={faDiscord} />
-					Join Discord
+					{$_('layout.join_discord')}
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">

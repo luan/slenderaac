@@ -9,6 +9,7 @@
 		RadioItem,
 	} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 
 	import TextField from '$lib/components/ui/TextField.svelte';
 	import { pronounsEnabled } from '$lib/config';
@@ -45,13 +46,13 @@
 
 <div class="flex flex-row gap-4 items-center">
 	<TextField
-		label="Name"
+		label={$_('name')}
 		name="characterName"
 		bind:value={characterName}
 		errors={form?.errors?.characterName} />
 
 	<div class="label flex flex-col gap-0">
-		<span>Sex</span>
+		<span>{$_('sex')}</span>
 		<RadioGroup>
 			<RadioItem bind:group={sex} name="characterSex" value={PlayerSex.Female}>
 				<div class="flex flex-row gap-1 items-center">

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
+	import { _ } from 'svelte-i18n';
 
 	import Markdoc from '$lib/components/markdoc/Markdoc.svelte';
 	import { formatDate } from '$lib/utils';
@@ -20,9 +21,8 @@
 			<strong>{article.title}</strong>
 		</span>
 		<em class="text-sm">
-			Published by <a
-				href="/characters/{article.author.name}"
-				class="text-secondary-200">
+			{$_('published-by')}
+			<a href="/characters/{article.author.name}" class="text-secondary-200">
 				{article.author.name}
 			</a>
 		</em>

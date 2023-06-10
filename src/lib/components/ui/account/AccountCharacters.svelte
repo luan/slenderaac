@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatDistanceToNow } from 'date-fns';
+	import { _ } from 'svelte-i18n';
 	import { tooltip } from 'svooltip';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
@@ -11,15 +12,15 @@
 </script>
 
 <div class="flex flex-col gap-2">
-	<h3 class="h3">Characters</h3>
+	<h3 class="h3">{$_('characters')}</h3>
 
 	<div class="table-container">
 		<table class="table table-hover table-auto">
 			<thead>
 				<tr class="[&>th]:!p-2">
 					<th class="w-10" />
-					<th class="w-20">Outfit</th>
-					<th>Name</th>
+					<th class="w-20">{$_('outfit')}</th>
+					<th>{$_('name')}</th>
 					<th class="w-48" />
 				</tr>
 			</thead>
@@ -52,7 +53,7 @@
 										<form class="flex" action="/account/set-main" method="POST">
 											<input type="hidden" name="name" value={character.name} />
 											<button class="anchor" type="submit">
-												Set as main
+												{$_('set-as-main')}
 											</button>
 										</form>
 									{/if}
@@ -60,7 +61,7 @@
 										href="/account/delete?name={character.name}"
 										class="anchor"
 										type="submit">
-										Delete
+										{$_('delete')}
 									</a>
 								{:else}
 									<span
@@ -72,13 +73,15 @@
 												Number(character.deletion) * 1000,
 											)}`,
 										}}>
-										Deleted
+										{$_('deleted')}
 									</span>
 									<form
 										class="flex"
 										action="/account/delete?name={character.name}&cancel=true"
 										method="POST">
-										(<button class="anchor" type="submit">undelete</button>)
+										(<button class="anchor" type="submit"
+											>{$_('undelete')}</button
+										>)
 									</form>
 								{/if}
 							</div>
@@ -92,6 +95,6 @@
 	<div class="flex flex-row justify-end">
 		<a
 			href="/account/create-character"
-			class="btn btn-sm variant-filled-primary">New Character</a>
+			class="btn btn-sm variant-filled-primary">{$_('new-character')}</a>
 	</div>
 </div>

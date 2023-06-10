@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
 </script>
 
 <div class="flex flex-row justify-between gap-2">
@@ -7,12 +8,12 @@
 		<a
 			href="/account/account/change-password"
 			class="btn btn-sm variant-filled-primary">
-			Change Password
+			{$_('change-password')}
 		</a>
 		<a
 			href="/account/account/change-email"
 			class="btn btn-sm variant-filled-primary">
-			Change Email
+			{$_('change-email')}
 		</a>
 	</div>
 </div>

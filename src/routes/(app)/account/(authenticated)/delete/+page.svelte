@@ -13,26 +13,29 @@
 	async function close() {
 		await goto('/account');
 	}
+	import { _ } from 'svelte-i18n';
 </script>
 
-<StatelessModal title="Delete Character" on:close={close}>
+<StatelessModal title={$_('delete-character')} on:close={close}>
 	<form class="flex flex-col gap-4" method="post" use:enhance>
 		{#if form?.errors?.global}
 			<p class="text-xs text-error-500">{form.errors.global}</p>
 		{/if}
 
-		<h4 class="h4">Are you sure you want to delete "{data.name}"?</h4>
+		<h4 class="h4">
+			{$_('delete-confirmation-description', { values: { name: data.name } })}
+		</h4>
 		<div class="w-full">
 			<TextField
 				type="password"
 				name="password"
-				label="Password"
+				label={$_('password')}
 				labelClass="!flex-row items-center gap-2"
 				errors={form?.errors?.password} />
 		</div>
 
 		<div class="flex flex-row justify-end">
-			<button class="btn variant-filled-error">Confirm Deletion</button>
+			<button class="btn variant-filled-error">{$_('confirm-deletion')}</button>
 		</div>
 	</form>
 </StatelessModal>

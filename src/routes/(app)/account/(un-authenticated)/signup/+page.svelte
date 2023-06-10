@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
+
 	import { enhance } from '$app/forms';
 
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
@@ -15,14 +17,14 @@
 	{/if}
 
 	<TextField
-		label="Account name"
+		label={$_('account-name')}
 		name="accountName"
 		type="text"
 		autocomplete="username"
 		errors={form?.errors?.accountName} />
 
 	<TextField
-		label="Email"
+		label={$_('email')}
 		name="email"
 		type="email"
 		autocomplete="email"
@@ -30,14 +32,14 @@
 
 	<div class="flex flex-row gap-2">
 		<TextField
-			label="Password"
+			label={$_('password')}
 			name="password"
 			type="password"
 			autocomplete="new-password"
 			errors={form?.errors?.password} />
 
 		<TextField
-			label="Password confirmation"
+			label={$_('password-confirmation')}
 			name="passwordConfirmation"
 			type="password"
 			autocomplete="new-password"
@@ -46,11 +48,11 @@
 
 	<hr class="divider" />
 
-	<h3 class="h3">Character</h3>
+	<h3 class="h3">{$_('character')}</h3>
 
 	<CreateCharacterFormFields {form} />
 
 	<div class="flex flex-row justify-end">
-		<button class="btn variant-filled-primary">Create Account</button>
+		<button class="btn variant-filled-primary">{$_('create-account-0')}</button>
 	</div>
 </form>

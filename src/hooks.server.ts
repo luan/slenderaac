@@ -1,4 +1,5 @@
 import type { Handle } from '@sveltejs/kit';
+import { locale } from 'svelte-i18n';
 
 import type { Flash } from '$lib/server/flash';
 import { AccountType, isAccountType } from '$lib/accounts';
@@ -13,6 +14,11 @@ const unauthorized = new Response(null, {
 });
 
 export const handle = (async ({ event, resolve }) => {
+	const lang = event.request.headers.get('accept-language')?.split(',')[0];
+	if (lang) {
+		await locale.set(lang);
+	}
+
 	const { cookies, url } = event;
 	const sid = cookies.get('sid');
 	if (sid) {

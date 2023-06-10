@@ -1,7 +1,9 @@
 <script lang="ts">
 	export let steps: number;
 	export let current = 0;
-	export let label = 'Step';
+	import { _ } from 'svelte-i18n';
+
+	export let label = $_('step');
 </script>
 
 <div class="stepper space-y-4">

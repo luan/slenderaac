@@ -98,5 +98,26 @@
 		"width",
 		"zIndex"
 	],
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"i18n-ally.localesPaths": ["src/lib/i18n", "src/lib/i18n/locales"],
+	"i18n-ally.keystyle": "nested",
+	"i18n-ally.extract.ignored": [
+		"${\n\t\t\t\t\tflashType === 'success' ? 'bg-success-800' : 'bg-error-800'\n\t\t\t\t} text-white",
+		"\n\t\t{#if !isFinal}\n\t\t\t{$_('shop.confirmation.nonFinalStatus', {\n\t\t\t\tvalues: {\n\t\t\t\t\tPUBLIC_SUPPORT_EMAIL,\n\t\t\t\t},\n\t\t\t})}\n\t\t{:else if status === CoinOrderStatus.CANCELED}\n\t\t\tIt seems you have canceled your payment. If you have any questions, please\n\t\t\treach us at ",
+		"\n\t\t{#if !isFinal}\n\t\t\t{$_('shop.confirmation.nonFinalStatus', {\n\t\t\t\tvalues: {\n\t\t\t\t\tPUBLIC_SUPPORT_EMAIL,\n\t\t\t\t},\n\t\t\t})}\n\t\t{:else if status === CoinOrderStatus.CANCELED}\n\t\t\t{$_('shop.confirmation.canceled', {\n\t\t\t\tvalues: {\n\t\t\t\t\tPUBLIC_SUPPORT_EMAIL,\n\t\t\t\t},\n\t\t\t})}\n\t\t{:else if status === CoinOrderStatus.COMPLETED}\n\t\t\tYour order of {amount}\n\t\t\t{PUBLIC_TITLE} coins has been confirmed.",
+		"0 auto",
+		"10px 20px",
+		"0 0 4px rgba(0, 0, 0, 0.7)",
+		"20px 0",
+		"\n\t\t\t\t{PUBLIC_TITLE} · ",
+		"-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif",
+		"< data.articles.length - 1}\n\t\t",
+		"?${$page.url.searchParams.toString()}",
+		" (searchInput = '')} />\n",
+		"& data.accountEmail ",
+		"\n\t\t{/if}\n\t{:else if step == 'confirmation' ",
+		"\n\t{:else if step == 'payment' ",
+		"& data.offerId}\n\t\t",
+		"&"
+	]
 }
