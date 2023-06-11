@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
+
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
@@ -14,7 +16,7 @@
 	}
 </script>
 
-<StatelessModal title="$_('create-character')" on:close={close}>
+<StatelessModal title={$_('create-character')} on:close={close}>
 	<form class="flex flex-col gap-4" method="post" use:enhance>
 		{#if form?.errors?.global}
 			<p class="text-xs text-error-500">{form.errors.global}</p>
@@ -24,7 +26,7 @@
 
 		<div class="flex flex-row justify-end">
 			<button class="btn variant-filled-primary"
-				>$_('create-character-0')</button>
+				>{$_('create-character')}</button>
 		</div>
 	</form>
 </StatelessModal>

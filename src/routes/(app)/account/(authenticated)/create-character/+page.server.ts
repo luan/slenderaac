@@ -7,7 +7,7 @@ import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
 import {
-	nameValidator,
+	characterNameValidator,
 	presenceValidator,
 	stringValidator,
 	validate,
@@ -30,7 +30,7 @@ export const actions = {
 
 		const errors = validate(
 			{
-				characterName: [presenceValidator, nameValidator],
+				characterName: [presenceValidator, characterNameValidator],
 				characterSex: [presenceValidator, stringValidator],
 			},
 			data,

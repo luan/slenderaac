@@ -20,7 +20,9 @@ export function toProperCase(str: string) {
  * @returns The capitalized string.
  */
 export function toTitleCase(str: string) {
-	return str.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
+	return str
+		.toLowerCase()
+		.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
 }
 
 /**

@@ -119,5 +119,8 @@
 		"\n\t{:else if step == 'payment' ",
 		"& data.offerId}\n\t\t",
 		"&"
-	]
+	],
+	"i18n-ally.extract.ignoredByFiles": {
+		"src/lib/server/validations.ts": ["Slug must be a string"]
+	}
 }

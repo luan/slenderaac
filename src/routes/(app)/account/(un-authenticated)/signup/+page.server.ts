@@ -8,8 +8,8 @@ import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { hashPassword } from '$lib/server/utils';
 import {
+	characterNameValidator,
 	emailValidator,
-	nameValidator,
 	presenceValidator,
 	stringValidator,
 	validate,
@@ -46,7 +46,7 @@ export const actions = {
 						return null;
 					},
 				],
-				characterName: [presenceValidator, nameValidator],
+				characterName: [presenceValidator, characterNameValidator],
 				characterSex: [presenceValidator, stringValidator],
 			},
 			data,

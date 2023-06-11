@@ -121,6 +121,6 @@
 	<div class="flex flex-row w-full justify-between gap-2">
 		<a href="/shop/coins" class="btn variant-filled whitespace-normal"
 			>{$_('shop.goback')}</a>
-		<a href="/account" class="btn variant-filled-primary">$_('my-account')</a>
+		<a href="/account" class="btn variant-filled-primary">{$_('my-account')}</a>
 	</div>
 {/if}
