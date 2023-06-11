@@ -53,7 +53,7 @@ model AccountViplist {
 
 model Accounts {
   id                  Int                 @id @default(autoincrement()) @db.UnsignedInt
-  name                String              @unique(map: "accounts_unique") @db.VarChar(32)
+  name                String              @unique(map: "accounts_unique") @default(cuid()) @db.VarChar(32)
   password            String              @db.Char(40)
   email               String              @unique(map: "accounts_email_unique") @db.VarChar(255)
   premdays            Int                 @default(0)

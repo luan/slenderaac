@@ -24,7 +24,6 @@ export const load = (() => {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		const data = await request.formData();
-		let accountName = data.get('accountName');
 		let email = data.get('email');
 		const password = data.get('password');
 		const characterName = data.get('characterName');
@@ -33,7 +32,6 @@ export const actions = {
 
 		const errors = validate(
 			{
-				accountName: [presenceValidator, stringValidator],
 				email: [presenceValidator, emailValidator],
 				password: [presenceValidator, stringValidator],
 				passwordConfirmation: [
@@ -57,10 +55,9 @@ export const actions = {
 		}
 
 		invariant(
-			accountName && email && password && characterName && characterSex,
+			email && password && characterName && characterSex,
 			'Missing required fields',
 		);
-		invariant(typeof accountName === 'string', 'Name must be a string');
 		invariant(typeof email === 'string', 'Email must be a string');
 		invariant(typeof password === 'string', 'Password must be a string');
 		invariant(typeof characterName === 'string', 'Name must be a string');
@@ -69,30 +66,15 @@ export const actions = {
 		const characterSexValue = parsePlayerSex(characterSex);
 		const characterPronounsValue = parsePlayerPronoun(characterPronouns);
 
-		accountName = accountName.toLowerCase();
 		email = email.toLowerCase();
 
-		{
-			const account = await prisma.accounts.findUnique({ where: { email } });
-			if (account) {
-				return fail(400, {
-					errors: {
-						email: ['Email is already taken'],
-					} as Record<string, string[]>,
-				});
-			}
-		}
-		{
-			const account = await prisma.accounts.findUnique({
-				where: { name: accountName },
+		const account = await prisma.accounts.findUnique({ where: { email } });
+		if (account) {
+			return fail(400, {
+				errors: {
+					email: ['Email is already taken'],
+				} as Record<string, string[]>,
 			});
-			if (account) {
-				return fail(400, {
-					errors: {
-						accountName: ['Account name is already taken'],
-					} as Record<string, string[]>,
-				});
-			}
 		}
 
 		const hashedPassword = hashPassword(password);
@@ -115,7 +97,6 @@ export const actions = {
 
 		const created = await prisma.accounts.create({
 			data: {
-				name: accountName,
 				email,
 				password: hashedPassword,
 

@@ -1,5 +1,4 @@
 export type AccountInfo = {
-	name: string;
 	email: string;
 	createdAt: Date;
 	lastLogin: Date;

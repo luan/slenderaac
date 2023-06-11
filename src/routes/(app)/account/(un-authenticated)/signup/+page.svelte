@@ -17,13 +17,6 @@
 	{/if}
 
 	<TextField
-		label={$_('account-name')}
-		name="accountName"
-		type="text"
-		autocomplete="username"
-		errors={form?.errors?.accountName} />
-
-	<TextField
 		label={$_('email')}
 		name="email"
 		type="email"

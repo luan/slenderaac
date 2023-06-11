@@ -12,7 +12,6 @@ export const load = (async ({ locals }) => {
 			id: locals.session?.accountId,
 		},
 		select: {
-			name: true,
 			email: true,
 			creation: true,
 			coins_transferable: true,
@@ -28,7 +27,6 @@ export const load = (async ({ locals }) => {
 
 	const characters = account.players.map(dbToPlayer);
 	const accountInfo: AccountInfo = {
-		name: account.name,
 		email: account.email,
 		createdAt: account.creation,
 		coinsTransferable: account.coins_transferable,

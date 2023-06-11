@@ -14,10 +14,6 @@
 
 	<div class="data-table">
 		<div class="data-row">
-			<dt>{$_('name')}</dt>
-			<dd>{account.name}</dd>
-		</div>
-		<div class="data-row">
 			<dt>{$_('email')}</dt>
 			<dd>
 				{account.email}
