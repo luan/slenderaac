@@ -7,6 +7,6 @@
 
 <span
 	class="text-xs text-primary-800"
-	use:tooltip={{ content: $_('${keypath}') }}>
+	use:tooltip={{ content: $_('main-character') }}>
 	<Fa icon={faDiamond} />
 </span>

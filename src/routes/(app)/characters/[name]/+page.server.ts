@@ -13,13 +13,13 @@ export const load = (async ({ params }) => {
 			...PlayerSelectForList,
 			town_id: true,
 			lastlogin: true,
+			account_id: true,
 		},
 	});
 	const town = await prisma.towns.findUniqueOrThrow({
 		where: { id: player?.town_id },
 		select: { name: true },
 	});
-
 	if (!player) {
 		return {
 			status: 404,
@@ -27,7 +27,19 @@ export const load = (async ({ params }) => {
 		};
 	}
 
+	const accountCharacters = (
+		await prisma.players.findMany({
+			where: {
+				account_id: player.account_id,
+				deletion: 0,
+				settings: { hidden: false },
+			},
+			select: { ...PlayerSelectForList },
+		})
+	).map(dbToPlayer);
+
 	return {
 		character: dbToPlayer({ ...player, town: town }),
+		accountCharacters,
 	};
 }) satisfies PageServerLoad;

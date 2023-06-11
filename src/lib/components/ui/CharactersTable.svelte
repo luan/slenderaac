@@ -44,9 +44,9 @@
 				<th class="w-20">Outfit</th>
 				<TableHeader {sort} {order} col="name">{$_('name')}</TableHeader>
 				<TableHeader {sort} {order} col="vocation" class="w-32"
-					>{$_('${keypath}')}</TableHeader>
+					>{$_('vocation')}</TableHeader>
 				<TableHeader {sort} {order} col="level" class="w-24"
-					>{$_('${keypath}')}</TableHeader>
+					>{$_('level')}</TableHeader>
 			</tr>
 		</thead>
 		<tbody class="transition-all duration-300 ease-in-out">

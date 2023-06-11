@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
 
+	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
 	import { getPronoun, sexString, vocationString } from '$lib/players';
 	import { formatDate } from '$lib/utils';
 
@@ -42,6 +43,10 @@
 			</dd>
 		</div>
 	</div>
+
+	{#if data.accountCharacters && data.accountCharacters.length > 0}
+		<CharactersTable characters={data.accountCharacters} />
+	{/if}
 {:else}
 	<h5 class="h4">{data.error}</h5>
 {/if}

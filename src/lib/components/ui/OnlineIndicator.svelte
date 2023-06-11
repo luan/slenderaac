@@ -8,11 +8,11 @@
 </script>
 
 {#if online}
-	<span class="text-success-600" use:tooltip={{ content: $_('${keypath}') }}>
+	<span class="text-success-600" use:tooltip={{ content: $_('online') }}>
 		<Fa icon={faCircle} size="xs" />
 	</span>
 {:else}
-	<span class="text-error-600" use:tooltip={{ content: $_('${keypath}') }}>
+	<span class="text-error-600" use:tooltip={{ content: $_('offline') }}>
 		<Fa icon={faCircle} size="xs" />
 	</span>
 {/if}

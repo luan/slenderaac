@@ -35,7 +35,11 @@
 							<div class="flex flex-col">
 								<span class="font-semibold flex flex-row gap-1 items-center">
 									<OnlineIndicator online={character.online} />
-									{character.name}
+									<a
+										href="/characters/{character.name}"
+										class="anchor text-surface-900">
+										{character.name}
+									</a>
 									<em class="font-light">({getPronoun(character)})</em>
 									{#if character.isMain}
 										<MainCharacterIndicator />
