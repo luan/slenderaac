@@ -144,11 +144,12 @@
 				<button class="md:hidden btn btn-sm mr-4" on:click={drawerOpen}>
 					<Fa icon={faBars} />
 				</button>
-				<div class="md:w-36 md:h-32">
+				<div
+					class="w-full h-full -mb-6 hidden md:flex flex-col items-center justify-end">
 					<img
 						src="/images/logo.png"
 						alt="logo"
-						class="hidden md:block object-cover" />
+						class="hidden md:block w-36 h-32 object-cover" />
 				</div>
 			</svelte:fragment>
 			<div class="flex md:hidden items-center gap-2">
