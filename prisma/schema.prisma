@@ -753,7 +753,7 @@ model PlayerWheeldata {
 
 model AccountSessions {
   id         String   @id @default(cuid())
-  account    Accounts @relation(fields: [account_id], references: [id])
+  account    Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade)
   expires    BigInt   @db.UnsignedBigInt
   account_id Int      @db.UnsignedInt
 
