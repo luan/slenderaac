@@ -23,12 +23,13 @@
 	} from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
+	import { initFlash } from 'sveltekit-flash-message/client';
 
 	import { browser } from '$app/environment';
-	import { afterNavigate, invalidate } from '$app/navigation';
+	import { beforeNavigate, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 
 	import ServerStatus from '$lib/components/ui/ServerStatus.svelte';
@@ -63,10 +64,23 @@
 		drawerStore.close();
 	}
 
-	afterNavigate(() => {
+	const flash = initFlash(page);
+
+	beforeNavigate((nav) => {
 		drawerClose();
-		if (browser && data.flash) {
-			const { message, type: flashType } = data.flash;
+		if ($flash && nav.from?.url.toString() !== nav.to?.url.toString()) {
+			$flash = undefined;
+		}
+	});
+
+	onMount(() => {
+		const interval = setInterval(() => invalidate('app:layout'), 5 * 1000);
+		return () => clearInterval(interval);
+	});
+
+	const unsubscribe = flash.subscribe(($flash) => {
+		if ($flash) {
+			const { message, type: flashType } = $flash;
 			toastStore.trigger({
 				message: message,
 				background: `${
@@ -75,11 +89,7 @@
 			});
 		}
 	});
-
-	onMount(() => {
-		const interval = setInterval(() => invalidate('app:layout'), 5 * 1000);
-		return () => clearInterval(interval);
-	});
+	onDestroy(unsubscribe);
 </script>
 
 <svelte:head>

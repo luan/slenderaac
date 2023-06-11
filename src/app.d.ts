@@ -8,7 +8,9 @@ declare global {
 			session?: SessionInfo;
 			flash?: Flash;
 		}
-		// interface PageData {}
+		interface PageData {
+			flash?: { type: 'success' | 'error'; message: string };
+		}
 		// interface Platform {}
 	}
 

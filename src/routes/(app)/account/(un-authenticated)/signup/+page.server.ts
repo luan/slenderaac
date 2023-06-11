@@ -1,9 +1,9 @@
 import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
 import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
 import { sendVerificationEmail } from '$lib/server/email';
-import { redirectWithFlash } from '$lib/server/flash';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { hashPassword } from '$lib/server/utils';
@@ -22,7 +22,9 @@ export const load = (() => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ cookies, request }) => {
+	default: async (event) => {
+		const { request } = event;
+
 		const data = await request.formData();
 		let email = data.get('email');
 		const password = data.get('password');
@@ -125,9 +127,13 @@ export const actions = {
 		}
 
 		await sendVerificationEmail(created.email, created.emailVerification.token);
-		redirectWithFlash('/account/login', cookies, {
-			type: 'success',
-			message: 'Account created. Check your email to confirm your account.',
-		});
+		throw redirect(
+			'/account/login',
+			{
+				type: 'success',
+				message: 'Account created. Check your email to confirm your account.',
+			},
+			event,
+		);
 	},
 } satisfies Actions;

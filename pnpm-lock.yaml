@@ -181,6 +181,9 @@ devDependencies:
   svelte-stripe:
     specifier: ^0.0.22
     version: 0.0.22
+  sveltekit-flash-message:
+    specifier: ^1.0.0
+    version: 1.0.0(@sveltejs/kit@1.20.2)(svelte@3.59.1)
   svooltip:
     specifier: ^0.7.4
     version: 0.7.4
@@ -4152,6 +4155,16 @@ packages:
   /svelte@3.59.1:
     resolution: {integrity: sha512-pKj8fEBmqf6mq3/NfrB9SLtcJcUvjYSWyePlfCqN9gujLB25RitWK8PvFzlwim6hD/We35KbPlRteuA6rnPGcQ==}
     engines: {node: '>= 8'}
+
+  /sveltekit-flash-message@1.0.0(@sveltejs/kit@1.20.2)(svelte@3.59.1):
+    resolution: {integrity: sha512-jiLU8XaaXJjPGLp1n+ZSDHelMo8nHVh7JwkqD+UchUpYk8LHFkyX9knmhNu3ti2Zcjypuoxf+MozzeEEJ5hjzg==}
+    peerDependencies:
+      '@sveltejs/kit': ^1.0.0
+      svelte: ^3
+    dependencies:
+      '@sveltejs/kit': 1.20.2(svelte@3.59.1)(vite@4.3.9)
+      svelte: 3.59.1
+    dev: true
 
   /svooltip@0.7.4:
     resolution: {integrity: sha512-2HAvhzDgHulEe9aS88aa30HuiigOw56ePxK5djp/hSaBPlEbOsvQtxEs3mmUq0rF951f45chIJ83GeVV1PT+2A==}

@@ -1,3 +1,4 @@
+import { loadFlashMessage } from 'sveltekit-flash-message/server';
 import { check as checkPort } from 'tcp-port-used';
 
 import { PlayerGroup } from '$lib/players';
@@ -8,7 +9,7 @@ import { SERVER_ADDRESS, SERVER_PORT } from '$env/static/private';
 
 import type { LayoutServerLoad } from './$types';
 
-export const load = (async ({ locals, depends }) => {
+export const load = loadFlashMessage(async ({ locals, depends }) => {
 	depends('app:layout');
 
 	const highscores = await prisma.players.findMany({

@@ -1,7 +1,7 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
-import { redirectWithFlash } from '$lib/server/flash';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
 import { hashPassword } from '$lib/server/utils';
@@ -19,7 +19,8 @@ export const load = (({ url }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ params, url, cookies, locals, request }) => {
+	default: async (event) => {
+		const { request, locals, params, url } = event;
 		requireLogin(locals);
 
 		const data = await request.formData();
@@ -33,10 +34,14 @@ export const actions = {
 				where: { name: characterName, account_id: locals.session?.accountId },
 				data: { deletion: 0 },
 			});
-			redirectWithFlash('/account', cookies, {
-				type: 'success',
-				message: 'Character deletion cancelled',
-			});
+			throw redirect(
+				'/account',
+				{
+					type: 'success',
+					message: 'Character deletion cancelled',
+				},
+				event,
+			);
 		}
 
 		invariant(password, 'Missing required fields');
@@ -100,9 +105,13 @@ export const actions = {
 
 		await prisma.$transaction(ops);
 
-		redirectWithFlash('/account', cookies, {
-			type: 'success',
-			message: `Character ${characterName} scheduled for deletion`,
-		});
+		throw redirect(
+			'/account',
+			{
+				type: 'success',
+				message: `Character ${characterName} scheduled for deletion`,
+			},
+			event,
+		);
 	},
 } satisfies Actions;

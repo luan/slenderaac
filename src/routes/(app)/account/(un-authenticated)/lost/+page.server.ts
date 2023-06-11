@@ -1,8 +1,8 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
 import { sendMail } from '$lib/server/email';
-import { redirectWithFlash } from '$lib/server/flash';
 import { prisma } from '$lib/server/prisma';
 import {
 	presenceValidator,
@@ -12,7 +12,8 @@ import {
 
 import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = ({ locals }) => {
+export const load: PageServerLoad = (event) => {
+	const { locals } = event;
 	if (locals.session) {
 		throw redirect(302, '/');
 	}
@@ -23,7 +24,8 @@ export const load: PageServerLoad = ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ cookies, request }) => {
+	default: async (event) => {
+		const { request } = event;
 		const data = await request.formData();
 		let email = data.get('email');
 
@@ -46,13 +48,16 @@ export const actions: Actions = {
 			where: { email },
 		});
 		if (!account) {
-			redirectWithFlash(`/account/login`, cookies, {
-				type: 'success',
-				message:
-					'If an account with that email exists, a verification email has been sent.',
-			});
+			throw redirect(
+				`/account/login`,
+				{
+					type: 'success',
+					message:
+						'If an account with that email exists, a verification email has been sent.',
+				},
+				event,
+			);
 		}
-		invariant(account, 'Account not found');
 
 		await prisma.passwordReset.deleteMany({
 			where: { account_id: account.id },
@@ -77,10 +82,14 @@ export const actions: Actions = {
 				],
 			},
 		});
-		redirectWithFlash(`/account/login`, cookies, {
-			type: 'success',
-			message:
-				'If an account with that email exists, a verification email has been sent.',
-		});
+		throw redirect(
+			`/account/login`,
+			{
+				type: 'success',
+				message:
+					'If an account with that email exists, a verification email has been sent.',
+			},
+			event,
+		);
 	},
 } satisfies Actions;

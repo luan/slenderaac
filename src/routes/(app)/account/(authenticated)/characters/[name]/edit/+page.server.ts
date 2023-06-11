@@ -1,8 +1,8 @@
 import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
 import { parsePlayerPronoun } from '$lib/players';
-import { redirectWithFlash } from '$lib/server/flash';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
 import { stringValidator, validate } from '$lib/server/validations';
@@ -43,7 +43,8 @@ export const load = (async ({ params }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ params, cookies, locals, request }) => {
+	default: async (event) => {
+		const { request, locals, params } = event;
 		requireLogin(locals);
 
 		const characterName = params.name;
@@ -96,9 +97,13 @@ export const actions = {
 			},
 		});
 
-		redirectWithFlash('/account', cookies, {
-			message: `Character ${characterName} saved!`,
-			type: 'success',
-		});
+		throw redirect(
+			'/account',
+			{
+				message: `Character ${characterName} saved!`,
+				type: 'success',
+			},
+			event,
+		);
 	},
 } satisfies Actions;

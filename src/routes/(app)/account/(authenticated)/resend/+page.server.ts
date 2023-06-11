@@ -1,14 +1,15 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 
 import { sendVerificationEmail } from '$lib/server/email';
-import { redirectWithFlash } from '$lib/server/flash';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
 
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ locals, cookies }) => {
+export const load = (async (event) => {
+	const { locals } = event;
 	requireLogin(locals);
+
 	const account = await prisma.accounts.findUniqueOrThrow({
 		where: { id: locals.session?.accountId },
 	});
@@ -30,9 +31,13 @@ export const load = (async ({ locals, cookies }) => {
 	});
 
 	await sendVerificationEmail(account.email, verification.token);
-	redirectWithFlash(`/account`, cookies, {
-		type: 'success',
-		message: 'Verification re-sent. Check your email to confirm your account.',
-	});
-	return {};
+	throw redirect(
+		`/account`,
+		{
+			type: 'success',
+			message:
+				'Verification re-sent. Check your email to confirm your account.',
+		},
+		event,
+	);
 }) satisfies PageServerLoad;

@@ -1,7 +1,7 @@
 import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
-import { redirectWithFlash } from '$lib/server/flash';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
 import { hashPassword } from '$lib/server/utils';
@@ -18,7 +18,8 @@ export const load = (() => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ locals, cookies, request }) => {
+	default: async (event) => {
+		const { request, locals } = event;
 		requireLogin(locals);
 
 		const data = await request.formData();
@@ -95,9 +96,13 @@ export const actions = {
 			});
 		}
 
-		redirectWithFlash('/account', cookies, {
-			type: 'success',
-			message: 'Password changed successfully',
-		});
+		throw redirect(
+			'/account',
+			{
+				type: 'success',
+				message: 'Password changed successfully',
+			},
+			event,
+		);
 	},
 } satisfies Actions;

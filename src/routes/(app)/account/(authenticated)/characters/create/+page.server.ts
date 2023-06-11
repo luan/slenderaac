@@ -1,8 +1,8 @@
 import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
 import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
-import { redirectWithFlash } from '$lib/server/flash';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
@@ -20,7 +20,8 @@ export const load = (() => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ cookies, locals, request }) => {
+	default: async (event) => {
+		const { request, locals } = event;
 		requireLogin(locals);
 
 		const data = await request.formData();
@@ -80,9 +81,13 @@ export const actions = {
 			});
 		}
 
-		redirectWithFlash('/account', cookies, {
-			message: `Character ${characterName} created!`,
-			type: 'success',
-		});
+		throw redirect(
+			'/account',
+			{
+				message: `Character ${characterName} created!`,
+				type: 'success',
+			},
+			event,
+		);
 	},
 } satisfies Actions;

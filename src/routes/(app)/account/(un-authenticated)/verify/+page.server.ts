@@ -1,7 +1,7 @@
 import { error, fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
-import { redirectWithFlash } from '$lib/server/flash';
 import { prisma } from '$lib/server/prisma';
 import { performLogin } from '$lib/server/session';
 import {
@@ -35,7 +35,9 @@ export const load = (async ({ url }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	default: async ({ cookies, request }) => {
+	default: async (event) => {
+		const { request, cookies } = event;
+
 		const data = await request.formData();
 		const email = data.get('email');
 		const token = data.get('token');
@@ -88,9 +90,13 @@ export const actions: Actions = {
 
 		await performLogin(cookies, sessionEmail);
 
-		redirectWithFlash('/account', cookies, {
-			type: 'success',
-			message: 'Your email has been verified.',
-		});
+		throw redirect(
+			'/account',
+			{
+				type: 'success',
+				message: 'Your email has been verified.',
+			},
+			event,
+		);
 	},
 } satisfies Actions;

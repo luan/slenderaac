@@ -1,7 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 import { locale } from 'svelte-i18n';
 
-import type { Flash } from '$lib/server/flash';
 import { AccountType, isAccountType } from '$lib/accounts';
 import { prisma } from '$lib/server/prisma';
 import { getSession, requireLogin } from '$lib/server/session';
@@ -28,13 +27,6 @@ export const handle = (async ({ event, resolve }) => {
 		} else {
 			cookies.delete('sid');
 		}
-	}
-	event.locals.flash = undefined;
-	const flashJSON = cookies.get('flashMessage');
-	if (flashJSON) {
-		const flashMessage = JSON.parse(flashJSON) as Flash;
-		event.locals.flash = flashMessage;
-		cookies.delete('flashMessage');
 	}
 
 	if (url.pathname.startsWith('/admin')) {
