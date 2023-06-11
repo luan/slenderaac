@@ -17,7 +17,7 @@
 	<input type="hidden" name="token" value={data.token} />
 	<input type="hidden" name="email" value={data.email} />
 	<span class="h4">
-		Welcome! Please verify your account by clicking the button below.
+		{$_('verify.welcome')}
 	</span>
 
 	<button class="btn variant-filled-primary">{$_('verify-account')}</button>
