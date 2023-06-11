@@ -19,13 +19,14 @@ export const load = (({ url }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ url, cookies, locals, request }) => {
+	default: async ({ params, url, cookies, locals, request }) => {
 		requireLogin(locals);
 
 		const data = await request.formData();
 		const password = data.get('password');
-		const characterName = url.searchParams.get('name');
+		const characterName = params.name;
 		invariant(characterName, 'Missing required fields');
+
 		const undelete = url.searchParams.get('cancel');
 		if (undelete === 'true') {
 			await prisma.players.updateMany({
@@ -39,7 +40,6 @@ export const actions = {
 		}
 
 		invariant(password, 'Missing required fields');
-		invariant(typeof characterName === 'string', 'Name must be a string');
 		invariant(typeof password === 'string', 'Password must be a string');
 
 		const account = await prisma.accounts.findFirst({

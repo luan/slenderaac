@@ -61,7 +61,7 @@
 										</form>
 									{/if}
 									<a
-										href="/account/characters/delete?name={character.name}"
+										href="/account/characters/{character.name}/delete"
 										class="anchor"
 										type="submit">
 										{$_('delete')}
@@ -80,7 +80,7 @@
 									</span>
 									<form
 										class="flex"
-										action="/account/characters/delete?name={character.name}&cancel=true"
+										action="/account/characters/{character.name}/delete?cancel=true"
 										method="POST">
 										(<button class="anchor" type="submit"
 											>{$_('undelete')}</button
