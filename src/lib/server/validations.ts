@@ -6,6 +6,8 @@ import invariant from 'tiny-invariant';
 
 import { toProperCase, toTitleCase } from '$lib/utils';
 
+import { PUBLIC_TITLE } from '$env/static/public';
+
 export type ValidationRules = Record<
 	string,
 	Array<(value: unknown) => string | null>
@@ -68,22 +70,24 @@ export function slugValidator(value: unknown) {
 	return null;
 }
 
-const BLOCKED_NAMES = [
+const BLOCKD_PREFIXES = ['gm', 'dm', 'god', 'cm', 'tutor', 'senior', "'", '-'];
+
+const BLOCKED_WORDS = [
 	'admin',
 	'administrator',
-	'gm',
-	'cm',
-	'god',
-	'tutor',
-	'mod',
-	'moderator',
-	'moderators',
-	'player',
-	'players',
-	'character',
-	'characters',
-	'charactername',
-	'character-name',
+	'gamemaster',
+	'game master',
+	'game-master',
+	"game'master",
+	'--',
+	"''",
+	"' ",
+	" '",
+	'- ',
+	' -',
+	"-'",
+	"'-",
+	PUBLIC_TITLE.toLowerCase(),
 ];
 
 export function characterNameValidator(value: unknown) {
@@ -99,11 +103,21 @@ export function characterNameValidator(value: unknown) {
 	if (toTitleCase(value) !== value) {
 		return $_('validations.title-case');
 	}
-
-	for (const blockedName of BLOCKED_NAMES) {
+	for (const prefix of BLOCKD_PREFIXES) {
+		if (value.toLowerCase().startsWith(prefix)) {
+			return $_('validations.blocked-words');
+		}
+	}
+	for (const blockedName of BLOCKED_WORDS) {
 		if (value.toLowerCase().includes(blockedName)) {
 			return $_('validations.blocked-words');
 		}
+	}
+	if (value.trim() !== value) {
+		return $_('validations.blocked-words');
+	}
+	if (!/^[a-z- ']+$/.test(value.toLowerCase())) {
+		return $_('validations.name');
 	}
 
 	return null;

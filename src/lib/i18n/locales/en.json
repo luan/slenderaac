@@ -112,6 +112,7 @@
 		"min-length": ":field must be at least {min} characters",
 		"required": ":field is required",
 		"slug": ":field must only contain lowercase letters, numbers, and hyphens",
+		"name": ":field must only contain lowercase letters, spaces, apostrophes, and hyphens",
 		"string": ":field must be a string",
 		"title-case": ":field must be in title case"
 	},
