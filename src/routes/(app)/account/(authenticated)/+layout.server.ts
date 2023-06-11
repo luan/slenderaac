@@ -31,7 +31,7 @@ export const load = (async ({ locals }) => {
 		createdAt: account.creation,
 		coinsTransferable: account.coins_transferable,
 		isVerified: account.is_verified,
-		newEmail: account.emailVerification[0]?.new_email ?? undefined,
+		newEmail: account.emailVerification?.new_email ?? undefined,
 		lastLogin: new Date(
 			characters.reduce(
 				(acc, cur) => Math.max(acc, cur.lastLogin?.getTime() ?? 0),

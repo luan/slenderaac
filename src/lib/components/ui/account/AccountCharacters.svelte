@@ -61,6 +61,12 @@
 										</form>
 									{/if}
 									<a
+										href="/account/characters/{character.name}/edit"
+										class="anchor"
+										type="submit">
+										{$_('edit')}
+									</a>
+									<a
 										href="/account/characters/{character.name}/delete"
 										class="anchor"
 										type="submit">

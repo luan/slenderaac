@@ -116,7 +116,7 @@ export const actions = {
 				emailVerification: true,
 			},
 		});
-		if (!created) {
+		if (!created || !created.emailVerification) {
 			return fail(400, {
 				errors: {
 					global: ['Failed to create account'],
@@ -124,10 +124,7 @@ export const actions = {
 			});
 		}
 
-		await sendVerificationEmail(
-			created.email,
-			created.emailVerification[0].token,
-		);
+		await sendVerificationEmail(created.email, created.emailVerification.token);
 		redirectWithFlash('/account/login', cookies, {
 			type: 'success',
 			message: 'Account created. Check your email to confirm your account.',

@@ -8,7 +8,7 @@
 
 	import { enhance } from '$app/forms';
 
-	import TextField from '$lib/components/ui/TextField.svelte';
+	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
 	export let news: News | null = null;
 	export let authorName: string | null = null;

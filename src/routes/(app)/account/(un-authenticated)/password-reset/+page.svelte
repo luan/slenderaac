@@ -3,7 +3,7 @@
 
 	import { enhance } from '$app/forms';
 
-	import TextField from '$lib/components/ui/TextField.svelte';
+	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
 	import type { ActionData, PageData } from './$types';
 

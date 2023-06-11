@@ -11,7 +11,7 @@
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
 
-	import TextField from '$lib/components/ui/TextField.svelte';
+	import TextField from '$lib/components/ui/forms/TextField.svelte';
 	import { pronounsEnabled } from '$lib/config';
 	import {
 		allPronouns,

@@ -4,7 +4,7 @@
 	import { enhance } from '$app/forms';
 
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
-	import TextField from '$lib/components/ui/TextField.svelte';
+	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
 	import type { ActionData } from './$types';
 

@@ -73,8 +73,9 @@ model Accounts {
   store_history       StoreHistory[]
   accountSessions     AccountSessions[]
   coinOrders          CoinOrders[]
-  PasswordReset       PasswordReset[]
-  emailVerification   EmailVerification[]
+
+  passwordReset     PasswordReset?
+  emailVerification EmailVerification?
 
   @@map("accounts")
 }
@@ -680,8 +681,10 @@ model Players {
   player_wheeldata                                         PlayerWheeldata[]
   account                                                  Accounts             @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "players_account_fk")
   is_main                                                  Boolean              @default(false)
-  online                                                   PlayerOnline[]
   posted_articles                                          News[]
+
+  online   PlayerOnline?
+  settings PlayerSettings?
 
   @@index([deletion], map: "deletion")
   @@index([account_id], map: "account_id")
@@ -690,8 +693,11 @@ model Players {
 }
 
 model PlayerOnline {
-  player_id Int     @id
-  player    Players @relation(fields: [player_id], references: [id])
+  player_id Int @id
+
+  // This generates a foreign key to the `id` field of the `Player` model, but the ENGINE=MEMORY doesn't support foreign keys
+  // https://github.com/prisma/prisma/issues/7351
+  player Players @relation(fields: [player_id], references: [id])
 
   @@map("players_online")
 }
@@ -816,7 +822,7 @@ model CoinOrders {
 
   payment_token String @unique
 
-  account Accounts @relation(fields: [account_id], references: [id])
+  account Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("slender_coin_orders")
 }
@@ -825,7 +831,7 @@ model PasswordReset {
   token      String   @id @default(cuid())
   account_id Int      @unique @db.UnsignedInt
   expires    DateTime
-  account    Accounts @relation(fields: [account_id], references: [id])
+  account    Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("slender_password_resets")
 }
@@ -834,8 +840,23 @@ model EmailVerification {
   token      String   @id @default(cuid())
   account_id Int      @unique @db.UnsignedInt
   expires    DateTime
-  account    Accounts @relation(fields: [account_id], references: [id])
+  account    Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   new_email  String?  @db.VarChar(255)
 
   @@map("slender_email_verifications")
+}
+
+model PlayerSettings {
+  id        String  @id @default(cuid())
+  player_id Int     @unique
+  player    Players @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  hidden         Boolean @default(false)
+  show_skills    Boolean @default(true)
+  show_inventory Boolean @default(true)
+
+  comment String? @db.Text
+
+  @@index([player_id], map: "player_id")
+  @@map("slender_player_settings")
 }

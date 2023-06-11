@@ -145,7 +145,7 @@ export async function generateCharacterInput({
 }
 
 type PlayerWithData = Players & {
-	online: { player_id: number }[];
+	online: { player_id: number } | null;
 	player_storage: { value: number }[];
 	town: { name: string };
 };
@@ -179,7 +179,7 @@ export function dbToPlayer(
 			player.deletion && player.deletion > 0
 				? parseDate(player.deletion)
 				: null,
-		online: player.online && player.online.length > 0 ? true : false,
+		online: Boolean(player.online),
 		vocation: isPlayerVocation(player.vocation)
 			? player.vocation
 			: PlayerVocation.None,

@@ -8,7 +8,7 @@
 
 	import { applyAction, enhance } from '$app/forms';
 
-	import TextField from '$lib/components/ui/TextField.svelte';
+	import TextField from '$lib/components/ui/forms/TextField.svelte';
 	import { hotkeys } from '$lib/hotkeys';
 
 	export let staticPage: StaticPage | null = null;
