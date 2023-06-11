@@ -50,7 +50,10 @@
 							<div class="flex flex-col gap-1 items-center">
 								{#if !character.deletion}
 									{#if !character.isMain}
-										<form class="flex" action="/account/set-main" method="POST">
+										<form
+											class="flex"
+											action="/account/characters/set-main"
+											method="POST">
 											<input type="hidden" name="name" value={character.name} />
 											<button class="anchor" type="submit">
 												{$_('set-as-main')}
@@ -58,7 +61,7 @@
 										</form>
 									{/if}
 									<a
-										href="/account/delete?name={character.name}"
+										href="/account/characters/delete?name={character.name}"
 										class="anchor"
 										type="submit">
 										{$_('delete')}
@@ -77,7 +80,7 @@
 									</span>
 									<form
 										class="flex"
-										action="/account/delete?name={character.name}&cancel=true"
+										action="/account/characters/delete?name={character.name}&cancel=true"
 										method="POST">
 										(<button class="anchor" type="submit"
 											>{$_('undelete')}</button
@@ -94,7 +97,7 @@
 
 	<div class="flex flex-row justify-end">
 		<a
-			href="/account/create-character"
+			href="/account/characters/create"
 			class="btn btn-sm variant-filled-primary">{$_('new-character')}</a>
 	</div>
 </div>
