@@ -10,9 +10,9 @@
 	export let boostedBoss: BoostedProps | null;
 </script>
 
-<div class="flex flex-col-reverse items-center gap-2 mt-4 lg:mt-0 lg:-mb-4">
+<div class="flex flex-col-reverse items-center gap-2 mt-4 md:mt-0 md:-mb-4">
 	<span
-		class="hidden lg:flex chip rounded-full variant-filled-tertiary opacity-75 mr-2 gap-2">
+		class="hidden md:flex chip rounded-full variant-filled-tertiary opacity-75 mr-2 gap-2">
 		<Fa icon={faRocket} />
 		{$_('boosted')}
 	</span>

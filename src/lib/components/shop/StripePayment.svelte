@@ -92,7 +92,7 @@
 			<PaymentElement />
 		</Elements>
 		<div
-			class="flex justify-between gap-4 items-center p-4 lg:px-12 text-sm italic">
+			class="flex justify-between gap-4 items-center p-4 md:px-12 text-sm italic">
 			<span class="text-success-600-300-token">
 				<Fa icon={faLock} />
 			</span>
