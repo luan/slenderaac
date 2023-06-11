@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { comment } from 'svelte/internal';
 	import { _ } from 'svelte-i18n';
 
 	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
