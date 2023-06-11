@@ -34,7 +34,8 @@ function generateCacheIfNeeded(): boolean {
 		const frameNumbers = Array(10).fill(0);
 
 		for (const filePath of dirIterator) {
-			const outfitIdData = path.dirname(filePath).split('/');
+			const normalizedFilePath = filePath.replaceAll('\\', '/');
+			const outfitIdData = path.dirname(normalizedFilePath).split('/');
 			const outfitId = outfitIdData[outfitIdData.length - 1];
 
 			if (!outfits[outfitId]) {
@@ -45,8 +46,8 @@ function generateCacheIfNeeded(): boolean {
 				};
 			}
 
-			const fileName = path.basename(filePath);
-			outfits[outfitId].files.push(filePath);
+			const fileName = path.basename(normalizedFilePath);
+			outfits[outfitId].files.push(normalizedFilePath);
 
 			const currentFramesNumber = parseInt(fileName.charAt(0));
 			if (Number.isNaN(currentFramesNumber)) {
