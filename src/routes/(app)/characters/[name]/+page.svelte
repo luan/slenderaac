@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { comment } from 'svelte/internal';
 	import { _ } from 'svelte-i18n';
 
 	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
@@ -42,6 +43,15 @@
 				{formatDate(character.lastLogin)}
 			</dd>
 		</div>
+
+		{#if character.settings?.comment}
+			<div class="data-row">
+				<dt>{$_('character-comment')}</dt>
+				<dd>
+					<pre class="font-sans font-light">{character.settings.comment}</pre>
+				</dd>
+			</div>
+		{/if}
 	</div>
 
 	{#if data.accountCharacters && data.accountCharacters.length > 0}

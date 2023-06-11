@@ -2,6 +2,8 @@ import { _, unwrapFunctionStore } from 'svelte-i18n';
 
 const $_ = unwrapFunctionStore(_);
 
+import type { PlayerSettings } from '@prisma/client';
+
 import type { Outfit } from '$lib/outfits';
 
 export type Player = {
@@ -16,6 +18,7 @@ export type Player = {
 	isMain: boolean;
 	townName: string | null;
 	lastLogin: Date | null;
+	settings?: PlayerSettings;
 } & Outfit;
 
 export type PlayerWithRank = Player & {

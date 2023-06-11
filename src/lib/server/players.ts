@@ -1,4 +1,4 @@
-import type { Players, Prisma } from '@prisma/client';
+import type { Players, PlayerSettings, Prisma } from '@prisma/client';
 
 import {
 	isPlayerPronoun,
@@ -148,6 +148,7 @@ type PlayerWithData = Players & {
 	online: { player_id: number } | null;
 	player_storage: { value: number }[];
 	town: { name: string };
+	settings?: PlayerSettings | null;
 };
 
 type PlayerWithoutOptionasl = Pick<
@@ -191,5 +192,6 @@ export function dbToPlayer(
 		isMain: Boolean(player.is_main),
 		townName: (player.town && player.town.name) ?? null,
 		lastLogin: player.lastlogin ? parseDate(player.lastlogin) : null,
+		settings: player.settings ?? undefined,
 	};
 }

@@ -14,6 +14,7 @@ export const load = (async ({ params }) => {
 			town_id: true,
 			lastlogin: true,
 			account_id: true,
+			settings: true,
 		},
 	});
 	const town = await prisma.towns.findUniqueOrThrow({
