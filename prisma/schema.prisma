@@ -680,7 +680,6 @@ model Players {
   rewards                                           PlayerRewards[]
   spells                                            PlayerSpells[]
   storage                                           PlayerStorage[]
-  wheeldata                                         PlayerWheeldata[]
   account                                           Accounts             @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "players_account_fk")
   is_main                                           Boolean              @default(false)
   posted_articles                                   News[]
@@ -747,33 +746,7 @@ model Towns {
   @@map("towns")
 }
 
-model PlayerWheeldata {
-  id        Int     @id @default(autoincrement())
-  player_id Int
-  slot      Bytes   @db.Blob
-  players   Players @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "player_wheeldata_players_fk")
-
-  @@index([player_id], map: "player_id")
-  @@map("player_wheeldata")
-}
-
 // Custom models for SlenderAAC
-
-model Monsters {
-  id         Int    @id @default(autoincrement())
-  name       String @unique(map: "name") @db.VarChar(255)
-  lookbody   Int    @default(0)
-  lookfeet   Int    @default(0)
-  lookhead   Int    @default(0)
-  looklegs   Int    @default(0)
-  looktype   Int    @default(136)
-  lookaddons Int    @default(0)
-  lookmount  Int    @default(0)
-  looktypeex Int    @default(0)
-  raceid     Int    @default(0)
-
-  @@map("monsters")
-}
 
 model GameAccountSessions {
   id         String   @id @default(cuid())
@@ -886,4 +859,20 @@ model PlayerSettings {
 
   @@index([player_id], map: "player_id")
   @@map("slender_player_settings")
+}
+
+model Monsters {
+  id         Int    @id @default(autoincrement())
+  name       String @unique(map: "name") @db.VarChar(255)
+  lookbody   Int    @default(0)
+  lookfeet   Int    @default(0)
+  lookhead   Int    @default(0)
+  looklegs   Int    @default(0)
+  looktype   Int    @default(136)
+  lookaddons Int    @default(0)
+  lookmount  Int    @default(0)
+  looktypeex Int    @default(0)
+  raceid     Int    @default(0)
+
+  @@map("monsters")
 }

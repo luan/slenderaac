@@ -1,11 +1,15 @@
 {
 	"name": "slenderaac",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
+		"migrate": "prisma migrate deploy",
+		"migrate:dev": "prisma migrate dev",
+		"migrate:resolve": "prisma migrate resolve --applied 000000000000_init_from_canary",
+		"db:setup": "pnpm migrate:resolve && pnpm migrate",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
