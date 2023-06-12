@@ -2,23 +2,25 @@ import { _, unwrapFunctionStore } from 'svelte-i18n';
 
 const $_ = unwrapFunctionStore(_);
 
+import type { MaybePromise } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
+import { prisma } from '$lib/server/prisma';
 import { toProperCase, toTitleCase } from '$lib/utils';
 
 import { PUBLIC_TITLE } from '$env/static/public';
 
 export type ValidationRules = Record<
 	string,
-	Array<(value: unknown) => string | null>
+	Array<(value: unknown) => MaybePromise<string | null>>
 >;
 
-export function validate(rules: ValidationRules, data: FormData) {
+export async function validate(rules: ValidationRules, data: FormData) {
 	const errors: Record<string, string[]> = {};
 	for (const [key, validators] of Object.entries(rules)) {
 		const value = data.get(key);
 		for (const validator of validators) {
-			const error = validator(value);
+			const error = await validator(value);
 			if (error) {
 				errors[key] ||= [];
 				errors[key].push(error.replace(':field', toProperCase(key)));
@@ -90,7 +92,7 @@ const BLOCKED_WORDS = [
 	PUBLIC_TITLE.toLowerCase(),
 ];
 
-export function characterNameValidator(value: unknown) {
+export async function characterNameValidator(value: unknown) {
 	if (typeof value !== 'string') {
 		return $_('validations.string');
 	}
@@ -118,6 +120,9 @@ export function characterNameValidator(value: unknown) {
 	}
 	if (!/^[a-z- ']+$/.test(value.toLowerCase())) {
 		return $_('validations.name');
+	}
+	if ((await prisma.monsters.count({ where: { name: value } })) > 0) {
+		return $_('validations.name-monster');
 	}
 
 	return null;

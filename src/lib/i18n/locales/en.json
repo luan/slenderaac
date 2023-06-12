@@ -135,6 +135,7 @@
     "max-length": ":field must be no more than {max} characters",
     "min-length": ":field must be at least {min} characters",
     "name": ":field must only contain lowercase letters, spaces, apostrophes, and hyphens",
+    "name-monster": ":field must not be the name of a creature.",
     "required": ":field is required",
     "slug": ":field must only contain lowercase letters, numbers, and hyphens",
     "string": ":field must be a string",

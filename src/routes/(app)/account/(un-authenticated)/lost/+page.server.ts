@@ -29,7 +29,7 @@ export const actions: Actions = {
 		const data = await request.formData();
 		let email = data.get('email');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				email: [presenceValidator, stringValidator],
 			},

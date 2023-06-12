@@ -42,7 +42,7 @@ export const actions: Actions = {
 		const email = data.get('email');
 		const token = data.get('token');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				token: [presenceValidator, stringValidator],
 				email: [presenceValidator, emailValidator],

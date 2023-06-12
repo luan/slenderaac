@@ -50,7 +50,7 @@ export const actions: Actions = {
 		const password = data.get('password');
 		const passwordConfirmation = data.get('passwordConfirmation');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				token: [presenceValidator, stringValidator],
 				email: [presenceValidator, emailValidator],

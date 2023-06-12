@@ -28,7 +28,7 @@ export const actions: Actions = {
 		let email = data.get('email');
 		const password = data.get('password');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				email: [presenceValidator, stringValidator],
 				password: [presenceValidator, stringValidator],

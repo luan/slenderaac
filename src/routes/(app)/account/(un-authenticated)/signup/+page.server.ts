@@ -32,7 +32,7 @@ export const actions = {
 		const characterSex = data.get('characterSex');
 		const characterPronouns = data.get('characterPronouns');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				email: [presenceValidator, emailValidator],
 				password: [presenceValidator, stringValidator],

@@ -758,6 +758,22 @@ model PlayerWheeldata {
 
 // Custom models for SlenderAAC
 
+model Monsters {
+  id         Int    @id @default(autoincrement())
+  name       String @unique(map: "name") @db.VarChar(255)
+  lookbody   Int    @default(0)
+  lookfeet   Int    @default(0)
+  lookhead   Int    @default(0)
+  looklegs   Int    @default(0)
+  looktype   Int    @default(136)
+  lookaddons Int    @default(0)
+  lookmount  Int    @default(0)
+  looktypeex Int    @default(0)
+  raceid     Int    @default(0)
+
+  @@map("monsters")
+}
+
 model AccountSessions {
   id         String   @id @default(cuid())
   account    Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade)

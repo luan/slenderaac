@@ -57,7 +57,7 @@ export const actions = {
 		const showInventory = data.get('showInventory');
 		const comment = data.get('comment');
 
-		const errors = validate({ comment: [stringValidator] }, data);
+		const errors = await validate({ comment: [stringValidator] }, data);
 		if (Object.keys(errors).length > 0) {
 			return fail(400, { invalid: true, errors: errors });
 		}

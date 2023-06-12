@@ -26,7 +26,7 @@ export const actions = {
 		const title = data.get('title');
 		const content = data.get('content');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				slug: [presenceValidator, stringValidator, slugValidator],
 				title: [presenceValidator, stringValidator],

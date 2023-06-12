@@ -33,7 +33,7 @@ export const actions = {
 		const content = data.get('content');
 		const slug = data.get('slug');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				title: [stringValidator],
 				slug: [stringValidator, slugValidator],

@@ -27,7 +27,7 @@ export const actions = {
 		const newPassword = data.get('newPassword');
 		const newPasswordConfirm = data.get('newPasswordConfirm');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				currentPassword: [presenceValidator, stringValidator],
 				newPassword: [presenceValidator, stringValidator],

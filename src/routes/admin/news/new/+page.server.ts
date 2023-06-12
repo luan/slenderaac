@@ -46,7 +46,7 @@ export const actions = {
 		const content = data.get('content');
 		const published = data.get('published');
 
-		const errors = validate(
+		const errors = await validate(
 			{
 				title: [presenceValidator, stringValidator],
 				content: [presenceValidator, stringValidator],
