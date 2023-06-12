@@ -23,6 +23,7 @@ export const PlayerSelectForList = {
 	sex: true,
 	vocation: true,
 	level: true,
+	experience: true,
 	is_main: true,
 	looktype: true,
 	lookaddons: true,

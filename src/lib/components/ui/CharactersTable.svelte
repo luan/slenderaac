@@ -14,6 +14,7 @@
 		type PlayerWithRank,
 		vocationString,
 	} from '$lib/players';
+	import { toProperCase } from '$lib/utils';
 
 	import MainCharacterIndicator from './MainCharacterIndicator.svelte';
 	import OnlineIndicator from './OnlineIndicator.svelte';
@@ -22,6 +23,7 @@
 	export let characters: (PlayerWithRank | Player)[];
 	export let sort: Sort | null = null;
 	export let order: Order = 'asc';
+	export let skill: string | null = null;
 
 	const dispatch = createEventDispatcher();
 
@@ -47,6 +49,10 @@
 					>{$_('vocation')}</TableHeader>
 				<TableHeader {sort} {order} col="level" class="w-24"
 					>{$_('level')}</TableHeader>
+				{#if skill}
+					<TableHeader {sort} {order} col={skill} class="w-24"
+						>{toProperCase(skill)}</TableHeader>
+				{/if}
 			</tr>
 		</thead>
 		<tbody class="transition-all duration-300 ease-in-out">
@@ -80,6 +86,9 @@
 					</td>
 					<td>{vocationString(character.vocation)}</td>
 					<td>{character.level}</td>
+					{#if skill}
+						<td>{'skill' in character && character.skill}</td>
+					{/if}
 				</a>
 			{/each}
 		</tbody>

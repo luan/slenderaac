@@ -35,6 +35,7 @@ export type Player = {
 
 export type PlayerWithRank = Player & {
 	rank: number;
+	skill: bigint | number;
 };
 
 export enum PlayerSex {
@@ -61,6 +62,23 @@ export enum PlayerVocation {
 	ElderDruid,
 	RoyalPaladin,
 	EliteKnight,
+}
+
+export function vocationIds(vocation: string): PlayerVocation[] {
+	switch (vocation.toLowerCase()) {
+		case 'none':
+			return [PlayerVocation.None];
+		case 'sorcerer':
+			return [PlayerVocation.Sorcerer, PlayerVocation.MasterSorcerer];
+		case 'druid':
+			return [PlayerVocation.Druid, PlayerVocation.ElderDruid];
+		case 'paladin':
+			return [PlayerVocation.Paladin, PlayerVocation.RoyalPaladin];
+		case 'knight':
+			return [PlayerVocation.Knight, PlayerVocation.EliteKnight];
+		default:
+			return [];
+	}
 }
 
 export enum PlayerGroup {

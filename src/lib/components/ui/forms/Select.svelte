@@ -14,7 +14,12 @@
 		? 'flex-row gap-2 items-center'
 		: 'flex-col gap-0'} flex-grow {labelClass}">
 	<span>{label}</span>
-	<select class="select" {name} bind:value class:input-error={Boolean(errors)}>
+	<select
+		class="select"
+		{name}
+		bind:value
+		class:input-error={Boolean(errors)}
+		on:change>
 		<slot />
 	</select>
 	{#if error}

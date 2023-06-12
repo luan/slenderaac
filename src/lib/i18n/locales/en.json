@@ -113,7 +113,9 @@
     },
     "title": "Shop"
   },
+  "skill": "Skill",
   "skills": {
+    "experience": "Experience",
     "axe": "Axe",
     "club": "Club",
     "distance": "Distance",
@@ -122,7 +124,18 @@
     "magic": "Magic",
     "shielding": "Shielding",
     "skills": "Skills",
-    "sword": "Sword"
+    "sword": "Sword",
+    "reverse": {
+      "experience": "experience",
+      "axe": "axe",
+      "club": "club",
+      "distance": "distance",
+      "fishing": "fishing",
+      "fist": "fist",
+      "magic": "magic",
+      "shielding": "shielding",
+      "sword": "sword"
+    }
   },
   "step": "Step",
   "submit": "Submit",
@@ -148,6 +161,7 @@
   "view-more": "View more",
   "vocation": "Vocation",
   "vocations": {
+    "all": "All",
     "druid": "Druid",
     "elder-druid": "Elder Druid",
     "elite-knight": "Elite Knight",
