@@ -5,7 +5,7 @@
 	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
 	import { pronounsEnabled } from '$lib/config';
 	import { getPronoun, sexString, vocationString } from '$lib/players';
-	import { formatDate } from '$lib/utils';
+	import { formatDate, formatGoldCoins } from '$lib/utils';
 
 	import type { PageData } from './$types';
 
@@ -48,6 +48,12 @@
 			<dt>{$_('level')}</dt>
 			<dd>{character.level}</dd>
 		</div>
+		{#if data.balance != null}
+			<div class="data-row">
+				<dt>{$_('balance')}</dt>
+				<dd>{formatGoldCoins(data.balance)}</dd>
+			</div>
+		{/if}
 		<div class="data-row">
 			<dt>{$_('residence')}</dt>
 			<dd>{character.townName}</dd>

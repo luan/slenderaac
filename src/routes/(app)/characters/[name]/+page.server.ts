@@ -15,6 +15,7 @@ export const load = (async ({ params }) => {
 		},
 		select: {
 			...PlayerSelectForList,
+			balance: true,
 			town_id: true,
 			lastlogin: true,
 			account_id: true,
@@ -46,10 +47,14 @@ export const load = (async ({ params }) => {
 				})
 		  ).map(dbToPlayer);
 
+	const showSkills = player.settings?.show_skills ?? true;
+	const showInventory = player.settings?.show_inventory ?? true;
+
 	return {
 		character: dbToPlayer({ ...player, town: town }),
 		deaths: player.deaths,
-		skills: player.settings?.show_skills ? dbToSkills(player) : null,
+		balance: showInventory ? player.balance : null,
+		skills: showSkills ? dbToSkills(player) : null,
 		accountCharacters,
 	};
 }) satisfies PageServerLoad;

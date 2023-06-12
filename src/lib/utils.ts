@@ -166,3 +166,12 @@ export function getPaymentMethodIcon(paymentMethod: string) {
 			return faCreditCard;
 	}
 }
+
+/**
+ * Formats number of gold coins to string.
+ * @param amount The amount to format.
+ * @returns The formatted gold coins string.
+ */
+export function formatGoldCoins(amount: bigint) {
+	return new Intl.NumberFormat('en-US', {}).format(amount);
+}
