@@ -1,4 +1,3 @@
-import type { Flash } from '$lib/server/flash';
 import type { SessionInfo } from '$lib/server/session';
 
 declare global {
@@ -6,7 +5,6 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			session?: SessionInfo;
-			flash?: Flash;
 		}
 		interface PageData {
 			flash?: { type: 'success' | 'error'; message: string };

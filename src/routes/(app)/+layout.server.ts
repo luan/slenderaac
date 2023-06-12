@@ -42,7 +42,6 @@ export const load = loadFlashMessage(async ({ locals, depends }) => {
 		boostedCreature,
 		isLoggedIn: Boolean(locals.session),
 		staticPages,
-		flash: locals.flash,
 		serverOnline,
 		onlinePlayerCount,
 	};
