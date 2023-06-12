@@ -194,10 +194,42 @@ Anything you put into the `static` folder in this repo will be served by the ser
 </details>
   
 <details>
-<summary><h2>Showcase</h2></summary>
+<summary><h2>Screenshots</h2></summary>
 
-<details><summary>Homepage (as admin)</summary>
+### Homepage (as admin)
 <img width="1210" alt="image" src="https://github.com/luan/slenderaac/assets/223760/1c5c7a62-6f1e-4405-87f3-25b546a78e41">
+d
+### Login page after registration
+<img width="1194" alt="image" src="https://github.com/luan/slenderaac/assets/223760/5befad19-f367-4df4-86f9-f602bcd34340">
+
+### Account page (unverified)
+<img width="1183" alt="image" src="https://github.com/luan/slenderaac/assets/223760/7213755e-2672-4d77-aa9f-2a775fb668f5">
+
+### Verification email
+  
+<img width="571" alt="image" src="https://github.com/luan/slenderaac/assets/223760/3ecbdc70-886f-45aa-843b-d992f6d838a8">
+
+### Static page
+  
+<img width="1188" alt="image" src="https://github.com/luan/slenderaac/assets/223760/bd4ca3b6-a282-47f5-892b-31de7a5cad17">
+
+### Shop 1
+![Slender](https://github.com/luan/slenderaac/assets/223760/6d8c6d49-2eda-474b-8d43-b7313fae2a4b)
+
+### Shop 2
+![Slender (1)](https://github.com/luan/slenderaac/assets/223760/35a4a106-45fd-4093-8e20-ca37a9297d5f)
+  
+### Shop (video)
+  
+https://github.com/luan/slenderaac/assets/223760/1b88dae4-dcbf-401e-a46e-64655e094cc1
+
+### Highscores
+![Slender | Highscores](https://github.com/luan/slenderaac/assets/223760/cb7dd1b7-be1d-40f9-9272-5329213b20e2)
+
+### Character search
+
+https://github.com/luan/slenderaac/assets/223760/a2cb7aad-a3df-46a2-b284-1f38a910fcbf
+  
 </details>
 
 </details>
