@@ -2,7 +2,8 @@
 
 This project is a website for the [Canary](https://github.com/opentibiabr/canary) project. The main goal is to use modern technology to have something that is easy to maintain and extend. It is also meant to be efficient, secure and easy to deploy.
 
-## Getting started
+<details>
+<summary><h2>Getting started</h2></summary>
 
 ### Requirements
 
@@ -37,8 +38,10 @@ At this point you should be ready to run the server:
 ```bash
 pnpm dev
 ```
-
-## Deployment
+</details>
+  
+<details>
+<summary><h2>Deployment</h2></summary>
 
 Deployment depends highly on your server setup. Assuming you are on a Linux dedicated server or VPS. You need the following:
 
@@ -112,8 +115,11 @@ Finally, we need to run the server, this will run on port 3000 by defaul, which 
 ```bash
 node -r dotenv/config build
 ```
+</details>
 
-## Features / Roadmap
+<details>
+  <summary><h2>Features / Roadmap</h2>
+</summary>
 
 ### Website
 
@@ -173,15 +179,28 @@ node -r dotenv/config build
 - [ ] Events API
 - [ ] Other APIs (for discord integration, etc)
 
-## Animated outfits
+</details>
+  
+<details>
+<summary><h2>Animated outfits</h2></summary>
 
 You'll need to download the spritesheet from [here](https://docs.opentibiabr.com/others/downloads/website-applications/applications#animated-items-and-outfits) and place it in `outfits_anim`. These assets are not included in the repository because they can cause the repo to bloat, and are also not release under the same license as the code.
+</details>
 
-## Game store assets
+<details>
+<summary><h2>Game store assets</h2></summary>
 
 Anything you put into the `static` folder in this repo will be served by the server. This is useful for storing assets for the game store. For example, you can put a `static/images/store` folder and then reference the images in the store using `/images/store/my-image.png`. For instance, you can use the store assets made available in the [canary docs](https://docs.opentibiabr.com/others/downloads/website-applications/applications#store-for-client-13)
+</details>
+  
+<details>
+<summary><h2>Showcase</h2></summary>
 
-## Showcase
+<details><summary>Homepage (as admin)</summary>
+<img width="1210" alt="image" src="https://github.com/luan/slenderaac/assets/223760/1c5c7a62-6f1e-4405-87f3-25b546a78e41">
+</details>
+
+</details>
 
 ## Tech stack
 
