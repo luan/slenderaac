@@ -112,6 +112,17 @@
     },
     "title": "Shop"
   },
+  "skills": {
+    "axe": "Axe",
+    "club": "Club",
+    "distance": "Distance",
+    "fishing": "Fishing",
+    "fist": "Fist",
+    "magic": "Magic",
+    "shielding": "Shielding",
+    "skills": "Skills",
+    "sword": "Sword"
+  },
   "step": "Step",
   "submit": "Submit",
   "undelete": "undelete",

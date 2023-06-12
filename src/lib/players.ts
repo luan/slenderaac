@@ -6,6 +6,17 @@ import type { PlayerSettings } from '@prisma/client';
 
 import type { Outfit } from '$lib/outfits';
 
+export type Skills = {
+	magic: number;
+	fist: number;
+	club: number;
+	sword: number;
+	axe: number;
+	distance: number;
+	shielding: number;
+	fishing: number;
+};
+
 export type Player = {
 	id: number;
 	name: string;
@@ -18,6 +29,7 @@ export type Player = {
 	isMain: boolean;
 	townName: string | null;
 	lastLogin: Date | null;
+
 	settings?: PlayerSettings;
 } & Outfit;
 

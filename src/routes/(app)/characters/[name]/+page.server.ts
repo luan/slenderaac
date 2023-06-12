@@ -1,4 +1,8 @@
-import { dbToPlayer, PlayerSelectForList } from '$lib/server/players';
+import {
+	dbToPlayer,
+	dbToSkills,
+	PlayerSelectForList,
+} from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 
 import type { PageServerLoad } from './$types';
@@ -45,6 +49,7 @@ export const load = (async ({ params }) => {
 	return {
 		character: dbToPlayer({ ...player, town: town }),
 		deaths: player.deaths,
+		skills: player.settings?.show_skills ? dbToSkills(player) : null,
 		accountCharacters,
 	};
 }) satisfies PageServerLoad;

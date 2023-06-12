@@ -9,6 +9,7 @@ import {
 	PlayerPronoun,
 	PlayerSex,
 	PlayerVocation,
+	type Skills,
 } from '$lib/players';
 import { prisma } from '$lib/server/prisma';
 import { parseDate, toTitleCase } from '$lib/utils';
@@ -30,6 +31,16 @@ export const PlayerSelectForList = {
 	looklegs: true,
 	lookfeet: true,
 	deletion: true,
+
+	maglevel: true,
+	skill_fist: true,
+	skill_club: true,
+	skill_sword: true,
+	skill_axe: true,
+	skill_dist: true,
+	skill_shielding: true,
+	skill_fishing: true,
+
 	storage: {
 		select: {
 			value: true,
@@ -151,7 +162,7 @@ type PlayerWithData = Players & {
 	settings?: PlayerSettings | null;
 };
 
-type PlayerWithoutOptionasl = Pick<
+type PlayerWithoutOptionals = Pick<
 	PlayerWithData,
 	| 'id'
 	| 'name'
@@ -169,10 +180,18 @@ type PlayerWithoutOptionasl = Pick<
 	| 'deletion'
 	| 'storage'
 	| 'online'
+	| 'skill_fist'
+	| 'skill_club'
+	| 'skill_sword'
+	| 'skill_axe'
+	| 'skill_dist'
+	| 'skill_shielding'
+	| 'skill_fishing'
+	| 'maglevel'
 >;
 
 export function dbToPlayer(
-	player: Partial<PlayerWithData> & PlayerWithoutOptionasl,
+	player: Partial<PlayerWithData> & PlayerWithoutOptionals,
 ): Player {
 	return {
 		...player,
@@ -193,5 +212,18 @@ export function dbToPlayer(
 		townName: (player.town && player.town.name) ?? null,
 		lastLogin: player.lastlogin ? parseDate(player.lastlogin) : null,
 		settings: player.settings ?? undefined,
+	};
+}
+
+export function dbToSkills(player: PlayerWithoutOptionals): Skills {
+	return {
+		magic: player.maglevel,
+		fist: player.skill_fist,
+		club: player.skill_club,
+		sword: player.skill_sword,
+		axe: player.skill_axe,
+		distance: player.skill_dist,
+		shielding: player.skill_shielding,
+		fishing: player.skill_fishing,
 	};
 }

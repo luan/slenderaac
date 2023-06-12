@@ -12,6 +12,13 @@
 	export let data: PageData;
 
 	$: character = data.character;
+
+	$: skills = data.skills
+		? Object.entries(data.skills).map(([skill, level]) => [
+				$_(`skills.${skill}`),
+				level,
+		  ])
+		: null;
 </script>
 
 {#if character}
@@ -62,8 +69,16 @@
 		{/if}
 	</div>
 
-	{#if data.accountCharacters && data.accountCharacters.length > 0}
-		<CharactersTable characters={data.accountCharacters} />
+	{#if skills}
+		<h3 class="h4">{$_('skills.skills')}</h3>
+		<div class="flex flex-wrap gap-2">
+			{#each skills as [skill, level]}
+				<div class="rounded-full variant-ghost-primary px-4 py-2 text-sm">
+					<span class="font-semibold">{skill}:</span>
+					<span>{level}</span>
+				</div>
+			{/each}
+		</div>
 	{/if}
 
 	{#if data.deaths && data.deaths.length > 0}
@@ -116,6 +131,10 @@
 				</tbody>
 			</table>
 		</div>
+	{/if}
+
+	{#if data.accountCharacters && data.accountCharacters.length > 0}
+		<CharactersTable characters={data.accountCharacters} />
 	{/if}
 {:else}
 	<h5 class="h4">{data.error}</h5>
