@@ -183,6 +183,16 @@ Anything you put into the `static` folder in this repo will be served by the ser
 
 ## Showcase
 
+## Tech stack
+
+- [Svelte](https://svelte.dev/)
+- [SvelteKit](https://kit.svelte.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [SkeletonCSS](https://skeleton.dev)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Prisma](https://www.prisma.io/)
+- [PNPM](https://pnpm.io/)
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or pull request. Be sure to post screenshots and logs of any issues you're having.
