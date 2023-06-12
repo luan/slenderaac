@@ -30,7 +30,7 @@ export const PlayerSelectForList = {
 	looklegs: true,
 	lookfeet: true,
 	deletion: true,
-	player_storage: {
+	storage: {
 		select: {
 			value: true,
 		},
@@ -146,7 +146,7 @@ export async function generateCharacterInput({
 
 type PlayerWithData = Players & {
 	online: { player_id: number } | null;
-	player_storage: { value: number }[];
+	storage: { value: number }[];
 	town: { name: string };
 	settings?: PlayerSettings | null;
 };
@@ -167,7 +167,7 @@ type PlayerWithoutOptionasl = Pick<
 	| 'looklegs'
 	| 'lookfeet'
 	| 'deletion'
-	| 'player_storage'
+	| 'storage'
 	| 'online'
 >;
 
@@ -188,7 +188,7 @@ export function dbToPlayer(
 			? player.pronoun
 			: PlayerPronoun.Unset,
 		sex: isPlayerSex(player.sex) ? player.sex : PlayerSex.Female,
-		mount: (player.player_storage && player.player_storage[0]?.value) ?? 0,
+		mount: (player.storage && player.storage[0]?.value) ?? 0,
 		isMain: Boolean(player.is_main),
 		townName: (player.town && player.town.name) ?? null,
 		lastLogin: player.lastlogin ? parseDate(player.lastlogin) : null,

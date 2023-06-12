@@ -56,6 +56,58 @@
 	{#if data.accountCharacters && data.accountCharacters.length > 0}
 		<CharactersTable characters={data.accountCharacters} />
 	{/if}
+
+	{#if data.deaths && data.deaths.length > 0}
+		<h3 class="h4">{$_('deaths')}</h3>
+		<div class="table-container">
+			<table class="table table-hover table-auto">
+				<thead>
+					<tr class="[&>th]:!p-2">
+						<th class="w-48">When</th>
+						<th>By</th>
+					</tr>
+				</thead>
+				<tbody class="transition-all duration-300 ease-in-out">
+					{#each data.deaths as death}
+						<tr class="[&>td]:!p-2">
+							<td>{formatDate(death.time)}</td>
+							<td>
+								{#if death.mostdamage_by !== death.killed_by}
+									{@html $_('death-log-double', {
+										values: {
+											killer: death.is_player
+												? `<a href="/characters/${death.killed_by}" class="anchor">${death.killed_by}</a>`
+												: death.killed_by,
+											killerJust: death.unjustified
+												? '' + $_('unjustified')
+												: '',
+											mostdamage: death.mostdamage_is_player
+												? `<a href="/characters/${death.mostdamage_by}" class="anchor">${death.mostdamage_by}</a>`
+												: death.mostdamage_by,
+											mostdamageJust: death.mostdamage_unjustified
+												? '' + $_('unjustified')
+												: '',
+											level: death.level,
+										},
+									})}
+								{:else}
+									{@html $_('death-log-single', {
+										values: {
+											killer: death.is_player
+												? `<a href="/characters/${death.killed_by} class="anchor">${death.killed_by}</a>`
+												: death.killed_by,
+											just: death.unjustified ? '' + $_('unjustified') : '',
+											level: death.level,
+										},
+									})}
+								{/if}
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/if}
 {:else}
 	<h5 class="h4">{data.error}</h5>
 {/if}

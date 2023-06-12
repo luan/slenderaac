@@ -23,7 +23,9 @@
 					</div>
 				{:else if account.newEmail}
 					<div class="text-warning-800-100-token">
-						{$_('account.change-pending')}
+						{$_('account.change-pending', {
+							values: { email: account.newEmail },
+						})}
 						<form action="/account/resend" method="post">
 							<button class="anchor" type="submit"
 								>{$_('account.resend')}</button>

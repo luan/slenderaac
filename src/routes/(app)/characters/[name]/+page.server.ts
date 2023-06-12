@@ -15,11 +15,8 @@ export const load = (async ({ params }) => {
 			lastlogin: true,
 			account_id: true,
 			settings: true,
+			deaths: true,
 		},
-	});
-	const town = await prisma.towns.findUniqueOrThrow({
-		where: { id: player?.town_id },
-		select: { name: true },
 	});
 	if (!player) {
 		return {
@@ -27,6 +24,10 @@ export const load = (async ({ params }) => {
 			error: `A player with the name "${params.name}" does not exist.`,
 		};
 	}
+	const town = await prisma.towns.findUniqueOrThrow({
+		where: { id: player?.town_id },
+		select: { name: true },
+	});
 
 	const accountCharacters = (
 		await prisma.players.findMany({
@@ -41,6 +42,7 @@ export const load = (async ({ params }) => {
 
 	return {
 		character: dbToPlayer({ ...player, town: town }),
+		deaths: player.deaths,
 		accountCharacters,
 	};
 }) satisfies PageServerLoad;
