@@ -5,7 +5,7 @@ import invariant from 'tiny-invariant';
 import { sendVerificationEmail } from '$lib/server/email';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
-import { hashPassword } from '$lib/server/utils';
+import { comparePassword } from '$lib/server/utils';
 import {
 	emailValidator,
 	presenceValidator,
@@ -47,10 +47,9 @@ export const actions = {
 		const account = await prisma.accounts.findFirst({
 			where: {
 				id: locals.session?.accountId,
-				password: hashPassword(password),
 			},
 		});
-		if (!account) {
+		if (!account || !comparePassword(password, account.password)) {
 			return fail(400, {
 				errors: {
 					password: ['Invalid password'],

@@ -3,7 +3,7 @@ import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
 import { performLogin } from '$lib/server/session';
-import { hashPassword } from '$lib/server/utils';
+import { comparePassword } from '$lib/server/utils';
 import {
 	presenceValidator,
 	stringValidator,
@@ -49,9 +49,8 @@ export const actions: Actions = {
 			where: { email },
 			select: { email: true, password: true },
 		});
-		const hashedPassword = hashPassword(password);
 
-		if (!account || account.password !== hashedPassword) {
+		if (!account || !comparePassword(password, account.password)) {
 			return fail(400, { errors: { global: ['Invalid email or password'] } });
 		}
 

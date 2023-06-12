@@ -6,13 +6,11 @@
 	<span />
 	<div class="flex flex-row justify-start gap-2">
 		<a
-			href="/account/account/change-password"
+			href="/account/change-password"
 			class="btn btn-sm variant-filled-primary">
 			{$_('change-password')}
 		</a>
-		<a
-			href="/account/account/change-email"
-			class="btn btn-sm variant-filled-primary">
+		<a href="/account/change-email" class="btn btn-sm variant-filled-primary">
 			{$_('change-email')}
 		</a>
 	</div>

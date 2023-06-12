@@ -1,10 +1,13 @@
 import { json } from '@sveltejs/kit';
+import { createHash } from 'crypto';
+import parseDuration from 'parse-duration';
 
 import { PlayerGroup, PlayerSex, vocationString } from '$lib/players';
 import { prisma } from '$lib/server/prisma';
-import { hashPassword } from '$lib/server/utils';
+import { comparePassword } from '$lib/server/utils';
 
 import {
+	GAME_SESSION_EXPIRATION_TIME,
 	PVP_TYPE,
 	REQUIRE_EMAIL_CONFIRMATION_TO_LOGIN,
 	SERVER_ADDRESS,
@@ -13,6 +16,9 @@ import {
 } from '$env/static/private';
 
 import type { RequestHandler } from './$types';
+
+const SESSION_DURATION =
+	parseDuration(GAME_SESSION_EXPIRATION_TIME ?? '1d') ?? 3600 * 24;
 
 type Params =
 	| {
@@ -146,7 +152,7 @@ async function handleLogin(
 			players: true,
 		},
 	});
-	if (!account || hashPassword(params.password) !== account.password) {
+	if (!account || !comparePassword(params.password, account.password)) {
 		return {
 			errorCode: 3,
 			errorMessage: 'Email or password is not correct.',
@@ -161,12 +167,23 @@ async function handleLogin(
 		};
 	}
 
+	const sessionId = crypto.randomUUID();
+	const hashedSessionId = createHash('sha1').update(sessionId).digest('hex');
+
+	await prisma.gameAccountSessions.create({
+		data: {
+			id: hashedSessionId,
+			account_id: account.id,
+			expires: Math.trunc((Date.now() + SESSION_DURATION) / 1000), // convert to seconds
+		},
+	});
+
 	const serverPort = parseInt(SERVER_PORT) ?? 7172;
 	const pvptype = ['pvp', 'no-pvp', 'pvp-enforced'].indexOf(PVP_TYPE);
 
 	return {
 		session: {
-			sessionkey: `${params.email}\n${params.password}`,
+			sessionkey: `${params.email}\n${sessionId}`,
 			lastlogintime: '0', // TODO: implement last login
 			ispremium: true, // TODO: check if premium when free premium is disabled
 			premiumuntil: 0,

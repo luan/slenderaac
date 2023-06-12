@@ -53,9 +53,9 @@ model AccountViplist {
 
 model Accounts {
   id                  Int                 @id @default(autoincrement()) @db.UnsignedInt
-  name                String              @unique(map: "accounts_unique") @default(cuid()) @db.VarChar(32)
-  password            String              @db.Char(40)
   email               String              @unique(map: "accounts_email_unique") @db.VarChar(255)
+  name                String              @unique(map: "accounts_unique") @default(cuid()) @db.VarChar(32)
+  password            String              @db.Text
   premdays            Int                 @default(0)
   lastday             Int                 @default(0) @db.UnsignedInt
   type                Int                 @default(1) @db.UnsignedTinyInt
@@ -74,8 +74,9 @@ model Accounts {
   accountSessions     AccountSessions[]
   coinOrders          CoinOrders[]
 
-  passwordReset     PasswordReset?
-  emailVerification EmailVerification?
+  passwordReset       PasswordReset?
+  emailVerification   EmailVerification?
+  GameAccountSessions GameAccountSessions[]
 
   @@map("accounts")
 }
@@ -774,13 +775,22 @@ model Monsters {
   @@map("monsters")
 }
 
+model GameAccountSessions {
+  id         String   @id @default(cuid())
+  account_id Int      @db.UnsignedInt
+  expires    BigInt   @db.UnsignedBigInt
+  account    Accounts @relation(fields: [account_id], references: [id])
+
+  @@map("account_sessions")
+}
+
 model AccountSessions {
   id         String   @id @default(cuid())
   account    Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade)
   expires    BigInt   @db.UnsignedBigInt
   account_id Int      @db.UnsignedInt
 
-  @@map("account_sessions")
+  @@map("slender_sessions")
 }
 
 model News {

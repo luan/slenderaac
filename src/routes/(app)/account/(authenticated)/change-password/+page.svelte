@@ -2,8 +2,8 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
-	import StatelessModal from '$lib/components/ui/StatelessModal.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
+	import StatelessModal from '$lib/components/ui/StatelessModal.svelte';
 
 	import type { ActionData } from './$types';
 

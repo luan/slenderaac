@@ -4,7 +4,7 @@ import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
-import { hashPassword } from '$lib/server/utils';
+import { comparePassword, hashPassword } from '$lib/server/utils';
 import {
 	presenceValidator,
 	stringValidator,
@@ -60,17 +60,16 @@ export const actions = {
 		const account = await prisma.accounts.findFirst({
 			where: {
 				id: locals.session?.accountId,
-				password: hashPassword(currentPassword),
 			},
 		});
-		if (!account) {
+		if (!account || !comparePassword(currentPassword, account.password)) {
 			return fail(400, {
 				errors: {
 					currentPassword: ['Invalid password'],
 				} as Record<string, string[]>,
 			});
 		}
-		if (account.password === hashPassword(newPassword)) {
+		if (comparePassword(newPassword, account.password)) {
 			return fail(400, {
 				errors: {
 					newPassword: ['New password cannot be the same as the old password'],
