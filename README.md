@@ -198,7 +198,7 @@ Anything you put into the `static` folder in this repo will be served by the ser
 
 ### Homepage (as admin)
 <img width="1210" alt="image" src="https://github.com/luan/slenderaac/assets/223760/1c5c7a62-6f1e-4405-87f3-25b546a78e41">
-d
+
 ### Login page after registration
 <img width="1194" alt="image" src="https://github.com/luan/slenderaac/assets/223760/5befad19-f367-4df4-86f9-f602bcd34340">
 
