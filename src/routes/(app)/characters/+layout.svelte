@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
 	import { _ } from 'svelte-i18n';
 
 	import { browser } from '$app/environment';
@@ -50,12 +51,16 @@
 		<input
 			class="input flex-1"
 			type="search"
-			name="demo"
+			name="search"
 			bind:value={searchInput}
 			placeholder="{$_('search')}..." />
 	</label>
 
-	<CharactersTable
-		characters={results}
-		on:selected={() => (searchInput = '')} />
+	{#if results.length > 0}
+		<div transition:slide>
+			<CharactersTable
+				characters={results}
+				on:selected={() => (searchInput = '')} />
+		</div>
+	{/if}
 </div>
