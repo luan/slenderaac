@@ -130,7 +130,7 @@ export async function generateCharacterInput({
 		cap: template.cap,
 		town_id: template.town_id,
 		soul: template.soul,
-		looktype: template.looktype,
+		looktype: sex === PlayerSex.Male ? 128 : 136,
 		lookaddons: template.lookaddons,
 		lookhead: template.lookhead,
 		lookbody: template.lookbody,

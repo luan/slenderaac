@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
 
+	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
 	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
+	import { pronounsEnabled } from '$lib/config';
 	import { getPronoun, sexString, vocationString } from '$lib/players';
 	import { formatDate } from '$lib/utils';
 
@@ -14,11 +16,18 @@
 
 {#if character}
 	<div class="data-table">
-		<div class="data-row">
-			<dt>{$_('name')}</dt>
-			<dd>
-				{character.name} <em class="text-xs">({getPronoun(character)})</em>
-			</dd>
+		<div class="flex flex-row justify-center gap-4 items-center">
+			<span
+				class="text-primary-700-200-token font-heading-token text-xl font-semibold">
+				{character.name}
+			</span>
+			<AnimatedOutfit
+				class="scale-150"
+				outfit={character}
+				alt={character.name} />
+			{#if pronounsEnabled}
+				<em class="font-light text-xs">({getPronoun(character)})</em>
+			{/if}
 		</div>
 		<div class="data-row">
 			<dt>{$_('sex')}</dt>
