@@ -24,6 +24,7 @@
 </script>
 
 <div class="flex flex-col gap-2">
+	<div class="flex flex-row gap-2" />
 	<CharactersTable characters={data.characters} ranked />
 	<Paginator
 		bind:settings={page}

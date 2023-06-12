@@ -2,7 +2,7 @@
 	export let label: string;
 	export let name: string;
 	export let value = '';
-	export let errors: string[] | undefined;
+	export let errors: string[] | undefined = undefined;
 	export let labelClass = '';
 	export let variant: 'horizontal' | 'vertical' = 'vertical';
 

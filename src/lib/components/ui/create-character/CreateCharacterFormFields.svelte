@@ -1,16 +1,10 @@
 <script lang="ts">
 	import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';
-	import {
-		ListBox,
-		ListBoxItem,
-		popup,
-		type PopupSettings,
-		RadioGroup,
-		RadioItem,
-	} from '@skeletonlabs/skeleton';
+	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
 
+	import Select from '$lib/components/ui/forms/Select.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 	import { pronounsEnabled } from '$lib/config';
 	import {
@@ -30,15 +24,7 @@
 
 	export let form: CharacterActionData;
 
-	const popupCombobox: PopupSettings = {
-		event: 'focus-click',
-		target: 'popupCombobox',
-		placement: 'bottom',
-		closeQuery: '.listbox-item',
-	};
-
 	let sex = PlayerSex.Female;
-	let pronoun = PlayerPronoun.Unset;
 	let characterName = '';
 
 	$: characterName = toTitleCase(characterName);
@@ -68,29 +54,15 @@
 	</div>
 
 	{#if pronounsEnabled}
-		<div class="label flex flex-col gap-0">
-			<span>Pronoun</span>
-			<input type="hidden" name="characterPronouns" bind:value={pronoun} />
-			<button
-				type="button"
-				class="flex items-center input h-11 w-48 px-4 justify-between"
-				use:popup={popupCombobox}>
-				<span>{pronounString(pronoun)}</span>
-				<span>↓</span>
-			</button>
-			<div class="card card-surface w-48 shadow-xl" data-popup="popupCombobox">
-				<ListBox rounded="rounded-none">
-					{#each allPronouns as pronounValue}
-						<ListBoxItem
-							bind:group={pronoun}
-							name="medium"
-							value={pronounValue}>
-							{pronounString(pronounValue)}
-						</ListBoxItem>
-					{/each}
-				</ListBox>
-				<div class="arrow bg-surface-300" />
-			</div>
-		</div>
+		<Select
+			name="characterPronouns"
+			value={PlayerPronoun.Unset.toString()}
+			label={$_('character-pronoun')}>
+			{#each allPronouns as pronounValue}
+				<option value={pronounValue.toString()}>
+					{pronounString(pronounValue)}
+				</option>
+			{/each}
+		</Select>
 	{/if}
 </div>
