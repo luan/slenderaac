@@ -29,16 +29,18 @@ export const load = (async ({ params }) => {
 		select: { name: true },
 	});
 
-	const accountCharacters = (
-		await prisma.players.findMany({
-			where: {
-				account_id: player.account_id,
-				deletion: 0,
-				settings: { hidden: false },
-			},
-			select: { ...PlayerSelectForList },
-		})
-	).map(dbToPlayer);
+	const accountCharacters = player.settings?.hidden
+		? []
+		: (
+				await prisma.players.findMany({
+					where: {
+						account_id: player.account_id,
+						deletion: 0,
+						settings: { hidden: false },
+					},
+					select: { ...PlayerSelectForList },
+				})
+		  ).map(dbToPlayer);
 
 	return {
 		character: dbToPlayer({ ...player, town: town }),
