@@ -31,6 +31,7 @@ export const handle = (async ({ event, resolve }) => {
 
 	if (url.pathname.startsWith('/admin')) {
 		requireLogin(event.locals, 'admin');
+
 		const account = await prisma.accounts.findUnique({
 			where: { id: event.locals.session?.accountId },
 			select: { type: true },

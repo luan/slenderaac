@@ -1,12 +1,14 @@
 import { type Cookies, redirect } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
-import { isAccountType } from '$lib/accounts';
+import { AccountType, isAccountType } from '$lib/accounts';
 import { prisma } from '$lib/server/prisma';
 
 export type SessionInfo = {
 	accountId: number;
 	email: string;
+	// This is just a cache, can be used to present UI elements but shouldn't be used for authorization
+	type: AccountType;
 	expires: bigint;
 };
 type Sid = string;
@@ -38,6 +40,7 @@ export async function createSession(
 	sessionStore.set(session.id, {
 		accountId: account.id,
 		email: account.email,
+		type: account.type,
 		expires: session.expires,
 	});
 
@@ -74,6 +77,7 @@ export async function getSession(sid: Sid): Promise<SessionInfo | undefined> {
 			const sessionInfo: SessionInfo = {
 				accountId: session.account.id,
 				email: session.account.email,
+				type: session.account.type,
 				expires: session.expires,
 			};
 			return sessionInfo;

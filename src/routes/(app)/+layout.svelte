@@ -13,7 +13,7 @@
 		shift,
 	} from '@floating-ui/dom';
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-	import { faBars } from '@fortawesome/free-solid-svg-icons';
+	import { faBars, faToolbox } from '@fortawesome/free-solid-svg-icons';
 	import {
 		AppBar,
 		AppShell,
@@ -26,6 +26,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
+	import { portal } from 'svelte-portal';
 	import { initFlash } from 'sveltekit-flash-message/client';
 
 	import { browser } from '$app/environment';
@@ -53,6 +54,7 @@
 		boostedCreature,
 		serverOnline,
 		onlinePlayerCount,
+		isAdmin,
 	} = data);
 	$: title = typeof $page.data.title === 'string' ? $page.data.title : '';
 	$: staticPages = data.staticPages;
@@ -98,6 +100,22 @@
 
 {#if browser}
 	<Toast />
+{/if}
+
+{#if isAdmin}
+	<div
+		class="hidden md:flex flex-row justify-center items-start fixed top-0 left-0 right-0"
+		use:portal>
+		<a
+			class="flex gap-2 items-center justify-center rounded-b-lg px-4 py-1 bg-error-800/75 text-white text-sm"
+			href="/admin"
+			data-sveltekit-reload
+			data-sveltekit-preload-data="off"
+			data-sveltekit-preload-code="off">
+			Admin
+			<Fa icon={faToolbox} />
+		</a>
+	</div>
 {/if}
 
 <Drawer

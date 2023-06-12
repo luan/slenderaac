@@ -1,6 +1,7 @@
 import { loadFlashMessage } from 'sveltekit-flash-message/server';
 import { check as checkPort } from 'tcp-port-used';
 
+import { AccountType } from '$lib/accounts';
 import { PlayerGroup } from '$lib/players';
 import { dbToPlayer, PlayerSelectForList } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
@@ -41,6 +42,7 @@ export const load = loadFlashMessage(async ({ locals, depends }) => {
 		boostedBoss,
 		boostedCreature,
 		isLoggedIn: Boolean(locals.session),
+		isAdmin: locals.session?.type === AccountType.God,
 		staticPages,
 		serverOnline,
 		onlinePlayerCount,

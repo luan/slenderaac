@@ -14,12 +14,14 @@
 	} from '@floating-ui/dom';
 	import {
 		faBookBookmark,
+		faGlobe,
 		faHome,
 		faNewspaper,
 	} from '@fortawesome/free-solid-svg-icons';
 	import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
+	import { portal } from 'svelte-portal';
 
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
@@ -43,6 +45,20 @@
 		buttonDismiss="hidden"
 		spacing="gap-0" />
 {/if}
+
+<div
+	class="hidden md:flex flex-row justify-center items-start fixed top-0 left-0 right-0"
+	use:portal>
+	<a
+		class="flex gap-2 items-center justify-center rounded-b-lg px-4 py-1 bg-primary-800/75 text-white text-sm"
+		href="/"
+		data-sveltekit-reload
+		data-sveltekit-preload-data="off"
+		data-sveltekit-preload-code="off">
+		Back to the site
+		<Fa icon={faGlobe} />
+	</a>
+</div>
 
 <AppShell
 	slotSidebarLeft="bg-surface-500/5 w-56 p-4"
