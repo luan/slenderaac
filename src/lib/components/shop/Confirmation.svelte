@@ -110,7 +110,7 @@
 				},
 			})}
 		{:else if status === CoinOrderStatus.COMPLETED}
-			{$_('shop.confirmation.completed', {
+			{@html $_('shop.confirmation.completed', {
 				values: {
 					amount,
 					PUBLIC_TITLE,

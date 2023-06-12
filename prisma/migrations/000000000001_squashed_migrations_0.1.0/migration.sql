@@ -6,9 +6,6 @@ ALTER TABLE `accounts` ADD COLUMN `is_verified` BOOLEAN NOT NULL DEFAULT false,
     ADD COLUMN `creation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
 
 -- AlterTable
-ALTER TABLE `boosted_boss` DROP COLUMN `looktypeEx`;
-
--- AlterTable
 ALTER TABLE `house_lists` ADD COLUMN `id` INTEGER NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`id`);
 

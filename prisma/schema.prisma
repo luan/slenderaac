@@ -88,6 +88,7 @@ model BoostedBoss {
   lookhead   Int     @default(0)
   lookbody   Int     @default(0)
   lookaddons Int     @default(0)
+  looktypeEx Int     @default(0)
   lookmount  Int?    @default(0)
   date       String  @id @default("") @db.VarChar(250)
   boostname  String? @db.Text

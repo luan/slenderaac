@@ -48,7 +48,7 @@ export function emailValidator(value: unknown) {
 	if (typeof value !== 'string') {
 		return $_('validations.string');
 	}
-	if (!/^[^@]+@[^@]+\.[^@]+$/.test(value)) {
+	if (!/^.*@.*$/.test(value)) {
 		return $_('validations.email');
 	}
 	return null;

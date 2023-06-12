@@ -36,7 +36,7 @@
 			<RadioItem bind:group={value} name="offer" value={offer.id}>
 				<div class="flex flex-row gap-2 items-center p-1">
 					<Fa icon={faCoins} />
-					{$_('shop.offer-amount')}
+					{$_('shop.offer-amount', { values: { amount: offer.amount } })}
 					<Fa icon={faMoneyBill} />
 					{offer.price}
 				</div>

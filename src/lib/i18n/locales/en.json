@@ -95,7 +95,7 @@
       "nonFinalStatus": " Processing your order is taking longer than expected, please reach us at <a href=\"mailto:{PUBLIC_SUPPORT_EMAIL}\" class=\"anchor\">{PUBLIC_SUPPORT_EMAIL}</a> for assistance. for assistance."
     },
     "goback": "Go back to the shop",
-    "offer-amount": "{offer.amount} coins",
+    "offer-amount": "{amount} coins",
     "payment-method": "Payment method",
     "select-amount": "Select amount of coins",
     "select-quantity": "Select quantity",
