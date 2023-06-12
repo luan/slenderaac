@@ -2,6 +2,7 @@ import { fail } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
+import { AccountType } from '$lib/accounts';
 import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
 import { sendVerificationEmail } from '$lib/server/email';
 import { generateCharacterInput } from '$lib/server/players';
@@ -14,6 +15,8 @@ import {
 	stringValidator,
 	validate,
 } from '$lib/server/validations';
+
+import { AUTO_ADMIN_EMAIL } from '$env/static/private';
 
 import type { Actions, PageServerLoad } from './$types';
 
@@ -97,10 +100,14 @@ export const actions = {
 			});
 		}
 
+		const isAdmin = email === AUTO_ADMIN_EMAIL;
+
 		const created = await prisma.accounts.create({
 			data: {
 				email,
 				password: hashedPassword,
+
+				type: isAdmin ? AccountType.God : AccountType.Normal,
 
 				players: {
 					createMany: {

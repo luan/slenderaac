@@ -6,6 +6,7 @@ import { hashPassword } from '$lib/server/utils';
 
 import {
 	PVP_TYPE,
+	REQUIRE_EMAIL_CONFIRMATION_TO_LOGIN,
 	SERVER_ADDRESS,
 	SERVER_NAME,
 	SERVER_PORT,
@@ -152,7 +153,7 @@ async function handleLogin(
 		};
 	}
 
-	if (!account.is_verified) {
+	if (REQUIRE_EMAIL_CONFIRMATION_TO_LOGIN && !account.is_verified) {
 		return {
 			errorCode: 5,
 			errorMessage:
@@ -175,7 +176,6 @@ async function handleLogin(
 			isreturner: true,
 			fpstracking: false,
 			optiontracking: false,
-			// tournamentticketpurchasestate: 0,
 			emailcoderequest: false,
 		},
 		playdata: {
@@ -194,9 +194,7 @@ async function handleLogin(
 					location: 'USA',
 					anticheatprotection: false,
 					pvptype,
-					// istournamentworld: false,
 					restrictedstore: false,
-					// currenttournamentphase: 0,
 				},
 			],
 			characters: account.players.map(
@@ -214,10 +212,8 @@ async function handleLogin(
 					detailcolor: player.lookfeet,
 					addonsflags: player.lookaddons,
 					ishidden: 0,
-					// istournamentparticipant: false,
 					ismaincharacter: player.is_main,
 					dailyrewardstate: player.isreward ? 1 : 0,
-					// remainingdailytournamentplaytime: 0,
 				}),
 			),
 		},
