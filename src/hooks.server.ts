@@ -13,7 +13,8 @@ const unauthorized = new Response(null, {
 });
 
 export const handle = (async ({ event, resolve }) => {
-	const lang = event.request.headers.get('accept-language')?.split(',')[0];
+	const lang =
+		event.request.headers.get('accept-language')?.split(',')[0] || 'en';
 	if (lang) {
 		await locale.set(lang);
 	}
