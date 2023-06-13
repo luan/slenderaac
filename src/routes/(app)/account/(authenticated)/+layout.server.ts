@@ -16,6 +16,7 @@ export const load = (async ({ locals }) => {
 			creation: true,
 			coins_transferable: true,
 			is_verified: true,
+			token_secret: true,
 			players: {
 				select: PlayerSelectForList,
 			},
@@ -32,6 +33,7 @@ export const load = (async ({ locals }) => {
 		coinsTransferable: account.coins_transferable,
 		isVerified: account.is_verified,
 		newEmail: account.emailVerification?.new_email ?? undefined,
+		is2faEnabled: Boolean(account.token_secret),
 		lastLogin: new Date(
 			characters.reduce(
 				(acc, cur) => Math.max(acc, cur.lastLogin?.getTime() ?? 0),

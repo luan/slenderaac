@@ -175,3 +175,17 @@ export function getPaymentMethodIcon(paymentMethod: string) {
 export function formatGoldCoins(amount: bigint) {
 	return new Intl.NumberFormat('en-US', {}).format(amount);
 }
+
+/**
+ * Chunks a string into an array of strings.
+ * @param str The string to chunk.
+ * @param chunkSize The size of each chunk.
+ * @returns The chunked string array.
+ */
+export function chunkString(str: string, chunkSize: number) {
+	const chunks = [];
+	for (let i = 0; i < str.length; i += chunkSize) {
+		chunks.push(str.slice(i, i + chunkSize));
+	}
+	return chunks.filter((chunk) => chunk.length === chunkSize);
+}

@@ -1,0 +1,43 @@
+<script lang="ts">
+	import { enhance } from '$app/forms';
+
+	import TextField from '$lib/components/ui/forms/TextField.svelte';
+
+	export let qrCodeURL: string;
+	export let secret: string;
+	export let errors: Record<string, string[]> | undefined;
+
+	import { _ } from 'svelte-i18n';
+</script>
+
+<form class="flex flex-col gap-6" method="post" use:enhance>
+	{#if errors?.global}
+		<p class="text-xs text-error-500">{errors.global}</p>
+	{/if}
+
+	<input type="hidden" name="secret" value={secret} />
+
+	<div class="flex flex-wrap gap-4 items-center justify-center">
+		<p>{$_('enable-2fa-description')}</p>
+		<img src={qrCodeURL} alt="QR Code" />
+	</div>
+
+	<div class="flex flex-wrap gap-4 items-center">
+		<TextField
+			label={$_('password')}
+			name="password"
+			type="password"
+			autocomplete="password"
+			errors={errors?.password} />
+		<TextField
+			label={$_('token')}
+			name="token"
+			type="number"
+			autocomplete="one-time-code"
+			errors={errors?.token} />
+	</div>
+
+	<div class="flex flex-row justify-end">
+		<button class="btn variant-filled-primary">{$_('enable-2fa')}</button>
+	</div>
+</form>

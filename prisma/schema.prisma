@@ -52,19 +52,22 @@ model AccountViplist {
 }
 
 model Accounts {
-  id                  Int                 @id @default(autoincrement()) @db.UnsignedInt
-  email               String              @unique(map: "accounts_email_unique") @db.VarChar(255)
-  name                String              @unique(map: "accounts_unique") @default(cuid()) @db.VarChar(32)
-  password            String              @db.Text
-  premdays            Int                 @default(0)
-  lastday             Int                 @default(0) @db.UnsignedInt
-  type                Int                 @default(1) @db.UnsignedTinyInt
-  coins               Int                 @default(0) @db.UnsignedInt
-  coins_transferable  Int                 @default(0) @db.UnsignedInt
-  tournament_coins    Int                 @default(0) @db.UnsignedInt
-  creation            DateTime            @default(now())
-  recruiter           Int?                @default(0)
-  is_verified         Boolean             @default(false)
+  id                 Int      @id @default(autoincrement()) @db.UnsignedInt
+  email              String   @unique(map: "accounts_email_unique") @db.VarChar(255)
+  name               String   @unique(map: "accounts_unique") @default(cuid()) @db.VarChar(32)
+  password           String   @db.Text
+  premdays           Int      @default(0)
+  lastday            Int      @default(0) @db.UnsignedInt
+  type               Int      @default(1) @db.UnsignedTinyInt
+  coins              Int      @default(0) @db.UnsignedInt
+  coins_transferable Int      @default(0) @db.UnsignedInt
+  tournament_coins   Int      @default(0) @db.UnsignedInt
+  creation           DateTime @default(now())
+  recruiter          Int?     @default(0)
+  is_verified        Boolean  @default(false)
+
+  token_secret String? @db.VarChar(255)
+
   account_ban_history AccountBanHistory[]
   account_bans        AccountBans?
   account_viplist     AccountViplist[]
@@ -74,9 +77,10 @@ model Accounts {
   accountSessions     AccountSessions[]
   coinOrders          CoinOrders[]
 
-  passwordReset       PasswordReset?
-  emailVerification   EmailVerification?
-  GameAccountSessions GameAccountSessions[]
+  passwordReset     PasswordReset?
+  emailVerification EmailVerification?
+  gameSessions      GameAccountSessions[]
+  backupCodes       AccountBackupCodes[]
 
   @@map("accounts")
 }
@@ -747,8 +751,6 @@ model Towns {
   @@map("towns")
 }
 
-// Custom models for SlenderAAC
-
 model GameAccountSessions {
   id         String   @id @default(cuid())
   account_id Int      @db.UnsignedInt
@@ -756,6 +758,18 @@ model GameAccountSessions {
   account    Accounts @relation(fields: [account_id], references: [id])
 
   @@map("account_sessions")
+}
+
+// Custom models for SlenderAAC
+
+model AccountBackupCodes {
+  id         String   @id @default(cuid())
+  account    Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  account_id Int      @db.UnsignedInt
+  code       String   @db.VarChar(255)
+  used       Boolean  @default(false)
+
+  @@map("slender_account_backup_codes")
 }
 
 model AccountSessions {

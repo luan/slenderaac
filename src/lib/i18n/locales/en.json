@@ -1,4 +1,11 @@
 {
+  "2fa-enabled": {
+    "part1": "Two-factor authentication has been enabled on your account. You will now be asked to input your authenticator code on login both on the website an in-game.",
+    "part2": "Make note of the following recovery codes, they can be used to acess your account if you lose access to your authenticator. Note that each code can only be used once.",
+    "part3": "Warning: these codes are not going to be shown to you again! Write them down before you leave this screen."
+  },
+  "2fa-enabled-successfully": "2fa enabled successfully",
+  "2fa-not-enabled": "Two-factor auth is not currently enabled on this account",
   "account": {
     "change-pending": "(verification pending for email change to {email}",
     "resend": "resend",
@@ -18,6 +25,7 @@
   "character-show-inventory": "Show inventory on character page",
   "character-show-skills": "Show skills on character page",
   "characters": "Characters",
+  "close": "Close",
   "community": "Community",
   "confirm-deletion": "Confirm Deletion",
   "confirm-new-password": "Confirm New Password",
@@ -33,16 +41,25 @@
   "delete-character": "Delete Character",
   "delete-confirmation-description": "Are you sure you want to delete \"{name}\"?",
   "deleted": "Deleted",
+  "disable-2fa": {
+    "button": "Disable 2FA",
+    "description": "If you'd like to disable two-factor auth on your account, confirm your password and token below (you can also use a backup token).",
+    "success": "Two-factor authentication has been successfully disabled."
+  },
   "dont-have-an-account": "Don't have an account?",
   "download": "Download",
   "edit": "Edit",
   "edit-character": "Edit \"{name}\"",
   "email": "Email",
+  "enable-2fa": "Enable 2FA",
+  "enable-2fa-description": "Use your authenticator app to scan the QR code below.",
   "game-coins": "{PUBLIC_TITLE} Coins",
   "general-information": "General Information",
   "generic-error": "Something went wrong, please try again.",
   "get-coins": "Get coins",
   "highscores": "Highscores",
+  "invalid-password": "Invalid password",
+  "invalid-token": "Invalid token",
   "last-login": "Last login",
   "latest-news": "Latest news",
   "layout": {
@@ -119,26 +136,28 @@
     "axe": "Axe",
     "club": "Club",
     "distance": "Distance",
+    "experience": "Experience",
     "fishing": "Fishing",
     "fist": "Fist",
     "magic": "Magic",
-    "shielding": "Shielding",
-    "skills": "Skills",
-    "sword": "Sword",
     "reverse": {
-      "experience": "experience",
       "axe": "axe",
       "club": "club",
       "distance": "distance",
+      "experience": "experience",
       "fishing": "fishing",
       "fist": "fist",
       "magic": "magic",
       "shielding": "shielding",
       "sword": "sword"
-    }
+    },
+    "shielding": "Defense",
+    "skills": "Skills",
+    "sword": "Cooking"
   },
   "step": "Step",
   "submit": "Submit",
+  "token": "Token",
   "undelete": "undelete",
   "unjustified": " <em class=\"text-error-500\">(unjustified)</em>",
   "validations": {
@@ -149,6 +168,7 @@
     "min-length": ":field must be at least {min} characters",
     "name": ":field must only contain lowercase letters, spaces, apostrophes, and hyphens",
     "name-monster": ":field must not be the name of a creature.",
+    "number": ":field must be a number",
     "required": ":field is required",
     "slug": ":field must only contain lowercase letters, numbers, and hyphens",
     "string": ":field must be a string",

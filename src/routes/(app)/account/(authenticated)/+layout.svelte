@@ -10,7 +10,9 @@
 
 <div class="flex flex-col gap-2">
 	<AccountInfoBox account={data.account} />
-	<AccountActions />
+	{#if data.account.isVerified}
+		<AccountActions is2faEnabled={data.account.is2faEnabled} />
+	{/if}
 	<AccountCharacters characters={data.characters} />
 </div>
 

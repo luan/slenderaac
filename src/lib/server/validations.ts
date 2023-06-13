@@ -44,6 +44,13 @@ export function stringValidator(value: unknown) {
 	return null;
 }
 
+export function numberValidator(value: unknown) {
+	if (value && typeof Number(value) !== 'number') {
+		return $_('validations.number');
+	}
+	return null;
+}
+
 export function emailValidator(value: unknown) {
 	if (typeof value !== 'string') {
 		return $_('validations.string');

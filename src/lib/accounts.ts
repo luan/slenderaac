@@ -4,6 +4,7 @@ export type AccountInfo = {
 	lastLogin: Date;
 	coinsTransferable: number;
 	isVerified: boolean;
+	is2faEnabled: boolean;
 	newEmail?: string;
 };
 export enum AccountType {

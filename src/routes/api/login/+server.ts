@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { createHash } from 'crypto';
+import { authenticator } from 'otplib';
 import parseDuration from 'parse-duration';
 
 import { PlayerGroup, PlayerSex, vocationString } from '$lib/players';
@@ -30,6 +31,7 @@ interface LoginParams {
 	type: 'login';
 	email: string;
 	password: string;
+	token?: string;
 }
 
 interface LoginSession {
@@ -164,6 +166,24 @@ async function handleLogin(
 			errorCode: 5,
 			errorMessage:
 				'Your account has not been verified. Please check your email to verify your account.',
+		};
+	}
+
+	if (account.token_secret && !params.token) {
+		return {
+			errorCode: 6,
+			errorMessage: 'Two-factor token required for authentication',
+		};
+	}
+
+	if (
+		account.token_secret &&
+		params.token &&
+		!authenticator.check(params.token, account.token_secret)
+	) {
+		return {
+			errorCode: 6,
+			errorMessage: 'Two-factor token is not correct.',
 		};
 	}
 
