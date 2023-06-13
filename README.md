@@ -151,8 +151,8 @@ Using your favorite method to edit the client (see [this tutorial](https://docs.
 - [x] Mobile friendly
 - [x] Highly secure bcrypt based password hashing
 - [x] Account verification
+- [x] Two factor auth
 - [ ] Character inventory
-- [ ] Two factor auth
 - [ ] Server save countdown
 - [ ] Guild management
 - [ ] Guild wars
