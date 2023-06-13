@@ -147,12 +147,8 @@ async function handleLogin(
 	params: LoginParams,
 ): Promise<LoginResponse | ErrorResponse> {
 	const account = await prisma.accounts.findUnique({
-		where: {
-			email: params.email,
-		},
-		include: {
-			players: true,
-		},
+		where: { email: params.email },
+		include: { players: { include: { settings: true } } },
 	});
 	if (!account || !comparePassword(params.password, account.password)) {
 		return {
@@ -248,7 +244,7 @@ async function handleLogin(
 					legscolor: player.looklegs,
 					detailcolor: player.lookfeet,
 					addonsflags: player.lookaddons,
-					ishidden: 0,
+					ishidden: player.settings?.hidden ? 1 : 0,
 					ismaincharacter: player.is_main,
 					dailyrewardstate: player.isreward ? 1 : 0,
 				}),
