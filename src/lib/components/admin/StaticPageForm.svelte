@@ -53,9 +53,19 @@
 		<p class="text-xs text-error-500">{errors.global}</p>
 	{/if}
 
-	<TextField label="Title" name="title" value={title} errors={errors?.title} />
+	<TextField
+		required
+		label="Title"
+		name="title"
+		value={title}
+		errors={errors?.title} />
 
-	<TextField label="Slug" name="slug" value={slug} errors={errors?.slug} />
+	<TextField
+		required
+		label="Slug"
+		name="slug"
+		value={slug}
+		errors={errors?.slug} />
 
 	<input type="hidden" name="content" bind:value />
 	<div class="label">

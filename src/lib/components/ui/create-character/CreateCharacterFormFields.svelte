@@ -32,6 +32,7 @@
 
 <div class="flex flex-row gap-4 items-center">
 	<TextField
+		required
 		label={$_('name')}
 		name="characterName"
 		bind:value={characterName}

@@ -19,6 +19,7 @@
 		<input type="hidden" name="email" value={form.email} />
 		<input type="hidden" name="password" value={form.password} />
 		<TextField
+			required
 			label={$_('token')}
 			name="token"
 			type="number"
@@ -53,9 +54,9 @@
 
 	<hr class="divider" />
 
-	<div class="flex flex-row justify-center items-center gap-2">
+	<div class="flex flex-row justify-center items-center gap-2 mb-4">
 		<h3 class="h3">{$_('dont-have-an-account')}</h3>
-		<a href="/account/signup" class="btn btn-sm variant-filled-secondary"
+		<a href="/account/signup" class="btn variant-filled-secondary"
 			>{$_('create-account')}</a>
 	</div>
 </form>

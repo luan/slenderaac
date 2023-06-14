@@ -7,6 +7,7 @@
 	export let type = 'text';
 	export let labelClass = '';
 	export let variant: 'horizontal' | 'vertical' = 'vertical';
+	export let required = false;
 
 	function typeAction(node: HTMLInputElement) {
 		node.type = type;
@@ -20,7 +21,7 @@
 		: 'flex-col gap-0'} flex-grow {labelClass}">
 	<span>{label}</span>
 	<input
-		required
+		{required}
 		bind:value
 		{name}
 		class="input"

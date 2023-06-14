@@ -1,10 +1,8 @@
-import { _, unwrapFunctionStore } from 'svelte-i18n';
-
-const $_ = unwrapFunctionStore(_);
-
 import type { PlayerSettings } from '@prisma/client';
 
+import type { GuildMembership } from '$lib/guilds';
 import type { Outfit } from '$lib/outfits';
+import { $_ } from '$lib/utils';
 
 export type Skills = {
 	magic: number;
@@ -29,6 +27,8 @@ export type Player = {
 	isMain: boolean;
 	townName: string | null;
 	lastLogin: Date | null;
+
+	guild?: GuildMembership | null;
 
 	settings?: PlayerSettings;
 } & Outfit;

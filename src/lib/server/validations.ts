@@ -1,12 +1,8 @@
-import { _, unwrapFunctionStore } from 'svelte-i18n';
-
-const $_ = unwrapFunctionStore(_);
-
 import type { MaybePromise } from '@sveltejs/kit';
 import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
-import { toProperCase, toTitleCase } from '$lib/utils';
+import { $_, toProperCase, toTitleCase } from '$lib/utils';
 
 import { PUBLIC_TITLE } from '$env/static/public';
 

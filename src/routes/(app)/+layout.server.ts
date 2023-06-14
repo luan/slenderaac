@@ -14,17 +14,18 @@ export const load = loadFlashMessage(async ({ locals, depends }) => {
 	depends('app:layout');
 
 	const highscores = await prisma.players.findMany({
-		where: {
-			group_id: {
-				lt: PlayerGroup.Gamemaster,
-			},
-		},
+		where: { group_id: { lt: PlayerGroup.Gamemaster } },
 		select: PlayerSelectForList,
-		orderBy: {
-			experience: 'desc',
-		},
-		take: 10,
+		orderBy: { experience: 'desc' },
+		take: 5,
 	});
+
+	const accountCharacters = locals.session?.accountId
+		? await prisma.players.findMany({
+				where: { account_id: locals.session.accountId },
+				select: PlayerSelectForList,
+		  })
+		: null;
 
 	const boostedBoss = await prisma.boostedBoss.findFirst();
 	const boostedCreature = await prisma.boostedCreature.findFirst();
@@ -46,5 +47,6 @@ export const load = loadFlashMessage(async ({ locals, depends }) => {
 		staticPages,
 		serverOnline,
 		onlinePlayerCount,
+		accountCharacters: accountCharacters?.map(dbToPlayer) ?? null,
 	};
 }) satisfies LayoutServerLoad;

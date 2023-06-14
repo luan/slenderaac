@@ -50,8 +50,17 @@ export const PlayerSelectForList = {
 			key: MountStorageKey,
 		},
 	},
+
 	online: {
 		select: { player_id: true },
+	},
+
+	guild_membership: {
+		select: {
+			nick: true,
+			guild: { select: { name: true } },
+			rank: { select: { name: true } },
+		},
 	},
 };
 
@@ -161,6 +170,11 @@ type PlayerWithData = Players & {
 	storage: { value: number }[];
 	town: { name: string };
 	settings?: PlayerSettings | null;
+	guild_membership: {
+		nick: string;
+		guild: { name: string };
+		rank: { name: string };
+	} | null;
 };
 
 type PlayerWithoutOptionals = Pick<
@@ -181,6 +195,7 @@ type PlayerWithoutOptionals = Pick<
 	| 'deletion'
 	| 'storage'
 	| 'online'
+	| 'guild_membership'
 	| 'skill_fist'
 	| 'skill_club'
 	| 'skill_sword'
@@ -213,6 +228,13 @@ export function dbToPlayer(
 		townName: (player.town && player.town.name) ?? null,
 		lastLogin: player.lastlogin ? parseDate(player.lastlogin) : null,
 		settings: player.settings ?? undefined,
+		guild: player.guild_membership
+			? {
+					nick: player.guild_membership.nick,
+					name: player.guild_membership.guild.name,
+					rank: player.guild_membership.rank.name,
+			  }
+			: null,
 	};
 }
 

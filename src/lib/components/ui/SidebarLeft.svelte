@@ -74,9 +74,9 @@
 							<li><a href="/characters">{$_('characters')}</a></li>
 							<li><a href="/online">{$_('whos-online')}</a></li>
 							<li><a href="/highscores">{$_('highscores')}</a></li>
+							<li><a href="/guilds">{$_('guilds.title')}</a></li>
 							<!-- <li><a href="/latest-deaths">Latest deaths</a></li> -->
 							<!-- <li><a href="#">Power gamers</a></li> -->
-							<!-- <li><a href="#">Guilds</a></li> -->
 							<!-- <li><a href="#">Staff</a></li> -->
 						</ul>
 					</nav>

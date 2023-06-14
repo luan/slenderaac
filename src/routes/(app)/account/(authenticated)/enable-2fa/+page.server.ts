@@ -1,7 +1,6 @@
 import { error, fail } from '@sveltejs/kit';
 import { authenticator } from 'otplib';
 import { toDataURL } from 'qrcode';
-import { _, unwrapFunctionStore } from 'svelte-i18n';
 import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
@@ -13,12 +12,9 @@ import {
 	stringValidator,
 	validate,
 } from '$lib/server/validations';
+import { $_, chunkString } from '$lib/utils';
 
 import { PUBLIC_TITLE } from '$env/static/public';
-
-const $_ = unwrapFunctionStore(_);
-
-import { chunkString } from '$lib/utils';
 
 import type { Actions, PageServerLoad } from './$types';
 

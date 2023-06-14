@@ -1,5 +1,8 @@
 import { faPaypal, faStripeS } from '@fortawesome/free-brands-svg-icons';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import { _, unwrapFunctionStore } from 'svelte-i18n';
+
+export const $_ = unwrapFunctionStore(_);
 
 import { PUBLIC_TITLE } from '$env/static/public';
 

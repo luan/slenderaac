@@ -21,12 +21,14 @@
 
 	<div class="flex flex-wrap gap-4 items-center">
 		<TextField
+			required
 			label={$_('password')}
 			name="password"
 			type="password"
 			autocomplete="password"
 			errors={errors?.password} />
 		<TextField
+			required
 			label={$_('token')}
 			name="token"
 			type="number"

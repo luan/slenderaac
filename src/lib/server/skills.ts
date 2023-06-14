@@ -1,6 +1,4 @@
-import { _, unwrapFunctionStore } from 'svelte-i18n';
-
-const $_ = unwrapFunctionStore(_);
+import { $_ } from '$lib/utils';
 
 const skillColumns = [
 	'experience',

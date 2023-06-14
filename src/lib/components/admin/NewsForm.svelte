@@ -29,6 +29,7 @@
 	{/if}
 
 	<TextField
+		required
 		label="Title"
 		name="title"
 		value={news?.title}

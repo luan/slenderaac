@@ -21,6 +21,7 @@
 
 	<div class="flex flex-row gap-2">
 		<TextField
+			required
 			label={$_('new-password')}
 			name="password"
 			type="password"
@@ -28,6 +29,7 @@
 			errors={form?.errors?.password} />
 
 		<TextField
+			required
 			label={$_('new-password-confirmation')}
 			name="passwordConfirmation"
 			type="password"

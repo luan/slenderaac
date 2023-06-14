@@ -29,8 +29,7 @@
   "community": "Community",
   "confirm-deletion": "Confirm Deletion",
   "confirm-new-password": "Confirm New Password",
-  "create-account": "Create account",
-  "create-account-0": "Create Account",
+  "create-account": "Create Account",
   "create-character": "Create Character",
   "created": "Created",
   "current-password": "Current Password",
@@ -192,5 +191,25 @@
     "royal-paladin": "Royal Paladin",
     "sorcerer": "Sorcerer"
   },
-  "whos-online": "Who's online?"
+  "whos-online": "Who's online?",
+  "guilds": {
+    "title": "Guilds",
+    "guild-name": "Guild name",
+    "login": "Login to create your own",
+    "create-new": "Create a new guild",
+    "cant-find": "Can't find the guild you're looking for?",
+    "image-url": "Image URL",
+    "create-butotn": "Create Guild",
+    "taken": "A guild with this name already exists.",
+    "invalid-leader": "This character does not exist or is not eligible to be a guild leader.",
+    "rank-leader": "The Leader",
+    "rank-officer": "Officer",
+    "rank-member": "Member",
+    "membership-description": "{rank} of the <a href=\"/guilds/{name}\" class=\"anchor\">{name}</a>",
+    "membership-description-with-nick": "{rank} of the <a href=\"/guilds/{name}\" class=\"anchor\">{name}</a> ({nick})",
+    "membership": "Guild Membership",
+    "not-found": "A player with the name \"{name}\" does not exist."
+  },
+  "your-characters": "Your characters",
+  "characters-not-found": "A player with the name \"{name}\" does not exist."
 }

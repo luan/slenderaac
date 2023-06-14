@@ -17,6 +17,7 @@
 	{/if}
 
 	<TextField
+		required
 		label={$_('email')}
 		name="email"
 		type="email"
@@ -25,6 +26,7 @@
 
 	<div class="flex flex-row gap-2">
 		<TextField
+			required
 			label={$_('password')}
 			name="password"
 			type="password"
@@ -32,6 +34,7 @@
 			errors={form?.errors?.password} />
 
 		<TextField
+			required
 			label={$_('password-confirmation')}
 			name="passwordConfirmation"
 			type="password"
@@ -46,6 +49,6 @@
 	<CreateCharacterFormFields {form} />
 
 	<div class="flex flex-row justify-end">
-		<button class="btn variant-filled-primary">{$_('create-account-0')}</button>
+		<button class="btn variant-filled-primary">{$_('create-account')}</button>
 	</div>
 </form>

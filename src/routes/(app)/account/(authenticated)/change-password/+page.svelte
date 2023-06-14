@@ -23,6 +23,7 @@
 
 		<div class="flex flex-wrap gap-4 items-center">
 			<TextField
+				required
 				labelClass="w-full"
 				label={$_('current-password')}
 				name="currentPassword"
@@ -30,12 +31,14 @@
 				autocomplete="current-password"
 				errors={form?.errors?.currentPassword} />
 			<TextField
+				required
 				label={$_('new-password')}
 				name="newPassword"
 				type="password"
 				autocomplete="new-password"
 				errors={form?.errors?.newPassword} />
 			<TextField
+				required
 				label={$_('confirm-new-password')}
 				name="newPasswordConfirm"
 				type="password"

@@ -4,6 +4,7 @@ import {
 	PlayerSelectForList,
 } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
+import { $_ } from '$lib/utils';
 
 import type { PageServerLoad } from './$types';
 
@@ -26,7 +27,7 @@ export const load = (async ({ params }) => {
 	if (!player) {
 		return {
 			status: 404,
-			error: `A player with the name "${params.name}" does not exist.`,
+			error: $_('characters-not-found', { values: { name: params.name } }),
 		};
 	}
 	const town = await prisma.towns.findUniqueOrThrow({

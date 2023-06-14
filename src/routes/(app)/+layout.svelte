@@ -55,6 +55,7 @@
 		serverOnline,
 		onlinePlayerCount,
 		isAdmin,
+		accountCharacters,
 	} = data);
 	$: title = typeof $page.data.title === 'string' ? $page.data.title : '';
 	$: staticPages = data.staticPages;
@@ -125,7 +126,7 @@
 	<div class="flex flex-col items-stretch gap-2 p-2 pt-4">
 		<SidebarLeft {isLoggedIn} {staticPages} />
 		<BoostedSection {boostedCreature} {boostedBoss} />
-		<SidebarRight {highscores} />
+		<SidebarRight {accountCharacters} {highscores} />
 	</div>
 </Drawer>
 
@@ -169,11 +170,11 @@
 	<nav class="mx-4 mt-2 flex flex-col gap-2" slot="sidebarLeft">
 		<SidebarLeft {isLoggedIn} {staticPages} />
 		<nav class="hidden md:flex lg:hidden mx-4 mt-2 flex-col gap-2 pt-4">
-			<SidebarRight {highscores} />
+			<SidebarRight {accountCharacters} {highscores} />
 		</nav>
 	</nav>
 	<nav class="mx-4 mt-2 flex flex-col gap-2" slot="sidebarRight">
-		<SidebarRight {highscores} />
+		<SidebarRight {accountCharacters} {highscores} />
 	</nav>
 	<svelte:fragment slot="pageHeader">
 		<AppBar
@@ -206,7 +207,7 @@
 			</div>
 		{/if}
 
-		<div class="px-4 pt-2 pb-2 overflow-y-auto">
+		<div class="px-4 pt-2 pb-2 overflow-y-auto flex flex-col items-center">
 			<slot />
 		</div>
 	</main>

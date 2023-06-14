@@ -16,6 +16,7 @@
 	} from '$lib/players';
 	import { toProperCase } from '$lib/utils';
 
+	import GuildMembership from './GuildMembership.svelte';
 	import MainCharacterIndicator from './MainCharacterIndicator.svelte';
 	import OnlineIndicator from './OnlineIndicator.svelte';
 
@@ -82,6 +83,11 @@
 									<MainCharacterIndicator />
 								{/if}
 							</span>
+							{#if character.guild}
+								<span class="text-xs text-gray-500">
+									<GuildMembership guild={character.guild} />
+								</span>
+							{/if}
 						</div>
 					</td>
 					<td>{vocationString(character.vocation)}</td>

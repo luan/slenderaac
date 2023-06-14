@@ -6,12 +6,11 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
 	import { debounce } from '$lib/utils';
 
-	import type { LayoutData } from './$types';
+	import type { PageData } from './$types';
 
-	export let data: LayoutData;
+	export let data: PageData;
 
 	let searchInput = $page.url.searchParams.get('search') || '';
 
@@ -46,7 +45,7 @@
 	<slot />
 
 	<label class="label flex flex-row gap-2 items-center">
-		<span>{$_('character-name')}:</span>
+		<span>{$_('guilds.guild-name')}:</span>
 
 		<input
 			class="input flex-1"
@@ -58,9 +57,22 @@
 
 	{#if results.length > 0}
 		<div transition:slide>
-			<CharactersTable
-				characters={results}
-				on:selected={() => (searchInput = '')} />
+			{#each results as guild}
+				{guild.name}
+			{/each}
 		</div>
 	{/if}
+
+	<div class="flex flex-col items-center gap-2">
+		<p>{$_('guilds.cant-find')}</p>
+		{#if data.isLoggedIn}
+			<a href="/guilds/new" class="btn variant-filled-primary">
+				{$_('guilds.create-new')}
+			</a>
+		{:else}
+			<a href="/account/login?returnTo=/guilds/new" class="anchor">
+				{$_('guilds.login')}
+			</a>
+		{/if}
+	</div>
 </div>

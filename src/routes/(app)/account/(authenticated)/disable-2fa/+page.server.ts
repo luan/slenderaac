@@ -1,5 +1,4 @@
 import { fail } from '@sveltejs/kit';
-import { _, unwrapFunctionStore } from 'svelte-i18n';
 import invariant from 'tiny-invariant';
 
 import { prisma } from '$lib/server/prisma';
@@ -11,10 +10,7 @@ import {
 	stringValidator,
 	validate,
 } from '$lib/server/validations';
-
-const $_ = unwrapFunctionStore(_);
-
-import { chunkString } from '$lib/utils';
+import { $_, chunkString } from '$lib/utils';
 
 import type { Actions, PageServerLoad } from './$types';
 

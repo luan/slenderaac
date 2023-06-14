@@ -1,8 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { _, unwrapFunctionStore } from 'svelte-i18n';
 import invariant from 'tiny-invariant';
-
-const $_ = unwrapFunctionStore(_);
 
 import { prisma } from '$lib/server/prisma';
 import { performLogin } from '$lib/server/session';
@@ -13,6 +10,7 @@ import {
 	stringValidator,
 	validate,
 } from '$lib/server/validations';
+import { $_ } from '$lib/utils';
 
 import type { Actions, PageServerLoad } from './$types';
 
@@ -27,11 +25,12 @@ export const load: PageServerLoad = ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ cookies, request }) => {
+	default: async ({ url, cookies, request }) => {
 		const data = await request.formData();
 		let email = data.get('email');
 		const password = data.get('password');
 		const token = data.get('token');
+		const returnTo = url.searchParams.get('returnTo') ?? '/account';
 
 		const errors = await validate(
 			{
@@ -83,6 +82,6 @@ export const actions: Actions = {
 		}
 
 		await performLogin(cookies, account.email);
-		throw redirect(302, '/account');
+		throw redirect(302, returnTo);
 	},
 } satisfies Actions;
