@@ -75,7 +75,7 @@
 				<tbody class="transition-all duration-300 ease-in-out">
 					{#each results as guild}
 						<a
-							href="/characters/{guild.name}"
+							href="/guilds/{guild.name}"
 							class="table-row [&>td]:!align-middle cursor-pointer"
 							transition:fly|local={{
 								duration: 300,
@@ -92,7 +92,9 @@
 								<div class="flex flex-col w-fit">
 									<span class="font-semibold flex flex-row gap-1 items-center">
 										<OnlineIndicator online={guild.leader.online} />
-										{guild.leader.name}
+										<a href="/characters/{guild.leader.name}" class="anchor">
+											{guild.leader.name}
+										</a>
 									</span>
 								</div>
 							</td>
