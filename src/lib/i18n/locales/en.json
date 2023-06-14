@@ -208,7 +208,9 @@
     "membership-description": "{rank} of the <a href=\"/guilds/{name}\" class=\"anchor\">{name}</a>",
     "membership-description-with-nick": "{rank} of the <a href=\"/guilds/{name}\" class=\"anchor\">{name}</a> ({nick})",
     "membership": "Guild Membership",
-    "not-found": "A player with the name \"{name}\" does not exist."
+    "not-found": "A player with the name \"{name}\" does not exist.",
+    "members": "Members",
+    "leader": "Leader"
   },
   "your-characters": "Your characters",
   "characters-not-found": "A player with the name \"{name}\" does not exist."
