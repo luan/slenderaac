@@ -87,7 +87,13 @@
 									<Fa icon={faShieldHalved} size="24" />
 								</span>
 							</td>
-							<td class="font-extrabold">{guild.name}</td>
+							<td>
+								<span class="font-extrabold">
+									{guild.name}
+								</span>
+								<pre
+									class="font-sans font-light whitespace-pre-wrap">{guild.description}</pre>
+							</td>
 							<td class=" w-fit">
 								<div class="flex flex-col w-fit">
 									<span class="font-semibold flex flex-row gap-1 items-center">

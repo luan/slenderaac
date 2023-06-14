@@ -92,16 +92,17 @@ body {
 
 	.table-container .table thead {
 		@apply bg-surface-500 dark:bg-surface-800;
+		@apply border-surface-500 dark:border-surface-800;
 	}
 
-	.table-container .table tbody,
+	.table-container .table:not(.table-noeven) tbody,
 	.data-table {
 		@apply bg-surface-400 dark:bg-surface-700;
 	}
 
-	.table-container .table tbody > *:nth-child(even),
+	.table-container .table:not(.table-noeven) tbody > *:nth-child(even),
 	.data-row:nth-child(even) {
-		@apply !bg-surface-500 dark:!bg-surface-800;
+		@apply bg-surface-500 dark:bg-surface-800;
 	}
 
 	.data-table {
