@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
 	export let errors: Record<string, string[]> | undefined;
@@ -37,7 +38,6 @@
 	</div>
 
 	<div class="flex flex-row justify-end">
-		<button class="btn variant-filled-primary"
-			>{$_('disable-2fa.button')}</button>
+		<Button>{$_('disable-2fa.button')}</Button>
 	</div>
 </form>

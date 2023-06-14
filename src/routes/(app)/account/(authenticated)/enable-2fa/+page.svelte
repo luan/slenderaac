@@ -13,6 +13,8 @@
 		await goto('/account');
 	}
 	import { _ } from 'svelte-i18n';
+
+	import Button from '$lib/components/ui/Button.svelte';
 </script>
 
 <StatelessModal title={$_('enable-2fa')} on:close={close}>
@@ -35,7 +37,7 @@
 					{/each}
 				</code>
 			{/if}
-			<a href="/account" class="btn variant-filled-secondary">{$_('close')}</a>
+			<Button href="/account" color="secondary">{$_('close')}</Button>
 		</div>
 	{:else if data.qrCodeURL}
 		<Enable2FAForm

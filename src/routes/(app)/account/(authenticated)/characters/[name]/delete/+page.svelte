@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 	import StatelessModal from '$lib/components/ui/StatelessModal.svelte';
 
@@ -36,7 +37,7 @@
 		</div>
 
 		<div class="flex flex-row justify-end">
-			<button class="btn variant-filled-error">{$_('confirm-deletion')}</button>
+			<Button color="error">{$_('confirm-deletion')}</Button>
 		</div>
 	</form>
 </StatelessModal>

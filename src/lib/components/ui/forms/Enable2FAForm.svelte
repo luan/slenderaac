@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
 	export let qrCodeURL: string;
@@ -40,6 +41,6 @@
 	</div>
 
 	<div class="flex flex-row justify-end">
-		<button class="btn variant-filled-primary">{$_('enable-2fa')}</button>
+		<Button>{$_('enable-2fa')}</Button>
 	</div>
 </form>

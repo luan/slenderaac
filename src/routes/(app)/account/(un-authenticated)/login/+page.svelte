@@ -3,6 +3,7 @@
 
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
 	import type { ActionData } from './$types';
@@ -49,14 +50,14 @@
 
 	<div class="flex flex-row justify-end items-center gap-2">
 		<a href="/account/lost">{$_('lost-account')}</a>
-		<button class="btn variant-filled-primary">{$_('login')}</button>
+		<Button>{$_('login')}</Button>
 	</div>
 
 	<hr class="divider" />
 
 	<div class="flex flex-row justify-center items-center gap-2 mb-4">
 		<h3 class="h3">{$_('dont-have-an-account')}</h3>
-		<a href="/account/signup" class="btn variant-filled-secondary"
-			>{$_('create-account')}</a>
+		<Button href="/account/signup" color="secondary"
+			>{$_('create-account')}</Button>
 	</div>
 </form>

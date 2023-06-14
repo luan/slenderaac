@@ -13,6 +13,7 @@
 	}
 	import { _ } from 'svelte-i18n';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import Disable2FaForm from '$lib/components/ui/forms/Disable2FAForm.svelte';
 </script>
 
@@ -22,7 +23,7 @@
 		<p>{$_('disable-2fa.success')}</p>
 		<p />
 		<div class="flex flex-col items-center gap-4">
-			<a href="/account" class="btn variant-filled-secondary">{$_('close')}</a>
+			<Button href="/account" color="secondary">{$_('close')}</Button>
 		</div>
 	{:else}
 		<Disable2FaForm errors={form?.errors} />

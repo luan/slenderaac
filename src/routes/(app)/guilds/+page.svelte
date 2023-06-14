@@ -9,6 +9,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import OnlineIndicator from '$lib/components/ui/OnlineIndicator.svelte';
 	import { debounce } from '$lib/utils';
 
@@ -120,9 +121,9 @@
 	<div class="flex flex-col items-center gap-2">
 		<p>{$_('guilds.cant-find')}</p>
 		{#if data.isLoggedIn}
-			<a href="/guilds/new" class="btn variant-filled-primary">
+			<Button href="/guilds/new">
 				{$_('guilds.create-new')}
-			</a>
+			</Button>
 		{:else}
 			<a href="/account/login?returnTo=/guilds/new" class="anchor">
 				{$_('guilds.login')}

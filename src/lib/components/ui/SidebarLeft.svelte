@@ -9,6 +9,8 @@
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
 
+	import Button from '$lib/components/ui/Button.svelte';
+
 	import { PUBLIC_DOWNLOAD_URL } from '$env/static/public';
 
 	export let isLoggedIn = false;
@@ -18,33 +20,36 @@
 <div class="card card-tertiary card-hover overflow-hidden">
 	<div class="flex flex-col gap-0 py-2 px-2 items-center">
 		{#if isLoggedIn}
-			<a href="/account" class="btn variant-filled-primary w-full">
+			<Button href="/account" class="w-full">
 				{$_('my-account')}
-			</a>
+			</Button>
 			<form action="/account/logout" method="post" class="flex w-2/3">
-				<button
+				<Button
 					type="submit"
-					class="btn btn-sm variant-soft-secondary text-white text-xs p-0.5 rounded-t-none w-full">
+					size="sm"
+					variant="soft"
+					color="secondary"
+					class="text-white text-xs p-0.5 rounded-t-none w-full">
 					{$_('logout')}
-				</button>
+				</Button>
 			</form>
 		{:else}
-			<a href="/account/login" class="btn variant-filled-primary w-full"
-				>{$_('login')}</a>
-			<a
+			<Button href="/account/login" class="w-full">{$_('login')}</Button>
+			<Button
 				href="/account/signup"
-				class="btn btn-sm variant-soft-secondary text-white w-2/3 text-xs p-0.5 rounded-t-none">
+				size="sm"
+				variant="soft"
+				color="secondary"
+				class="text-white w-2/3 text-xs p-0.5 rounded-t-none">
 				{$_('create-account')}
-			</a>
+			</Button>
 		{/if}
 	</div>
 	<hr class="opacity-5" />
 	<div class="py-2 px-2">
-		<a
-			href={PUBLIC_DOWNLOAD_URL}
-			class="btn btn-sm variant-filled-primary w-full text-xs p-1">
+		<Button href={PUBLIC_DOWNLOAD_URL} class="w-full text-xs p-1">
 			{$_('download')}
-		</a>
+		</Button>
 	</div>
 </div>
 

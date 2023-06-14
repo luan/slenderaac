@@ -5,6 +5,7 @@
 	import { tooltip } from 'svooltip';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 	import { type Player, vocationString } from '$lib/players';
 
 	export let highscores: Player[] = [];
@@ -60,9 +61,9 @@
 	</article>
 	<hr class="opacity-5" />
 	<footer class="py-2 px-2">
-		<a href="/highscores" class="btn btn-sm variant-filled-primary w-full">
+		<Button href="/highscores" class="w-full">
 			{$_('view-more')}
-		</a>
+		</Button>
 	</footer>
 </div>
 

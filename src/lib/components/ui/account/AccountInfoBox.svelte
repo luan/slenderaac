@@ -2,6 +2,7 @@
 	import { _ } from 'svelte-i18n';
 
 	import type { AccountInfo } from '$lib/accounts';
+	import Button from '$lib/components/ui/Button.svelte';
 	import { formatDate } from '$lib/utils';
 
 	import { PUBLIC_TITLE } from '$env/static/public';
@@ -47,10 +48,8 @@
 			<dt>{$_('game-coins', { values: { PUBLIC_TITLE } })}</dt>
 			<dd class="flex flex-row items-center gap-2">
 				{account.coinsTransferable}
-				<a
-					href="/shop/coins"
-					class="btn btn-sm py-0.5 px-2 variant-filled-success"
-					>{$_('get-coins')}</a>
+				<Button href="/shop/coins" size="sm" color="success" class="py-0.5 px-2"
+					>{$_('get-coins')}</Button>
 			</dd>
 		</div>
 	</div>

@@ -11,6 +11,9 @@ export const load = (async ({ params }) => {
 			name: true,
 			image_url: true,
 			description: true,
+			created_at: true,
+			balance: true,
+			owner: { select: PlayerSelectForList },
 			guild_ranks: {
 				select: {
 					name: true,
@@ -35,6 +38,9 @@ export const load = (async ({ params }) => {
 			name: guild.name,
 			image_url: guild.image_url,
 			description: guild.description,
+			balance: guild.balance,
+			createdAt: guild.created_at,
+			owner: dbToPlayer(guild.owner),
 			ranks: guild.guild_ranks.map((rank) => ({
 				name: rank.name,
 				level: rank.level,

@@ -4,6 +4,7 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
 	import StatelessModal from '$lib/components/ui/StatelessModal.svelte';
 
@@ -25,8 +26,7 @@
 		<CreateCharacterFormFields {form} />
 
 		<div class="flex flex-row justify-end">
-			<button class="btn variant-filled-primary"
-				>{$_('create-character')}</button>
+			<Button>{$_('create-character')}</Button>
 		</div>
 	</form>
 </StatelessModal>

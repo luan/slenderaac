@@ -3,6 +3,8 @@
 
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
+
 	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
@@ -20,5 +22,5 @@
 		{$_('verify.welcome')}
 	</span>
 
-	<button class="btn variant-filled-primary">{$_('verify-account')}</button>
+	<Button>{$_('verify-account')}</Button>
 </form>

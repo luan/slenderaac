@@ -68,7 +68,10 @@ export function deepMerge<
  * @param dateOrTimestamp The date string to format.
  * @returns The formatted date string.
  */
-export function formatDate(dateOrTimestamp: Date | bigint | number | null) {
+export function formatDate(
+	dateOrTimestamp: Date | bigint | number | null,
+	{ short }: { short: boolean } = { short: false },
+) {
 	if (dateOrTimestamp === null) return 'Never';
 	if (typeof dateOrTimestamp === 'bigint')
 		dateOrTimestamp = Number(dateOrTimestamp);
@@ -76,6 +79,10 @@ export function formatDate(dateOrTimestamp: Date | bigint | number | null) {
 		dateOrTimestamp = dateOrTimestamp.getTime();
 	if (dateOrTimestamp > 100000000000) dateOrTimestamp /= 1000;
 	if (dateOrTimestamp === 0) return 'Never';
+
+	if (short) {
+		return new Date(dateOrTimestamp * 1000).toLocaleDateString();
+	}
 
 	return new Date(dateOrTimestamp * 1000).toLocaleString();
 }

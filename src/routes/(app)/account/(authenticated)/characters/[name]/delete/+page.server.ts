@@ -8,8 +8,8 @@ import { comparePassword } from '$lib/server/utils';
 
 import type { Actions, PageServerLoad } from './$types';
 
-export const load = (({ url }) => {
-	const name = url.searchParams.get('name');
+export const load = (({ params }) => {
+	const name = params.name;
 	if (!name) {
 		throw redirect(302, '/account');
 	}

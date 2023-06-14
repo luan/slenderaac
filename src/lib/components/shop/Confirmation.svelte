@@ -14,6 +14,8 @@
 
 	import { invalidate } from '$app/navigation';
 
+	import Button from '$lib/components/ui/Button.svelte';
+
 	import { PUBLIC_SUPPORT_EMAIL, PUBLIC_TITLE } from '$env/static/public';
 
 	export let status: CoinOrderStatus;
@@ -119,8 +121,8 @@
 		{/if}
 	</div>
 	<div class="flex flex-row w-full justify-between gap-2">
-		<a href="/shop/coins" class="btn variant-filled whitespace-normal"
-			>{$_('shop.goback')}</a>
-		<a href="/account" class="btn variant-filled-primary">{$_('my-account')}</a>
+		<Button href="/shop/coins" color="base" class="whitespace-normal"
+			>{$_('shop.goback')}</Button>
+		<Button href="/account">{$_('my-account')}</Button>
 	</div>
 {/if}

@@ -8,6 +8,7 @@
 
 	import { applyAction, enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 	import { hotkeys } from '$lib/hotkeys';
 
@@ -91,9 +92,8 @@
 	</div>
 
 	<div class="flex flex-row gap-2 w-full">
-		<a href="/admin/static-pages" class="btn variant-filled-secondary flex-grow"
-			>Go back</a>
-		<button type="submit" class="btn variant-filled-primary flex-grow"
-			>Save</button>
+		<Button href="/admin/static-pages" color="secondary" class="flex-grow"
+			>Go back</Button>
+		<Button type="submit" class="flex-grow">Save</Button>
 	</div>
 </form>

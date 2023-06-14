@@ -3,6 +3,7 @@
 
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
 	import type { ActionData, PageData } from './$types';
@@ -38,6 +39,6 @@
 	</div>
 
 	<div class="flex flex-row justify-end items-center gap-2">
-		<button class="btn variant-filled-primary">{$_('submit')}</button>
+		<Button>{$_('submit')}</Button>
 	</div>
 </form>

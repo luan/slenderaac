@@ -4,6 +4,7 @@
 
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import { formatDate } from '$lib/utils';
 
 	import type { PageData } from './$types';
@@ -45,7 +46,7 @@
 </script>
 
 <h1 class="h1">News</h1>
-<a href="/admin/news/new" class="btn variant-filled-primary">Create</a>
+<Button href="/admin/news/new">Create</Button>
 
 <div class="table-container">
 	<table class="table table-hover">
@@ -72,16 +73,13 @@
 					</td>
 					<td>
 						<div class="flex flex-row items-center gap-2">
-							<a
-								href="/admin/news/{news.id}"
-								class="btn btn-sm variant-filled-primary">Edit</a>
+							<Button href="/admin/news/{news.id}" size="sm">Edit</Button>
 							<form
 								action="/admin/news/{news.id}"
 								method="post"
 								use:enhance={submitDeletion}>
 								<input type="hidden" name="_method" value="DELETE" />
-								<button type="submit" class="btn btn-sm variant-filled-error"
-									>Delete</button>
+								<Button type="submit" size="sm" color="error">Delete</Button>
 							</form>
 						</div>
 					</td>

@@ -3,6 +3,7 @@
 
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import Select from '$lib/components/ui/forms/Select.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 	import { toTitleCase } from '$lib/utils';
@@ -47,8 +48,8 @@
 	</div>
 
 	<div class="flex flex-row justify-end">
-		<button class="btn variant-filled-primary">
+		<Button>
 			{$_('guilds.create-butotn')}
-		</button>
+		</Button>
 	</div>
 </form>

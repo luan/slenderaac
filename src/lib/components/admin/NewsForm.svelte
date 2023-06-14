@@ -8,6 +8,7 @@
 
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
 	export let news: News | null = null;
@@ -80,5 +81,5 @@
 		{/if}
 	</div>
 
-	<button type="submit" class="btn variant-filled-primary">Save</button>
+	<Button type="submit">Save</Button>
 </form>

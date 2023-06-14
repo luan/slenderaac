@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { faArrowRight, faLock } from '@fortawesome/free-solid-svg-icons';
-	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
 
 	import { enhance } from '$app/forms';
@@ -8,6 +7,7 @@
 	import type { CoinOffer } from '$lib/coinOffers';
 	import PaymentMethodSelection from '$lib/components/shop/PaymentMethodSelection.svelte';
 	import ProductSelection from '$lib/components/shop/ProductSelection.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	let offerId = '';
 	let paymentMethod = '';
@@ -37,12 +37,12 @@
 	</div>
 	<div class="step-navigation flex justify-between gap-4">
 		<span />
-		<button
+		<Button
 			type="submit"
-			class="btn variant-filled flex-row gap-1"
+			iconAfter={!offerId || !paymentMethod ? faLock : faArrowRight}
+			color="base"
 			disabled={!offerId || !paymentMethod}>
 			{$_('next')}
-			<Fa icon={!offerId || !paymentMethod ? faLock : faArrowRight} />
-		</button>
+		</Button>
 	</div>
 </form>

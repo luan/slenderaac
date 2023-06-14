@@ -3,6 +3,7 @@
 
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
@@ -49,6 +50,6 @@
 	<CreateCharacterFormFields {form} />
 
 	<div class="flex flex-row justify-end">
-		<button class="btn variant-filled-primary">{$_('create-account')}</button>
+		<Button>{$_('create-account')}</Button>
 	</div>
 </form>

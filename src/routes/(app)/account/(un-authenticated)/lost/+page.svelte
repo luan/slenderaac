@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
+
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
@@ -23,15 +25,14 @@
 	</label>
 
 	<div class="flex flex-row justify-end items-center gap-2">
-		<button class="btn variant-filled-primary"
-			>{$_('request-password-reset')}</button>
+		<Button>{$_('request-password-reset')}</Button>
 	</div>
 
 	<hr class="divider" />
 
 	<div class="flex flex-row justify-center items-center gap-2">
 		<h3 class="h3">{$_('dont-have-an-account')}</h3>
-		<a href="/account/signup" class="btn btn-sm variant-filled-secondary"
-			>{$_('create-account')}</a>
+		<Button href="/account/signup" size="sm" color="secondary"
+			>{$_('create-account')}</Button>
 	</div>
 </form>

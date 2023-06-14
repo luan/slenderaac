@@ -14,6 +14,8 @@
 
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/ui/Button.svelte';
+
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -92,7 +94,7 @@
 </form>
 
 <h1 class="h1">Static Pages</h1>
-<a href="/admin/static-pages/new" class="btn variant-filled-primary">Create</a>
+<Button href="/admin/static-pages/new">Create</Button>
 
 <div class="table-container">
 	<table class="table table-hover">
@@ -132,16 +134,14 @@
 					<td>/pages/{staticPage.slug}</td>
 					<td>
 						<div class="flex flex-row items-center gap-2">
-							<a
-								href="/admin/static-pages/{staticPage.id}"
-								class="btn btn-sm variant-filled-primary">Edit</a>
+							<Button href="/admin/static-pages/{staticPage.id}" size="sm"
+								>Edit</Button>
 							<form
 								action="/admin/static-pages/{staticPage.id}"
 								method="post"
 								use:enhance={submitDeletion}>
 								<input type="hidden" name="_method" value="DELETE" />
-								<button type="submit" class="btn btn-sm variant-filled-error"
-									>Delete</button>
+								<Button type="submit" size="sm" color="error">Delete</Button>
 							</form>
 						</div>
 					</td>

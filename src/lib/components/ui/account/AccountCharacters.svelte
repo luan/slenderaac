@@ -4,6 +4,7 @@
 	import { tooltip } from 'svooltip';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 	import MainCharacterIndicator from '$lib/components/ui/MainCharacterIndicator.svelte';
 	import OnlineIndicator from '$lib/components/ui/OnlineIndicator.svelte';
 	import { getPronoun, type Player, vocationString } from '$lib/players';
@@ -106,8 +107,7 @@
 	</div>
 
 	<div class="flex flex-row justify-end">
-		<a
-			href="/account/characters/create"
-			class="btn btn-sm variant-filled-primary">{$_('new-character')}</a>
+		<Button href="/account/characters/create" size="sm"
+			>{$_('new-character')}</Button>
 	</div>
 </div>

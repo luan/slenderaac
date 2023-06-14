@@ -4,6 +4,7 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
+	import Button from '$lib/components/ui/Button.svelte';
 	import Checkbox from '$lib/components/ui/forms/Checkbox.svelte';
 	import Select from '$lib/components/ui/forms/Select.svelte';
 	import TextArea from '$lib/components/ui/forms/TextArea.svelte';
@@ -76,7 +77,7 @@
 		</div>
 
 		<div class="flex flex-row justify-end">
-			<button class="btn variant-filled-primary">{$_('save')}</button>
+			<Button>{$_('save')}</Button>
 		</div>
 	</form>
 </StatelessModal>

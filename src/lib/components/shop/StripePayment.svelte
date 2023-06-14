@@ -22,6 +22,8 @@
 
 	import { goto } from '$app/navigation';
 
+	import Button from '$lib/components/ui/Button.svelte';
+
 	import {
 		PUBLIC_BASE_URL,
 		PUBLIC_STRIPE_KEY,
@@ -103,17 +105,15 @@
 			</span>
 		</div>
 		<div class="step-navigation flex justify-between gap-4">
-			<button
+			<Button
 				disabled={processing}
 				type="button"
-				class="btn variant-ghost flex-row gap-1"
+				variant="ghost"
+				iconBefore={faArrowLeft}
 				on:click={() => goto('/shop/coins')}>
-				<Fa icon={faArrowLeft} /> Back
-			</button>
-			<button
-				disabled={processing}
-				type="submit"
-				class="btn variant-filled-primary flex-row gap-1">
+				Back
+			</Button>
+			<Button disabled={processing} type="submit">
 				{#if processing}
 					<ProgressRadial
 						width="w-4"
@@ -124,7 +124,7 @@
 				{:else}
 					<Fa icon={faCartShopping} /> Pay
 				{/if}
-			</button>
+			</Button>
 		</div>
 	</form>
 {/if}
