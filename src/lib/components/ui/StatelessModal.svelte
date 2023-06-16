@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { faClose } from '@fortawesome/free-solid-svg-icons';
+	import { Toast } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import Fa from 'svelte-fa';
 	import { portal } from 'svelte-portal';
+
+	import { browser } from '$app/environment';
 
 	const dispatch = createEventDispatcher();
 
@@ -17,6 +20,10 @@
 <div
 	class="modal-backdrop fixed inset-0 bg-surface-backdrop-token"
 	use:portal={'body'}>
+	{#if browser}
+		<Toast />
+	{/if}
+
 	<div
 		class="w-full h-full p-4 overflow-y-auto flex justify-center items-center"
 		transition:fade={{ duration: 300 }}>

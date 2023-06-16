@@ -165,7 +165,7 @@
     "lower-case": ":field must be in lowercase",
     "max-length": ":field must be no more than {max} characters",
     "min-length": ":field must be at least {min} characters",
-    "name": ":field must only contain lowercase letters, spaces, apostrophes, and hyphens",
+    "name": ":field must only contain letters, spaces, apostrophes, and hyphens",
     "name-monster": ":field must not be the name of a creature.",
     "number": ":field must be a number",
     "required": ":field is required",
@@ -230,7 +230,9 @@
     "ranks": "Ranks",
     "rank-name": "Name",
     "rank-level": "Permissions",
-    "delete-rank-tooltip": "Delete (players will be moved to the next rank below)"
+    "delete-rank-tooltip": "Delete (players will be moved to the next rank below)",
+    "rank": "Rank",
+    "nick": "Nick"
   },
   "your-characters": "Your characters",
   "characters-not-found": "A player with the name \"{name}\" does not exist.",
@@ -243,5 +245,6 @@
   "remove": "Remove",
   "guilds-ranks-delete-last": "Cannot remove the last remaining rank",
   "guilds-ranks-not-found": "Rank not found",
-  "guilds-ranks-delete-promotion": "No ranks of the same level or lower available to move players to"
+  "guilds-ranks-delete-promotion": "No ranks of the same level or lower available to move players to",
+  "saved": "Saved"
 }

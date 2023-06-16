@@ -114,6 +114,22 @@ export function guildRankValidator(value: unknown) {
 	return null;
 }
 
+export function guildNickValidator(value: unknown) {
+	if (typeof value !== 'string') {
+		return $_('validations.string');
+	}
+	if (value.length > 20) {
+		return $_('validations.max-length', { values: { max: 20 } });
+	}
+	if (value.trim() !== value) {
+		return $_('validations.blocked-words');
+	}
+	if (toTitleCase(value) !== value) {
+		return $_('validations.title-case');
+	}
+	return null;
+}
+
 export async function characterNameValidator(value: unknown) {
 	if (typeof value !== 'string') {
 		return $_('validations.string');

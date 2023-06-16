@@ -27,6 +27,7 @@ export const load = (async ({ locals, params }) => {
 					order: true,
 					guild_membership: {
 						select: {
+							nick: true,
 							player: { select: { account_id: true, ...PlayerSelectForList } },
 						},
 					},
@@ -72,6 +73,19 @@ export const load = (async ({ locals, params }) => {
 			createdAt: guild.created_at,
 			owner: dbToPlayer(guild.owner),
 			invited: guild.guild_invites.map((invite) => dbToPlayer(invite.player)),
+			memberships: guild.guild_ranks.flatMap((rank) =>
+				rank.guild_membership.map((membership) => ({
+					id: membership.player.id,
+					name: membership.player.name,
+					nick: membership.nick,
+					rank: {
+						id: rank.id,
+						name: rank.name,
+						level: rank.level,
+						order: rank.order,
+					},
+				})),
+			),
 			ranks: guild.guild_ranks.map((rank) => ({
 				id: rank.id,
 				name: rank.name,

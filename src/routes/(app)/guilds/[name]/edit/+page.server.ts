@@ -1,9 +1,11 @@
 import { type Actions, fail } from '@sveltejs/kit';
+import { setFlash } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
 import { ensureGuildWithPermission } from '$lib/server/guilds';
 import { prisma } from '$lib/server/prisma';
 import {
+	guildNickValidator,
 	guildRankValidator,
 	presenceValidator,
 	validate,
@@ -27,7 +29,57 @@ export const load = (async ({ parent, locals, params }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	save: async ({ request, locals, params }) => {
+	saveMembers: async (event) => {
+		const { request, locals, params } = event;
+		const guild = await ensureGuildWithPermission({
+			locals,
+			params,
+			minRank: 3,
+		});
+
+		const memberData: Record<number, { nick: string; rank: number }> = {};
+
+		const data = await request.formData();
+		const rules: ValidationRules = {};
+		for (const key of data.keys()) {
+			const value = data.get(key);
+			if (typeof value !== 'string') {
+				continue;
+			}
+			const [, playerId, field] = key.split('.');
+			memberData[Number(playerId)] = {
+				...memberData[Number(playerId)],
+				[field]: field === 'nick' ? value.trim() : Number(value),
+			};
+			if (field === 'nick') {
+				rules[key] = [guildNickValidator];
+			}
+		}
+
+		const errors = await validate(rules, data);
+		if (Object.keys(errors).length > 0) {
+			return fail(400, { invalid: true, errors });
+		}
+
+		for (const memberId of Object.keys(memberData)) {
+			const member = memberData[Number(memberId)];
+			await prisma.guildMembership.updateMany({
+				where: {
+					guild_id: guild.id,
+					player_id: Number(memberId),
+				},
+				data: {
+					nick: member.nick,
+					rank_id: member.rank,
+				},
+			});
+		}
+
+		setFlash({ type: 'success', message: $_('saved') }, event);
+	},
+
+	saveRanks: async (event) => {
+		const { request, locals, params } = event;
 		const guild = await ensureGuildWithPermission({
 			locals,
 			params,
@@ -68,6 +120,8 @@ export const actions = {
 				data: rank,
 			});
 		}
+
+		setFlash({ type: 'success', message: $_('saved') }, event);
 	},
 
 	addRank: async ({ locals, params }) => {
@@ -105,7 +159,12 @@ export const actions = {
 			where: { id: rankId, guild_id: guild.id },
 		});
 		if (!rank) {
-			return fail(404, { errors: { global: [$_('guilds-ranks-not-found')] } });
+			return fail(404, {
+				errors: { global: [$_('guilds-ranks-not-found')] } as Record<
+					string,
+					string[]
+				>,
+			});
 		}
 		if (
 			(await prisma.guildMembership.count({ where: { rank_id: rank.id } })) ===
@@ -123,7 +182,10 @@ export const actions = {
 		});
 		if (ranks.length <= 1) {
 			return fail(400, {
-				errors: { global: [$_('guilds-ranks-delete-last')] },
+				errors: { global: [$_('guilds-ranks-delete-last')] } as Record<
+					string,
+					string[]
+				>,
 			});
 		}
 
@@ -132,7 +194,10 @@ export const actions = {
 		);
 		if (!nextRank) {
 			return fail(400, {
-				errors: { global: [$_('guilds-ranks-delete-promotion')] },
+				errors: { global: [$_('guilds-ranks-delete-promotion')] } as Record<
+					string,
+					string[]
+				>,
 			});
 		}
 
