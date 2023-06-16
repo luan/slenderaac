@@ -37,7 +37,7 @@ export type Player = {
 
 export type PlayerWithRank = Player & {
 	rank: number;
-	skill: number;
+	skill: string;
 };
 
 export enum PlayerSex {

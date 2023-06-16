@@ -52,7 +52,7 @@ export const load = (async ({ url }) => {
 			(player, index): PlayerWithRank => ({
 				...player,
 				rank: skip + index + 1,
-				skill: characters[index][skillColumn],
+				skill: characters[index][skillColumn].toString(),
 			}),
 		),
 		limit: take,
