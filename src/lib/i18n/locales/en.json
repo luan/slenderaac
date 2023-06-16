@@ -225,13 +225,14 @@
     "resign": "Resign",
     "confirm": "Confirm?",
     "remove": "Kick",
-    "edit-guild": "Edit {name}",
+    "edit-guild": "Editing guild \"{name}\"",
     "ranks": "Ranks",
     "rank-name": "Name",
     "rank-level": "Permissions",
     "delete-rank-tooltip": "Delete (players will be moved to the next rank below)",
     "rank": "Rank",
-    "nick": "Nick"
+    "nick": "Nick",
+    "description": "Description"
   },
   "your-characters": "Your characters",
   "characters-not-found": "A player with the name \"{name}\" does not exist.",

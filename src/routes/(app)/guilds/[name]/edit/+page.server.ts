@@ -8,6 +8,7 @@ import {
 	guildNickValidator,
 	guildRankValidator,
 	presenceValidator,
+	stringValidator,
 	validate,
 	type ValidationRules,
 } from '$lib/server/validations';
@@ -29,6 +30,34 @@ export const load = (async ({ parent, locals, params }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
+	saveDescription: async (event) => {
+		const { request, locals, params } = event;
+		const guild = await ensureGuildWithPermission({
+			locals,
+			params,
+			minRank: 3,
+		});
+
+		const data = await request.formData();
+		const errors = await validate(
+			{
+				description: [stringValidator],
+			},
+			data,
+		);
+		if (Object.keys(errors).length > 0) {
+			return fail(400, { invalid: true, errors });
+		}
+		await prisma.guilds.update({
+			where: { id: guild.id },
+			data: {
+				description: data.get('description')?.toString(),
+			},
+		});
+
+		setFlash({ type: 'success', message: $_('saved') }, event);
+	},
+
 	saveMembers: async (event) => {
 		const { request, locals, params } = event;
 		const guild = await ensureGuildWithPermission({

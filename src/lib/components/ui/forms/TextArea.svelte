@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let label: string;
+	export let label: string | undefined = undefined;
 	export let name: string;
 	export let value = '';
 	export let rows = 4;
-	export let errors: string[] | undefined;
+	export let errors: string[] | undefined = undefined;
 	export let labelClass = '';
 	export let variant: 'horizontal' | 'vertical' = 'vertical';
 	export let required = false;
@@ -16,7 +16,7 @@
 	class="relative label flex {variant === 'horizontal'
 		? 'flex-row gap-2 items-center'
 		: 'flex-col gap-0'} flex-grow {labelClass}">
-	<span>{label}</span>
+	{#if label}<span>{label}</span>{/if}
 	<textarea
 		{name}
 		{rows}

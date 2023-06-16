@@ -8,6 +8,7 @@
 	import GuildMemberEditing from '$lib/components/guilds/GuildMemberEditing.svelte';
 	import GuildRankEditing from '$lib/components/guilds/GuildRankEditing.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import TextArea from '$lib/components/ui/forms/TextArea.svelte';
 	import StatelessModal from '$lib/components/ui/StatelessModal.svelte';
 
 	import type { ActionData, PageData } from './$types';
@@ -35,6 +36,24 @@
 				{/each}
 			{/each}
 		{/if}
+		<form
+			action="/guilds/{guildName}/edit?/saveDescription"
+			class="flex flex-col gap-1"
+			method="post"
+			use:enhance={() => {
+				return async ({ result }) => {
+					if (result.type === 'success') {
+						await invalidateAll();
+					}
+					return applyAction(result);
+				};
+			}}>
+			<h4 class="h4">
+				{$_('guilds.description')}
+				<Button size="sm" iconBefore={faSave}>{$_('save')}</Button>
+			</h4>
+			<TextArea name="description" value={guild.description ?? ''} />
+		</form>
 		<form
 			action="/guilds/{guildName}/edit?/saveRanks"
 			class="flex flex-col gap-1"

@@ -29,7 +29,7 @@
 <slot />
 
 {#if guild && owner}
-	<div class="flex flex-col gap-2 items-center">
+	<div class="flex flex-col gap-2 items-center w-full">
 		<h3 class="h3">{guild.name}</h3>
 		{#if guild.description}
 			<div class="flex data-table p-2">
