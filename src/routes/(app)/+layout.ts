@@ -6,10 +6,16 @@ import { browser } from '$app/environment';
 
 import type { LayoutLoad } from './$types';
 
-export const load = (async ({ data }) => {
+export const load = (async ({ data, fetch }) => {
 	if (browser) {
 		await locale.set(window.navigator.language);
 	}
 	await waitLocale();
-	return data;
+
+	const onlineData = (await (await fetch('/api/online-status')).json()) as {
+		serverOnline: boolean;
+		onlinePlayerCount: number;
+	};
+
+	return { ...data, ...onlineData };
 }) satisfies LayoutLoad;

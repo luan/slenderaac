@@ -95,6 +95,25 @@ const BLOCKED_WORDS = [
 	PUBLIC_TITLE.toLowerCase(),
 ];
 
+export function guildRankValidator(value: unknown) {
+	if (typeof value !== 'string') {
+		return $_('validations.string');
+	}
+	if (value.length < 3) {
+		return $_('validations.min-length', { values: { min: 3 } });
+	}
+	if (value.length > 20) {
+		return $_('validations.max-length', { values: { max: 20 } });
+	}
+	if (value.trim() !== value) {
+		return $_('validations.blocked-words');
+	}
+	if (!/^\(?[a-z- ']+\)?$/.test(value.toLowerCase())) {
+		return $_('validations.name');
+	}
+	return null;
+}
+
 export async function characterNameValidator(value: unknown) {
 	if (typeof value !== 'string') {
 		return $_('validations.string');

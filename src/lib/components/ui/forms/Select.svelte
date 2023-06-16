@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let label: string;
+	export let label: string | undefined = undefined;
 	export let name: string;
 	export let value = '';
 	export let errors: string[] | undefined = undefined;
@@ -13,7 +13,7 @@
 	class="relative label flex {variant === 'horizontal'
 		? 'flex-row gap-2 items-center'
 		: 'flex-col gap-0'} flex-grow {labelClass}">
-	<span>{label}</span>
+	{#if label}<span>{label}</span>{/if}
 	<select
 		class="select"
 		{name}

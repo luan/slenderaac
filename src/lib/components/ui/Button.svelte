@@ -21,6 +21,8 @@
 	let tooltipText: string | null = null;
 	export { tooltipText as tooltip };
 	export let noscroll = false;
+	export let form: string | undefined = undefined;
+	export let formaction: string | undefined = undefined;
 
 	let klass = '';
 	export { klass as class };
@@ -47,6 +49,8 @@
 	{type}
 	{disabled}
 	data-sveltekit-noscroll={noscroll ? true : undefined}
+	{form}
+	{formaction}
 	use:tooltip={{ content: tooltipText }}
 	on:click
 	class="btn gap-1 {sizeClass} {variantClass} {klass}">

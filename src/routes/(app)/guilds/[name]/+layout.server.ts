@@ -21,8 +21,10 @@ export const load = (async ({ locals, params }) => {
 			},
 			guild_ranks: {
 				select: {
+					id: true,
 					name: true,
 					level: true,
+					order: true,
 					guild_membership: {
 						select: {
 							player: { select: { account_id: true, ...PlayerSelectForList } },
@@ -71,8 +73,10 @@ export const load = (async ({ locals, params }) => {
 			owner: dbToPlayer(guild.owner),
 			invited: guild.guild_invites.map((invite) => dbToPlayer(invite.player)),
 			ranks: guild.guild_ranks.map((rank) => ({
+				id: rank.id,
 				name: rank.name,
 				level: rank.level,
+				order: rank.order,
 				members: rank.guild_membership.map((membership) =>
 					dbToPlayer(membership.player),
 				),

@@ -77,7 +77,10 @@
 	});
 
 	onMount(() => {
-		const interval = setInterval(() => invalidate('app:layout'), 5 * 1000);
+		const interval = setInterval(
+			() => invalidate('/api/online-coun'),
+			5 * 1000,
+		);
 		return () => clearInterval(interval);
 	});
 

@@ -17,12 +17,17 @@ export async function getGuildWithMinRank({
 	return prisma.guilds.findFirst({
 		where: {
 			name: guildName,
-			guild_membership: {
-				some: {
-					rank: { level: { gte: minRank } },
-					player: { account_id: accountId },
+			OR: [
+				{
+					guild_membership: {
+						some: {
+							rank: { level: { gte: minRank } },
+							player: { account_id: accountId },
+						},
+					},
 				},
-			},
+				{ owner: { account_id: accountId } },
+			],
 		},
 	});
 }

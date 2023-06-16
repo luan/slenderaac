@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let label: string;
+	export let label: string | undefined = undefined;
 	export let name: string;
 	export let value = '';
 	export let placeholder: string | undefined = undefined;
@@ -20,13 +20,14 @@
 	class="relative label flex {variant === 'horizontal'
 		? 'flex-row gap-2 items-center'
 		: 'flex-col gap-0'} flex-grow {labelClass}">
-	<span>{label}</span>
+	{#if label}<span>{label}</span>{/if}
 	<input
 		{required}
 		bind:value
 		{name}
 		{placeholder}
 		class="input flex-1"
+		class:text-right={type === 'number'}
 		class:input-error={Boolean(errors)}
 		{autocomplete}
 		use:typeAction />

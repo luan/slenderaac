@@ -29,7 +29,7 @@
 			size="sm"
 			color="secondary"
 			iconBefore={faEdit}>
-			{$_('guilds.edit-ranks')}
+			{$_('guilds.edit')}
 		</Button>
 	{/if}
 	{#if isOwner}
