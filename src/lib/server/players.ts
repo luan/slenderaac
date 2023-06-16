@@ -62,6 +62,12 @@ export const PlayerSelectForList = {
 			rank: { select: { name: true } },
 		},
 	},
+
+	guild_invites: {
+		select: {
+			guild: { select: { name: true } },
+		},
+	},
 };
 
 export async function getTemplate(vocation: PlayerVocation): Promise<Players> {
@@ -170,11 +176,14 @@ type PlayerWithData = Players & {
 	storage: { value: number }[];
 	town: { name: string };
 	settings?: PlayerSettings | null;
-	guild_membership: {
+	guild_membership?: {
 		nick: string;
 		guild: { name: string };
 		rank: { name: string };
 	} | null;
+	guild_invites: {
+		guild: { name: string };
+	}[];
 };
 
 type PlayerWithoutOptionals = Pick<
@@ -196,6 +205,7 @@ type PlayerWithoutOptionals = Pick<
 	| 'storage'
 	| 'online'
 	| 'guild_membership'
+	| 'guild_invites'
 	| 'skill_fist'
 	| 'skill_club'
 	| 'skill_sword'
@@ -235,6 +245,9 @@ export function dbToPlayer(
 					rank: player.guild_membership.rank.name,
 			  }
 			: null,
+		guildInvtes: player.guild_invites
+			? player.guild_invites.map((invite) => invite.guild.name)
+			: [],
 	};
 }
 

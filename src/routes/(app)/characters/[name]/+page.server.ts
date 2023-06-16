@@ -8,6 +8,8 @@ import { $_ } from '$lib/utils';
 
 import type { PageServerLoad } from './$types';
 
+const MAX_CHARACTERS_PER_PAGE = 100;
+
 export const load = (async ({ params }) => {
 	const player = await prisma.players.findFirst({
 		where: {
@@ -23,6 +25,7 @@ export const load = (async ({ params }) => {
 			settings: true,
 			deaths: true,
 		},
+		take: MAX_CHARACTERS_PER_PAGE,
 	});
 	if (!player) {
 		return {

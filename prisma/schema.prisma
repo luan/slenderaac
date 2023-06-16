@@ -169,8 +169,8 @@ model GuildInvites {
   player_id Int     @default(0)
   guild_id  Int     @default(0)
   date      Int
-  guilds    Guilds  @relation(fields: [guild_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "guild_invites_guild_fk")
-  players   Players @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "guild_invites_player_fk")
+  guild     Guilds  @relation(fields: [guild_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "guild_invites_guild_fk")
+  player    Players @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "guild_invites_player_fk")
 
   @@id([player_id, guild_id])
   @@index([guild_id], map: "guild_id")
@@ -199,6 +199,7 @@ model GuildRanks {
   level            Int
   guild_membership GuildMembership[]
   guilds           Guilds            @relation(fields: [guild_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "guild_ranks_fk")
+  order            Int               @default(0)
 
   @@index([guild_id], map: "guild_id")
   @@map("guild_ranks")

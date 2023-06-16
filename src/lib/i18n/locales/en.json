@@ -208,15 +208,28 @@
     "membership-description": "{rank} of the <a href=\"/guilds/{name}\" class=\"anchor\">{name}</a>",
     "membership-description-with-nick": "{rank} of the <a href=\"/guilds/{name}\" class=\"anchor\">{name}</a> ({nick})",
     "membership": "Guild Membership",
-    "not-found": "A player with the name \"{name}\" does not exist.",
+    "not-found": "A guild with the name \"{name}\" does not exist.",
     "members": "Members",
     "leader": "Leader",
     "invite": "Invite",
     "leave": "Leave guild",
     "founded": "{name} was founded on {date}.",
     "balance": "Guild bank account balance: <strong class=\"font-normal\">{balance}</strong> gold.",
-    "leader-label": "<a href=\"/characters/{name}\" class=\"text-semibold text-primary-600-300-token\">{name}</a> is their guild leader."
+    "leader-label": "<a href=\"/characters/{name}\" class=\"text-semibold text-primary-600-300-token\">{name}</a> is their guild leader.",
+    "uninvite": "Revoke invitation",
+    "invited-players": "Invited players",
+    "edit-ranks": "Edit Ranks",
+    "join": "Join",
+    "accept": "Accept",
+    "reject": "Reject",
+    "join-description": "Accept or reject your invitation for each of your characters who's invited:",
+    "resign": "Resign",
+    "confirm": "Confirm?",
+    "remove": "Kick"
   },
   "your-characters": "Your characters",
-  "characters-not-found": "A player with the name \"{name}\" does not exist."
+  "characters-not-found": "A player with the name \"{name}\" does not exist.",
+  "done": "Done",
+  "characters-invalid-name": "Invalid character name",
+  "guilds-already-member": "\"{name}\" is already a member of a guild"
 }

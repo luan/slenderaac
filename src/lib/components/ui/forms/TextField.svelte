@@ -2,7 +2,8 @@
 	export let label: string;
 	export let name: string;
 	export let value = '';
-	export let errors: string[] | undefined;
+	export let placeholder: string | undefined = undefined;
+	export let errors: string[] | undefined = undefined;
 	export let autocomplete = 'off';
 	export let type = 'text';
 	export let labelClass = '';
@@ -24,7 +25,8 @@
 		{required}
 		bind:value
 		{name}
-		class="input"
+		{placeholder}
+		class="input flex-1"
 		class:input-error={Boolean(errors)}
 		{autocomplete}
 		use:typeAction />

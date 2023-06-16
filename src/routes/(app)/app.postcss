@@ -21,10 +21,12 @@ body {
 	src: url('/fonts/Inter-VariableFont_slnt,wght.ttf');
 }
 
+.main-content {
+	@apply relative z-0;
+}
+
 body {
 	@apply bg-cover md:bg-[100%] bg-fixed bg-no-repeat bg-top;
-	@apply backdrop-brightness-150;
-	@apply transition-all;
 	background-image: url('/images/background-artwork.jpg'),
 		radial-gradient(
 			at 0% 0%,
@@ -43,7 +45,14 @@ body {
 		);
 }
 
-.dark body {
+.backdrop {
+	@apply fixed inset-0 z-0;
+	@apply w-full h-[100vh];
+	@apply backdrop-brightness-150;
+	@apply transition-all;
+}
+
+.dark .backdrop {
 	@apply backdrop-brightness-50;
 }
 

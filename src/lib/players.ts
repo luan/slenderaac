@@ -19,6 +19,7 @@ export type Player = {
 	id: number;
 	name: string;
 	level: number;
+	experience?: bigint;
 	vocation: PlayerVocation;
 	sex: PlayerSex;
 	pronoun: PlayerPronoun;
@@ -29,13 +30,14 @@ export type Player = {
 	lastLogin: Date | null;
 
 	guild?: GuildMembership | null;
+	guildInvtes: string[];
 
 	settings?: PlayerSettings;
 } & Outfit;
 
 export type PlayerWithRank = Player & {
 	rank: number;
-	skill: bigint | number;
+	skill: number;
 };
 
 export enum PlayerSex {

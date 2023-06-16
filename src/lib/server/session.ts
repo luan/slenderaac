@@ -107,7 +107,10 @@ if (Date.now() > nextClean) {
 	}, 5000);
 }
 
-export function requireLogin(locals: App.Locals, _prefix = '') {
+export function requireLogin(
+	locals: App.Locals,
+	_prefix = '',
+): asserts locals is App.Locals & { session: SessionInfo } {
 	if (!locals.session) {
 		throw redirect(302, '/account/login' /* path.join('/', prefix, 'login') */); // TODO: admin specific login page
 	}

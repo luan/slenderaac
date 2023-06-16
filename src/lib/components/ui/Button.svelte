@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { IconDefinition } from '@fortawesome/free-brands-svg-icons';
 	import Fa from 'svelte-fa';
+	import { tooltip } from 'svooltip';
 
 	export let type: 'button' | 'submit' | 'reset' | null = null;
 	export let href: string | null = null;
-	export let size: 'xs' | 'sm' | 'md' | 'lg' = 'md';
+	export let size: 'icon' | 'xs' | 'sm' | 'md' | 'lg' = 'md';
 	export let variant: 'filled' | 'ghost' | 'soft' | 'none' = 'filled';
 	export let color:
 		| 'primary'
@@ -17,6 +18,9 @@
 	export let iconBefore: IconDefinition | null = null;
 	export let iconAfter: IconDefinition | null = null;
 	export let disabled = false;
+	let tooltipText: string | null = null;
+	export { tooltipText as tooltip };
+	export let noscroll = false;
 
 	let klass = '';
 	export { klass as class };
@@ -26,6 +30,7 @@
 
 	// $: sizeClass = size === 'sm' ? 'btn-sm' : size === 'lg' ? 'btn-lg' : '';
 	$: sizeClass = {
+		icon: 'btn-icon',
 		xs: 'text-xs btn-sm',
 		sm: 'btn-sm',
 		md: '',
@@ -41,6 +46,8 @@
 	{href}
 	{type}
 	{disabled}
+	data-sveltekit-noscroll={noscroll ? true : undefined}
+	use:tooltip={{ content: tooltipText }}
 	on:click
 	class="btn gap-1 {sizeClass} {variantClass} {klass}">
 	{#if iconBefore}
