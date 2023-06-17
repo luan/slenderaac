@@ -57,13 +57,26 @@ export function emailValidator(value: unknown) {
 	return null;
 }
 
+export function lengthValidator(min: number, max: number) {
+	return (value: unknown) => {
+		if (typeof value !== 'string') {
+			return $_('validations.string');
+		}
+		if (value.length < min) {
+			return $_('validations.min-length', { values: { min } });
+		}
+		if (value.length > max) {
+			return $_('validations.max-length', { values: { max } });
+		}
+		return null;
+	};
+}
+
 export function slugValidator(value: unknown) {
 	invariant(typeof value === 'string', 'Slug must be a string');
-	if (value.length < 3) {
-		return $_('validations.min-length', { values: { min: 3 } });
-	}
-	if (value.length > 20) {
-		return $_('validations.max-length', { values: { max: 20 } });
+	const lengthError = lengthValidator(3, 20)(value);
+	if (lengthError) {
+		return lengthError;
 	}
 	if (value !== value.toLowerCase()) {
 		return $_('validations.lower-case');
@@ -99,11 +112,9 @@ export function guildRankValidator(value: unknown) {
 	if (typeof value !== 'string') {
 		return $_('validations.string');
 	}
-	if (value.length < 3) {
-		return $_('validations.min-length', { values: { min: 3 } });
-	}
-	if (value.length > 20) {
-		return $_('validations.max-length', { values: { max: 20 } });
+	const lengthError = lengthValidator(3, 20)(value);
+	if (lengthError) {
+		return lengthError;
 	}
 	if (value.trim() !== value) {
 		return $_('validations.blocked-words');
@@ -134,11 +145,9 @@ export async function characterNameValidator(value: unknown) {
 	if (typeof value !== 'string') {
 		return $_('validations.string');
 	}
-	if (value.length < 3) {
-		return $_('validations.min-length', { values: { min: 3 } });
-	}
-	if (value.length > 20) {
-		return $_('validations.max-length', { values: { max: 20 } });
+	const lengthError = lengthValidator(3, 20)(value);
+	if (lengthError) {
+		return lengthError;
 	}
 	if (toTitleCase(value) !== value) {
 		return $_('validations.title-case');

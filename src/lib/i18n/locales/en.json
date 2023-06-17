@@ -234,7 +234,11 @@
     "nick": "Nick",
     "description": "Description",
     "assing-new-owner": "Assing ownership",
-    "cancel-resign": "Cancel resignation"
+    "cancel-resign": "Cancel resignation",
+    "info": "Info",
+    "info-saved": "Guild info saved",
+    "ranks-saved": "Ranks saved",
+    "members-saved": "Members saved"
   },
   "your-characters": "Your characters",
   "characters-not-found": "A player with the name \"{name}\" does not exist.",

@@ -6,7 +6,13 @@
 	export let type: 'button' | 'submit' | 'reset' | null = null;
 	export let href: string | null = null;
 	export let size: 'icon' | 'xs' | 'sm' | 'md' | 'lg' = 'md';
-	export let variant: 'filled' | 'ghost' | 'soft' | 'none' = 'filled';
+	export let variant:
+		| 'filled'
+		| 'ghost'
+		| 'soft'
+		| 'glass'
+		| 'ringed'
+		| 'none' = 'filled';
 	export let color:
 		| 'primary'
 		| 'secondary'

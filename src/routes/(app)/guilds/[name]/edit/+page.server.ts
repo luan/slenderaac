@@ -7,6 +7,7 @@ import { prisma } from '$lib/server/prisma';
 import {
 	guildNickValidator,
 	guildRankValidator,
+	lengthValidator,
 	presenceValidator,
 	stringValidator,
 	validate,
@@ -41,7 +42,7 @@ export const actions = {
 		const data = await request.formData();
 		const errors = await validate(
 			{
-				description: [stringValidator],
+				description: [stringValidator, lengthValidator(0, 1000)],
 			},
 			data,
 		);
@@ -55,7 +56,7 @@ export const actions = {
 			},
 		});
 
-		setFlash({ type: 'success', message: $_('saved') }, event);
+		setFlash({ type: 'success', message: $_('guilds.info-saved') }, event);
 	},
 
 	saveMembers: async (event) => {
@@ -104,7 +105,7 @@ export const actions = {
 			});
 		}
 
-		setFlash({ type: 'success', message: $_('saved') }, event);
+		setFlash({ type: 'success', message: $_('guilds.members-saved') }, event);
 	},
 
 	saveRanks: async (event) => {
@@ -150,7 +151,7 @@ export const actions = {
 			});
 		}
 
-		setFlash({ type: 'success', message: $_('saved') }, event);
+		setFlash({ type: 'success', message: $_('guilds.ranks-saved') }, event);
 	},
 
 	addRank: async ({ locals, params }) => {

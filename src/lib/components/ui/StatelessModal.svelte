@@ -31,7 +31,7 @@
 	{/if}
 
 	<div
-		class="modal flex flex-col bg-surface-100-800-token w-modal h-auto max-h-full overflow-hidden p-4 space-y-4 rounded-container-token shadow-xl"
+		class="modal flex flex-col bg-surface-100-800-token w-modal h-auto max-h-full overflow-hidden p-4 space-y-4 rounded-container-token shadow-xl transition-all duration-300"
 		role="dialog"
 		transition:scale
 		aria-modal="true"
@@ -41,7 +41,7 @@
 			{title}
 			<button on:click={close}><Fa icon={faClose} size="xs" /></button>
 		</header>
-		<div class="flex flex-col gap-1 h-auto overflow-y-auto">
+		<div class="flex flex-col gap-2 h-auto overflow-y-auto">
 			<slot />
 		</div>
 	</div>
