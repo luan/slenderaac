@@ -2,6 +2,7 @@
 	import {
 		faArrowRightFromBracket,
 		faCheck,
+		faHandHoldingHand,
 		faRemove,
 		faWarning,
 	} from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +29,7 @@
 	export let canRevokeInvite = false;
 
 	$: leaving = $page.url.searchParams.get('leave') === character.name;
+	$: resigning = $page.data.resigning;
 </script>
 
 <tr
@@ -111,6 +113,19 @@
 							{:else}
 								{isSelf ? $_('guilds.leave') : $_('guilds.remove')}
 							{/if}
+						</Button>
+					</form>
+				{/if}
+				{#if resigning && !isOwner && !isInvited}
+					<form action="/guilds/{guildName}/resign" method="post" use:enhance>
+						<input type="hidden" name="newOwner" value={character.name} />
+						<Button
+							noscroll
+							size="xs"
+							color="primary"
+							iconAfter={faHandHoldingHand}
+							class="py-0.5 px-2 font-light">
+							{$_('guilds.assing-new-owner')}
 						</Button>
 					</form>
 				{/if}

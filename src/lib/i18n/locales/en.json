@@ -232,7 +232,9 @@
     "delete-rank-tooltip": "Delete (players will be moved to the next rank below)",
     "rank": "Rank",
     "nick": "Nick",
-    "description": "Description"
+    "description": "Description",
+    "assing-new-owner": "Assing ownership",
+    "cancel-resign": "Cancel resignation"
   },
   "your-characters": "Your characters",
   "characters-not-found": "A player with the name \"{name}\" does not exist.",
@@ -246,5 +248,6 @@
   "guilds-ranks-delete-last": "Cannot remove the last remaining rank",
   "guilds-ranks-not-found": "Rank not found",
   "guilds-ranks-delete-promotion": "No ranks of the same level or lower available to move players to",
-  "saved": "Saved"
+  "saved": "Saved",
+  "guilds-resign-success": "You've passed guild ownership to {name}"
 }
