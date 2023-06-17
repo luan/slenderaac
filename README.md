@@ -152,9 +152,9 @@ Using your favorite method to edit the client (see [this tutorial](https://docs.
 - [x] Highly secure bcrypt based password hashing
 - [x] Account verification
 - [x] Two factor auth
+- [x] Guild management
 - [ ] Character inventory
 - [ ] Server save countdown
-- [ ] Guild management
 - [ ] Guild wars
 - [ ] Multi-world
 - [ ] Char bazaar
@@ -246,6 +246,19 @@ https://github.com/luan/slenderaac/assets/223760/1b88dae4-dcbf-401e-a46e-64655e0
 ### Character search
 
 https://github.com/luan/slenderaac/assets/223760/a2cb7aad-a3df-46a2-b284-1f38a910fcbf
+
+### Guilds
+
+![Slender | Guilds (1)](https://github.com/luan/slenderaac/assets/223760/b8f5e2ea-d04f-4fb8-87a7-fa7a0fe06476)
+![Slender](https://github.com/luan/slenderaac/assets/223760/04958dcf-931b-46c3-80de-f7c71f005b94)
+![Slender (2)](https://github.com/luan/slenderaac/assets/223760/a6ccf9d9-9802-4a67-bf77-125af02a7672)
+![Capture-2023-06-16-195438](https://github.com/luan/slenderaac/assets/223760/a38c60de-9f33-4005-b278-1e0552c53b14)
+![Capture-2023-06-16-195453](https://github.com/luan/slenderaac/assets/223760/06271632-6f46-4aef-b87e-e9e912af7138)
+![Capture-2023-06-16-195510](https://github.com/luan/slenderaac/assets/223760/353eea86-56a1-4c83-b1c7-8fec38dec0d9)
+![Slender (3)](https://github.com/luan/slenderaac/assets/223760/520fd041-12b8-4d63-bfad-547450e73bc3)
+![Capture-2023-06-16-195556](https://github.com/luan/slenderaac/assets/223760/b71aeb1d-ccbd-4324-87e9-97ed95e8379f)
+
+
 
 </details>
 
