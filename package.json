@@ -49,6 +49,7 @@
 		"prisma": "^4.15.0",
 		"stripe": "^12.8.0",
 		"svelte": "^3.59.1",
+		"svelte-body": "^1.3.6",
 		"svelte-check": "^3.4.3",
 		"svelte-dnd-action": "^0.9.22",
 		"svelte-fa": "^3.0.4",

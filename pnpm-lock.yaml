@@ -190,6 +190,9 @@ devDependencies:
   svelte:
     specifier: ^3.59.1
     version: 3.59.1
+  svelte-body:
+    specifier: ^1.3.6
+    version: 1.3.6
   svelte-check:
     specifier: ^3.4.3
     version: 3.4.3(postcss@8.4.24)(svelte@3.59.1)
@@ -1636,6 +1639,11 @@ packages:
       wrap-ansi: 6.2.0
     dev: false
 
+  /clsx@1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
+    dev: true
+
   /codemirror@6.0.1(@lezer/common@1.0.3):
     resolution: {integrity: sha512-J8j+nZ+CdWmIeFIGXEFbFPtpiYacFMDR8GlHK3IyHQJMCaVRfGx9NT+Hxivv1ckLWPvNdZqndbr/7lVhrf/Svg==}
     dependencies:
@@ -1726,6 +1734,10 @@ packages:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
     hasBin: true
+    dev: true
+
+  /csstype@3.1.2:
+    resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
     dev: true
 
   /d@1.0.1:
@@ -4171,6 +4183,13 @@ packages:
   /supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /svelte-body@1.3.6:
+    resolution: {integrity: sha512-wTGLVlhWJPauViy56AdtJop0fTaEJMqnCadjrlhcIe76R+KrnW+QvHBx69Xots8GaXgds8y+yBAr0cV7YNIeGw==}
+    dependencies:
+      clsx: 1.2.1
+      csstype: 3.1.2
     dev: true
 
   /svelte-check@3.4.3(postcss@8.4.24)(svelte@3.59.1):
