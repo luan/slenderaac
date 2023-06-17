@@ -238,7 +238,14 @@
     "info": "Info",
     "info-saved": "Guild info saved",
     "ranks-saved": "Ranks saved",
-    "members-saved": "Members saved"
+    "members-saved": "Members saved",
+    "disband": "Disband",
+    "cancel-disband": "Cancel",
+    "disbanding-guild": "Disband \"{name}\"",
+    "disband-confirmation": "Are you sure you want to disband your guild {name}? This will remove every member from the guild.",
+    "disband-not-reversible": "This action is <strong>NOT</strong> reversible!",
+    "confirm-disband": "Disband my guild \"{name}\"",
+    "disband-success": "Guild \"{name}\" sucessfull disbanded"
   },
   "your-characters": "Your characters",
   "characters-not-found": "A player with the name \"{name}\" does not exist.",

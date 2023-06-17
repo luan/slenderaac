@@ -4,6 +4,7 @@
 		faHandHoldingHand,
 		faPersonCirclePlus,
 		faRefresh,
+		faTrash,
 	} from '@fortawesome/free-solid-svg-icons';
 	import { _ } from 'svelte-i18n';
 
@@ -55,5 +56,12 @@
 				{$_('guilds.resign')}
 			</Button>
 		{/if}
+		<Button
+			href="/guilds/{name}/disband"
+			size="xs"
+			color="error"
+			iconBefore={faTrash}>
+			{$_('guilds.disband')}
+		</Button>
 	{/if}
 </div>
