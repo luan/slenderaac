@@ -1,6 +1,7 @@
 <script lang="ts">
 	import {
 		faArrowRightFromBracket,
+		faCancel,
 		faCheck,
 		faHandHoldingHand,
 		faRemove,
@@ -114,6 +115,18 @@
 								{isSelf ? $_('guilds.leave') : $_('guilds.remove')}
 							{/if}
 						</Button>
+						{#if leaving}
+							<Button
+								href="/guilds/{guildName}"
+								noscroll
+								size="xs"
+								color="primary"
+								variant="soft"
+								iconAfter={faCancel}
+								class="py-0.5 px-2 font-light">
+								{$_('guilds.cancel-leave')}
+							</Button>
+						{/if}
 					</form>
 				{/if}
 				{#if resigning && !isOwner && !isInvited}

@@ -245,7 +245,8 @@
     "disband-confirmation": "Are you sure you want to disband your guild {name}? This will remove every member from the guild.",
     "disband-not-reversible": "This action is <strong>NOT</strong> reversible!",
     "confirm-disband": "Disband my guild \"{name}\"",
-    "disband-success": "Guild \"{name}\" sucessfull disbanded"
+    "disband-success": "Guild \"{name}\" sucessfull disbanded",
+    "cancel-leave": "Cancel"
   },
   "your-characters": "Your characters",
   "characters-not-found": "A player with the name \"{name}\" does not exist.",

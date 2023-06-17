@@ -93,7 +93,8 @@
 									{guild.name}
 								</span>
 								<pre
-									class="font-sans font-light whitespace-pre-wrap">{guild.description}</pre>
+									class="font-sans font-light whitespace-pre-wrap">{guild.description ??
+										''}</pre>
 							</td>
 							<td class=" w-fit">
 								<div class="flex flex-col w-fit">
