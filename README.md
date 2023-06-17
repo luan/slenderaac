@@ -2,6 +2,8 @@
 
 This project is a website for the [Canary](https://github.com/opentibiabr/canary) project. The main goal is to use modern technology to have something that is easy to maintain and extend. It is also meant to be efficient, secure and easy to deploy.
 
+[Features / Roadmap](https://github.com/luan/slenderaac/issues/24)
+
 <details>
 <summary><h2>Getting started</h2></summary>
 
@@ -123,70 +125,6 @@ node -r dotenv/config build
 <summary><h2>Client config</h2></summary>
 
 Using your favorite method to edit the client (see [this tutorial](https://docs.opentibiabr.com/others/tutorials/infrastructure#client-with-notepad++-1) for help). Set the login webservice url to http://localhost:5183/api/login (or your appropraite server URL). This will make the client use the AAC to login.
-
-</details>
-
-<details>
-  <summary><h2>Features / Roadmap</h2>
-</summary>
-
-### Website
-
-- [x] Account management
-- [x] Account recovery
-- [x] Character management
-- [x] Character search
-- [x] Highscores
-- [x] News
-- [x] Static pages
-- [x] Coin shop
-- [x] I18n (currently only English)
-- [x] Animated outfits
-- [x] Boosted creature / boss
-- [x] Server status
-- [x] Who's online
-- [x] Themable
-- [x] Dark mode
-- [x] Responsive design
-- [x] Mobile friendly
-- [x] Highly secure bcrypt based password hashing
-- [x] Account verification
-- [x] Two factor auth
-- [x] Guild management
-- [ ] Character inventory
-- [ ] Server save countdown
-- [ ] Guild wars
-- [ ] Multi-world
-- [ ] Char bazaar
-- [ ] Houses
-- [ ] Recent deaths
-- [ ] Kill statistics
-- [ ] Power gamers
-- [ ] World map
-
-### Admin panel
-
-- [x] News management ([markdoc](https://markdoc.dev))
-- [x] Static pages management ([markdoc](https://markdoc.dev))
-- [x] Easily create first admin account (`AUTO_ADMIN_EMAIL`)
-- [ ] Account management
-- [ ] Character management
-- [ ] Guild management
-- [ ] House management
-- [ ] Server management
-- [ ] Server logs
-- [ ] Server configuration
-- [ ] Guided installer
-
-### API
-
-- [x] Login
-- [x] Login via expiring session for increased security
-- [x] Boosted creature / boss
-- [x] Online counts
-- [ ] Compendium API
-- [ ] Events API
-- [ ] Other APIs (for discord integration, etc)
 
 </details>
   
