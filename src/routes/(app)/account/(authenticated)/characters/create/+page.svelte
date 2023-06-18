@@ -8,8 +8,9 @@
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
 	import StatelessModal from '$lib/components/ui/StatelessModal.svelte';
 
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
+	export let data: PageData;
 	export let form: ActionData;
 
 	async function close() {
@@ -23,7 +24,7 @@
 			<p class="text-xs text-error-500">{form.errors.global}</p>
 		{/if}
 
-		<CreateCharacterFormFields {form} />
+		<CreateCharacterFormFields {form} availableTowns={data.availableTowns} />
 
 		<div class="flex flex-row justify-end">
 			<Button>{$_('create-character')}</Button>

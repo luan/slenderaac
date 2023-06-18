@@ -3,7 +3,9 @@
 	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
+	import invariant from 'tiny-invariant';
 
+	import type { Town } from '$lib/towns';
 	import Select from '$lib/components/ui/forms/Select.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 	import { pronounsEnabled } from '$lib/config';
@@ -23,9 +25,13 @@
 	} | null;
 
 	export let form: CharacterActionData;
+	export let availableTowns: Town[];
+
+	invariant(availableTowns.length > 0, 'No towns available');
 
 	let sex = PlayerSex.Female;
 	let characterName = '';
+	let startingTown = availableTowns[0].id;
 
 	$: characterName = toTitleCase(characterName);
 </script>
@@ -66,4 +72,28 @@
 			{/each}
 		</Select>
 	{/if}
+</div>
+
+<div class="flex flex-row gap-4 items-center justify-center">
+	<div class="label flex flex-col gap-0">
+		<span class="flex flex-row gap-2">
+			{$_('starting-town')}
+			<label class="flex items-center space-x-2">
+				<input class="checkbox" type="checkbox" name="tutorial" />
+				<p>{$_('play-tutorial')}</p>
+			</label>
+		</span>
+		<RadioGroup>
+			{#each availableTowns as town}
+				<RadioItem
+					bind:group={startingTown}
+					name="startingTown"
+					value={town.id}>
+					<div class="flex flex-row gap-1 items-center">
+						{town.name}
+					</div>
+				</RadioItem>
+			{/each}
+		</RadioGroup>
+	</div>
 </div>

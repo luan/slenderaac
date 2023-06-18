@@ -88,7 +88,16 @@ export function slugValidator(value: unknown) {
 	return null;
 }
 
-const BLOCKD_PREFIXES = ['gm', 'dm', 'god', 'cm', 'tutor', 'senior', "'", '-'];
+const BLOCKD_PREFIXES = [
+	'gm ',
+	'dm ',
+	'god ',
+	'cm ',
+	'tutor ',
+	'senior ',
+	"'",
+	'-',
+];
 
 const BLOCKED_WORDS = [
 	'admin',

@@ -139,10 +139,14 @@ export async function generateCharacterInput({
 	name,
 	pronoun,
 	sex,
+	startingTown,
+	tutorial,
 }: {
 	name: string;
 	pronoun: PlayerPronoun;
 	sex: PlayerSex;
+	startingTown: number;
+	tutorial: boolean;
 }) {
 	const vocation = PlayerVocation.None;
 	const template = await getTemplate(vocation);
@@ -155,7 +159,6 @@ export async function generateCharacterInput({
 		mana: template.mana,
 		manamax: template.manamax,
 		cap: template.cap,
-		town_id: template.town_id,
 		soul: template.soul,
 		looktype: sex === PlayerSex.Male ? 128 : 136,
 		lookaddons: template.lookaddons,
@@ -168,6 +171,8 @@ export async function generateCharacterInput({
 		sex,
 		pronoun,
 		group_id: PlayerGroup.Normal,
+		town_id: startingTown,
+		istutorial: tutorial,
 	};
 }
 

@@ -748,11 +748,12 @@ model TileStore {
 }
 
 model Towns {
-  id   Int    @id @default(autoincrement())
-  name String @unique(map: "name") @db.VarChar(255)
-  posx Int    @default(0)
-  posy Int    @default(0)
-  posz Int    @default(0)
+  id      Int     @id @default(autoincrement())
+  name    String  @unique(map: "name") @db.VarChar(255)
+  posx    Int     @default(0)
+  posy    Int     @default(0)
+  posz    Int     @default(0)
+  starter Boolean @default(false)
 
   @@map("towns")
 }

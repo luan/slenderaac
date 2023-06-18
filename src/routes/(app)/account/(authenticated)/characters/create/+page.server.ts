@@ -6,8 +6,10 @@ import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
+import { getAvailableTowns } from '$lib/server/towns';
 import {
 	characterNameValidator,
+	numberValidator,
 	presenceValidator,
 	stringValidator,
 	validate,
@@ -16,7 +18,7 @@ import {
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (() => {
-	return {};
+	return { availableTowns: getAvailableTowns() };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -28,11 +30,14 @@ export const actions = {
 		const characterName = data.get('characterName');
 		const characterSex = data.get('characterSex');
 		const characterPronouns = data.get('characterPronouns');
+		const startingTown = data.get('startingTown');
+		const tutorial = data.get('tutorial');
 
 		const errors = await validate(
 			{
 				characterName: [presenceValidator, characterNameValidator],
 				characterSex: [presenceValidator, stringValidator],
+				startingTown: [presenceValidator, numberValidator],
 			},
 			data,
 		);
@@ -41,12 +46,21 @@ export const actions = {
 			return fail(400, { invalid: true, errors: errors });
 		}
 
-		invariant(characterName && characterSex, 'Missing required fields');
+		invariant(
+			characterName && characterSex && startingTown,
+			'Missing required fields',
+		);
 		invariant(typeof characterName === 'string', 'Name must be a string');
-		invariant(typeof characterSex === 'string', 'Name must be a string');
+		invariant(typeof characterSex === 'string', 'Sex must be a string');
+		invariant(
+			typeof startingTown === 'string',
+			'Starting town must be a string',
+		);
 
 		const characterSexValue = parsePlayerSex(characterSex);
 		const characterPronounsValue = parsePlayerPronoun(characterPronouns);
+		const startingTownValue = Number(startingTown) ?? 1;
+		console.log(startingTownValue, startingTown);
 
 		const existingPlayer = await prisma.players.findFirst({
 			where: { name: characterName },
@@ -63,6 +77,8 @@ export const actions = {
 			name: characterName,
 			pronoun: characterPronounsValue,
 			sex: characterSexValue,
+			startingTown: startingTownValue,
+			tutorial: tutorial === 'on',
 		});
 		try {
 			await prisma.players.create({
@@ -74,10 +90,9 @@ export const actions = {
 		} catch (e) {
 			console.error(e);
 			return fail(500, {
-				errors: { global: ['Failed to create character'] } as Record<
-					string,
-					string[]
-				>,
+				errors: {
+					global: ['Failed to create character'],
+				} as Record<string, string[]>,
 			});
 		}
 

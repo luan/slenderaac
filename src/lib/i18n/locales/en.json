@@ -261,5 +261,7 @@
   "guilds-ranks-not-found": "Rank not found",
   "guilds-ranks-delete-promotion": "No ranks of the same level or lower available to move players to",
   "saved": "Saved",
-  "guilds-resign-success": "You've passed guild ownership to {name}"
+  "guilds-resign-success": "You've passed guild ownership to {name}",
+  "starting-town": "Starting town",
+  "play-tutorial": "Play Tutorial"
 }

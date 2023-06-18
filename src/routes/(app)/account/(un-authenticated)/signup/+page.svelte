@@ -7,8 +7,9 @@
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
+	export let data: PageData;
 	export let form: ActionData;
 </script>
 
@@ -47,7 +48,7 @@
 
 	<h3 class="h3">{$_('character')}</h3>
 
-	<CreateCharacterFormFields {form} />
+	<CreateCharacterFormFields {form} availableTowns={data.availableTowns} />
 
 	<div class="flex flex-row justify-end">
 		<Button>{$_('create-account')}</Button>

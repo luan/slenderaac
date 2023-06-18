@@ -7,10 +7,12 @@ import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
 import { sendVerificationEmail } from '$lib/server/email';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
+import { getAvailableTowns } from '$lib/server/towns';
 import { hashPassword } from '$lib/server/utils';
 import {
 	characterNameValidator,
 	emailValidator,
+	numberValidator,
 	presenceValidator,
 	stringValidator,
 	validate,
@@ -21,7 +23,10 @@ import { AUTO_ADMIN_EMAIL } from '$env/static/private';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (() => {
-	return { title: 'Create Account' };
+	return {
+		title: 'Create Account',
+		availableTowns: getAvailableTowns(),
+	};
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -34,6 +39,7 @@ export const actions = {
 		const characterName = data.get('characterName');
 		const characterSex = data.get('characterSex');
 		const characterPronouns = data.get('characterPronouns');
+		const startingTown = data.get('startingTown');
 
 		const errors = await validate(
 			{
@@ -51,6 +57,7 @@ export const actions = {
 				],
 				characterName: [presenceValidator, characterNameValidator],
 				characterSex: [presenceValidator, stringValidator],
+				startingTown: [presenceValidator, numberValidator],
 			},
 			data,
 		);
@@ -67,9 +74,15 @@ export const actions = {
 		invariant(typeof password === 'string', 'Password must be a string');
 		invariant(typeof characterName === 'string', 'Name must be a string');
 		invariant(typeof characterSex === 'string', 'Name must be a string');
+		invariant(
+			typeof startingTown === 'string',
+			'Starting town must be a string',
+		);
 
 		const characterSexValue = parsePlayerSex(characterSex);
 		const characterPronounsValue = parsePlayerPronoun(characterPronouns);
+		const startingTownValue = Number(startingTown) ?? 1;
+		const tutorial = data.get('tutorial');
 
 		email = email.toLowerCase();
 
@@ -87,6 +100,8 @@ export const actions = {
 			name: characterName,
 			pronoun: characterPronounsValue,
 			sex: characterSexValue,
+			startingTown: startingTownValue,
+			tutorial: tutorial === 'on',
 		});
 
 		const existingPlayer = await prisma.players.findFirst({
