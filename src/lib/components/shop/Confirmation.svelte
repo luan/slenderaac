@@ -5,7 +5,6 @@
 		faCircleExclamation,
 		faCircleXmark,
 	} from '@fortawesome/free-solid-svg-icons';
-	import { CoinOrderStatus } from '@prisma/client';
 	import { ProgressBar } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
@@ -15,6 +14,7 @@
 	import { invalidate } from '$app/navigation';
 
 	import Button from '$lib/components/ui/Button.svelte';
+	import { CoinOrderStatus } from '$lib/shop';
 
 	import { PUBLIC_SUPPORT_EMAIL, PUBLIC_TITLE } from '$env/static/public';
 

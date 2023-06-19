@@ -97,10 +97,12 @@ export const load = (async ({ locals, url, depends }) => {
 		token,
 		clientSecret,
 		paymentMethod,
-		order: order && {
-			status: order.status,
-			amount: order.amount,
-		},
+		order: order
+			? {
+					status: order.status,
+					amount: order.amount,
+			  }
+			: null,
 	};
 }) satisfies PageServerLoad;
 
