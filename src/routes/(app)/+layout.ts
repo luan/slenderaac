@@ -12,10 +12,5 @@ export const load = (async ({ data, fetch }) => {
 	}
 	await waitLocale();
 
-	const onlineData = (await (await fetch('/api/online-status')).json()) as {
-		serverOnline: boolean;
-		onlinePlayerCount: number;
-	};
-
-	return { ...data, ...onlineData };
+	return { ...data };
 }) satisfies LayoutLoad;

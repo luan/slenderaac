@@ -172,7 +172,7 @@ export const actions = {
 			},
 		});
 
-		return { errors: null };
+		return {};
 	},
 
 	deleteRank: async ({ url, locals, params }) => {

@@ -23,14 +23,14 @@
 	} from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
 	import { portal } from 'svelte-portal';
 	import { initFlash } from 'sveltekit-flash-message/client';
 
 	import { browser } from '$app/environment';
-	import { beforeNavigate, invalidate } from '$app/navigation';
+	import { beforeNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 
 	import ServerStatus from '$lib/components/ui/ServerStatus.svelte';
@@ -52,8 +52,6 @@
 		isLoggedIn,
 		boostedBoss,
 		boostedCreature,
-		serverOnline,
-		onlinePlayerCount,
 		isAdmin,
 		accountCharacters,
 	} = data);
@@ -74,14 +72,6 @@
 		if ($flash && nav.from?.url.toString() !== nav.to?.url.toString()) {
 			$flash = undefined;
 		}
-	});
-
-	onMount(() => {
-		const interval = setInterval(
-			() => invalidate('/api/online-coun'),
-			5 * 1000,
-		);
-		return () => clearInterval(interval);
 	});
 
 	const unsubscribe = flash.subscribe(($flash) => {
@@ -196,7 +186,7 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<ServerStatus {serverOnline} {onlinePlayerCount} />
+				<ServerStatus />
 				<LightSwitch />
 			</svelte:fragment>
 		</AppBar>

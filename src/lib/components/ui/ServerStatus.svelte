@@ -1,8 +1,21 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { _ } from 'svelte-i18n';
 
-	export let serverOnline: boolean;
-	export let onlinePlayerCount: number;
+	let serverOnline: boolean;
+	let onlinePlayerCount: number;
+
+	async function refresh() {
+		({ onlinePlayerCount, serverOnline } = (await (
+			await fetch('/api/online-status')
+		).json()) as { serverOnline: boolean; onlinePlayerCount: number });
+	}
+
+	onMount(() => {
+		void refresh();
+		const interval = setInterval(refresh, 5 * 1000);
+		return () => clearInterval(interval);
+	});
 </script>
 
 <a
