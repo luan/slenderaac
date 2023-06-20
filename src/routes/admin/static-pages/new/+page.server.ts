@@ -24,6 +24,7 @@ export const actions = {
 		const data = await request.formData();
 		const slug = data.get('slug');
 		const title = data.get('title');
+		const hide = data.get('hide');
 		const content = data.get('content');
 
 		const errors = await validate(
@@ -50,6 +51,7 @@ export const actions = {
 					title,
 					content,
 					slug,
+					hide: hide === 'on',
 				},
 			});
 		} catch (e) {

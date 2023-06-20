@@ -18,6 +18,7 @@ export const load = loadFlashMessage(async ({ locals }) => {
 	const boostedBoss = await prisma.boostedBoss.findFirst();
 	const boostedCreature = await prisma.boostedCreature.findFirst();
 	const staticPages = await prisma.staticPage.findMany({
+		where: { hide: false },
 		orderBy: { order: 'asc' },
 	});
 

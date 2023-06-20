@@ -2,7 +2,7 @@
 	import type { StaticPage } from '@prisma/client';
 	import { markdown } from '@codemirror/lang-markdown';
 	import { oneDark } from '@codemirror/theme-one-dark';
-	import { focusTrap, toastStore } from '@skeletonlabs/skeleton';
+	import { focusTrap, SlideToggle, toastStore } from '@skeletonlabs/skeleton';
 	// eslint-disable-next-line import/default, import/no-named-as-default, import/no-named-as-default-member
 	import CodeMirror from 'svelte-codemirror-editor';
 
@@ -22,6 +22,8 @@
 
 	let isFocused = true;
 	let form: HTMLFormElement;
+
+	let hideFromMenu = staticPage?.hide ?? false;
 
 	function save() {
 		form.requestSubmit();
@@ -67,6 +69,16 @@
 		name="slug"
 		value={slug}
 		errors={errors?.slug} />
+
+	<label class="label flex flex-row items-center gap-2">
+		<input
+			class="hidden"
+			type="checkbox"
+			name="hide"
+			bind:checked={hideFromMenu} />
+		<span>Hide from menu</span>
+		<SlideToggle name="slide" bind:checked={hideFromMenu} />
+	</label>
 
 	<input type="hidden" name="content" bind:value />
 	<div class="label">

@@ -32,6 +32,7 @@ export const actions = {
 		const title = data.get('title');
 		const content = data.get('content');
 		const slug = data.get('slug');
+		const hide = data.get('hide');
 
 		const errors = await validate(
 			{
@@ -63,6 +64,7 @@ export const actions = {
 					...(title ? { title } : {}),
 					...(slug ? { slug } : {}),
 					...(content ? { content } : {}),
+					...(hide ? { hide: hide === 'on' } : {}),
 				},
 			});
 		} catch (e) {

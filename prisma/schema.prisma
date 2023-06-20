@@ -809,6 +809,7 @@ model StaticPage {
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
   order      Int      @default(0)
+  hide       Boolean  @default(false)
 
   @@map("slender_static_pages")
 }
