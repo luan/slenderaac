@@ -64,7 +64,7 @@ export const actions = {
 					...(title ? { title } : {}),
 					...(slug ? { slug } : {}),
 					...(content ? { content } : {}),
-					...(hide ? { hide: hide === 'on' } : {}),
+					hide: hide === 'on',
 				},
 			});
 		} catch (e) {
