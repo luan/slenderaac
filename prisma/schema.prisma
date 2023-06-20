@@ -79,7 +79,6 @@ model Accounts {
 
   passwordReset     PasswordReset?
   emailVerification EmailVerification?
-  gameSessions      GameAccountSessions[]
   backupCodes       AccountBackupCodes[]
 
   @@map("accounts")
@@ -756,15 +755,6 @@ model Towns {
   starter Boolean @default(false)
 
   @@map("towns")
-}
-
-model GameAccountSessions {
-  id         String   @id @default(cuid())
-  account_id Int      @db.UnsignedInt
-  expires    BigInt   @db.UnsignedBigInt
-  account    Accounts @relation(fields: [account_id], references: [id])
-
-  @@map("account_sessions")
 }
 
 // Custom models for SlenderAAC

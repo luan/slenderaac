@@ -1,3 +1,4 @@
+import type { Algorithm } from 'jsonwebtoken';
 import { compareSync, hashSync } from 'bcrypt';
 import { authenticator } from 'otplib';
 
@@ -75,4 +76,17 @@ export async function check2faToken(
 		}
 	}
 	return authenticator.check(token, account.token_secret);
+}
+
+/**
+ * Type checks if a string is a valid JWT signing algorithm.
+ * @param algorithm The algorithm to check.
+ * @returns Whether the algorithm is valid.
+ */
+export function isJWTSigningAlgorithm(
+	algorithm: string,
+): algorithm is Algorithm {
+	return ['HS256', 'HS384', 'HS512', 'RS256', 'RS384', 'RS512'].includes(
+		algorithm,
+	);
 }
