@@ -8,6 +8,7 @@
 
 	export let node: RenderableTreeNode;
 	export let components: Map<string, typeof SvelteComponent>;
+	export let isRoot = false;
 
 	const nodeName = (node: RenderableTreeNode) => {
 		if (typeof node === 'string' || typeof node === 'number') return 'text';
@@ -33,9 +34,13 @@
 		<svelte:self node={node.children} {components} />
 	</svelte:component>
 {:else if node.children.length > 0}
-	<svelte:element this={node.name} {...node.attributes}>
+	{#if isRoot}
 		<svelte:self node={node.children} {components} />
-	</svelte:element>
+	{:else}
+		<svelte:element this={node.name} {...node.attributes}>
+			<svelte:self node={node.children} {components} />
+		</svelte:element>
+	{/if}
 {:else}
 	<svelte:element this={node.name} {...node.attributes} />
 {/if}

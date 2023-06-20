@@ -1,6 +1,6 @@
 <script lang="ts">
 </script>
 
-<div class="card p-2">
+<div class="flex flex-col gap-2">
 	<slot />
 </div>

@@ -1,10 +1,13 @@
 <script lang="ts">
+	import type { SvelteComponent } from 'svelte';
 	import {
 		type Config as MarkdocConfig,
 		default as Markdoc,
 	} from '@markdoc/markdoc';
 
 	import Callout from '$lib/components/markdoc/Callout.svelte';
+	import Col from '$lib/components/markdoc/Col.svelte';
+	import Row from '$lib/components/markdoc/Row.svelte';
 	import { deepMerge } from '$lib/utils';
 
 	import { PUBLIC_BASE_URL, PUBLIC_TITLE } from '$env/static/public';
@@ -13,17 +16,33 @@
 
 	const defaultConfig = {
 		tags: {
+			col: {
+				render: 'Col',
+				description: 'Display the enclosed content in a flex-col container',
+				children: ['paragraph', 'tag', 'list'],
+				attributes: {
+					center: {
+						type: Boolean,
+						default: false,
+					},
+				},
+			},
+			row: {
+				render: 'Row',
+				description: 'Display the enclosed content in a flex-row container',
+				children: ['paragraph', 'tag', 'list'],
+				attributes: {
+					center: {
+						type: Boolean,
+						default: false,
+					},
+				},
+			},
 			callout: {
 				render: 'Callout',
 				description: 'Display the enclosed content in a callout box',
 				children: ['paragraph', 'tag', 'list'],
-				attributes: {
-					type: {
-						type: String,
-						default: 'note',
-						matches: ['check', 'error', 'note', 'warning'],
-					},
-				},
+				attributes: {},
 			},
 		},
 	};
@@ -34,14 +53,18 @@
 			baseUrl: PUBLIC_BASE_URL,
 		},
 	};
-	let components = new Map([['Callout', Callout]]);
+	let components = new Map<string, typeof SvelteComponent>([
+		['Callout', Callout],
+		['Row', Row],
+		['Col', Col],
+	]);
 
 	const ast = Markdoc.parse(content);
 	const node = Markdoc.transform(ast, deepMerge(defaultConfig, config));
 </script>
 
 {#if node}
-	<article class="prose dark:prose-invert">
-		<Tags {node} {components} />
+	<article class="flex flex-col gap-1 w-full prose dark:prose-invert">
+		<Tags {node} {components} isRoot />
 	</article>
 {/if}
