@@ -17,7 +17,7 @@ const BCRYPT_ROUNDS = 12;
  * @returns The hashed password.
  */
 export function hashPassword(password: string) {
-	if (DEPRECATED_USE_SHA1_PASSWORDS) {
+	if (DEPRECATED_USE_SHA1_PASSWORDS === 'true') {
 		return hashPasswordSHA1(password);
 	}
 	return hashSync(password, BCRYPT_ROUNDS);
@@ -42,7 +42,8 @@ function hashPasswordSHA1(password: string) {
  */
 export function comparePassword(password: string, hash: string) {
 	if (
-		(DEPRECATED_USE_SHA1_PASSWORDS || ALLOW_LEGACY_SHA1_PASSWORDS) &&
+		(DEPRECATED_USE_SHA1_PASSWORDS === 'true' ||
+			ALLOW_LEGACY_SHA1_PASSWORDS === 'true') &&
 		hash === hashPasswordSHA1(password)
 	) {
 		return true;

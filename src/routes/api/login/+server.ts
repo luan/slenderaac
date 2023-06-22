@@ -187,7 +187,7 @@ async function handleLogin(
 	let sessionId: string = crypto.randomUUID();
 	const hashedSessionId = createHash('sha256').update(sessionId).digest('hex');
 
-	if (DEPRECATED_USE_SHA1_PASSWORDS) {
+	if (DEPRECATED_USE_SHA1_PASSWORDS === 'true') {
 		sessionId = params.password;
 	} else {
 		await prisma.gameAccountSessions.create({
@@ -207,7 +207,7 @@ async function handleLogin(
 			sessionkey: `${params.email}\n${sessionId}`,
 			lastlogintime: '0', // TODO: implement last login
 			ispremium: true, // TODO: check if premium when free premium is disabled
-			premiumuntil: 0,
+			premiumuntil: 1688084844,
 			status: 'active',
 			returnernotification: false,
 			showrewardnews: true,
