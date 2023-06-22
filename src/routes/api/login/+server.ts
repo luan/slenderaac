@@ -8,6 +8,7 @@ import { prisma } from '$lib/server/prisma';
 import { comparePassword } from '$lib/server/utils';
 
 import {
+	DEPRECATED_USE_SHA1_PASSWORDS,
 	GAME_SESSION_EXPIRATION_TIME,
 	PVP_TYPE,
 	REQUIRE_EMAIL_CONFIRMATION_TO_LOGIN,
@@ -183,16 +184,20 @@ async function handleLogin(
 		};
 	}
 
-	const sessionId = crypto.randomUUID();
-	const hashedSessionId = createHash('sha1').update(sessionId).digest('hex');
+	let sessionId: string = crypto.randomUUID();
+	const hashedSessionId = createHash('sha256').update(sessionId).digest('hex');
 
-	await prisma.gameAccountSessions.create({
-		data: {
-			id: hashedSessionId,
-			account_id: account.id,
-			expires: Math.trunc((Date.now() + SESSION_DURATION) / 1000), // convert to seconds
-		},
-	});
+	if (DEPRECATED_USE_SHA1_PASSWORDS) {
+		sessionId = params.password;
+	} else {
+		await prisma.gameAccountSessions.create({
+			data: {
+				id: hashedSessionId,
+				account_id: account.id,
+				expires: Math.trunc((Date.now() + SESSION_DURATION) / 1000), // convert to seconds
+			},
+		});
+	}
 
 	const serverPort = parseInt(SERVER_PORT) ?? 7172;
 	const pvptype = ['pvp', 'no-pvp', 'pvp-enforced'].indexOf(PVP_TYPE);
