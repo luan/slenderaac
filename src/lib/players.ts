@@ -187,6 +187,17 @@ export function vocationString(playerVocation: PlayerVocation): string {
 	}[playerVocation];
 }
 
+const validOutfitKeys = [
+	'looktype',
+	'lookaddons',
+	'lookhead',
+	'lookbody',
+	'looklegs',
+	'lookfeet',
+	'mount',
+	'resize',
+];
+
 export function outfitURL({
 	resize,
 	...params
@@ -202,6 +213,9 @@ export function outfitURL({
 }): string {
 	const search = new URLSearchParams();
 	for (const [key, value] of Object.entries(params)) {
+		if (!validOutfitKeys.includes(key)) {
+			continue;
+		}
 		search.append(key, (value ?? 0).toString());
 	}
 	if (resize) {

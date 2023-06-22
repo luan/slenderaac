@@ -31,7 +31,8 @@
 					{character.name}
 				</span>
 				<AnimatedOutfit
-					class="scale-150"
+					class="h-20 scale-125"
+					innerClass="!bottom-4"
 					outfit={character}
 					alt={character.name} />
 				{#if pronounsEnabled}

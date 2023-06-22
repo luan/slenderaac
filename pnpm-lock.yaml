@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -50,9 +50,6 @@ dependencies:
   dotenv:
     specifier: ^16.1.4
     version: 16.1.4
-  gifencoder:
-    specifier: ^2.0.1
-    version: 2.0.1
   js-yaml:
     specifier: ^4.1.0
     version: 4.1.0
@@ -115,9 +112,6 @@ devDependencies:
   '@types/bcrypt':
     specifier: ^5.0.0
     version: 5.0.0
-  '@types/gifencoder':
-    specifier: ^2.0.1
-    version: 2.0.1
   '@types/js-yaml':
     specifier: ^4.0.5
     version: 4.0.5
@@ -1120,12 +1114,6 @@ packages:
 
   /@types/estree@1.0.1:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
-    dev: true
-
-  /@types/gifencoder@2.0.1:
-    resolution: {integrity: sha512-Ls78JLiLPHA1ytIXMWv/7/71a2Cz7BBnjgi9R/LFcIS531PEFYxPPGHNmBBnLekQ7/VpO+n1fgaJ6XD3ZkpApg==}
-    dependencies:
-      '@types/node': 20.2.5
     dev: true
 
   /@types/js-yaml@4.0.5:
@@ -2600,15 +2588,6 @@ packages:
     dependencies:
       resolve-pkg-maps: 1.0.0
     dev: true
-
-  /gifencoder@2.0.1:
-    resolution: {integrity: sha512-x19DcyWY10SkshBpokqFOo/HBht9GB75evRYvaLMbez9p+yB/o+kt0fK9AwW59nFiAMs2UUQsjv1lX/hvu9Ong==}
-    dependencies:
-      canvas: 2.11.2
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: false
 
   /glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}

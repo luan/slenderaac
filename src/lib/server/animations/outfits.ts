@@ -9,8 +9,6 @@ import path from 'path';
 
 import { mounts, outfitColors } from '$lib/server/animations/config';
 
-const transparentBackgroundColor = [255, 255, 255];
-
 export interface OutfitData {
 	files: string[];
 	framesNumber: number;
@@ -184,8 +182,7 @@ export async function outfit(
 			const mountImage = await loadImage(mountImagePath);
 			const mountCanvas = createCanvas(width, height);
 			const mountCtx = mountCanvas.getContext('2d');
-			mountCtx.fillStyle = `rgb(${transparentBackgroundColor.join(',')})`;
-			mountCtx.fillRect(0, 0, width, height);
+			mountCtx.clearRect(0, 0, width, height);
 			mountCtx.drawImage(mountImage, 0, 0);
 			mountCtx.drawImage(outfitCanvas, 0, 0);
 			outfitCanvas = mountCanvas;
@@ -197,10 +194,7 @@ export async function outfit(
 		resizeTo64px ? 64 : height,
 	);
 	const imageOutfitTContext = imageOutfitTCanvas.getContext('2d');
-	imageOutfitTContext.fillStyle = `rgb(${transparentBackgroundColor.join(
-		',',
-	)})`;
-	imageOutfitTContext.fillRect(0, 0, width, height);
+	imageOutfitTContext.clearRect(0, 0, width, height);
 	imageOutfitTContext.globalCompositeOperation = 'destination-in';
 	imageOutfitTContext.drawImage(
 		outfitCanvas,

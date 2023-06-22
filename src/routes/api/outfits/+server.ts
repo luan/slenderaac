@@ -1,6 +1,5 @@
-import { error } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import { existsSync, readdirSync, writeFileSync } from 'fs';
-import GIFEncoder from 'gifencoder';
 import path, { relative, resolve } from 'path';
 import invariant from 'tiny-invariant';
 
@@ -180,27 +179,10 @@ export const GET = (async ({ url, request }) => {
 		durations.push(walkSpeeds[moveAnimFrames]);
 	}
 
-	const encoder = new GIFEncoder(
-		frames[0].canvas.width,
-		frames[0].canvas.height,
-	);
-	encoder.start();
-	encoder.setRepeat(0);
-	encoder.setTransparent(0xffffff);
-	encoder.setQuality(1);
-	frames.forEach((frame, index) => {
-		encoder.setDelay(durations[index]);
-		encoder.addFrame(frame);
-	});
-	encoder.finish();
-
-	const gifBinary = encoder.out.getData();
-
-	return new Response(gifBinary, {
-		status: 200,
-		headers: {
-			...headers,
-			'Content-Type': 'image/gif',
-		},
+	return json({
+		frames: frames.map((frame, index) => ({
+			image: frame.canvas.toDataURL(),
+			duration: durations[index],
+		})),
 	});
 }) satisfies RequestHandler;

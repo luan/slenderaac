@@ -4,13 +4,13 @@ export const walkSpeeds = [
 	0, // Adjust the index to start from 0 instead of 1
 	400,
 	300,
-	30,
-	15,
-	15,
-	15,
-	15,
-	10,
-	8,
+	300,
+	150,
+	150,
+	150,
+	150,
+	100,
+	80,
 ];
 
 export function getImagePath(outfitId: number): string {
