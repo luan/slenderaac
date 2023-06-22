@@ -1,7 +1,10 @@
 import { compareSync, hashSync } from 'bcrypt';
+import { createHash } from 'crypto';
 import { authenticator } from 'otplib';
 
 import { prisma } from '$lib/server/prisma';
+
+import { ALLOW_LEGACY_SHA1_PASSWORDS } from '$env/static/private';
 
 const BCRYPT_ROUNDS = 12;
 
@@ -15,12 +18,26 @@ export function hashPassword(password: string) {
 }
 
 /**
+ * Hashes a password with SHA1.
+ * @param password The password to hash.
+ * @returns The hashed password.
+ * @deprecated SHA1 is insecure, use bcrypt instead.
+ * @see hashPassword
+ */
+function hashPasswordSHA1(password: string) {
+	return createHash('sha1').update(password).digest('hex');
+}
+
+/**
  * Compares a password with a hash.
  * @param password The password to compare.
  * @param hash The hash to compare.
  * @returns Whether the password matches the hash.
  */
 export function comparePassword(password: string, hash: string) {
+	if (ALLOW_LEGACY_SHA1_PASSWORDS && hash === hashPasswordSHA1(password)) {
+		return true;
+	}
 	return compareSync(password, hash);
 }
 
