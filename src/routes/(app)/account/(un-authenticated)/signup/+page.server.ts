@@ -1,10 +1,8 @@
 import { fail } from '@sveltejs/kit';
-import { redirect } from 'sveltekit-flash-message/server';
 import invariant from 'tiny-invariant';
 
 import { AccountType } from '$lib/accounts';
 import { parsePlayerPronoun, parsePlayerSex } from '$lib/players';
-import { sendVerificationEmail } from '$lib/server/email';
 import { generateCharacterInput } from '$lib/server/players';
 import { prisma } from '$lib/server/prisma';
 import { getAvailableTowns } from '$lib/server/towns';
@@ -130,32 +128,22 @@ export const actions = {
 					},
 				},
 
-				emailVerification: {
+				emailVerifications: {
 					create: {
 						expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
 					},
 				},
 			},
 			include: {
-				emailVerification: true,
+				emailVerifications: true,
 			},
 		});
-		if (!created || !created.emailVerification) {
+		if (!created || !created.emailVerifications[0]) {
 			return fail(400, {
 				errors: {
 					global: ['Failed to create account'],
 				} as Record<string, string[]>,
 			});
 		}
-
-		await sendVerificationEmail(created.email, created.emailVerification.token);
-		throw redirect(
-			'/account/login',
-			{
-				type: 'success',
-				message: 'Account created. Check your email to confirm your account.',
-			},
-			event,
-		);
 	},
 } satisfies Actions;

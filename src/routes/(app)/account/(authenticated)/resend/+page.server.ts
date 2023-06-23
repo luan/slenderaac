@@ -15,13 +15,14 @@ export const load = (async (event) => {
 	});
 	const oldVerification = await prisma.emailVerification.findFirst({
 		where: { account_id: account.id },
+		orderBy: { created_at: 'desc' },
 	});
 	if (account.is_verified && !oldVerification) {
+		await prisma.emailVerification.deleteMany({
+			where: { account_id: account.id },
+		});
 		throw redirect(302, '/account');
 	}
-	await prisma.emailVerification.deleteMany({
-		where: { account_id: account.id },
-	});
 	const verification = await prisma.emailVerification.create({
 		data: {
 			account_id: account.id,

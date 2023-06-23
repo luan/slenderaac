@@ -20,8 +20,8 @@ export const load = (async ({ url }) => {
 		throw error(422, 'Invalid email or token');
 	}
 
-	const verification = await prisma.emailVerification.findUnique({
-		where: { token },
+	const verification = await prisma.emailVerification.findFirst({
+		where: { token, expires: { gt: new Date() } },
 		include: { account: true },
 	});
 	if (!verification || !verification.account) {
@@ -58,8 +58,8 @@ export const actions: Actions = {
 		invariant(typeof token === 'string', 'Token must be a string');
 		invariant(typeof email === 'string', 'Email must be a string');
 
-		const verification = await prisma.emailVerification.findUnique({
-			where: { token },
+		const verification = await prisma.emailVerification.findFirst({
+			where: { token, expires: { gt: new Date() } },
 			include: { account: true },
 		});
 		if (!verification || !verification.account) {
@@ -82,8 +82,8 @@ export const actions: Actions = {
 					is_verified: true,
 				},
 			}),
-			prisma.emailVerification.delete({
-				where: { token },
+			prisma.emailVerification.deleteMany({
+				where: { account_id: account.id },
 			}),
 		]);
 		const sessionEmail = newEmail || account.email;

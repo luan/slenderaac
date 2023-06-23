@@ -20,8 +20,9 @@ export const load = (async ({ locals }) => {
 			players: {
 				select: PlayerSelectForList,
 			},
-			emailVerification: {
+			emailVerifications: {
 				select: { new_email: true },
+				orderBy: { created_at: 'desc' },
 			},
 		},
 	});
@@ -32,7 +33,7 @@ export const load = (async ({ locals }) => {
 		createdAt: account.creation,
 		coinsTransferable: account.coins_transferable,
 		isVerified: account.is_verified,
-		newEmail: account.emailVerification?.new_email ?? undefined,
+		newEmail: account.emailVerifications[0]?.new_email ?? undefined,
 		is2faEnabled: Boolean(account.token_secret),
 		lastLogin: new Date(
 			characters.reduce(
