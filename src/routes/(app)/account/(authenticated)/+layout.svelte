@@ -10,9 +10,10 @@
 
 <div class="flex flex-col gap-2">
 	<AccountInfoBox account={data.account} />
-	{#if data.account.isVerified && !data.account.newEmail}
-		<AccountActions is2faEnabled={data.account.is2faEnabled} />
-	{/if}
+	<AccountActions
+		is2faEnabled={data.account.is2faEnabled}
+		isVerified={data.account.isVerified}
+		isChangingEmail={Boolean(data.account.newEmail)} />
 	<AccountCharacters characters={data.characters} />
 </div>
 
