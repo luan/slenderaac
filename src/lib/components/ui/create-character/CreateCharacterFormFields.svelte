@@ -76,11 +76,11 @@
 
 <div class="flex flex-row gap-4 items-center justify-center">
 	<div class="label flex flex-col gap-0">
-		<span class="flex flex-row gap-2">
+		<span class="flex flex-row justify-between">
 			{$_('starting-town')}
 			<label class="flex items-center space-x-2">
-				<input class="checkbox" type="checkbox" name="tutorial" />
 				<p>{$_('play-tutorial')}</p>
+				<input class="checkbox" type="checkbox" name="tutorial" />
 			</label>
 		</span>
 		<RadioGroup>
