@@ -84,7 +84,7 @@
 											content: `"${
 												character.name
 											}"" will be deleted in ${formatDistanceToNow(
-												Number(character.deletion) * 1000,
+												Number(character.deletion),
 											)}`,
 										}}>
 										{$_('deleted')}
