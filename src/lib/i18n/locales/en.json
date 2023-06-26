@@ -52,7 +52,7 @@
   "email": "Email",
   "enable-2fa": "Enable 2FA",
   "enable-2fa-description": "Use your authenticator app to scan the QR code below.",
-  "game-coins": "{PUBLIC_TITLE} Coins",
+  "game-coins": "Online Points",
   "general-information": "General Information",
   "generic-error": "Something went wrong, please try again.",
   "get-coins": "Get coins",
@@ -264,6 +264,6 @@
   "guilds-resign-success": "You've passed guild ownership to {name}",
   "starting-town": "Starting town",
   "play-tutorial": "Play Tutorial",
-  "premium-days": "Premium time left",
-  "game-coins-trasferable": "Transferable {PUBLIC_TITLE} coins"
+  "premium-days": "VIP time left",
+  "game-coins-trasferable": "{PUBLIC_TITLE} coins"
 }
