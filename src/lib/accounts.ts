@@ -2,6 +2,8 @@ export type AccountInfo = {
 	email: string;
 	createdAt: Date;
 	lastLogin: Date;
+	premiumDays: number;
+	coins: number;
 	coinsTransferable: number;
 	isVerified: boolean;
 	is2faEnabled: boolean;

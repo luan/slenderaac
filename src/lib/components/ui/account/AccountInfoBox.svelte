@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { formatDuration } from 'date-fns';
 	import { _ } from 'svelte-i18n';
 
 	import type { AccountInfo } from '$lib/accounts';
@@ -36,6 +37,12 @@
 				{/if}
 			</dd>
 		</div>
+		{#if account.premiumDays > 0}
+			<div class="data-row">
+				<dt>{$_('premium-days')}</dt>
+				<dd>{formatDuration({ days: account.premiumDays })}</dd>
+			</div>
+		{/if}
 		<div class="data-row">
 			<dt>{$_('created')}</dt>
 			<dd>{formatDate(account.createdAt)}</dd>
@@ -46,6 +53,12 @@
 		</div>
 		<div class="data-row">
 			<dt>{$_('game-coins', { values: { PUBLIC_TITLE } })}</dt>
+			<dd class="flex flex-row items-center gap-2">
+				{account.coins}
+			</dd>
+		</div>
+		<div class="data-row">
+			<dt>{$_('game-coins-trasferable', { values: { PUBLIC_TITLE } })}</dt>
 			<dd class="flex flex-row items-center gap-2">
 				{account.coinsTransferable}
 				<Button href="/shop/coins" size="sm" color="success" class="py-0.5 px-2"

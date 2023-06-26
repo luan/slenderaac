@@ -263,5 +263,7 @@
   "saved": "Saved",
   "guilds-resign-success": "You've passed guild ownership to {name}",
   "starting-town": "Starting town",
-  "play-tutorial": "Play Tutorial"
+  "play-tutorial": "Play Tutorial",
+  "premium-days": "Premium time left",
+  "game-coins-trasferable": "Trasnferable {PUBLIC_TITLE} coins"
 }

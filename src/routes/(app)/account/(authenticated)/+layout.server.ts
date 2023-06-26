@@ -14,6 +14,8 @@ export const load = (async ({ locals }) => {
 		select: {
 			email: true,
 			creation: true,
+			premdays: true,
+			coins: true,
 			coins_transferable: true,
 			is_verified: true,
 			token_secret: true,
@@ -31,7 +33,9 @@ export const load = (async ({ locals }) => {
 	const accountInfo: AccountInfo = {
 		email: account.email,
 		createdAt: account.creation,
+		coins: account.coins,
 		coinsTransferable: account.coins_transferable,
+		premiumDays: account.premdays,
 		isVerified: account.is_verified,
 		newEmail: account.emailVerifications[0]?.new_email ?? undefined,
 		is2faEnabled: Boolean(account.token_secret),

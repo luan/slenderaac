@@ -9,6 +9,7 @@ import { comparePassword } from '$lib/server/utils';
 
 import {
 	DEPRECATED_USE_SHA1_PASSWORDS,
+	FREE_PREMIUM,
 	GAME_SESSION_EXPIRATION_TIME,
 	PVP_TYPE,
 	REQUIRE_EMAIL_CONFIRMATION_TO_LOGIN,
@@ -201,13 +202,17 @@ async function handleLogin(
 
 	const serverPort = parseInt(SERVER_PORT) ?? 7172;
 	const pvptype = ['pvp', 'no-pvp', 'pvp-enforced'].indexOf(PVP_TYPE);
+	const premiumUntil = Math.trunc(
+		(Date.now() + account.premdays * 24 * 60 * 60 * 1000) / 1000,
+	);
+	console.log('premiumUntil', premiumUntil);
 
 	return {
 		session: {
 			sessionkey: `${params.email}\n${sessionId}`,
 			lastlogintime: '0', // TODO: implement last login
-			ispremium: true, // TODO: check if premium when free premium is disabled
-			premiumuntil: 0,
+			ispremium: FREE_PREMIUM === 'true' ? true : account.premdays > 0,
+			premiumuntil: premiumUntil,
 			status: 'active',
 			returnernotification: false,
 			showrewardnews: true,
