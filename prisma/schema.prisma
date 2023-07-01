@@ -842,7 +842,7 @@ model PasswordReset {
 
 model EmailVerification {
   token      String   @id @default(cuid())
-  account_id Int      @unique @db.UnsignedInt
+  account_id Int      @db.UnsignedInt
   expires    DateTime
   new_email  String?  @db.VarChar(255)
   created_at DateTime @default(now())
