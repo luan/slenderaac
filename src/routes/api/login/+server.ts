@@ -202,9 +202,10 @@ async function handleLogin(
 
 	const serverPort = parseInt(SERVER_PORT) ?? 7172;
 	const pvptype = ['pvp', 'no-pvp', 'pvp-enforced'].indexOf(PVP_TYPE);
-	const premiumUntil = Math.trunc(
-		(Date.now() + account.premdays * 24 * 60 * 60 * 1000) / 1000,
-	);
+	const premiumUntil =
+		account.premdays > 0
+			? Math.trunc((Date.now() + account.premdays * 24 * 60 * 60 * 1000) / 1000)
+			: 0;
 
 	return {
 		session: {
