@@ -1,12 +1,12 @@
 DROP TABLE IF EXISTS `players_online`;
 DROP TABLE IF EXISTS `account_sessions`;
 
-CREATE TABLE `players_online` (
+CREATE TABLE IF NOT EXISTS `players_online` (
     `player_id` int(11) NOT NULL,
     CONSTRAINT `players_online_pk` PRIMARY KEY (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `account_sessions` (
+CREATE TABLE IF NOT EXISTS `account_sessions` (
     `id` VARCHAR(191) NOT NULL,
     `account_id` INTEGER UNSIGNED NOT NULL,
     `expires` BIGINT UNSIGNED NOT NULL,

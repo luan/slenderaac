@@ -58,7 +58,7 @@ ALTER TABLE `tile_store` ADD COLUMN `id` INTEGER NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`id`);
 
 -- CreateTable
-CREATE TABLE `account_sessions` (
+CREATE TABLE IF NOT EXISTS `account_sessions` (
     `id` VARCHAR(191) NOT NULL,
     `account_id` INTEGER UNSIGNED NOT NULL,
     `expires` BIGINT UNSIGNED NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE `account_sessions` (
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 
 -- CreateTable
-CREATE TABLE `slender_sessions` (
+CREATE TABLE IF NOT EXISTS `slender_sessions` (
     `id` VARCHAR(191) NOT NULL,
     `expires` BIGINT UNSIGNED NOT NULL,
     `account_id` INTEGER UNSIGNED NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `slender_sessions` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `slender_news` (
+CREATE TABLE IF NOT EXISTS `slender_news` (
     `id` VARCHAR(191) NOT NULL,
     `published` BOOLEAN NOT NULL DEFAULT false,
     `title` VARCHAR(255) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `slender_news` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `slender_static_pages` (
+CREATE TABLE IF NOT EXISTS `slender_static_pages` (
     `id` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
     `title` VARCHAR(255) NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE `slender_static_pages` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `slender_coin_offers` (
+CREATE TABLE IF NOT EXISTS `slender_coin_offers` (
     `id` VARCHAR(191) NOT NULL,
     `amount` INTEGER NOT NULL DEFAULT 0,
     `price` DECIMAL(65, 30) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE `slender_coin_offers` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `slender_coin_orders` (
+CREATE TABLE IF NOT EXISTS `slender_coin_orders` (
     `id` VARCHAR(191) NOT NULL,
     `status` ENUM('PENDING', 'FAILED_ATTEMPT', 'COMPLETED', 'CANCELED') NOT NULL DEFAULT 'PENDING',
     `account_id` INTEGER UNSIGNED NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE `slender_coin_orders` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `slender_password_resets` (
+CREATE TABLE IF NOT EXISTS `slender_password_resets` (
     `token` VARCHAR(191) NOT NULL,
     `account_id` INTEGER UNSIGNED NOT NULL,
     `expires` DATETIME(3) NOT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE `slender_password_resets` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `slender_email_verifications` (
+CREATE TABLE IF NOT EXISTS `slender_email_verifications` (
     `token` VARCHAR(191) NOT NULL,
     `account_id` INTEGER UNSIGNED NOT NULL,
     `expires` DATETIME(3) NOT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE `slender_email_verifications` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `slender_player_settings` (
+CREATE TABLE IF NOT EXISTS `slender_player_settings` (
     `id` VARCHAR(191) NOT NULL,
     `player_id` INTEGER NOT NULL,
     `hidden` BOOLEAN NOT NULL DEFAULT false,
@@ -164,9 +164,9 @@ CREATE TABLE `slender_player_settings` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `monsters` (
+CREATE TABLE IF NOT EXISTS `monsters` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
     `lookbody` INTEGER NOT NULL DEFAULT 0,
     `lookfeet` INTEGER NOT NULL DEFAULT 0,
     `lookhead` INTEGER NOT NULL DEFAULT 0,

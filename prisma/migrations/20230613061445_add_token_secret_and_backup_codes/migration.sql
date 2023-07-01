@@ -2,7 +2,7 @@
 ALTER TABLE `accounts` ADD COLUMN `token_secret` VARCHAR(255) NULL;
 
 -- CreateTable
-CREATE TABLE `slender_account_backup_codes` (
+CREATE TABLE IF NOT EXISTS `slender_account_backup_codes` (
     `id` VARCHAR(191) NOT NULL,
     `account_id` INTEGER UNSIGNED NOT NULL,
     `code` VARCHAR(255) NOT NULL,

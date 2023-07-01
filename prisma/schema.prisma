@@ -866,7 +866,7 @@ model PlayerSettings {
 
 model Monsters {
   id         Int    @id @default(autoincrement())
-  name       String @unique(map: "name") @db.VarChar(255)
+  name       String @unique(map: "name") @db.VarChar(191)
   lookbody   Int    @default(0)
   lookfeet   Int    @default(0)
   lookhead   Int    @default(0)
