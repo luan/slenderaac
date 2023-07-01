@@ -205,7 +205,6 @@ async function handleLogin(
 	const premiumUntil = Math.trunc(
 		(Date.now() + account.premdays * 24 * 60 * 60 * 1000) / 1000,
 	);
-	console.log('premiumUntil', premiumUntil);
 
 	return {
 		session: {
