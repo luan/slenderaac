@@ -124,7 +124,7 @@ node -r dotenv/config build
 <details>
 <summary><h2>Client config</h2></summary>
 
-Using your favorite method to edit the client (see [this tutorial](https://docs.opentibiabr.com/others/tutorials/infrastructure#client-with-notepad++-1) for help). Set the login webservice url to http://localhost:5183/api/login (or your appropraite server URL). This will make the client use the AAC to login.
+Using your favorite method to edit the client (see [this tutorial](https://docs.opentibiabr.com/others/tutorials/infrastructure#client-with-notepad++-1) for help). Set the login webservice url to http://localhost:5173/api/login (or your appropraite server URL). This will make the client use the AAC to login.
 
 </details>
   
