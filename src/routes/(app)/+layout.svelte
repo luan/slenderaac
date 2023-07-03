@@ -214,7 +214,7 @@
 				<a
 					href="https://github.com/luan/slenderaac"
 					target="_blank"
-					class="anchor text-slate-300">SlenderAAC</a>
+					class="anchor !text-slate-300">SlenderAAC</a>
 			</div>
 		</div>
 	</svelte:fragment>
