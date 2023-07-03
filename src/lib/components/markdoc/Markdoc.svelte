@@ -65,7 +65,7 @@
 
 {#if node}
 	<article
-		class="flex flex-col gap-1 w-full prose dark:prose-invert prose-headings:my-0 prose-ul:my-0 prose-p:my-0 prose-table:my-0 prose-th:!py-2 prose-td:!py-2">
+		class="flex flex-col gap-1 w-full prose dark:prose-invert prose-headings:my-1 prose-ul:my-0 prose-p:my-2 prose-table:my-1 prose-th:!py-2 prose-td:!py-2">
 		<Tags {node} {components} isRoot />
 	</article>
 {/if}

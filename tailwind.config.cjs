@@ -46,7 +46,16 @@ module.exports = {
 		'variant-ringed-tertiary',
 	],
 	theme: {
-		extend: {},
+		extend: {
+			typography: ({ theme }) => ({
+				DEFAULT: {
+					css: {
+						'--tw-prose-bullets': theme('colors.slate[800]'),
+						'--tw-prose-invert-bullets': theme('colors.slate[200]'),
+					},
+				},
+			}),
+		},
 	},
 	plugins: [forms, typography, ...skeleton()],
 };
