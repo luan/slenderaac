@@ -33,9 +33,11 @@
 	import { beforeNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 
+	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	import ServerStatus from '$lib/components/ui/ServerStatus.svelte';
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
+	import { loading } from '$lib/stores/loading';
 	import { browserTitle } from '$lib/utils';
 
 	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
@@ -217,3 +219,7 @@
 		</div>
 	</svelte:fragment>
 </AppShell>
+
+{#if $loading}
+	<ProgressBar infinite />
+{/if}

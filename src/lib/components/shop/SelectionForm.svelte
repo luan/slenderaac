@@ -2,12 +2,11 @@
 	import { faArrowRight, faLock } from '@fortawesome/free-solid-svg-icons';
 	import { _ } from 'svelte-i18n';
 
-	import { enhance } from '$app/forms';
-
 	import type { CoinOffer } from '$lib/coinOffers';
 	import PaymentMethodSelection from '$lib/components/shop/PaymentMethodSelection.svelte';
 	import ProductSelection from '$lib/components/shop/ProductSelection.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import { enhance } from '$lib/enchance';
 
 	let offerId = '';
 	let paymentMethod = '';

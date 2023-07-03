@@ -10,7 +10,7 @@
 	export let form: ActionData;
 
 	async function close() {
-		await goto('/account');
+		await goto('/account', { noScroll: true });
 	}
 	import { _ } from 'svelte-i18n';
 

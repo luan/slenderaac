@@ -2,9 +2,8 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { modalStore, SlideToggle } from '@skeletonlabs/skeleton';
 
-	import { enhance } from '$app/forms';
-
 	import Button from '$lib/components/ui/Button.svelte';
+	import { enhance } from '$lib/enchance';
 	import { formatDate } from '$lib/utils';
 
 	import type { PageData } from './$types';

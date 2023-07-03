@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
 
-	import { enhance } from '$app/forms';
-
 	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
+	import { enhance } from '$lib/enchance';
 
 	import type { ActionData, PageData } from './$types';
 

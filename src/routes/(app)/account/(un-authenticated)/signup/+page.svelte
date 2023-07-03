@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
 
-	import { enhance } from '$app/forms';
+	import { enhance } from '$lib/enchance';
 
 	import Button from '$lib/components/ui/Button.svelte';
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';

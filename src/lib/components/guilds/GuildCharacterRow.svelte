@@ -11,12 +11,12 @@
 	import { fly } from 'svelte/transition';
 	import { _ } from 'svelte-i18n';
 
-	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import OnlineIndicator from '$lib/components/ui/OnlineIndicator.svelte';
+	import { enhance } from '$lib/enchance';
 	import { type Player, vocationString } from '$lib/players';
 
 	export let character: Player;

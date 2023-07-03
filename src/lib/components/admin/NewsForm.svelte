@@ -6,10 +6,9 @@
 	// eslint-disable-next-line import/default, import/no-named-as-default, import/no-named-as-default-member
 	import CodeMirror from 'svelte-codemirror-editor';
 
-	import { enhance } from '$app/forms';
-
 	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
+	import { enhance } from '$lib/enchance';
 
 	export let news: News | null = null;
 	export let authorName: string | null = null;

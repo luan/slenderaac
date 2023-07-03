@@ -3,6 +3,8 @@
 	import Fa from 'svelte-fa';
 	import { tooltip } from 'svooltip';
 
+	import { loading } from '$lib/stores/loading';
+
 	export let type: 'button' | 'submit' | 'reset' | null = null;
 	export let href: string | null = null;
 	export let size: 'icon' | 'xs' | 'sm' | 'md' | 'lg' = 'md';
@@ -53,7 +55,7 @@
 	this={tag}
 	{href}
 	{type}
-	{disabled}
+	disabled={disabled || $loading}
 	data-sveltekit-noscroll={noscroll ? true : undefined}
 	{form}
 	{formaction}

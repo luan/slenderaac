@@ -45,6 +45,12 @@ body {
 		);
 }
 
+a[disabled='true'],
+buttoa[disabled='true'],
+button:disabled {
+	@apply opacity-50 cursor-not-allowed pointer-events-none;
+}
+
 .backdrop {
 	@apply fixed inset-0 z-0;
 	@apply w-full h-[100vh];
@@ -139,6 +145,16 @@ body {
 
 	.placeholder {
 		@apply bg-surface-400-500-token;
+	}
+
+	.list-nav a:focus,
+	.list-nav button:focus,
+	.list-option:focus {
+		@apply text-primary-300;
+	}
+
+	:is(.dark .anchor) {
+		@apply text-primary-900;
 	}
 }
 

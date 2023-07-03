@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
 
-	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
 	import Button from '$lib/components/ui/Button.svelte';
@@ -10,6 +9,7 @@
 	import TextArea from '$lib/components/ui/forms/TextArea.svelte';
 	import StatelessModal from '$lib/components/ui/StatelessModal.svelte';
 	import { pronounsEnabled } from '$lib/config';
+	import { enhance } from '$lib/enchance';
 	import { allPronouns, pronounString } from '$lib/players';
 
 	import type { ActionData, PageData } from './$types';
@@ -21,7 +21,7 @@
 	const pronoun = data.player.pronoun.toString();
 
 	async function close() {
-		await goto('/account');
+		await goto('/account', { noScroll: true });
 	}
 </script>
 

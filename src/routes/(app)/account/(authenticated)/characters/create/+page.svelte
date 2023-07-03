@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
 
-	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 
 	import Button from '$lib/components/ui/Button.svelte';
 	import CreateCharacterFormFields from '$lib/components/ui/create-character/CreateCharacterFormFields.svelte';
 	import StatelessModal from '$lib/components/ui/StatelessModal.svelte';
+	import { enhance } from '$lib/enchance';
 
 	import type { ActionData, PageData } from './$types';
 
@@ -14,7 +14,7 @@
 	export let form: ActionData;
 
 	async function close() {
-		await goto('/account');
+		await goto('/account', { noScroll: true });
 	}
 </script>
 
