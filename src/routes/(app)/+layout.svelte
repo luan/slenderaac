@@ -204,5 +204,16 @@
 			<slot />
 		</div>
 	</main>
-	<svelte:fragment slot="pageFooter" />
+	<svelte:fragment slot="pageFooter">
+		<div class="flex-flex-row justify-center items-center">
+			<div
+				class="m-auto mb-2 w-fit px-4 text-white font-extralight bg-slate-600/75 rounded-full text-sm">
+				© {new Date().getFullYear()}
+				<a
+					href="https://github.com/luan/slenderaac"
+					target="_blank"
+					class="anchor text-slate-300">SlenderAAC</a>
+			</div>
+		</div>
+	</svelte:fragment>
 </AppShell>
