@@ -32,7 +32,7 @@ export const load = (async ({ locals }) => {
 	const characters = account.players.map(dbToPlayer);
 	const accountInfo: AccountInfo = {
 		email: account.email,
-		createdAt: account.creation,
+		createdAt: new Date(account.creation * 1000),
 		coins: account.coins,
 		coinsTransferable: account.coins_transferable,
 		premiumDays: account.premdays,

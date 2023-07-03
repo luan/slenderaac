@@ -57,6 +57,7 @@ model Accounts {
   password            String                @db.Text
   email               String                @unique(map: "accounts_email_unique") @db.VarChar(255)
   premdays            Int                   @default(0)
+  premdays_purchased  Int                   @default(0)
   lastday             Int                   @default(0) @db.UnsignedInt
   type                Int                   @default(1) @db.UnsignedTinyInt
   coins               Int                   @default(0) @db.UnsignedInt
@@ -64,7 +65,7 @@ model Accounts {
   tournament_coins    Int                   @default(0) @db.UnsignedInt
   recruiter           Int?                  @default(0)
   is_verified         Boolean               @default(false)
-  creation            DateTime              @default(now())
+  creation            Int                   @default(0)
   token_secret        String?               @db.VarChar(255)
   account_ban_history AccountBanHistory[]
   account_bans        AccountBans?
