@@ -19,8 +19,8 @@ This project is a website for the [Canary](https://github.com/opentibiabr/canary
 Clone this repository and install the dependencies:
 
 ```bash
-git clone https://github.com/luan/slender-aac.git
-cd slender-aac
+git clone https://github.com/luan/slenderaac.git
+cd slenderaac
 pnpm install
 cp .env.dist .env
 ```
