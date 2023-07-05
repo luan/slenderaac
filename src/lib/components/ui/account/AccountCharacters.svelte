@@ -7,6 +7,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import MainCharacterIndicator from '$lib/components/ui/MainCharacterIndicator.svelte';
 	import OnlineIndicator from '$lib/components/ui/OnlineIndicator.svelte';
+	import { pronounsEnabled } from '$lib/config';
 	import { getPronoun, type Player, vocationString } from '$lib/players';
 
 	export let characters: Player[];
@@ -41,7 +42,9 @@
 										class="anchor text-surface-900">
 										{character.name}
 									</a>
-									<em class="font-light">({getPronoun(character)})</em>
+									{#if pronounsEnabled}
+										<em class="font-light">({getPronoun(character)})</em>
+									{/if}
 									{#if character.isMain}
 										<MainCharacterIndicator />
 									{/if}

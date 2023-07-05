@@ -8,6 +8,7 @@
 	import type { Order, Sort } from '$lib/sorting';
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
 	import TableHeader from '$lib/components/ui/TableHeader.svelte';
+	import { pronounsEnabled } from '$lib/config';
 	import {
 		getPronoun,
 		type Player,
@@ -78,7 +79,9 @@
 							<span class="font-semibold flex flex-row gap-1 items-center">
 								<OnlineIndicator online={character.online} />
 								{character.name}
-								<em class="font-light">({getPronoun(character)})</em>
+								{#if pronounsEnabled}
+									<em class="font-light">({getPronoun(character)})</em>
+								{/if}
 								{#if character.isMain}
 									<MainCharacterIndicator />
 								{/if}
