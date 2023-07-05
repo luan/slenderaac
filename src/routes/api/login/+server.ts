@@ -185,11 +185,11 @@ async function handleLogin(
 		};
 	}
 
-	let sessionId: string = crypto.randomUUID();
-	const hashedSessionId = createHash('sha1').update(sessionId).digest('hex');
+	let sessionKey: string = crypto.randomUUID();
+	const hashedSessionId = createHash('sha1').update(sessionKey).digest('hex');
 
 	if (DEPRECATED_USE_SHA1_PASSWORDS === 'true') {
-		sessionId = params.password;
+		sessionKey = `${params.email}\n${params.password}`;
 	} else {
 		await prisma.gameAccountSessions.create({
 			data: {
@@ -209,7 +209,7 @@ async function handleLogin(
 
 	return {
 		session: {
-			sessionkey: `${params.email}\n${sessionId}`,
+			sessionkey: sessionKey,
 			lastlogintime: '0', // TODO: implement last login
 			ispremium: FREE_PREMIUM === 'true' ? true : account.premdays > 0,
 			premiumuntil: premiumUntil,

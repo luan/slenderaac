@@ -3,6 +3,7 @@ export type HotkeysOptions = (Pick<KeyboardEvent, 'key'> &
 		fn: () => void;
 	})[];
 
+import { browser } from '$app/environment';
 import { page } from '$app/stores';
 
 export function hotkeys(node: HTMLElement, options: HotkeysOptions) {
@@ -42,9 +43,15 @@ export function hotkeys(node: HTMLElement, options: HotkeysOptions) {
 	function configure(handlers: HotkeysOptions) {
 		currentOptions = handlers;
 
-		unsubscribe = page.subscribe((page) => {
-			editing = Boolean(page?.data?.editing);
-		});
+		if (browser) {
+			unsubscribe = page.subscribe((page) => {
+				editing = Boolean(page?.data?.editing);
+			});
+		} else {
+			unsubscribe = () => {
+				/* noop */
+			};
+		}
 
 		if (global) {
 			setupHotkeys();
