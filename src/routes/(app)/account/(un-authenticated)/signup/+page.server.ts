@@ -121,7 +121,7 @@ export const actions = {
 			data: {
 				email,
 				password: hashedPassword,
-				creation: Date.now() / 1000,
+				creation: Math.trunc(Date.now() / 1000),
 
 				type: isAdmin ? AccountType.God : AccountType.Normal,
 
