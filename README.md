@@ -116,7 +116,7 @@ pnpm migrate
 Finally, we need to run the server, this will run on port 3000 by defaul, which is what we configured Nginx to proxy to.
 
 ```bash
-node -r dotenv/config build
+NODE_ENV=production node -r dotenv/config build
 ```
 
 </details>
@@ -195,8 +195,6 @@ https://github.com/luan/slenderaac/assets/223760/a2cb7aad-a3df-46a2-b284-1f38a91
 ![Capture-2023-06-16-195510](https://github.com/luan/slenderaac/assets/223760/353eea86-56a1-4c83-b1c7-8fec38dec0d9)
 ![Slender (3)](https://github.com/luan/slenderaac/assets/223760/520fd041-12b8-4d63-bfad-547450e73bc3)
 ![Capture-2023-06-16-195556](https://github.com/luan/slenderaac/assets/223760/b71aeb1d-ccbd-4324-87e9-97ed95e8379f)
-
-
 
 </details>
 
