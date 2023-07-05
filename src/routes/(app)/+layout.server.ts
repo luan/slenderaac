@@ -9,7 +9,7 @@ import type { LayoutServerLoad } from './$types';
 
 export const load = loadFlashMessage(async ({ locals }) => {
 	const highscores = await prisma.players.findMany({
-		where: { group_id: { lt: PlayerGroup.Gamemaster } },
+		where: { group_id: { lt: PlayerGroup.Gamemaster }, deletion: 0 },
 		select: PlayerSelectForList,
 		orderBy: { experience: 'desc' },
 		take: 5,
@@ -24,7 +24,7 @@ export const load = loadFlashMessage(async ({ locals }) => {
 
 	const accountCharacters = locals.session?.accountId
 		? await prisma.players.findMany({
-				where: { account_id: locals.session.accountId, deletion: 0 },
+				where: { account_id: locals.session.accountId },
 				select: PlayerSelectForList,
 		  })
 		: null;

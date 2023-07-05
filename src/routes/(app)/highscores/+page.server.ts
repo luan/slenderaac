@@ -23,6 +23,7 @@ export const load = (async ({ url }) => {
 
 	const characters = await prisma.players.findMany({
 		where: {
+			deletion: 0,
 			group_id: {
 				lt: PlayerGroup.Gamemaster,
 			},
