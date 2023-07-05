@@ -24,7 +24,7 @@ export const load = loadFlashMessage(async ({ locals }) => {
 
 	const accountCharacters = locals.session?.accountId
 		? await prisma.players.findMany({
-				where: { account_id: locals.session.accountId },
+				where: { account_id: locals.session.accountId, deletion: 0 },
 				select: PlayerSelectForList,
 		  })
 		: null;
