@@ -90,8 +90,8 @@ export async function getTemplate(vocation: PlayerVocation): Promise<Players> {
 					health: 150,
 					healthmax: 150,
 					experience: 0,
-					mana: 0,
-					manamax: 0,
+					mana: 55,
+					manamax: 55,
 					cap: 400,
 					town_id: 3,
 			  }
