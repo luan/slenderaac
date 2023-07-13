@@ -129,12 +129,19 @@ export const GET = (async ({ url, request }) => {
 
 	const looktype = parseIntWithDefault(url.searchParams.get('looktype'));
 	let outfitData = loadData(looktype, outfitImagesPath, false);
-	const mount = parseIntWithDefault(url.searchParams.get('mount'));
+	if (!outfitData) {
+		return json({});
+	}
+	let mount = parseIntWithDefault(url.searchParams.get('mount'));
 
-	outfitData =
-		mount > 0
-			? loadData(mount, outfitImagesPath, true, outfitData)
-			: outfitData;
+	if (mount > 0) {
+		const mountOutfitData = loadData(mount, outfitImagesPath, true, outfitData);
+		if (mountOutfitData) {
+			outfitData = mountOutfitData;
+		} else {
+			mount = 0;
+		}
+	}
 
 	if (!outfitData) {
 		throw error(404, 'Outfit not found');

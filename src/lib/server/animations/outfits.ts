@@ -20,7 +20,7 @@ export function loadData(
 	outfitPath: string,
 	isMount = false,
 	data?: OutfitData,
-): OutfitData {
+): OutfitData | null {
 	data ||= {
 		files: [],
 		framesNumber: 0,
@@ -33,7 +33,11 @@ export function loadData(
 		if (mount == 0 || mount >= 65535) {
 			outfitId = mount & 0xffff;
 		} else if (mount < 300) {
-			outfitId = mounts[mount];
+			if (mounts[mount]) {
+				outfitId = mounts[mount];
+			} else {
+				return null;
+			}
 		}
 	}
 
