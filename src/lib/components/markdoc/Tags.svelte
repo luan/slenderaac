@@ -20,7 +20,7 @@
 </script>
 
 {#if typeof node === 'string' || typeof node === 'number'}
-	{node}
+	{@html node}
 {:else if Array.isArray(node)}
 	{#each node as child}
 		<svelte:self node={child} {components} />
