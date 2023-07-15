@@ -149,9 +149,9 @@
       "shielding": "shielding",
       "sword": "sword"
     },
-    "shielding": "Defense",
+    "shielding": "Shielding",
     "skills": "Skills",
-    "sword": "Cooking"
+    "sword": "Sword"
   },
   "step": "Step",
   "submit": "Submit",
