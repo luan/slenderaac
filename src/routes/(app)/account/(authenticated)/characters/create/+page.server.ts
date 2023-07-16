@@ -60,7 +60,6 @@ export const actions = {
 		const characterSexValue = parsePlayerSex(characterSex);
 		const characterPronounsValue = parsePlayerPronoun(characterPronouns);
 		const startingTownValue = Number(startingTown) ?? 1;
-		console.log(startingTownValue, startingTown);
 
 		const existingPlayer = await prisma.players.findFirst({
 			where: { name: characterName },
