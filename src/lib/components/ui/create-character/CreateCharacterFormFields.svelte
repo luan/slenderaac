@@ -8,7 +8,7 @@
 	import type { Town } from '$lib/towns';
 	import Select from '$lib/components/ui/forms/Select.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
-	import { pronounsEnabled } from '$lib/config';
+	import { pronounsEnabled, tutorialEnabled } from '$lib/config';
 	import {
 		allPronouns,
 		PlayerPronoun,
@@ -76,13 +76,15 @@
 
 <div class="flex flex-row gap-4 items-center justify-center">
 	<div class="label flex flex-col gap-0">
-		<span class="flex flex-row justify-between">
-			{$_('starting-town')}
-			<label class="flex items-center space-x-2">
-				<p>{$_('play-tutorial')}</p>
-				<input class="checkbox" type="checkbox" name="tutorial" />
-			</label>
-		</span>
+		{#if tutorialEnabled}
+			<span class="flex flex-row justify-between">
+				{$_('starting-town')}
+				<label class="flex items-center space-x-2">
+					<p>{$_('play-tutorial')}</p>
+					<input class="checkbox" type="checkbox" name="tutorial" />
+				</label>
+			</span>
+		{/if}
 		<RadioGroup>
 			{#each availableTowns as town}
 				<RadioItem
