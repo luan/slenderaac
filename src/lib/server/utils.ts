@@ -103,3 +103,19 @@ export async function check2faToken(
 	}
 	return authenticator.check(token, account.token_secret);
 }
+
+/**
+ * Parses a time string ("00:00:00") into a Date object of next time that time will elapse in UTC.
+ * @param timeString The time string to parse.
+ * @returns UTC timestamp of next time that time will elapse.
+ */
+export function parseTimeString(timeString: string) {
+	const [hours, minutes, seconds] = timeString.split(':').map(Number);
+	const now = new Date();
+	const next = new Date(now);
+	next.setUTCHours(hours, minutes, seconds, 0);
+	if (next.getTime() < now.getTime()) {
+		next.setUTCDate(next.getUTCDate() + 1);
+	}
+	return next.getTime();
+}

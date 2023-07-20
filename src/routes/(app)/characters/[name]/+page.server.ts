@@ -45,7 +45,7 @@ export const load = (async ({ params }) => {
 					where: {
 						account_id: player.account_id,
 						deletion: 0,
-						settings: { hidden: false },
+						OR: [{ settings: { hidden: false } }, { settings: null }],
 					},
 					select: { ...PlayerSelectForList },
 				})

@@ -63,7 +63,8 @@
   "latest-news": "Latest news",
   "layout": {
     "join_discord": "Join Discord",
-    "onlinePlayerCount": "({onlinePlayerCount} players)"
+    "onlinePlayerCount": "({onlinePlayerCount} players)",
+    "next_server_save": "Next server save:"
   },
   "level": "Level",
   "library": "Library",

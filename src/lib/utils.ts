@@ -199,3 +199,27 @@ export function chunkString(str: string, chunkSize: number) {
 	}
 	return chunks.filter((chunk) => chunk.length === chunkSize);
 }
+
+/**
+ * Given a utc timestamp, returns the number of seconds until that timestamp.
+ * @param timestamp The timestamp to get the number of seconds until.
+ * @returns The number of seconds until the timestamp.
+ */
+export function secondsUntil(timestamp: number) {
+	return Math.floor((timestamp - Date.now()) / 1000);
+}
+
+/**
+ * Format a number of seconts to a string of hours, minutes, and seconds.
+ * @param seconds The number of seconds to format.
+ * @returns The formatted string.
+ */
+export function formatSeconds(seconds: number) {
+	const hours = Math.floor(seconds / 3600);
+	const minutes = Math.floor((seconds % 3600) / 60);
+	const secondsLeft = seconds % 60;
+
+	return `${hours > 0 ? `${hours}h ` : ''}${
+		minutes > 0 ? `${minutes}m ` : ''
+	}${secondsLeft}s`;
+}

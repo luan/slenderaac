@@ -6,7 +6,7 @@ import { browser } from '$app/environment';
 
 import type { LayoutLoad } from './$types';
 
-export const load = (async ({ data, fetch }) => {
+export const load = (async ({ data }) => {
 	if (browser) {
 		await locale.set(window.navigator.language);
 	}

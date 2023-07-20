@@ -38,7 +38,7 @@
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
 	import { loading } from '$lib/stores/loading';
-	import { browserTitle } from '$lib/utils';
+	import { browserTitle, formatSeconds, secondsUntil } from '$lib/utils';
 
 	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
 
@@ -88,6 +88,12 @@
 		}
 	});
 	onDestroy(unsubscribe);
+
+	let nextServerSave = formatSeconds(secondsUntil(data.nextServerSave));
+
+	setInterval(() => {
+		nextServerSave = formatSeconds(secondsUntil(data.nextServerSave));
+	}, 1000);
 </script>
 
 <svelte:head>
@@ -188,6 +194,10 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
+				<div>
+					{$_('layout.next_server_save')}
+					{nextServerSave}
+				</div>
 				<ServerStatus />
 				<LightSwitch />
 			</svelte:fragment>
