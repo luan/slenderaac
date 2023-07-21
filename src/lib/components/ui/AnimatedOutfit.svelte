@@ -59,6 +59,9 @@
 
 	let index = 0;
 	let shownFor = 1000;
+	const hasMount =
+		(outfit.lookmount && outfit.lookmount > 0) ||
+		(outfit.mount && outfit.mount > 0);
 
 	onMount(() => {
 		return setInterval(() => {
@@ -96,7 +99,10 @@
 
 <div class="relative w-12 h-12 {klass} overflow-visible">
 	<slot />
-	<div class="absolute -left-10 bottom-1 {innerClass}">
+	<div
+		class="absolute {hasMount
+			? '-left-7 -bottom-1'
+			: '-left-10 bottom-1'} {innerClass}">
 		{#if frames && outfit.looktype > 0}
 			<canvas bind:this={canvas} class="w-20 h-20" aria-details={alt} />
 		{:else}
