@@ -85,17 +85,21 @@
 				</label>
 			</span>
 		{/if}
-		<RadioGroup>
-			{#each availableTowns as town}
-				<RadioItem
-					bind:group={startingTown}
-					name="startingTown"
-					value={town.id}>
-					<div class="flex flex-row gap-1 items-center">
-						{town.name}
-					</div>
-				</RadioItem>
-			{/each}
-		</RadioGroup>
+		{#if availableTowns.length > 1}
+			<RadioGroup>
+				{#each availableTowns as town}
+					<RadioItem
+						bind:group={startingTown}
+						name="startingTown"
+						value={town.id}>
+						<div class="flex flex-row gap-1 items-center">
+							{town.name}
+						</div>
+					</RadioItem>
+				{/each}
+			</RadioGroup>
+		{:else}
+			<input type="hidden" name="startingTown" value={availableTowns[0].id} />
+		{/if}
 	</div>
 </div>
