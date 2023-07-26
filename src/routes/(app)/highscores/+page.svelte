@@ -20,7 +20,9 @@
 
 	function onPageChange() {
 		void goto(
-			`/highscores/${data.skill}?page=${page.offset + 1}&limit=${page.limit}`,
+			`/highscores?skill=${data.skill}&page=${page.offset + 1}&limit=${
+				page.limit
+			}`,
 		);
 	}
 
