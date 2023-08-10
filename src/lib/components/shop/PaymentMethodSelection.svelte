@@ -3,7 +3,7 @@
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
 
-	import { getPaymentMethodIcon, toProperCase } from '$lib/utils';
+	import { getPaymentMethodIcon, getPaymentMethodName } from '$lib/utils';
 
 	export let enabledPaymentMethods: string[];
 	export let value = '';
@@ -26,7 +26,7 @@
 				<RadioItem bind:group={value} name="offer" value={paymentMethod}>
 					<div class="flex flex-row gap-2 items-center p-1">
 						<Fa icon={getPaymentMethodIcon(paymentMethod)} />
-						{toProperCase(paymentMethod)}
+						{getPaymentMethodName(paymentMethod)}
 					</div>
 				</RadioItem>
 			{/each}

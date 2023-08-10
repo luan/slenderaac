@@ -8,18 +8,20 @@ import invariant from 'tiny-invariant';
 
 import type { CoinOffer } from '$lib/coinOffers';
 import { isStep, stepIsAtOrAfter } from '$lib/payments';
+import { enableStripeCheckout, enableStripeCustom } from '$lib/server/config';
 import { prisma } from '$lib/server/prisma';
 import { requireLogin } from '$lib/server/session';
 import { stripe } from '$lib/server/stripe';
 import { formatCurrency, groupBy } from '$lib/utils';
 
-import { PUBLIC_TITLE } from '$env/static/public';
+import { PUBLIC_BASE_URL, PUBLIC_TITLE } from '$env/static/public';
 
 import type { Actions, PageServerLoad } from '../$types';
 
-const enabledPaymentMethods = [stripe ? 'stripe' : null].filter(
-	Boolean,
-) as string[];
+const enabledPaymentMethods = [
+	stripe && enableStripeCustom ? 'stripe' : null,
+	stripe && enableStripeCheckout ? 'stripe-checkout' : null,
+].filter(Boolean) as string[];
 
 export const load = (async ({ locals, url, depends }) => {
 	depends('shop:order');
@@ -52,12 +54,9 @@ export const load = (async ({ locals, url, depends }) => {
 	const paymentMethod = url.searchParams.get('paymentMethod');
 	if (
 		stepIsAtOrAfter(step, 'payment') &&
-		(!token ||
-			!clientSecret ||
-			typeof token !== 'string' ||
-			typeof clientSecret !== 'string')
+		(!token || typeof token !== 'string')
 	) {
-		throw error(422, { message: 'Invalid payment intent' });
+		throw error(422, { message: 'Invalid payment id' });
 	}
 
 	const offerId = url.searchParams.get('offerId');
@@ -126,8 +125,9 @@ export const actions = {
 			throw error(422, { message: 'Invalid payment method' });
 		}
 
-		let clientSecret: string | null;
+		let clientSecret: string | null = null;
 		let token: string | null;
+		let redirectURL: string | null = null;
 
 		const offer = await prisma.coinOffers.findUniqueOrThrow({
 			where: { id: offerId },
@@ -140,12 +140,17 @@ export const actions = {
 					offer,
 				));
 				break;
+			case 'stripe-checkout':
+				({ token, redirectURL } = await handleStripeCheckout(
+					locals.session.email,
+					offer,
+				));
+				break;
 			default:
 				throw error(422, { message: 'Invalid payment method' });
 		}
 
 		invariant(token, 'No payment token found');
-		invariant(clientSecret, 'No client secret found');
 
 		await prisma.coinOrders.create({
 			data: {
@@ -158,10 +163,15 @@ export const actions = {
 			},
 		});
 
-		throw redirect(
-			302,
-			`/shop/coins/?step=payment&paymentMethod=${paymentMethod}&token=${token}&clientSecret=${clientSecret}&offerId=${offerId}`,
-		);
+		if (redirectURL) {
+			throw redirect(303, redirectURL);
+		}
+
+		let url = `/shop/coins/?step=payment&paymentMethod=${paymentMethod}&token=${token}&offerId=${offerId}`;
+		if (clientSecret) {
+			url += `&clientSecret=${clientSecret}`;
+		}
+		throw redirect(302, url);
 	},
 } satisfies Actions;
 
@@ -180,4 +190,29 @@ async function handleStripe(accountEmail: string, offer: CoinOffers) {
 	});
 
 	return { token: paymentIntent.id, clientSecret: paymentIntent.client_secret };
+}
+
+async function handleStripeCheckout(accountEmail: string, offer: CoinOffers) {
+	invariant(stripe, 'Stripe not enabled');
+	const redirectURL = `${PUBLIC_BASE_URL}/shop/coins/?step=confirmation`;
+	const session = await stripe.checkout.sessions.create({
+		line_items: [
+			{
+				price_data: {
+					currency: offer.currency.toLowerCase(),
+					product_data: {
+						name: `${offer.amount} ${PUBLIC_TITLE} Coins`,
+					},
+					unit_amount: Number(offer.price.toString().replace('.', '')),
+				},
+				quantity: 1,
+			},
+		],
+		mode: 'payment',
+		customer_email: accountEmail,
+		success_url: redirectURL + '&token={CHECKOUT_SESSION_ID}',
+		cancel_url: redirectURL + '&token={CHECKOUT_SESSION_ID}',
+	});
+
+	return { token: session.id, redirectURL: session.url };
 }

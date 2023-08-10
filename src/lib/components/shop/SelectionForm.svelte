@@ -26,7 +26,7 @@
 	use:enhance>
 	<input type="hidden" name="offerId" value={offerId} />
 	<input type="hidden" name="paymentMethod" value={paymentMethod} />
-	<div class="flex flex-row justify-between items-baseline">
+	<div class="flex flex-row justify-between items-baseline gap-4">
 		<span />
 		<ProductSelection {offers} bind:value={offerId} />
 		<PaymentMethodSelection

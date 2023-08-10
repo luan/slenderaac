@@ -40,12 +40,16 @@ export const POST: RequestHandler = async ({ request }) => {
 			});
 			break;
 		case 'payment_intent.payment_failed':
+		case 'checkout.session.async_payment_failed':
+		case 'checkout.session.expired':
 			await prisma.coinOrders.update({
 				where: { payment_token: event.data.object.id },
 				data: { status: CoinOrderStatus.FAILED_ATTEMPT },
 			});
 			break;
 		case 'payment_intent.succeeded':
+		case 'checkout.session.completed':
+		case 'checkout.session.async_payment_succeeded':
 			await handlePaymentSuccess(event);
 			break;
 	}
@@ -54,7 +58,9 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 async function handlePaymentSuccess(
-	event: Stripe.DiscriminatedEvent.PaymentIntentEvent,
+	event:
+		| Stripe.DiscriminatedEvent.PaymentIntentEvent
+		| Stripe.DiscriminatedEvent.CheckoutSessionEvent,
 ) {
 	const order = await prisma.coinOrders.findUniqueOrThrow({
 		where: { payment_token: event.data.object.id },

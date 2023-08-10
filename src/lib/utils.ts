@@ -144,7 +144,9 @@ export function groupBy<T extends Record<string, unknown>>(
 	key: keyof T,
 ): Record<string, T[]> {
 	return array.reduce((result, currentValue) => {
-		(result[currentValue[key] as string] ??= []).push(currentValue);
+		const resultKey = currentValue[key] as string;
+		result[resultKey] ??= [];
+		result[resultKey].push(currentValue);
 		return result;
 	}, {} as Record<string, T[]>);
 }
@@ -172,8 +174,28 @@ export function getPaymentMethodIcon(paymentMethod: string) {
 			return faPaypal;
 		case 'stripe':
 			return faStripeS;
+		case 'stripe-checkout':
+			return faStripeS;
 		default:
 			return faCreditCard;
+	}
+}
+
+/**
+ * Get the name for a payment method.
+ * @param paymentMethod The payment method to get the name for.
+ * @returns The payment method name.
+ */
+export function getPaymentMethodName(paymentMethod: string) {
+	switch (paymentMethod) {
+		case 'paypal':
+			return 'PayPal';
+		case 'stripe':
+			return 'Stripe (USD only)';
+		case 'stripe-checkout':
+			return 'Stripe (Multi-currency)';
+		default:
+			return 'Credit Card';
 	}
 }
 
@@ -218,8 +240,7 @@ export function formatSeconds(seconds: number) {
 	const hours = Math.floor(seconds / 3600);
 	const minutes = Math.floor((seconds % 3600) / 60);
 	const secondsLeft = seconds % 60;
-
-	return `${hours > 0 ? `${hours}h ` : ''}${
-		minutes > 0 ? `${minutes}m ` : ''
-	}${secondsLeft}s`;
+	const hoursString = hours > 0 ? `${hours}h ` : '';
+	const minutesString = minutes > 0 ? `${minutes}m ` : '';
+	return `${hoursString}${minutesString}${secondsLeft}s`;
 }
