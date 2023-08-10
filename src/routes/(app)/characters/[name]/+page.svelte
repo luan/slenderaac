@@ -4,6 +4,7 @@
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
 	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
 	import GuildMembership from '$lib/components/ui/GuildMembership.svelte';
+	import CharacterInventory from '$lib/components/ui/CharacterInventory.svelte';
 	import { pronounsEnabled } from '$lib/config';
 	import { getPronoun, sexString, vocationString } from '$lib/players';
 	import { formatDate, formatGoldCoins } from '$lib/utils';
@@ -145,6 +146,10 @@
 					</tbody>
 				</table>
 			</div>
+		{/if}
+
+		{#if data.inventory}
+			<CharacterInventory items={data.inventory} />
 		{/if}
 
 		{#if data.accountCharacters && data.accountCharacters.length > 0}

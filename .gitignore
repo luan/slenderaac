@@ -12,3 +12,4 @@ vite.config.ts.timestamp-*
 /outfits_anim
 cache.generated.txt
 /static/images/store
+/items

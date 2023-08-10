@@ -3,6 +3,9 @@ import {
 	dbToSkills,
 	PlayerSelectForList,
 } from '$lib/server/players';
+
+import { dbToItem } from '$lib/server/items';
+
 import { prisma } from '$lib/server/prisma';
 import { $_ } from '$lib/utils';
 
@@ -54,11 +57,22 @@ export const load = (async ({ params }) => {
 	const showSkills = player.settings?.show_skills ?? true;
 	const showInventory = player.settings?.show_inventory ?? true;
 
+	const inventory = !showInventory
+		? []
+		: (
+				await prisma.playerItems.findMany({
+					where: {
+						player_id: player.id,
+					},
+				})
+		  ).map(dbToItem);
+
 	return {
 		character: dbToPlayer({ ...player, town: town }),
 		deaths: player.deaths,
 		balance: showInventory ? player.balance : null,
 		skills: showSkills ? dbToSkills(player) : null,
+		inventory: showInventory ? inventory : null,
 		accountCharacters,
 	};
 }) satisfies PageServerLoad;

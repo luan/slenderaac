@@ -59,6 +59,9 @@
   "highscores": "Highscores",
   "invalid-password": "Invalid password",
   "invalid-token": "Invalid token",
+
+  "inventory": "Inventory",
+
   "last-login": "Last login",
   "latest-news": "Latest news",
   "layout": {

@@ -42,7 +42,7 @@ pnpm dev
 ```
 
 </details>
-  
+
 <details>
 <summary><h2>Deployment</h2></summary>
 
@@ -120,18 +120,29 @@ NODE_ENV=production node -r dotenv/config build
 ```
 
 </details>
-  
+
 <details>
 <summary><h2>Client config</h2></summary>
 
 Using your favorite method to edit the client (see [this tutorial](https://docs.opentibiabr.com/others/tutorials/infrastructure#client-with-notepad++-1) for help). Set the login webservice url to http://localhost:5173/api/login (or your appropraite server URL). This will make the client use the AAC to login.
 
 </details>
-  
+
 <details>
 <summary><h2>Animated outfits</h2></summary>
 
 You'll need to download the spritesheet from [here](https://docs.opentibiabr.com/others/downloads/website-applications/applications#animated-items-and-outfits) and place it in `outfits_anim`. These assets are not included in the repository because they can cause the repo to bloat, and are also not release under the same license as the code.
+
+</details>
+
+<details>
+<summary><h2>Inventory Items</h2></summary>
+
+You'll need to download the spritesheet from
+[here](https://docs.opentibiabr.com/others/downloads/website-applications/applications#animated-items-and-outfits)
+the items in `items`. These assets are not included in the repository
+because they can cause the repo to bloat, and are also not release under the same license
+as the code.
 
 </details>
 
@@ -141,7 +152,7 @@ You'll need to download the spritesheet from [here](https://docs.opentibiabr.com
 Anything you put into the `static` folder in this repo will be served by the server. This is useful for storing assets for the game store. For example, you can put a `static/images/store` folder and then reference the images in the store using `/images/store/my-image.png`. For instance, you can use the store assets made available in the [canary docs](https://docs.opentibiabr.com/others/downloads/website-applications/applications#store-for-client-13)
 
 </details>
-  
+
 <details>
 <summary><h2>Screenshots</h2></summary>
 
