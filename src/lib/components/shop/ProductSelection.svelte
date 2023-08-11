@@ -15,7 +15,7 @@
 	export let value = '';
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 items-center">
 	<h4 class="h4">{$_('shop.select-quantity')}</h4>
 	{#if Object.keys(offers).length > 1}
 		<RadioGroup>

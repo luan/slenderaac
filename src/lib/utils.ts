@@ -191,9 +191,9 @@ export function getPaymentMethodName(paymentMethod: string) {
 		case 'paypal':
 			return 'PayPal';
 		case 'stripe':
-			return 'Stripe (USD only)';
+			return 'Stripe (USD)';
 		case 'stripe-checkout':
-			return 'Stripe (Multi-currency)';
+			return 'Stripe (International)';
 		default:
 			return 'Credit Card';
 	}

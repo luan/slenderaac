@@ -1,4 +1,5 @@
 import type { Handle } from '@sveltejs/kit';
+import { randomUUID } from 'crypto';
 import { locale } from 'svelte-i18n';
 
 import { AccountType, isAccountType } from '$lib/accounts';
@@ -11,6 +12,36 @@ const unauthorized = new Response(null, {
 		location: '/account/login',
 	},
 });
+
+async function updateInternationalPrices() {
+	console.log('Updating international prices');
+	const rates = await prisma.currencyExchangeRates.findMany({
+		select: { currency: true, rate: true },
+	});
+	for (const { currency, rate } of rates) {
+		console.log(`Updating ${currency} prices (rate: ${rate.toString()})`);
+		const templateOffers = await prisma.coinOffers.findMany({
+			where: { currency: 'USD' },
+		});
+		for (const offer of templateOffers) {
+			await prisma.coinOffers.upsert({
+				where: { amount_currency: { amount: offer.amount, currency } },
+				update: {
+					price: offer.price.mul(rate),
+				},
+				create: {
+					...offer,
+					id: randomUUID(),
+					currency: currency,
+					price: offer.price.mul(rate),
+				},
+			});
+		}
+	}
+}
+
+console.log('Starting international price updater');
+void updateInternationalPrices();
 
 export const handle = (async ({ event, resolve }) => {
 	const lang =

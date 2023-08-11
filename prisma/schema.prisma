@@ -813,6 +813,7 @@ model CoinOffers {
   price    Decimal
   currency String  @default("USD")
 
+  @@unique([amount, currency], map: "slender_coin_offers_amount_currency_key")
   @@map("slender_coin_offers")
 }
 
@@ -830,6 +831,14 @@ model CoinOrders {
 
   @@index([account_id], map: "slender_coin_orders_account_id_fkey")
   @@map("slender_coin_orders")
+}
+
+model CurrencyExchangeRates {
+  currency   String   @id
+  rate       Decimal
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("slender_currency_exchange_rates")
 }
 
 model PasswordReset {
