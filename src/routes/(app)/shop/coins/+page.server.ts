@@ -203,7 +203,7 @@ async function handleStripeCheckout(accountEmail: string, offer: CoinOffers) {
 					product_data: {
 						name: `${offer.amount} ${PUBLIC_TITLE} Coins`,
 					},
-					unit_amount: Number(offer.price.toString().replace('.', '')),
+					unit_amount: Number(offer.price.toFixed(2).replace('.', '')),
 				},
 				quantity: 1,
 			},
