@@ -150,7 +150,9 @@ async function handleLogin(
 ): Promise<LoginResponse | ErrorResponse> {
 	const account = await prisma.accounts.findUnique({
 		where: { email: params.email },
-		include: { players: { include: { settings: true } } },
+		include: {
+			players: { where: { deletion: 0 }, include: { settings: true } },
+		},
 	});
 	if (!account || !comparePassword(params.password, account.password)) {
 		return {
