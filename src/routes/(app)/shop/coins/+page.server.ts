@@ -29,7 +29,7 @@ export const load = (async ({ locals, url, depends }) => {
 	requireLogin(locals);
 
 	const offers = groupBy(
-		(await prisma.coinOffers.findMany()).map(
+		(await prisma.coinOffers.findMany({ orderBy: { amount: 'asc' } })).map(
 			(offer): CoinOffer => ({
 				id: offer.id,
 				currency: offer.currency,
