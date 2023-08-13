@@ -62,9 +62,14 @@ async function handlePaymentSuccess(
 		| Stripe.DiscriminatedEvent.PaymentIntentEvent
 		| Stripe.DiscriminatedEvent.CheckoutSessionEvent,
 ) {
-	const order = await prisma.coinOrders.findUniqueOrThrow({
+	const order = await prisma.coinOrders.findUnique({
 		where: { payment_token: event.data.object.id },
 	});
+
+	if (!order) {
+		console.error('Order not found', event.data.object.id);
+		return;
+	}
 
 	await prisma.$transaction([
 		prisma.coinOrders.update({
