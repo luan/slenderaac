@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fetchBackground, fetchItem } from '$lib/items';
 	import { onMount } from 'svelte';
+	import { tooltip } from 'svooltip';
 
 	export let item: number | string;
 
@@ -18,7 +19,15 @@
 </script>
 
 {#if image.src !== ''}
-	<img style:--bg={emptyBg} src={image.src} alt={image.alt} />
+	<img
+		style:--bg={emptyBg}
+		src={image.src}
+		alt={image.alt}
+		use:tooltip={{
+			content: image.alt,
+			placement: 'top',
+			offset: 0,
+		}} />
 {/if}
 
 <style>
