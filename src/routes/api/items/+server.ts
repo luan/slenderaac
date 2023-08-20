@@ -4,13 +4,29 @@ import fs from 'fs';
 
 import type { RequestHandler } from './$types';
 
-import allItems from './items.json';
-
 const itemsImagesPath = './items/';
 const itemsFileFormat = '.gif';
 
-export interface ItemData {
-	files: string[];
+import protobuf from 'protobufjs';
+
+const datfile = 'appearances.dat';
+const protoFormat = 'appearances.proto';
+export interface Object {
+	id: number;
+	name: string;
+}
+
+const allItems = loadDataFromProtobuf() as Object[];
+
+function loadDataFromProtobuf() {
+	try {
+		const root = protobuf.loadSync(protoFormat);
+		const Appearances = root.lookupType('Appearances');
+		const buffer = fs.readFileSync(datfile);
+		return Appearances.decode(buffer).toJSON().object;
+	} catch (err) {
+		console.error(err);
+	}
 }
 
 export const GET = (async ({ url, request }) => {
@@ -48,7 +64,7 @@ export const GET = (async ({ url, request }) => {
 
 	const itemTitle = Number.isNaN(+itemId)
 		? ''
-		: allItems.find((item) => item.id.includes(+itemId))?.title || '';
+		: allItems.find((item) => item.id === +itemId)?.name || '';
 
 	return json({ src: `data:image/gif;base64,${rawData}`, alt: itemTitle });
 }) satisfies RequestHandler;
