@@ -44,9 +44,9 @@
 	}, new Map<Slot, number>());
 </script>
 
-<div class="box table-container">
-	<div class="title">
-		<h3 class="h4 pl-2 pt-1 pb-2">{$_('inventory')}</h3>
+<div class="box table-container ease-in-out">
+	<div class="title bg-surface-500">
+		<h3 class="h5 font-semibold pl-2 pt-1 pb-2">{$_('inventory')}</h3>
 	</div>
 	<div class="flex flex-col gap-1">
 		<div class="flex flex-row justify-center gap-1 items-center">
@@ -82,12 +82,15 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	.box {
-		background-color: rgb(var(--color-surface-700));
-		border-radius: var(--theme-rounded-container);
+		background-color: theme(colors.surface.400);
 	}
-	.box .title {
-		background-color: rgb(var(--color-surface-800));
+	:is(.dark .box) {
+		background-color: theme(colors.surface.700);
+	}
+
+	:is(.dark .box .title) {
+		background-color: theme(colors.surface.800);
 	}
 </style>
