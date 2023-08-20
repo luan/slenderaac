@@ -2,6 +2,7 @@
 	import { fetchBackground, fetchItem } from '$lib/items';
 	import { onMount } from 'svelte';
 	import { tooltip } from 'svooltip';
+	import { toProperCase } from '$lib/utils';
 
 	export let item: number | string;
 
@@ -24,7 +25,7 @@
 		src={image.src}
 		alt={image.alt}
 		use:tooltip={{
-			content: image.alt,
+			content: toProperCase(image.alt),
 			placement: 'top',
 			offset: 0,
 		}} />
