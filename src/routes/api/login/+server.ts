@@ -151,7 +151,24 @@ async function handleLogin(
 	const account = await prisma.accounts.findUnique({
 		where: { email: params.email },
 		include: {
-			players: { where: { deletion: 0 }, include: { settings: true } },
+			players: {
+				select: {
+					name: true,
+					sex: true,
+					istutorial: true,
+					level: true,
+					looktype: true,
+					vocation: true,
+					lookhead: true,
+					lookbody: true,
+					looklegs: true,
+					lookfeet: true,
+					lookaddons: true,
+					is_main: true,
+					settings: true,
+				},
+				where: { deletion: 0 },
+			},
 		},
 	});
 	if (!account || !comparePassword(params.password, account.password)) {
