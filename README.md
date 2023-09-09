@@ -131,7 +131,7 @@ Using your favorite method to edit the client (see [this tutorial](https://docs.
 <details>
 <summary><h2>Animated outfits</h2></summary>
 
-You'll need to download the spritesheet from [here](https://docs.opentibiabr.com/others/downloads/website-applications/applications#animated-items-and-outfits) and place it in `outfits_anim`. These assets are not included in the repository because they can cause the repo to bloat, and are also not release under the same license as the code.
+You'll need to download the spritesheet from [here]([https://docs.opentibiabr.com/others/downloads/website-applications/applications#animated-items-and-outfits](https://docs.opentibiabr.com/opentibiabr/downloads/website-applications/applications#animated-items-and-outfits)) and place it in `outfits_anim`. These assets are not included in the repository because they can cause the repo to bloat, and are also not release under the same license as the code.
 
 </details>
 
