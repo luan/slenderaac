@@ -204,17 +204,14 @@ async function handleLogin(
 
 	const serverPort = parseInt(SERVER_PORT) ?? 7172;
 	const pvptype = ['pvp', 'no-pvp', 'pvp-enforced'].indexOf(PVP_TYPE);
-	const premiumUntil =
-		account.premdays > 0
-			? Math.trunc((Date.now() + account.premdays * 24 * 60 * 60 * 1000) / 1000)
-			: 0;
+	const now = Math.trunc(Date.now() / 1000);
 
 	return {
 		session: {
 			sessionkey: sessionKey,
 			lastlogintime: '0', // TODO: implement last login
-			ispremium: FREE_PREMIUM === 'true' ? true : account.premdays > 0,
-			premiumuntil: premiumUntil,
+			ispremium: FREE_PREMIUM === 'true' ? true : account.lastday > now,
+			premiumuntil: account.lastday,
 			status: 'active',
 			returnernotification: false,
 			showrewardnews: true,
