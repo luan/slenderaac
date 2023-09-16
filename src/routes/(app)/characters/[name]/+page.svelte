@@ -2,9 +2,9 @@
 	import { _ } from 'svelte-i18n';
 
 	import AnimatedOutfit from '$lib/components/ui/AnimatedOutfit.svelte';
+	import CharacterInventory from '$lib/components/ui/CharacterInventory.svelte';
 	import CharactersTable from '$lib/components/ui/CharactersTable.svelte';
 	import GuildMembership from '$lib/components/ui/GuildMembership.svelte';
-	import CharacterInventory from '$lib/components/ui/CharacterInventory.svelte';
 	import { pronounsEnabled } from '$lib/config';
 	import { getPronoun, sexString, vocationString } from '$lib/players';
 	import { formatDate, formatGoldCoins } from '$lib/utils';

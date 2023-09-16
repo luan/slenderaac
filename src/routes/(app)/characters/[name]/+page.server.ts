@@ -1,11 +1,9 @@
+import { dbToItem } from '$lib/server/items';
 import {
 	dbToPlayer,
 	dbToSkills,
 	PlayerSelectForList,
 } from '$lib/server/players';
-
-import { dbToItem } from '$lib/server/items';
-
 import { prisma } from '$lib/server/prisma';
 import { $_ } from '$lib/utils';
 
@@ -26,7 +24,10 @@ export const load = (async ({ params }) => {
 			lastlogin: true,
 			account_id: true,
 			settings: true,
-			deaths: true,
+			deaths: {
+				take: 20,
+				orderBy: { time: 'desc' },
+			},
 		},
 		take: MAX_CHARACTERS_PER_PAGE,
 	});
