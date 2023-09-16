@@ -21,6 +21,7 @@
 				level,
 		  ])
 		: null;
+	$: inventory = data.inventory;
 </script>
 
 {#if character}
@@ -96,6 +97,10 @@
 			</div>
 		{/if}
 
+		{#if inventory}
+			<CharacterInventory items={inventory} />
+		{/if}
+
 		{#if data.deaths && data.deaths.length > 0}
 			<h3 class="h4">{$_('deaths')}</h3>
 			<div class="table-container">
@@ -146,10 +151,6 @@
 					</tbody>
 				</table>
 			</div>
-		{/if}
-
-		{#if data.inventory}
-			<CharacterInventory items={data.inventory} />
 		{/if}
 
 		{#if data.accountCharacters && data.accountCharacters.length > 0}

@@ -1,47 +1,33 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
 
-	import type { PlayerItem } from '$lib/players';
 	import Item from '$lib/components/ui/Item.svelte';
+	import {
+		emptySlot,
+		type Item as PlayerItem,
+		itemSlots,
+		type Slot,
+	} from '$lib/items';
 
 	export let items: PlayerItem[];
 
-	enum Slot {
-		Head = 1,
-		Necklace,
-		Backpack,
-		Armor,
-		Right,
-		Left,
-		Legs,
-		Feet,
-		Ring,
-		Ammo,
-	}
-
-	enum EmptySlot {
-		Head = 'no_helmet',
-		Necklace = 'no_necklace',
-		Backpack = 'no_bagpack',
-		Armor = 'no_armor',
-		Right = 'no_handright',
-		Left = 'no_handleft',
-		Legs = 'no_legs',
-		Feet = 'no_boots',
-		Ring = 'no_ring',
-		Ammo = 'no_ammo',
+	function pidToSlot(pid: number) {
+		return itemSlots[pid - 1];
 	}
 
 	function isEquiped(item: PlayerItem) {
-		return item.pid <= Slot.Ammo;
+		return itemSlots.includes(pidToSlot(item.pid));
 	}
 
-	let inventory: Map<Slot, number>;
-
-	$: inventory = items.filter(isEquiped).reduce((acc, item) => {
-		acc.set(item.pid, item.type);
-		return acc;
-	}, new Map<Slot, number>());
+	$: inventory = items.filter(isEquiped).reduce(
+		(acc, item) => {
+			return { ...acc, [pidToSlot(item.pid)]: item.type };
+		},
+		itemSlots.reduce(
+			(acc, slot) => ({ ...acc, [slot]: emptySlot[slot] }),
+			{} as Record<Slot, number | string>,
+		),
+	);
 </script>
 
 <div class="box table-container ease-in-out">
@@ -51,31 +37,31 @@
 	<div class="flex flex-col gap-1">
 		<div class="flex flex-row justify-center gap-1 items-center">
 			<div class="mt-5">
-				<Item item={inventory.get(Slot.Necklace) || EmptySlot.Necklace} />
+				<Item item={inventory.necklace} />
 			</div>
-			<Item item={inventory.get(Slot.Head) || EmptySlot.Head} />
+			<Item item={inventory.head} />
 			<div class="mt-5">
-				<Item item={inventory.get(Slot.Backpack) || EmptySlot.Backpack} />
+				<Item item={inventory.backpack} />
 			</div>
 		</div>
 		<div class="flex flex-row justify-center gap-1 items-center">
-			<Item item={inventory.get(Slot.Left) || EmptySlot.Head} />
+			<Item item={inventory.left} />
 			<div class="-mt-5">
-				<Item item={inventory.get(Slot.Armor) || EmptySlot.Armor} />
+				<Item item={inventory.armor} />
 			</div>
-			<Item item={inventory.get(Slot.Right) || EmptySlot.Right} />
+			<Item item={inventory.right} />
 		</div>
 		<div class="flex flex-row justify-center gap-1 items-center">
-			<Item item={inventory.get(Slot.Ring) || EmptySlot.Ring} />
+			<Item item={inventory.ring} />
 			<div class="-mt-5">
-				<Item item={inventory.get(Slot.Legs) || EmptySlot.Legs} />
+				<Item item={inventory.legs} />
 			</div>
-			<Item item={inventory.get(Slot.Ammo) || EmptySlot.Ammo} />
+			<Item item={inventory.ammo} />
 		</div>
 		<div class="flex flex-row justify-center gap-1 items-center">
 			<div class="py-4" />
 			<div class="-mt-5">
-				<Item item={inventory.get(Slot.Feet) || EmptySlot.Feet} />
+				<Item item={inventory.feet} />
 			</div>
 			<div class="py-4" />
 		</div>

@@ -1,41 +1,49 @@
 <script lang="ts">
-	import { fetchBackground, fetchItem } from '$lib/items';
-	import { onMount } from 'svelte';
 	import { tooltip } from 'svooltip';
+
+	import { browser } from '$app/environment';
+
+	import { fetchBackground, fetchItem } from '$lib/items';
 	import { toProperCase } from '$lib/utils';
 
 	export let item: number | string;
 
 	let image = { src: '', alt: '' };
-	let emptyBg: any = '';
+	let emptyBg = '';
 
-	onMount(async function () {
-		const itemData = await fetchItem(item);
+	$: if (browser && item) {
+		void (async function () {
+			const itemData = await fetchItem(item);
+			const bg = await fetchBackground();
 
-		const bg = await fetchBackground();
-
-		image = itemData;
-		emptyBg = `url(${bg.src})`;
-	});
+			image = itemData;
+			emptyBg = `url(${bg.src})`;
+		})();
+	} else {
+		image = { src: '', alt: '' };
+		emptyBg = '';
+	}
 </script>
 
-{#if image.src !== ''}
-	<img
-		style:--bg={emptyBg}
-		src={image.src}
-		alt={image.alt}
-		use:tooltip={{
-			content: toProperCase(image.alt),
-			placement: 'top',
-			offset: 0,
-		}} />
-{/if}
+<div class="w-9 h-9 rounded-sm bg-surface-500 flex justify-center items-center">
+	<div style:--bg={emptyBg} class="item-image">
+		{#key image.src}
+			{#if image.src !== ''}
+				<img
+					src={image.src}
+					alt={image.alt}
+					use:tooltip={{
+						content: toProperCase(image.alt) ?? 'None',
+						placement: 'top',
+						offset: 0,
+					}} />
+			{/if}
+		{/key}
+	</div>
+</div>
 
-<style>
-	img {
+<style scoped>
+	.item-image {
 		background-image: var(--bg);
-		-webkit-box-shadow: inset 10px 10px 16px -6px rgba(0, 0, 0, 0.41);
-		-moz-box-shadow: inset 10px 10px 16px -6px rgba(0, 0, 0, 0.41);
-		box-shadow: inset 10px 10px 16px -6px rgba(0, 0, 0, 0.41);
 	}
 </style>
