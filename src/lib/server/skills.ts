@@ -29,8 +29,8 @@ const skills = [
 type SkillColumn = (typeof skillColumns)[number];
 type Skill = (typeof skills)[number];
 
-export function isSkill(skill: string): skill is Skill {
-	return skills.includes(skill);
+export function isSkill(skill: string | null): skill is Skill {
+	return skills.includes(skill ?? '');
 }
 
 export function skillToColumn(skill: Skill): SkillColumn {

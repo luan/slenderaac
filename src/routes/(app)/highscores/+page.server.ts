@@ -9,7 +9,7 @@ const PER_PAGE = 50;
 const MAX_PER_PAGE = 200;
 
 export const load = (async ({ url }) => {
-	const skillParam = url.searchParams.get('skill') ?? 'experience';
+	const skillParam = url.searchParams.get('skill');
 	const skill = isSkill(skillParam) ? skillParam : 'experience';
 	const vocation = url.searchParams.get('vocation') ?? 'all';
 
