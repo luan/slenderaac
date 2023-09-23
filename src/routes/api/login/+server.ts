@@ -12,7 +12,6 @@ import {
 	FREE_PREMIUM,
 	GAME_SESSION_EXPIRATION_TIME,
 	PVP_TYPE,
-	REQUIRE_EMAIL_CONFIRMATION_TO_LOGIN,
 	SERVER_ADDRESS,
 	SERVER_NAME,
 	SERVER_PORT,
@@ -178,7 +177,7 @@ async function handleLogin(
 		};
 	}
 
-	if (REQUIRE_EMAIL_CONFIRMATION_TO_LOGIN && !account.is_verified) {
+	if (requireEmailVerification && !account.is_verified) {
 		return {
 			errorCode: 5,
 			errorMessage:
