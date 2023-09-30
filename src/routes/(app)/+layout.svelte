@@ -11,7 +11,11 @@
 		shift,
 	} from '@floating-ui/dom';
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-	import { faBars, faToolbox } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faBars,
+		faBookBookmark,
+		faToolbox,
+	} from '@fortawesome/free-solid-svg-icons';
 	import {
 		AppBar,
 		AppShell,
@@ -41,7 +45,11 @@
 	import { loading } from '$lib/stores/loading';
 	import { browserTitle, formatSeconds, secondsUntil } from '$lib/utils';
 
-	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
+	import {
+		PUBLIC_DISCORD_URL,
+		PUBLIC_TITLE,
+		PUBLIC_WIKI_URL,
+	} from '$env/static/public';
 
 	import type { LayoutData } from './$types';
 
@@ -188,7 +196,7 @@
 			class="hidden md:mr-2 lg:mr-0 md:block mt-2 text-white text-xs rounded-container-token variant-filled-secondary"
 			slotTrail="!space-x-2"
 			background="bg-secondary-500">
-			<svelte:fragment slot="lead">
+			<span class="flex flex-row gap-2" slot="lead">
 				<a
 					href={PUBLIC_DISCORD_URL}
 					target="_blank"
@@ -197,7 +205,17 @@
 					<Fa icon={faDiscord} />
 					{$_('layout.join_discord')}
 				</a>
-			</svelte:fragment>
+				{#if PUBLIC_WIKI_URL}
+					<a
+						href={PUBLIC_WIKI_URL}
+						target="_blank"
+						rel="noreferrer"
+						class="flex flex-row items-center gap-1">
+						<Fa icon={faBookBookmark} />
+						{$_('layout.wiki')}
+					</a>
+				{/if}
+			</span>
 			<svelte:fragment slot="trail">
 				<div>
 					{$_('layout.next_server_save')}

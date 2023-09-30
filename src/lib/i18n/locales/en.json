@@ -67,7 +67,8 @@
   "layout": {
     "join_discord": "Join Discord",
     "onlinePlayerCount": "({onlinePlayerCount} players)",
-    "next_server_save": "Next server save:"
+    "next_server_save": "Next server save:",
+    "wiki": "Wiki"
   },
   "level": "Level",
   "library": "Library",
@@ -270,6 +271,11 @@
   "guilds-resign-success": "You've passed guild ownership to {name}",
   "starting-town": "Starting town",
   "play-tutorial": "Play Tutorial",
-  "premium-days": "Premium time left",
-  "game-coins-trasferable": "Transferable {PUBLIC_TITLE} coins"
+  "premium-days": "VIP time left",
+  "game-coins-trasferable": "{PUBLIC_TITLE} coins",
+  "roadmap": {
+    "title": "Roadmap",
+    "in-progress": "In progress",
+    "todo": "To do"
+  }
 }
