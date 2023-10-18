@@ -66,6 +66,8 @@
   "latest-news": "Latest news",
   "layout": {
     "join_discord": "Join Discord",
+    "join_whatsapp": "Join WhatsApp",
+    "follow_instagram": "Follow Instagram",
     "onlinePlayerCount": "({onlinePlayerCount} players)",
     "next_server_save": "Next server save:",
     "wiki": "Wiki"

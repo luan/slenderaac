@@ -10,7 +10,7 @@
 		offset,
 		shift,
 	} from '@floating-ui/dom';
-	import { faDiscord } from '@fortawesome/free-brands-svg-icons';
+	import { faDiscord , faWhatsapp, faInstagram } from '@fortawesome/free-brands-svg-icons';
 	import {
 		faBars,
 		faBookBookmark,
@@ -47,6 +47,8 @@
 
 	import {
 		PUBLIC_DISCORD_URL,
+		PUBLIC_WHATSAPP_URL,
+		PUBLIC_INSTAGRAM_URL,
 		PUBLIC_TITLE,
 		PUBLIC_WIKI_URL,
 	} from '$env/static/public';
@@ -205,6 +207,26 @@
 					<Fa icon={faDiscord} />
 					{$_('layout.join_discord')}
 				</a>
+				{#if PUBLIC_WHATSAPP_URL}
+					<a
+						href={PUBLIC_WHATSAPP_URL}
+						target="_blank"
+						rel="noreferrer"
+						class="flex flex-row items-center gap-1">
+						<Fa icon={faWhatsapp} />
+						{$_('layout.join_whatsapp')}
+					</a>
+				{/if}
+				{#if PUBLIC_INSTAGRAM_URL}
+					<a
+						href={PUBLIC_INSTAGRAM_URL}
+						target="_blank"
+						rel="noreferrer"
+						class="flex flex-row items-center gap-1">
+						<Fa icon={faInstagram} />
+						{$_('layout.follow_instagram')}
+					</a>
+				{/if}
 				{#if PUBLIC_WIKI_URL}
 					<a
 						href={PUBLIC_WIKI_URL}
