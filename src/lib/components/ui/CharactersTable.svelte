@@ -45,7 +45,7 @@
 				{#if ranked}
 					<th class="w-20">Rank</th>
 				{/if}
-				<th class="w-20">Outfit</th>
+				<th class="w-20">{$_('outfit')}</th>
 				<TableHeader {sort} {order} col="name">{$_('name')}</TableHeader>
 				<TableHeader {sort} {order} col="vocation" class="w-32"
 					>{$_('vocation')}</TableHeader>

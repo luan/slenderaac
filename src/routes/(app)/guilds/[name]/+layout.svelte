@@ -51,7 +51,7 @@
 			<table class="table table-noeven table-hover table-auto">
 				<thead class="border-x-4">
 					<tr class="[&>th]:!p-2">
-						<th class="w-20">Outfit</th>
+						<th class="w-20">{$_('outfit')}</th>
 						<th>{$_('name')}</th>
 						<th class="w-32">{$_('vocation')}</th>
 						<th class="w-24">{$_('level')}</th>
@@ -95,7 +95,7 @@
 			<table class="table table-noeven table-hover table-auto">
 				<thead class="border-x-4">
 					<tr class="[&>th]:!p-2">
-						<th class="w-20">Outfit</th>
+						<th class="w-20">{$_('outfit')}</th>
 						<th>{$_('name')}</th>
 						<th class="w-32">{$_('vocation')}</th>
 						<th class="w-24">{$_('level')}</th>

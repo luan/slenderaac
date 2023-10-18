@@ -115,7 +115,8 @@
     "confirmation": {
       "canceled": "It seems you have canceled your payment. If you have any questions, please reach us at <a href=\"mailto:{PUBLIC_SUPPORT_EMAIL}\" class=\"anchor\" >{PUBLIC_SUPPORT_EMAIL}</a>. If you want to try again, please go back to the previous step, your payment method has not been charged.",
       "completed": "Your order of {amount} {PUBLIC_TITLE} coins has been confirmed.<br />Your account has been credited with the coins.",
-      "nonFinalStatus": " Processing your order is taking longer than expected, please reach us at <a href=\"mailto:{PUBLIC_SUPPORT_EMAIL}\" class=\"anchor\">{PUBLIC_SUPPORT_EMAIL}</a> for assistance. for assistance."
+      "nonFinalStatus": " Processing your order is taking longer than expected, please reach us at <a href=\"mailto:{PUBLIC_SUPPORT_EMAIL}\" class=\"anchor\">{PUBLIC_SUPPORT_EMAIL}</a> for assistance. for assistance.",
+      "step": "Step"
     },
     "goback": "Go back to the shop",
     "offer-amount": "{amount} coins",
