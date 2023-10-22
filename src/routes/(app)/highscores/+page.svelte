@@ -11,7 +11,8 @@
 
 	export let data: PageData;
 
-	let page = {
+	$: page = {
+		page: data.page,
 		offset: data.offset,
 		limit: data.limit,
 		size: data.count,
@@ -20,9 +21,7 @@
 
 	function onPageChange() {
 		void goto(
-			`/highscores?skill=${data.skill}&page=${page.offset + 1}&limit=${
-				page.limit
-			}`,
+			`/highscores?skill=${data.skill}&page=${page.page}&limit=${page.limit}`,
 		);
 	}
 

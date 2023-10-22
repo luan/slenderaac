@@ -56,6 +56,7 @@ export const load = (async ({ url }) => {
 				skill: characters[index][skillColumn].toLocaleString(undefined),
 			}),
 		),
+		page,
 		limit: take,
 		offset: page - 1,
 		skill,
