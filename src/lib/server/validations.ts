@@ -106,6 +106,7 @@ const BLOCKED_WORDS = [
 	'game master',
 	'game-master',
 	"game'master",
+	'fuhrer',
 	'--',
 	"''",
 	"' ",
