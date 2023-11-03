@@ -123,36 +123,43 @@ export function parsePlayerPronoun(value: unknown): PlayerPronoun {
 }
 
 export function isPlayerSex(value: unknown): value is PlayerSex {
-	return (
-		typeof value === 'number' &&
-		(value === PlayerSex.Female || value === PlayerSex.Male)
-	);
+	if (typeof value != 'number') {
+		return false;
+	}
+	const sex = value as PlayerSex;
+	return sex === PlayerSex.Female || sex === PlayerSex.Male;
 }
 
 export function isPlayerPronoun(value: unknown): value is PlayerPronoun {
+	if (typeof value != 'number') {
+		return false;
+	}
+	const pronoun = value as PlayerPronoun;
 	return (
-		typeof value === 'number' &&
-		(value === PlayerPronoun.Unset ||
-			value === PlayerPronoun.They ||
-			value === PlayerPronoun.She ||
-			value === PlayerPronoun.He ||
-			value === PlayerPronoun.Ze ||
-			value === PlayerPronoun.Name)
+		pronoun === PlayerPronoun.Unset ||
+		pronoun === PlayerPronoun.They ||
+		pronoun === PlayerPronoun.She ||
+		pronoun === PlayerPronoun.He ||
+		pronoun === PlayerPronoun.Ze ||
+		pronoun === PlayerPronoun.Name
 	);
 }
 
 export function isPlayerVocation(value: unknown): value is PlayerVocation {
+	if (typeof value != 'number') {
+		return false;
+	}
+	const vocation = value as PlayerVocation;
 	return (
-		typeof value === 'number' &&
-		(value === PlayerVocation.None ||
-			value === PlayerVocation.Sorcerer ||
-			value === PlayerVocation.Druid ||
-			value === PlayerVocation.Paladin ||
-			value === PlayerVocation.Knight ||
-			value === PlayerVocation.MasterSorcerer ||
-			value === PlayerVocation.ElderDruid ||
-			value === PlayerVocation.RoyalPaladin ||
-			value === PlayerVocation.EliteKnight)
+		vocation === PlayerVocation.None ||
+		vocation === PlayerVocation.Sorcerer ||
+		vocation === PlayerVocation.Druid ||
+		vocation === PlayerVocation.Paladin ||
+		vocation === PlayerVocation.Knight ||
+		vocation === PlayerVocation.MasterSorcerer ||
+		vocation === PlayerVocation.ElderDruid ||
+		vocation === PlayerVocation.RoyalPaladin ||
+		vocation === PlayerVocation.EliteKnight
 	);
 }
 
@@ -231,10 +238,10 @@ export function getPronoun(character: {
 	sex: PlayerSex;
 }) {
 	if (character.pronoun === PlayerPronoun.Name) {
-		return character.name;
+		return $_('pronouns.name');
 	}
 	const pronoun =
-		character.pronoun > 0
+		character.pronoun != PlayerPronoun.Unset
 			? character.pronoun
 			: character.sex === PlayerSex.Female
 			? PlayerPronoun.She

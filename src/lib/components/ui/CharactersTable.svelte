@@ -14,6 +14,7 @@
 		type Player,
 		type PlayerWithRank,
 		vocationString,
+		PlayerPronoun,
 	} from '$lib/players';
 	import { toProperCase } from '$lib/utils';
 
@@ -43,13 +44,13 @@
 		<thead>
 			<tr class="[&>th]:!p-2">
 				{#if ranked}
-					<th class="w-20">Rank</th>
+					<th class="w-12">Rank</th>
 				{/if}
-				<th class="w-20">{$_('outfit')}</th>
+				<th class="w-16">{$_('outfit')}</th>
 				<TableHeader {sort} {order} col="name">{$_('name')}</TableHeader>
-				<TableHeader {sort} {order} col="vocation" class="w-32"
+				<TableHeader {sort} {order} col="vocation" class="w-36"
 					>{$_('vocation')}</TableHeader>
-				<TableHeader {sort} {order} col="level" class="w-24"
+				<TableHeader {sort} {order} col="level" class="w-16"
 					>{$_('level')}</TableHeader>
 				{#if skill}
 					<TableHeader {sort} {order} col={skill} class="w-24"
@@ -74,20 +75,22 @@
 					<td>
 						<AnimatedOutfit outfit={character} alt={character.name} />
 					</td>
-					<td class=" w-fit">
-						<div class="flex flex-col w-fit">
+					<td class=" w-fit relative">
+						<div class="flex flex-col w-fit justify-center">
 							<span class="font-semibold flex flex-row gap-1 items-center">
 								<OnlineIndicator online={character.online} />
 								{character.name}
-								{#if pronounsEnabled}
-									<em class="font-light">({getPronoun(character)})</em>
-								{/if}
 								{#if character.isMain}
 									<MainCharacterIndicator />
 								{/if}
 							</span>
+							{#if pronounsEnabled && character.pronoun != PlayerPronoun.Name}
+								<span
+									class="font-light text-xs opacity-25 absolute right-0 rounded-lg hover:bg-surface-600/75 p-1 hover:opacity-100 transition-all duration-300 ease-in-out"
+									>({getPronoun(character)})</span>
+							{/if}
 							{#if character.guild}
-								<span class="text-xs text-gray-500">
+								<span class="text-xs text-gray-500 dark:text-gray-300">
 									<GuildMembership guild={character.guild} />
 								</span>
 							{/if}
