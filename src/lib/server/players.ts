@@ -153,6 +153,7 @@ export async function generateCharacterInput({
 	const template = await getTemplate(vocation);
 	return {
 		level: template.level,
+		balance: 0,
 		vocation: template.vocation,
 		health: template.health,
 		healthmax: template.healthmax,
