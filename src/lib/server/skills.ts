@@ -10,6 +10,7 @@ const skillColumns = [
 	'skill_dist',
 	'skill_shielding',
 	'skill_fishing',
+	'balance',
 ] as const;
 
 const skills = [
@@ -22,6 +23,7 @@ const skills = [
 	'distance',
 	'shielding',
 	'fishing',
+	'balance',
 ].map((skill) => $_(`skills.${skill}`).toLowerCase());
 
 type SkillColumn = (typeof skillColumns)[number];
