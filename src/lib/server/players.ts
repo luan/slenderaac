@@ -25,6 +25,7 @@ export const PlayerSelectForList = {
 	vocation: true,
 	level: true,
 	experience: true,
+	balance: true,
 	is_main: true,
 	looktype: true,
 	lookaddons: true,

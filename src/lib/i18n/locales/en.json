@@ -136,6 +136,7 @@
   "skill": "Skill",
   "skills": {
     "axe": "Axe",
+    "balance": "Balance",
     "club": "Club",
     "distance": "Distance",
     "experience": "Experience",
@@ -144,6 +145,7 @@
     "magic": "Magic",
     "reverse": {
       "axe": "axe",
+      "balance": "balance",
       "club": "club",
       "distance": "distance",
       "experience": "experience",

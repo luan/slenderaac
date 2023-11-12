@@ -36,6 +36,7 @@
 		'distance',
 		'shielding',
 		'fishing',
+		'balance',
 	].map((skill) => $_(`skills.${skill}`));
 
 	const vocations = ['all', 'none', 'knight', 'paladin', 'sorcerer', 'druid'];
