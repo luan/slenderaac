@@ -20,7 +20,7 @@ export type Player = {
 	name: string;
 	level: number;
 	experience?: bigint;
-	balance: number;
+	balance?: bigint;
 	vocation: PlayerVocation;
 	sex: PlayerSex;
 	pronoun: PlayerPronoun;

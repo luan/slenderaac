@@ -11,7 +11,6 @@ import {
 	PlayerVocation,
 	type Skills,
 } from '$lib/players';
-
 import { prisma } from '$lib/server/prisma';
 import { parseDate, toTitleCase } from '$lib/utils';
 
