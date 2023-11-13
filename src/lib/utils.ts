@@ -143,12 +143,15 @@ export function groupBy<T extends Record<string, unknown>>(
 	array: T[],
 	key: keyof T,
 ): Record<string, T[]> {
-	return array.reduce((result, currentValue) => {
-		const resultKey = currentValue[key] as string;
-		result[resultKey] ??= [];
-		result[resultKey].push(currentValue);
-		return result;
-	}, {} as Record<string, T[]>);
+	return array.reduce(
+		(result, currentValue) => {
+			const resultKey = currentValue[key] as string;
+			result[resultKey] ??= [];
+			result[resultKey].push(currentValue);
+			return result;
+		},
+		{} as Record<string, T[]>,
+	);
 }
 
 /**
@@ -228,7 +231,11 @@ export function chunkString(str: string, chunkSize: number) {
  * @returns The number of seconds until the timestamp.
  */
 export function secondsUntil(timestamp: number) {
-	return Math.floor((timestamp - Date.now()) / 1000);
+	let value = Math.floor((timestamp - Date.now()) / 1000);
+	while (value < 0) {
+		value += 86400;
+	}
+	return value;
 }
 
 /**
