@@ -1,6 +1,4 @@
 <script lang="ts">
-	import '@skeletonlabs/skeleton/themes/theme-gold-nouveau.css';
-	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import 'svooltip/styles.css';
 	import './app.postcss';
 
@@ -18,7 +16,12 @@
 		faHome,
 		faNewspaper,
 	} from '@fortawesome/free-solid-svg-icons';
-	import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton';
+	import {
+		AppShell,
+		Modal,
+		Toast,
+		initializeStores,
+	} from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
 	import { portal } from 'svelte-portal';
@@ -27,6 +30,8 @@
 	import { page } from '$app/stores';
 
 	import { browserTitle } from '$lib/utils';
+
+	initializeStores();
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 

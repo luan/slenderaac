@@ -1,10 +1,15 @@
 import { join } from 'path';
+import type { Config } from 'tailwindcss';
+
+// 1. Import the Skeleton plugin
+import { skeleton } from '@skeletonlabs/tw-plugin';
+
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
-import skeleton from '@skeletonlabs/skeleton/tailwind/skeleton.cjs';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import { legbone } from './src/legbone-theme';
+
+const config = {
 	darkMode: 'class',
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
@@ -57,5 +62,15 @@ module.exports = {
 			}),
 		},
 	},
-	plugins: [forms, typography, ...skeleton()],
-};
+	plugins: [
+		forms,
+		typography,
+		skeleton({
+			themes: {
+				custom: [legbone],
+			},
+		}),
+	],
+} satisfies Config;
+
+export default config;

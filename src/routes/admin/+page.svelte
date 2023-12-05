@@ -2,4 +2,4 @@
 </script>
 
 <h1 class="h1">Hello Admin</h1>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+<p>Welcome to the Slaunder Admin Panel. In this interface, you can manage News, the Library, and various static pages.</p>

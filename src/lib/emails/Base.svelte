@@ -13,6 +13,8 @@
 		Text,
 	} from 'svelte-email';
 
+	import { theme } from '$lib/config';
+
 	import {
 		EMAIL_BACKGROUND_COLOR,
 		EMAIL_BUTTON_COLOR,
@@ -94,7 +96,7 @@
 			<Heading style={heading}>
 				<Img
 					style={{ float: 'left', verticalAlign: 'middle', marginRight: '8px' }}
-					src={`${baseUrl}/images/logo.png`}
+					src={`${baseUrl}/images/logo-${theme}.png`}
 					width="96"
 					height="96"
 					alt={PUBLIC_TITLE} />

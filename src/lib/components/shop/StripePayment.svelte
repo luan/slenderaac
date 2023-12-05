@@ -4,7 +4,7 @@
 		faCartShopping,
 		faLock,
 	} from '@fortawesome/free-solid-svg-icons';
-	import { ProgressRadial, toastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore, ProgressRadial } from '@skeletonlabs/skeleton';
 	import {
 		loadStripe,
 		type Stripe,
@@ -29,6 +29,8 @@
 		PUBLIC_STRIPE_KEY,
 		PUBLIC_TITLE,
 	} from '$env/static/public';
+
+	const toastStore = getToastStore();
 
 	export let email: string;
 	export let offerId: string;

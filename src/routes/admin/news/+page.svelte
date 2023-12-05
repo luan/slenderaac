@@ -1,12 +1,14 @@
 <script lang="ts">
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { modalStore, SlideToggle } from '@skeletonlabs/skeleton';
+	import { getModalStore, SlideToggle } from '@skeletonlabs/skeleton';
 
 	import Button from '$lib/components/ui/Button.svelte';
 	import { enhance } from '$lib/enchance';
 	import { formatDate } from '$lib/utils';
 
 	import type { PageData } from './$types';
+
+	const modalStore = getModalStore();
 
 	export let data: PageData;
 

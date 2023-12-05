@@ -1,6 +1,4 @@
 <script lang="ts">
-	import './theme.postcss';
-	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import 'svooltip/styles.css';
 	import './app.postcss';
 
@@ -17,17 +15,18 @@
 	import {
 		AppBar,
 		AppShell,
+		getToastStore,
+		initializeStores,
 		LightSwitch,
 		Toast,
-		toastStore,
 	} from '@skeletonlabs/skeleton';
 	import { storePopup } from '@skeletonlabs/skeleton';
-	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 	import { onDestroy } from 'svelte';
 	import Fa from 'svelte-fa';
 	import { _ } from 'svelte-i18n';
 	import { portal } from 'svelte-portal';
-	import { initFlash } from 'sveltekit-flash-message/client';
+	import { getFlash } from 'sveltekit-flash-message/client';
 
 	import { browser } from '$app/environment';
 	import { beforeNavigate } from '$app/navigation';
@@ -37,13 +36,19 @@
 	import ServerStatus from '$lib/components/ui/ServerStatus.svelte';
 	import SidebarLeft from '$lib/components/ui/SidebarLeft.svelte';
 	import SidebarRight from '$lib/components/ui/SidebarRight.svelte';
+	import BoostedSection from '$lib/components/ui/BoostedSection.svelte';
+	import { theme } from '$lib/config';
 	import { loading } from '$lib/stores/loading';
 	import { browserTitle, formatSeconds, secondsUntil } from '$lib/utils';
 
 	import { PUBLIC_DISCORD_URL, PUBLIC_TITLE } from '$env/static/public';
 
 	import type { LayoutData } from './$types';
-	import BoostedSection from '../../lib/components/ui/BoostedSection.svelte';
+
+	initializeStores();
+
+	const drawerStore = getDrawerStore();
+	const toastStore = getToastStore();
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
@@ -67,7 +72,7 @@
 		drawerStore.close();
 	}
 
-	const flash = initFlash(page);
+	const flash = getFlash(page);
 
 	beforeNavigate((nav) => {
 		drawerClose();
@@ -149,13 +154,13 @@
 				<div
 					class="w-full h-full -mb-6 hidden md:flex flex-col items-center justify-end">
 					<img
-						src="/images/logo.png"
+						src="/images/logo-{theme}.png"
 						alt="logo"
 						class="hidden md:block w-36 h-32 object-cover" />
 				</div>
 			</svelte:fragment>
 			<div class="flex md:hidden items-center gap-2">
-				<img src="/images/logo.png" alt="logo" class="h-12 -my-4" />
+				<img src="/images/logo-{theme}.png" alt="logo" class="h-12 -my-4" />
 				{PUBLIC_TITLE}
 			</div>
 			<svelte:fragment slot="trail">

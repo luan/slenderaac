@@ -2,7 +2,11 @@
 	import type { StaticPage } from '@prisma/client';
 	import { markdown } from '@codemirror/lang-markdown';
 	import { oneDark } from '@codemirror/theme-one-dark';
-	import { focusTrap, SlideToggle, toastStore } from '@skeletonlabs/skeleton';
+	import {
+		focusTrap,
+		getToastStore,
+		SlideToggle,
+	} from '@skeletonlabs/skeleton';
 	// eslint-disable-next-line import/default, import/no-named-as-default, import/no-named-as-default-member
 	import CodeMirror from 'svelte-codemirror-editor';
 
@@ -11,6 +15,8 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/forms/TextField.svelte';
 	import { hotkeys } from '$lib/hotkeys';
+
+	const toastStore = getToastStore();
 
 	export let staticPage: StaticPage | null = null;
 	export let errors: Record<string, string[]> | null = null;

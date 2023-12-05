@@ -2,7 +2,7 @@
 	import type { StaticPage } from '@prisma/client';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { faGripLines } from '@fortawesome/free-solid-svg-icons';
-	import { modalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore } from '@skeletonlabs/skeleton';
 	import { flip } from 'svelte/animate';
 	import {
 		dndzone,
@@ -16,6 +16,8 @@
 	import { enhance } from '$lib/enchance';
 
 	import type { PageData } from './$types';
+
+	const modalStore = getModalStore();
 
 	export let data: PageData;
 

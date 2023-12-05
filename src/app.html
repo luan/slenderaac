@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="dark">
 	<head>
 		<meta charset="utf-8" />
@@ -19,7 +19,9 @@
 
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
+	<body
+		data-sveltekit-preload-data="hover"
+		data-theme="%sveltekit.env.PUBLIC_THEME%">
 		<div class="backdrop"></div>
 		<div class="main-content m-auto overflow-auto max-w-6xl">
 			%sveltekit.body%
