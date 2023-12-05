@@ -3,8 +3,6 @@
 	"singleQuote": true,
 	"trailingComma": "all",
 	"printWidth": 80,
-	"pluginSearchDirs": ["."],
-	"svelteSortOrder": "options-scripts-markup-styles",
 	"bracketSameLine": true,
 	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }],
 	"semi": true
