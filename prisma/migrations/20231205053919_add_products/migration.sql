@@ -1,4 +1,4 @@
-INSERT INTO `slender_coin_offers` (`id`, `amount`, `price`, `currency`)
+REPLACE INTO `slender_coin_offers` (`id`, `amount`, `price`, `currency`)
 VALUES
 	('1021b338-07aa-11ee-bee2-0cc47a9f9a0a', 100, 1.990000000000000000000000000000, 'USD'),
 	('1021d7ee-07aa-11ee-bee2-0cc47a9f9a0a', 250, 4.990000000000000000000000000000, 'USD'),

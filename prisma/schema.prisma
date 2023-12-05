@@ -57,7 +57,6 @@ model Accounts {
   password            String                @db.Text
   email               String                @unique(map: "accounts_email_unique") @db.VarChar(255)
   premdays            Int                   @default(0)
-  premdays_purchased  Int                   @default(0)
   lastday             Int                   @default(0) @db.UnsignedInt
   type                Int                   @default(1) @db.UnsignedTinyInt
   coins               Int                   @default(0) @db.UnsignedInt
@@ -65,10 +64,12 @@ model Accounts {
   tournament_coins    Int                   @default(0) @db.UnsignedInt
   recruiter           Int?                  @default(0)
   is_verified         Boolean               @default(false)
-  creation            Int                   @default(0)
   token_secret        String?               @db.VarChar(255)
+  creation            Int                   @default(0)
+  premdays_purchased  Int                   @default(0)
   account_ban_history AccountBanHistory[]
   account_bans        AccountBans?
+  gameAccountSessions GameAccountSessions[]
   account_viplist     AccountViplist[]
   coins_transactions  CoinsTransactions[]
   players             Players[]
@@ -78,7 +79,6 @@ model Accounts {
   passwordReset       PasswordReset?
   accountSessions     AccountSessions[]
   store_history       StoreHistory[]
-  gameAccountSessions GameAccountSessions[]
 
   @@map("accounts")
 }
@@ -121,6 +121,7 @@ model CoinsTransactions {
   amount      Int       @db.UnsignedInt
   description String    @db.VarChar(3500)
   timestamp   DateTime? @default(now()) @db.Timestamp(0)
+  coin_type   Int       @default(1) @db.UnsignedTinyInt
   account     Accounts  @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "coins_transactions_account_fk")
 
   @@index([account_id], map: "account_id")
@@ -257,11 +258,13 @@ model GuildwarKills {
 model HouseLists {
   house_id Int
   listid   Int
+  version  BigInt @default(0)
   list     String @db.Text
-  id       Int    @id @default(autoincrement())
   houses   Houses @relation(fields: [house_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "houses_list_house_fk")
 
-  @@index([house_id], map: "house_id")
+  @@id([house_id, listid])
+  @@index([version], map: "version")
+  @@index([house_id], map: "house_id_index")
   @@map("house_lists")
 }
 
@@ -280,6 +283,7 @@ model Houses {
   size           Int          @default(0)
   guildid        Int?
   beds           Int          @default(0)
+  new_owner      Int          @default(-1)
   house_lists    HouseLists[]
   tile_store     TileStore[]
 
@@ -335,13 +339,15 @@ model MarketOffers {
   @@map("market_offers")
 }
 
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model PlayerBosstiary {
   player_id     Int
-  bossIdSlotOne Int @default(0)
-  bossIdSlotTwo Int @default(0)
-  removeTimes   Int @default(1)
-  id            Int @id @default(autoincrement())
+  bossIdSlotOne Int   @default(0)
+  bossIdSlotTwo Int   @default(0)
+  removeTimes   Int   @default(1)
+  tracker       Bytes @db.Blob
 
+  @@unique([player_id], map: "player_bosstiary_unique")
   @@map("player_bosstiary")
 }
 
@@ -371,8 +377,8 @@ model PlayerCharms {
   UsedRunesBit     String?  @db.VarChar(250)
   UnlockedRunesBit String?  @db.VarChar(250)
   tracker_list     Bytes?   @map("tracker list") @db.Blob
-  id               Int      @id @default(autoincrement())
 
+  @@unique([player_guid], map: "player_charms_unique")
   @@map("player_charms")
 }
 
@@ -386,9 +392,9 @@ model PlayerDeaths {
   mostdamage_is_player   Boolean @default(false)
   unjustified            Boolean @default(false)
   mostdamage_unjustified Boolean @default(false)
-  id                     Int     @id @default(autoincrement())
   players                Players @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "player_deaths_players_fk")
 
+  @@unique([player_id, time], map: "player_deaths_unique")
   @@index([killed_by], map: "killed_by")
   @@index([mostdamage_by], map: "mostdamage_by")
   @@index([player_id], map: "player_id")
@@ -449,9 +455,9 @@ model PlayerItems {
   itemtype   Int     @default(0)
   count      Int     @default(0)
   attributes Bytes   @db.Blob
-  id         Int     @id @default(autoincrement())
   players    Players @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "player_items_players_fk")
 
+  @@id([player_id, pid, sid])
   @@index([player_id], map: "player_id")
   @@index([sid], map: "sid")
   @@map("player_items")
@@ -462,16 +468,16 @@ model PlayerKills {
   time      BigInt  @default(0) @db.UnsignedBigInt
   target    Int
   unavenged Boolean @default(false)
-  id        Int     @id @default(autoincrement())
 
+  @@unique([player_id, time, target], map: "player_kills_unique")
   @@map("player_kills")
 }
 
 model PlayerMisc {
   player_id Int
   info      Bytes @db.Blob
-  id        Int   @id @default(autoincrement())
 
+  @@unique([player_id], map: "player_misc_unique")
   @@map("player_misc")
 }
 
@@ -645,8 +651,8 @@ model Players {
   skill_manaleech_amount                            BigInt               @default(0) @db.UnsignedBigInt
   manashield                                        Int                  @default(0) @db.UnsignedSmallInt
   max_manashield                                    Int                  @default(0) @db.UnsignedSmallInt
-  xpboost_stamina                                   Int?                 @db.SmallInt
-  xpboost_value                                     Int?                 @db.TinyInt
+  xpboost_stamina                                   Int?                 @db.UnsignedSmallInt
+  xpboost_value                                     Int?                 @db.UnsignedTinyInt
   marriage_status                                   BigInt               @default(0) @db.UnsignedBigInt
   marriage_spouse                                   Int                  @default(-1)
   bonus_rerolls                                     BigInt               @default(0)
@@ -687,15 +693,15 @@ model Players {
   rewards                                           PlayerRewards[]
   spells                                            PlayerSpells[]
   storage                                           PlayerStorage[]
-  player_wheeldata                                  PlayerWheeldata[]
+  player_wheeldata                                  PlayerWheeldata?
   account                                           Accounts             @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "players_account_fk")
   online                                            PlayerOnline?
   posted_articles                                   News[]
-  settings                                          PlayerSettings?
+  slender_player_settings                           PlayerSettings?
 
-  @@index([deletion], map: "deletion")
   @@index([account_id], map: "account_id")
   @@index([vocation], map: "vocation")
+  @@index([deletion], map: "deletion")
   @@map("players")
 }
 
@@ -754,9 +760,25 @@ model GameAccountSessions {
   id         String   @id @default(cuid())
   account_id Int      @db.UnsignedInt
   expires    BigInt   @db.UnsignedBigInt
-  account    Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  accounts   Accounts @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
+  @@index([account_id], map: "account_sessions_account_id_fkey")
   @@map("account_sessions")
+}
+
+model PlayerWheeldata {
+  player_id Int     @id
+  slot      Bytes   @db.Blob
+  player    Players @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "player_wheeldata_players_fk")
+
+  @@index([player_id], map: "player_id")
+  @@map("player_wheeldata")
+}
+
+model kv_store {
+  key_name  String @id
+  timestamp BigInt
+  value     Bytes
 }
 
 model AccountBackupCodes {
@@ -888,15 +910,6 @@ model Monsters {
   raceid     Int    @default(0)
 
   @@map("monsters")
-}
-
-model PlayerWheeldata {
-  player_id Int     @id
-  slot      Bytes   @db.Blob
-  player    Players @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "player_wheeldata_players_fk")
-
-  @@index([player_id], map: "player_id")
-  @@map("player_wheeldata")
 }
 
 enum CoinOrderStatus {
