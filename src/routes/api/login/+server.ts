@@ -4,6 +4,7 @@ import { authenticator } from 'otplib';
 import parseDuration from 'parse-duration';
 
 import { PlayerGroup, PlayerSex, vocationString } from '$lib/players';
+import { requireEmailVerification } from '$lib/server/config';
 import { prisma } from '$lib/server/prisma';
 import { comparePassword } from '$lib/server/utils';
 
@@ -164,6 +165,7 @@ async function handleLogin(
 					lookfeet: true,
 					lookaddons: true,
 					is_main: true,
+					isreward: true,
 					settings: true,
 				},
 				where: { deletion: 0 },
@@ -259,7 +261,7 @@ async function handleLogin(
 				(player): LoginCharacter => ({
 					worldid: 0,
 					name: player.name,
-					ismale: player.sex === PlayerSex.Male,
+					ismale: player.sex === Number(PlayerSex.Male),
 					tutorial: player.istutorial,
 					level: player.level,
 					vocation: vocationString(player.vocation),

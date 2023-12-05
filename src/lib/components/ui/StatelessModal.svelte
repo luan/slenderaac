@@ -20,6 +20,7 @@
 
 <Body class="overflow-hidden" />
 
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog
 	class="modal-backdrop fixed inset-0 bg-surface-backdrop-token w-full h-full flex items-center justify-center"
 	on:click|self={close}

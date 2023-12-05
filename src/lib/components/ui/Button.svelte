@@ -53,6 +53,9 @@
 
 <svelte:element
 	this={tag}
+	role="button"
+	aria-disabled={disabled || $loading}
+	tabindex="0"
 	{href}
 	{type}
 	disabled={disabled || $loading}

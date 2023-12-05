@@ -9,5 +9,3 @@ export const enableStripeCheckout = ENABLE_STRIPE_CHECKOUT === 'true';
 
 export const requireEmailVerification =
 	REQUIRE_EMAIL_CONFIRMATION_TO_LOGIN === 'true';
-
-export const linearAPIKey = LINEAR_API_KEY ?? null;
