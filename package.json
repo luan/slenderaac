@@ -9,7 +9,7 @@
 		"generate": "prisma generate",
 		"migrate": "prisma migrate deploy",
 		"migrate:dev": "prisma migrate dev",
-		"migrate:resolve": "echo 'This command is not needed anymore. You can run migrate directly.'",
+		"migrate:resolve": "prisma migrate resolve --applied 000000000000_init_from_canary",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
