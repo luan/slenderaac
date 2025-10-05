@@ -9,21 +9,21 @@ export type SessionInfo = {
 	email: string;
 	// This is just a cache, can be used to present UI elements but shouldn't be used for authorization
 	type: AccountType;
-	expires: bigint;
+	expires: number;
 };
 type Sid = string;
 
 const sessionStore = new Map<Sid, SessionInfo>();
 
 export async function performLogin(cookies: Cookies, email: string) {
-	const maxAge = 1000 * 60 * 60 * 24 * 30; // 30 days
-	const sid = await createSession(email, maxAge);
-	cookies.set('sid', sid, { path: '/', maxAge });
+	const maxAgeSeconds = 60 * 60 * 24 * 30; // 30 days
+	const sid = await createSession(email, maxAgeSeconds);
+	cookies.set('sid', sid, { path: '/', maxAge: maxAgeSeconds });
 }
 
 export async function createSession(
 	email: string,
-	maxAge: number,
+	maxAgeSeconds: number,
 ): Promise<string> {
 	const account = await prisma.accounts.findUnique({
 		where: { email },
@@ -31,17 +31,18 @@ export async function createSession(
 	invariant(account, 'Account not found');
 	invariant(isAccountType(account.type), 'Invalid account type');
 
+	const expiresAt = Date.now() + maxAgeSeconds * 1000;
 	const session = await prisma.accountSessions.create({
 		data: {
 			account_id: account.id,
-			expires: Date.now() + maxAge * 1000,
+			expires: expiresAt,
 		},
 	});
 	sessionStore.set(session.id, {
 		accountId: account.id,
 		email: account.email,
 		type: account.type,
-		expires: session.expires,
+		expires: expiresAt,
 	});
 
 	return session.id;
@@ -70,7 +71,8 @@ export async function getSession(sid: Sid): Promise<SessionInfo | undefined> {
 	});
 
 	if (session) {
-		if (Date.now() > session.expires) {
+		const expires = Number(session.expires);
+		if (Date.now() > expires) {
 			await deleteSession(sid);
 			return undefined;
 		} else {
@@ -78,7 +80,7 @@ export async function getSession(sid: Sid): Promise<SessionInfo | undefined> {
 				accountId: session.account.id,
 				email: session.account.email,
 				type: session.account.type,
-				expires: session.expires,
+				expires,
 			};
 			return sessionInfo;
 		}
