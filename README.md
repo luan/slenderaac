@@ -10,7 +10,7 @@ This project is a website for the [Canary](https://github.com/opentibiabr/canary
 ### Requirements
 
 - [Node.js](https://nodejs.org/en/)
-- [PNPM](https://pnpm.io/)
+- [Bun](https://bun.sh/)
 - [MySQL](https://www.mysql.com/) or [MariaDB](https://mariadb.org/)
   - Running a database compatible with `canary`
 
@@ -21,16 +21,16 @@ Clone this repository and install the dependencies:
 ```bash
 git clone https://github.com/luan/slenderaac.git
 cd slenderaac
-pnpm install
+bun install
 cp .env.dist .env
 ```
 
 Edit `.env` with your server and desired settings. Then migrate the database using the command below. Note that this assumes your current database already has the `canary` schema imported.
 
 ```bash
-pnpm migrate:resolve
-pnpm migrate
-pnpm generate
+bun migrate:resolve
+bun migrate
+bun generate
 ```
 
 ### Running
@@ -38,7 +38,7 @@ pnpm generate
 At this point you should be ready to run the server:
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 </details>
@@ -50,7 +50,7 @@ Deployment depends highly on your server setup. Assuming you are on a Linux dedi
 
 - [Nginx](https://nginx.org/en/)
 - [Node.js](https://nodejs.org/en/)
-- [PNPM](https://pnpm.io/)
+- [Bun](https://bun.sh/)
 
 As well as a database compatible with `canary`. You can use either [MySQL](https://www.mysql.com/) or [MariaDB](https://mariadb.org/).
 
@@ -59,7 +59,8 @@ As well as a database compatible with `canary`. You can use either [MySQL](https
 ```bash
 sudo apt update
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt install -y nodejs
-sudo npm install -g pnpm
+curl -fsSL https://bun.sh/install | bash
+source ~/.bashrc
 sudo apt install -y nginx
 ```
 
@@ -68,7 +69,7 @@ Clone this repository and install the dependencies:
 ```bash
 git clone https://github.com/luan/slenderaac.git
 cd slenderaac
-pnpm install
+bun install
 cp .env.dist .env
 ```
 
@@ -98,8 +99,8 @@ server {
 Because we're now in a production environment, we need to build the project. This will generate the static files that will be served by the nodejs server. This is a one time step, you only need to do this again if you change /update the code.
 
 ```bash
-pnpm generate
-pnpm build
+bun generate
+bun build
 ```
 
 ### Migrating the database
@@ -107,8 +108,8 @@ pnpm build
 At this point you should be ready to migrate the database. This will create the necessary tables and columns. Note that this assumes your current database already has the `canary` schema imported.
 
 ```bash
-pnpm migrate:resolve
-pnpm migrate
+bun migrate:resolve
+bun migrate
 ```
 
 ### Running
@@ -131,7 +132,7 @@ Using your favorite method to edit the client (see [this tutorial](https://docs.
 <details>
 <summary><h2>Animated outfits</h2></summary>
 
-You'll need to download the spritesheet from [here]([https://docs.opentibiabr.com/others/downloads/website-applications/applications#animated-items-and-outfits](https://docs.opentibiabr.com/opentibiabr/downloads/website-applications/applications#animated-items-and-outfits)) and place it in `outfits_anim`. These assets are not included in the repository because they can cause the repo to bloat, and are also not release under the same license as the code.
+You'll need to download the spritesheet from [here](https://docs.opentibiabr.com/opentibiabr/downloads/website-applications/applications#animated-items-and-outfits) and place it in `outfits_anim`. These assets are not included in the repository because they can cause the repo to bloat, and are also not release under the same license as the code.
 
 </details>
 
@@ -139,7 +140,7 @@ You'll need to download the spritesheet from [here]([https://docs.opentibiabr.co
 <summary><h2>Inventory Items</h2></summary>
 
 You'll need to download the spritesheet from
-[here](https://docs.opentibiabr.com/others/downloads/website-applications/applications#animated-items-and-outfits)
+[here](https://docs.opentibiabr.com/opentibiabr/downloads/website-applications/applications#animated-items-and-outfits)
 the items in `items`. These assets are not included in the repository
 because they can cause the repo to bloat, and are also not release under the same license
 as the code.
@@ -217,7 +218,7 @@ https://github.com/luan/slenderaac/assets/223760/a2cb7aad-a3df-46a2-b284-1f38a91
 - [SkeletonCSS](https://skeleton.dev)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Prisma](https://www.prisma.io/)
-- [PNPM](https://pnpm.io/)
+- [Bun](https://bun.sh/)
 
 ## Contributing
 

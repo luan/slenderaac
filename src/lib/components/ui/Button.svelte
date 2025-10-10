@@ -37,6 +37,7 @@
 
 	let tag: 'a' | 'button';
 	$: tag = href ? 'a' : 'button';
+	$: role = href ? 'link' : 'button';
 
 	// $: sizeClass = size === 'sm' ? 'btn-sm' : size === 'lg' ? 'btn-lg' : '';
 	$: sizeClass = {
@@ -53,7 +54,7 @@
 
 <svelte:element
 	this={tag}
-	role="button"
+	{role}
 	aria-disabled={disabled || $loading}
 	tabindex="0"
 	{href}
