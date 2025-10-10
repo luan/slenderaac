@@ -89,7 +89,7 @@ export async function getSession(sid: Sid): Promise<SessionInfo | undefined> {
 	}
 }
 
-let nextClean = Date.now() + 1000 * 60 * 60; // 1 hour
+const cleanInterval = 1000 * 60 * 60; // 1 hour
 async function clean() {
 	await prisma.accountSessions.deleteMany({
 		where: { expires: { lt: Date.now() } },
@@ -100,14 +100,13 @@ async function clean() {
 			sessionStore.delete(sid);
 		}
 	}
-	nextClean = Date.now() + 1000 * 60 * 60; // 1 hour
 }
 
-if (Date.now() > nextClean) {
-	setTimeout(async () => {
-		await clean();
-	}, 5000);
-}
+void clean();
+
+setInterval(() => {
+	void clean();
+}, cleanInterval);
 
 export function requireLogin(
 	locals: App.Locals,
