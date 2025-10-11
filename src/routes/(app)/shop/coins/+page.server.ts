@@ -183,7 +183,7 @@ async function handleStripe(accountEmail: string, offer: CoinOffers) {
 		currency: offer.currency.toLowerCase(),
 		receipt_email: accountEmail,
 		description: `Purchase of ${offer.amount} coins`,
-		statement_descriptor: `${PUBLIC_TITLE} Coins`,
+		statement_descriptor_suffix: `${PUBLIC_TITLE} Coins`,
 		automatic_payment_methods: {
 			enabled: true,
 		},

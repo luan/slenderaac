@@ -1,8 +1,11 @@
 import type { PlayerSettings } from '@prisma/client';
 
 import type { GuildMembership } from '$lib/guilds';
+import type { Item } from '$lib/items';
 import type { Outfit } from '$lib/outfits';
 import { $_ } from '$lib/utils';
+
+export type PlayerItem = Item;
 
 export type Skills = {
 	magic: number;
