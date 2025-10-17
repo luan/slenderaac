@@ -11,6 +11,6 @@ export function parseIntWithDefault(value: unknown, def = 0): number {
 		return Number.isNaN(value) ? def : value;
 	}
 
-	const parsedValue = Number.parseInt(value, 10);
+	const parsedValue = parseInt(value as string, 10);
 	return Number.isNaN(parsedValue) ? def : parsedValue;
 }

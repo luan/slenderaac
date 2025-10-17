@@ -8,7 +8,7 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
 		"outDir": "tests-dist",
-		"allowImportingTsExtensions": true
+		"noEmit": true
 	},
 	"include": ["tests/**/*.ts", "src/routes/api/outfits/parseIntWithDefault.ts"]
 }
