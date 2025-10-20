@@ -14,34 +14,48 @@ const unauthorized = new Response(null, {
 });
 
 async function updateInternationalPrices() {
-	console.log('Updating international prices');
-	const rates = await prisma.currencyExchangeRates.findMany({
-		select: { currency: true, rate: true },
-	});
-	for (const { currency, rate } of rates) {
-		console.log(`Updating ${currency} prices (rate: ${rate.toString()})`);
-		const templateOffers = await prisma.coinOffers.findMany({
-			where: { currency: 'USD' },
-		});
-		for (const offer of templateOffers) {
-			await prisma.coinOffers.upsert({
-				where: { amount_currency: { amount: offer.amount, currency } },
-				update: {
-					price: offer.price.mul(rate),
-				},
-				create: {
-					...offer,
-					id: randomUUID(),
-					currency: currency,
-					price: offer.price.mul(rate),
-				},
-			});
+	try {
+		console.log('Updating international prices');
+		const [rates, templateOffers] = await Promise.all([
+			prisma.currencyExchangeRates.findMany({
+				select: { currency: true, rate: true },
+			}),
+			prisma.coinOffers.findMany({
+				where: { currency: 'USD' },
+			}),
+		]);
+		for (const { currency, rate } of rates) {
+			console.log(`Updating ${currency} prices (rate: ${rate.toString()})`);
+			for (const offer of templateOffers) {
+				await prisma.coinOffers.upsert({
+					where: { amount_currency: { amount: offer.amount, currency } },
+					update: {
+						price: offer.price.mul(rate),
+					},
+					create: {
+						...offer,
+						id: randomUUID(),
+						currency: currency,
+						price: offer.price.mul(rate),
+					},
+				});
+			}
 		}
+	} catch (error) {
+		console.error('Failed to update international prices', error);
 	}
 }
 
 console.log('Starting international price updater');
 void updateInternationalPrices();
+
+const internationalPriceUpdateInterval = setInterval(() => {
+	void updateInternationalPrices();
+}, 12 * 60 * 60 * 1000);
+
+process.on('SIGTERM', () => {
+	clearInterval(internationalPriceUpdateInterval);
+});
 
 export const handle = (async ({ event, resolve }) => {
 	const lang =
