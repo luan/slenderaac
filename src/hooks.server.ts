@@ -24,23 +24,31 @@ async function updateInternationalPrices() {
 				where: { currency: 'USD' },
 			}),
 		]);
+
+		// Batch all upsert operations for parallel execution
+		const upsertOperations = [];
 		for (const { currency, rate } of rates) {
 			console.log(`Updating ${currency} prices (rate: ${rate.toString()})`);
 			for (const offer of templateOffers) {
-				await prisma.coinOffers.upsert({
-					where: { amount_currency: { amount: offer.amount, currency } },
-					update: {
-						price: offer.price.mul(rate),
-					},
-					create: {
-						...offer,
-						id: randomUUID(),
-						currency: currency,
-						price: offer.price.mul(rate),
-					},
-				});
+				upsertOperations.push(
+					prisma.coinOffers.upsert({
+						where: { amount_currency: { amount: offer.amount, currency } },
+						update: {
+							price: offer.price.mul(rate),
+						},
+						create: {
+							...offer,
+							id: randomUUID(),
+							currency: currency,
+							price: offer.price.mul(rate),
+						},
+					}),
+				);
 			}
 		}
+
+		// Execute all upserts in parallel
+		await Promise.all(upsertOperations);
 	} catch (error) {
 		console.error('Failed to update international prices', error);
 	}
