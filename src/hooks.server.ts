@@ -46,12 +46,14 @@ async function updateInternationalPrices() {
 	}
 }
 
+const PRICE_UPDATE_INTERVAL_MS = 12 * 60 * 60 * 1000;
+
 console.log('Starting international price updater');
 void updateInternationalPrices();
 
 const internationalPriceUpdateInterval = setInterval(() => {
 	void updateInternationalPrices();
-}, 12 * 60 * 60 * 1000);
+}, PRICE_UPDATE_INTERVAL_MS);
 
 process.on('SIGTERM', () => {
 	clearInterval(internationalPriceUpdateInterval);
