@@ -3,7 +3,7 @@
 	"version": "0.2.0",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "bun --env-file=.env vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"generate": "prisma generate",
