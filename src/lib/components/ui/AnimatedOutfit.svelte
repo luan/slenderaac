@@ -64,7 +64,7 @@
 		(outfit.mount && outfit.mount > 0);
 
 	onMount(() => {
-		return setInterval(() => {
+		const interval = setInterval(() => {
 			if (!canvas || !context || frames.length === 0) {
 				return;
 			}
@@ -94,6 +94,7 @@
 				canvas.height,
 			);
 		}, 50);
+		return () => clearInterval(interval);
 	});
 </script>
 
