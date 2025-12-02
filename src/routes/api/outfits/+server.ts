@@ -127,7 +127,7 @@ export const GET = (async ({ url, request }) => {
 		}
 	}
 
-	const looktype = parseIntWithDefault(url.searchParams.get('looktype'));
+	const looktype = parseIntWithDefault(url.searchParams.get('looktype') || url.searchParams.get('id'));
 	let outfitData = loadData(looktype, outfitImagesPath, false);
 	if (!outfitData) {
 		return json({});

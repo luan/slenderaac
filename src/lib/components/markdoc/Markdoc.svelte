@@ -14,6 +14,8 @@
 
 	import Tags from './Tags.svelte';
 
+	type ComponentType = typeof Callout | typeof Col | typeof Row;
+
 	const defaultConfig = {
 		tags: {
 			col: {
@@ -53,11 +55,10 @@
 			baseUrl: PUBLIC_BASE_URL,
 		},
 	};
-	let components = new Map<string, typeof SvelteComponent>([
-		['Callout', Callout],
-		['Row', Row],
-		['Col', Col],
-	]);
+	let components: Map<string, ComponentType> = new Map();
+	components.set('Callout', Callout);
+	components.set('Row', Row);
+	components.set('Col', Col);
 
 	const ast = Markdoc.parse(content);
 	const node = Markdoc.transform(ast, deepMerge(defaultConfig, config));
